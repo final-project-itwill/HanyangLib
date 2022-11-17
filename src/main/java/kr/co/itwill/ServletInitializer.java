@@ -1,4 +1,4 @@
-package co.kr.cloudd81;
+package kr.co.itwill;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
