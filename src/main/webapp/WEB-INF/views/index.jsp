@@ -22,526 +22,298 @@
 <title>index.jsp</title>
 </head>
 <body>
+<!-- header 시작 -->
+	<div class="site-mobile-menu site-navbar-target">
+	  <div class="site-mobile-menu-header">
+	    <div class="site-mobile-menu-close">
+	      <span class="icofont-close js-menu-toggle"></span>
+	    </div>
+	  </div>
+	  <div class="site-mobile-menu-body"></div>
+	</div>
+	<div class="container">
+	  <nav class="site-nav">
+	    <div class="logo">
+	      <a href="/"><img src="images/hanyanglogo_w.png" style="width:60px; margin-top: 20px;"></a>
+	    </div>
+	    <div class="row align-items-center">
+	      <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
+	        <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
+	          <li class="active"><a href="/" style="font-weight: bold;">Home</a></li>
+	          <li><a href="elements.html" style="font-weight: bold;">도서목록</a></li>
+	          <li><a href="elements.html" style="font-weight: bold;">구독</a></li>
+	          <li><a href="contact.html" style="font-weight: bold;">나만의 서재</a></li>
+	        </ul>
+	        <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right menu-absolute">
+	          <li class="cta-button"><a href="https://untree.co/" target="_blank" style="font-weight: bold;">고객센터</a></li>
+	        </ul>
+	        <a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
+	          <span></span>
+	        </a>
+	      </div>
+	    </div>  
+	  </nav> <!-- END nav -->
+	</div> <!-- END container -->
+<!-- header 끝 -->
+<!-- 본문 시작 -->
+	<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('images/indexbg.jpg')">
+	<div class="container">
+	   <div class="row align-items-center justify-content-between">
+	     <div class="col-lg-7 intro">
+	       <h1 class="text-white font-weight-bold mb-4" data-aos="fade-up" data-aos-delay="0" style="text-shadow: 3px 3px 3px black;">책 속에 담긴<br>당신의 이야기가 펼쳐지는<br>이곳은 한양서재입니다</h1>
+	       <p class="text-white mb-4" data-aos="fade-up" data-aos-delay="100" style="text-shadow: 3px 3px 3px black;">책 한 권만으로도 펼쳐지는 수많은 이야기가 존재하는데, 하물며 책은 몇 권이 쓰여져도 아깝지 않을 당신의 삶은 아니할까요</p>
+	       <form action="#" class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="200">
+	         <input type="text" class="form-control" placeholder="당신같은 사람을 기다려왔다우">
+	         <input type="submit" class="btn btn-primary" value="Sign up">
+	       </form>
+	     </div>
+	   </div>
+	 </div>
+	 <div class="slant" style="background-image: url('images/slant.svg');"></div>
+	</div>
+	
+	<!-- 미연: 광고배너 -->
+	<div class="container pt-5 pb-5 mb-5 border-bottom">
+		<div class="row">
+		  <div class="col-lg-12">
+		    <h1 class="h6 mb-3 text-black"></h1>
+		  </div>
+		  <div class="col-lg-12">
+		    <div class="main-slider owl-single dots-absolute owl-carousel">
+		      <img src="images/bimg_h_1-min.jpg" alt="Image" class="img-fluid">
+		      <img src="images/bimg_h_2-min.jpg" alt="Image" class="img-fluid">
+		      <img src="images/bimg_h_3-min.jpg" alt="Image" class="img-fluid">
+		      <img src="images/bimg_h_4-min.jpg" alt="Image" class="img-fluid">
+		    </div>
+		  </div>
+		</div>
+	</div>
+	<!-- 미연: 광고배너 끝-->
+	
+	<!-- MD 추천 도서 시작 -->
+	<div style="padding: 70px 0;">
+		<div class="container">
+			<div class="row text-center justify-content-center mb-5">
+				<div class="col-lg-7"><h2 class="font-weight-bold text-primary heading">MD's PICK, 오늘의 추천 도서</h2></div>
+			</div>
+
+			<div class="owl-carousel owl-3-slider">
+
+				<div class="item">
+					<a class="media-thumb" href="images/book_1.jpg" data-fancybox="gallery">
+						<div class="media-text">
+							<h3 class="font-weight-bold text-black text-center heading">치매의 모든 것</h3>
+						</div>
+						<img src="images/book_1.jpg" alt="Image" class="img-fluid">
+					</a> 
+				</div>
+
+				<div class="item">
+					<a class="media-thumb" href="images/book_2.jpg" data-fancybox="gallery">
+						<div class="media-text">
+							<h3 class="font-weight-bold text-black text-center heading">하루 한 장 고전 수업</h3>
+						</div>
+						<img src="images/book_2.jpg" alt="Image" class="img-fluid">
+					</a> 
+				</div>
+
+				<div class="item">
+					<a class="media-thumb" href="images/book_3.jpg" data-fancybox="gallery">
+						<div class="media-text">
+							<h3 class="font-weight-bold text-black text-center heading">크리스마스 타일</h3>
+						</div>
+						<img src="images/book_3.jpg" alt="Image" class="img-fluid">
+					</a> 
+				</div>
+				
+				<div class="item">
+					<a class="media-thumb" href="images/book_4.jpg" data-fancybox="gallery">
+						<div class="media-text">
+							<h3 class="font-weight-bold text-black text-center heading">사서함 110호의 우편물</h3>
+						</div>
+						<img src="images/book_4.jpg" alt="Image" class="img-fluid">
+					</a> 
+				</div>
+
+				<div class="item">
+					<a class="media-thumb" href="images/book_5.jpg"
+						data-fancybox="gallery">
+						<div class="media-text">
+							<h3 class="font-weight-bold text-black text-center heading">여행의 이유</h3>
+						</div> <img src="images/book_5.jpg" alt="Image" class="img-fluid">
+					</a>
+				</div>
+
+				<div class="item">
+					<a class="media-thumb" href="images/book_6.jpg"	data-fancybox="gallery">
+						<div class="media-text">
+							<h3 class="font-weight-bold text-black text-center heading">정의란 무엇인가</h3>
+						</div> <img src="images/book_6.jpg" alt="Image" class="img-fluid">
+					</a>
+				</div>
+
+				<div class="item">
+					<a class="media-thumb" href="images/book_7.jpg"	data-fancybox="gallery">
+						<div class="media-text">
+							<h3 class="font-weight-bold text-black text-center heading">지구에서 한아뿐</h3>
+						</div> <img src="images/book_7.jpg" alt="Image" class="img-fluid">
+					</a>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
 
 
-    <div class="site-mobile-menu site-navbar-target">
-      <div class="site-mobile-menu-header">
-        <div class="site-mobile-menu-close">
-          <span class="icofont-close js-menu-toggle"></span>
-        </div>
-      </div>
-      <div class="site-mobile-menu-body"></div>
-    </div>
-    
-    <div class="container">
-
-
-      <nav class="site-nav">
-        <div class="logo">
-          <a href="/"><img src="images/hanyanglogo_w.png" style="width:60px; margin-top: 20px;"></a>
-        </div>
-        <div class="row align-items-center">
-          
-          
-          <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
-            <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
-              <li class="active"><a href="/" style="font-weight: bold;">Home</a></li>
-              <li><a href="elements.html" style="font-weight: bold;">도서목록</a></li>
-              <li><a href="elements.html" style="font-weight: bold;">구독</a></li>
-              <li><a href="contact.html" style="font-weight: bold;">나만의 서재</a></li>
-            </ul>
-
-            <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right menu-absolute">
-              <li class="cta-button"><a href="https://untree.co/" target="_blank" style="font-weight: bold;">고객센터</a></li>
-            </ul>
-
-            <a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
-              <span></span>
-            </a>
-
-          </div>
-
-        </div>  
-      </nav> <!-- END nav -->
-
-</div> <!-- END container -->
-
-
-<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('images/indexbg.jpg')">
-
- <div class="container">
-   <div class="row align-items-center justify-content-between">
-     <div class="col-lg-7 intro">
-       <h1 class="text-white font-weight-bold mb-4" data-aos="fade-up" data-aos-delay="0" style="text-shadow: 3px 3px 3px black;">책 속에 담긴<br>당신의 이야기가 펼쳐지는<br>이곳은 한양서재입니다</h1>
-       <p class="text-white mb-4" data-aos="fade-up" data-aos-delay="100" style="text-shadow: 3px 3px 3px black;">책 한 권만으로도 펼쳐지는 수많은 이야기가 존재하는데, 하물며 책은 몇 권이 쓰여져도 아깝지 않을 당신의 삶은 아니할까요</p>
-       <form action="#" class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="200">
-         <input type="text" class="form-control" placeholder="당신같은 사람을 기다려왔다우">
-         <input type="submit" class="btn btn-primary" value="Sign up">
-       </form>
-     
-     </div>
-     
-     
-   </div>
-
-   
- </div>
-
- <div class="slant" style="background-image: url('images/slant.svg');"></div>
-</div>
-
-<div class="py-3">
-  <div class="container">
-
-    <div class="owl-logos owl-carousel">
-      <div class="item">
-        <img src="images/logo-puma.png" alt="Image" class="img-fluid">
-      </div>
-      <div class="item">
-        <img src="images/logo-adobe.png" alt="Image" class="img-fluid">
-      </div>
-      <div class="item">
-        <img src="images/logo-google.png" alt="Image" class="img-fluid">
-      </div>
-      <div class="item">
-        <img src="images/logo-paypal.png" alt="Image" class="img-fluid">
-      </div>
-      <div class="item">
-        <img src="images/logo-adobe.png" alt="Image" class="img-fluid">
-      </div>
-      <div class="item">
-        <img src="images/logo-google.png" alt="Image" class="img-fluid">
-      </div>
-      
-
-    </div>
-    
-        
-  </div>
-  
-</div>
-
-
- <div class="site-section">
-  <div class="container">
-    <div class="row mb-5">
-      <div class="col-12 text-center"  data-aos="fade-up">
-        <h2 class="heading font-weight-bold mb-3">Our Services</h2>
-      </div>
-    </div>
-    <div class="row align-items-stretch">
-      <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up">
-        <div class="unit-4 d-flex">
-          <div class="unit-4-icon mr-4">
-            <span class="feather-pen-tool"></span>
-          </div>
-          <div>
-            <h3>Modern Design</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-            <p><a href="#">Learn More</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="100">
-        <div class="unit-4 d-flex">
-          <div class="unit-4-icon mr-4">
-            <span class="feather-layers"></span>
-          </div>
-          <div>
-            <h3>High Performance</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-            <p><a href="#">Learn More</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="200">
-        <div class="unit-4 d-flex">
-          <div class="unit-4-icon mr-4">
-            <span class="feather-layout"></span>
-          </div>
-          <div>
-            <h3>Flexible Layout</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-            <p><a href="#">Learn More</a></p>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="300">
-        <div class="unit-4 d-flex">
-          <div class="unit-4-icon mr-4">
-            <span class="feather-life-buoy"></span>
-          </div>
-          <div>
-            <h3>Free Support</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-            <p><a href="#">Learn More</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="400">
-        <div class="unit-4 d-flex">
-          <div class="unit-4-icon mr-4">
-            <span class="feather-shopping-bag"></span>
-          </div>
-          <div>
-            <h3>Cool Pricing</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-            <p><a href="#">Learn More</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 col-lg-4 mb-4 mb-lg-4" data-aos="fade-up" data-aos-delay="500">
-        <div class="unit-4 d-flex">
-          <div class="unit-4-icon mr-4">
-            <span class="feather-smartphone"></span>
-          </div>
-          <div>
-            <h3>Mobile Apps</h3>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-            <p><a href="#">Learn More</a></p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
-<div class="site-section overlay site-cover-2" style="background-image: url('images/img_v_3-min.jpg')">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-7 mx-auto text-center">
-        <h2 class="text-white mb-4">Get this template for free! :)</h2>
-        <p class="mb-0"><a href="https://untree.co/" rel="noopener" class="btn btn-primary">Get it for free!</a></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="features-lg ">
-  <div class="container">
-    <div class="row feature align-items-center justify-content-between">
-      <div class="col-lg-7 section-stack order-lg-2 mb-4 mb-lg-0 position-relative" data-aos="fade-up" data-aos-delay="0">
-
-        <div class="image-stack">
-          <div class="image-stack__item image-stack__item--top">
-            <img src="images/img_h_2-min.jpg" alt="">
-          </div>
-          <div class="image-stack__item image-stack__item--bottom">
-            <img src="images/img_h_3-min.jpg" alt="">
-          </div>
-        </div>
-
-      </div>
-      <div class="col-lg-4 section-title" data-aos="fade-up" data-aos-delay="100">
-        
-        <h2 class="font-weight-bold mb-4 heading">Far far away, behind the word mountains</h2>
-        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live.</p>
-        <p><a href="#" class="btn btn-primary">Get Started</a></p>
-
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-<div class="features-lg">
-  <div class="container">
-    
-    <div class="row feature align-items-center justify-content-between">
-      <div class="col-lg-7 mb-4 mb-lg-0 section-stack" data-aos="fade-up" data-aos-delay="0">
-        <img src="images/img_h_5-min.jpg" alt="Image" class="img-fluid">
-      </div>
-      <div class="col-lg-4 section-title" data-aos="fade-up" data-aos-delay="100">
-        
-        <h2 class="font-weight-bold mb-4">Far far away, behind the word mountains</h2>
-        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live.</p>
-        <p><a href="#" class="btn btn-primary">Get Started</a></p>
-
-      </div>
-      
-    </div>
-
-  </div>
-</div>
-
-
-
-<div class="pricing-section">
-  <div class="container">
-    <div class="section-title text-center mb-5" data-aos="fade-up" data-aos-delay="0">
-      <h2 class="heading font-weight-bold mb-5">Plans</h2>
-
-      <div class="switch-plan">
-        
-        <div class="d-inline-flex align-items-center">
-          <div class="period">Monthly</div>
-          <a href="#" class="period-toggle js-period-toggle"></a>
-          <div class="period"><span class="mr-2">Yearly</span><span class="save-percent">Save 25%</span></div>
-        </div>
-
-      </div>
-    </div>
-    
-
-    <div class="row">
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="0">
-        <div class="pricing-item ">
-          <h3>Basic</h3>
-          <div class="description">
-            <p>Far far away, behind the word mountains</p>
-          </div>
-          <div class="period-change mb-4 d-block">
-            <div class="price-wrap">
-              <div class="price">
-                <div>
-                  <div>$29</div>
-                  <div>$299</div>
-                </div>
-              </div>
-            </div>
-            <div class="d-inline-flex align-items-center text-center period-wrap">
-              <div class="d-inline-block mr-1">Per</div>
-              <div class="d-block text-left period">
-                <div>
-                  <div>Month</div>
-                  <div>Year</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <ul class="list-unstyled mb-4">
-            <li class="d-flex"><span class="feather-check-square mr-2 mt-1"></span><span>Far far away, behind the word mountains</span></li>
-            <li class="d-flex"><span class="feather-check-square mr-2 mt-1"></span><span>Far far away, behind the word mountains</span></li>
-          </ul>
-          <div>
-            <a href="#" class="btn btn-primary">Get Started</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-        <div class="pricing-item active">
-          <h3>Advanced</h3>
-          <div class="description">
-            <p>Far far away, behind the word mountains</p>
-          </div>
-          <div class="period-change mb-4 d-block">
-            <div class="price-wrap">
-              <div class="price">
-                <div>
-                  <div>$49</div>
-                  <div>$599</div>
-                </div>
-              </div>
-            </div>
-            <div class="d-inline-flex align-items-center text-center period-wrap">
-              <div class="d-inline-block mr-1">Per</div>
-              <div class="d-block text-left period">
-                <div>
-                  <div>Month</div>
-                  <div>Year</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <ul class="list-unstyled mb-4">
-            <li class="d-flex"><span class="feather-check-square mr-2 mt-1"></span><span>Far far away, behind the word mountains</span></li>
-            <li class="d-flex"><span class="feather-check-square mr-2 mt-1"></span><span>Far far away, behind the word mountains</span></li>
-          </ul>
-          <div>
-            <a href="#" class="btn btn-primary">Get Started</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-        <div class="pricing-item ">
-          <h3>Premium</h3>
-          <div class="description">
-            <p>Far far away, behind the word mountains</p>
-          </div>
-          <div class="period-change mb-4 d-block">
-            <div class="price-wrap">
-              <div class="price">
-                <div>
-                  <div>$99</div>
-                  <div>$1,999</div>
-                </div>
-              </div>
-            </div>
-            <div class="d-inline-flex align-items-center text-center period-wrap">
-              <div class="d-inline-block mr-1">Per</div>
-              <div class="d-block text-left period">
-                <div>
-                  <div>Month</div>
-                  <div>Year</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <ul class="list-unstyled mb-4">
-            <li class="d-flex"><span class="feather-check-square mr-2 mt-1"></span><span>Far far away, behind the word mountains</span></li>
-            <li class="d-flex"><span class="feather-check-square mr-2 mt-1"></span><span>Far far away, behind the word mountains</span></li>
-          </ul>
-          <div>
-            <a href="#" class="btn btn-primary">Get Started</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<div class="testimonial-section">
-  <div class="container">
-    <div class="row align-items-center justify-content-between">
-      <div class="col-lg-4 mb-5 section-title" data-aos="fade-up" data-aos-delay="0">
-        
-        <h2 class="mb-4 font-weight-bold heading">Testimonials</h2>
-        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-        <p><a href="#" class="btn btn-primary">Product Tour</a></p>
-      </div>
-      <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
-        
-        <div class="testimonial--wrap">
-          <div class="owl-single owl-carousel no-dots no-nav">
-            <div class="testimonial-item">
-              <div class="d-flex align-items-center mb-4">
-                <div class="photo mr-3">
-                  <img src="images/person_4-min.jpg" alt="Image" class="img-fluid">
-                </div>
-                <div class="author">
-                  <cite class="d-block mb-0">Kaila Woodland</cite>
-                  <span>Owner, Greenland, Inc.</span>
-                </div>
-              </div>
-              <blockquote>
-                <p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live.&rdquo;</p>
-              </blockquote>
-            </div>  
-
-            <div class="testimonial-item">
-              <div class="d-flex align-items-center mb-4">
-                <div class="photo mr-3">
-                  <img src="images/person_1-min.jpg" alt="Image" class="img-fluid">
-                </div>
-                <div class="author">
-                  <cite class="d-block mb-0">Kaila Woodland</cite>
-                  <span>Owner, Greenland, Inc.</span>
-                </div>
-              </div>
-              <blockquote>
-                <p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live.&rdquo;</p>
-              </blockquote>
-            </div>  
-
-            <div class="testimonial-item">
-              <div class="d-flex align-items-center mb-4">
-                <div class="photo mr-3">
-                  <img src="images/person_2-min.jpg" alt="Image" class="img-fluid">
-                </div>
-                <div class="author">
-                  <cite class="d-block mb-0">Kaila Woodland</cite>
-                  <span>Owner, Greenland, Inc.</span>
-                </div>
-              </div>
-              <blockquote>
-                <p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live.&rdquo;</p>
-              </blockquote>
-            </div>  
-          </div>
-          <div class="custom-nav-wrap">
-            <a href="#" class="custom-owl-prev"><span class="icon-keyboard_backspace"></span></a>
-            <a href="#" class="custom-owl-next"><span class="icon-keyboard_backspace"></span></a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
- <div class="site-section bg-light" id="blog-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-7 mb-4 position-relative text-center mx-auto">
-        <h2 class="font-weight-bold text-center">Our Blog Posts</h2>
-        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-      </div>
-
-    </div>
-    <div class="row">
-      
-      
-      <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
-        <div class="blog_entry">
-          <a href="#"><img src="images/img_h_3-min.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid"></a>
-          <div class="p-4 bg-white">
-            <h3><a href="#">Far far away, behind the word mountains</a></h3>
-            <span class="date">April 25, 2019</span>
-            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-            <p class="more"><a href="#">Continue reading...</a></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
-        <div class="blog_entry">
-          <a href="#"><img src="images/img_h_5-min.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid"></a>
-          <div class="p-4 bg-white">
-            <h3><a href="#">Far far away, behind the word mountains</a></h3>
-            <span class="date">April 25, 2019</span>
-            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-            <p class="more"><a href="#">Continue reading...</a></p>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
-        <div class="blog_entry">
-          <a href="#"><img src="images/img_h_7-min.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid"></a>
-          <div class="p-4 bg-white">
-            <h3><a href="#">Far far away, behind the word mountains</a></h3>
-            <span class="date">April 25, 2019</span>
-            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-            <p class="more"><a href="#">Continue reading...</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row mt-5">
-      <div class="col-lg-4 mx-auto">
-        <a href="#" class="btn btn-primary btn-block">See All Posts</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="site-section overlay site-cover-2" style="background-image: url('images/img_v_4-min.jpg')">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-7 mx-auto text-center">
-        <h2 class="text-white mb-4">Get this template for free! :)</h2>
-        <p class="mb-0"><a href="https://untree.co/" rel="noopener" class="btn btn-primary">Get it for free!</a></p>
-      </div>
-    </div>
-  </div>
-</div>
-
+	<!-- MD 추천 도서 끝 -->
+	
+	<!-- 커뮤니티 추천 시작 -->
+	<div class="site-section bg-light" id="blog-section">
+	  <div class="container">
+	    <div class="row">
+	      <div class="col-7 mb-4 position-relative text-center mx-auto">
+	        <h2 class="font-weight-bold text-center">가장 인기많은 커뮤니티!</h2>
+	        <p>우리의 인기많은 커뮤니티는 무엇일까~골라보쇼</p>
+	      </div>
+	
+	    </div>
+	    <div class="row">
+	      
+	
+	      <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
+	        <div class="blog_entry">
+	          <a href="#"><img src="images/img_h_3-min.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid"></a>
+	          <div class="p-4 bg-white">
+	            <h3><a href="#">먹보의 하루</a></h3>
+	            <span class="date">2022.11.19</span>
+	            <p>식객 허영만의 백반 기행</p>
+	            <p class="more"><a href="#">여기어떄?</a></p>
+	          </div>
+	        </div>
+	      </div>
+		
+		
+	      <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
+	        <div class="blog_entry">
+	          <a href="#"><img src="images/img_h_5-min.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid"></a>
+	          <div class="p-4 bg-white">
+	            <h3><a href="#">산악회</a></h3>
+	            <span class="date">2022.11.19</span>
+	            <p>건강 등산법 토론 및 등산</p>
+	            <p class="more"><a href="#">여기어떄?</a></p>
+	          </div>
+	        </div>
+	      </div>
+	
+	      <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
+	        <div class="blog_entry">
+	          <a href="#"><img src="images/img_h_7-min.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid"></a>
+	          <div class="p-4 bg-white">
+	            <h3><a href="#">Far far away, behind the word mountains</a></h3>
+	            <span class="date">April 25, 2019</span>
+	            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+	            <p class="more"><a href="#">Continue reading...</a></p>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="row mt-5">
+	      <div class="col-lg-4 mx-auto">
+	        <a href="#" class="btn btn-primary btn-block">더많은 커뮤니티 보기</a>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- 커뮤니티 추천 끝 -->
+	<!-- 서평 시작 (한이) -------------------------------------------------------------------------->
+	<div class="testimonial-section">
+	  <div class="container">
+	    <div class="row align-items-center justify-content-between">
+	      <div class="col-lg-4 mb-5 section-title" data-aos="fade-up" data-aos-delay="0">
+	        
+	        <h2 class="mb-4 font-weight-bold heading">이 달의 서평</h2>
+	        <p class="mb-4">반응이 뜨거운 서평을 읽어 보세요!</p>
+	        <p><a href="#" class="btn btn-primary">더 보러 가기</a></p>
+	      </div>
+	      <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+	        
+	        <div class="testimonial--wrap">
+	          <div class="owl-single owl-carousel no-dots no-nav">
+	            <div class="testimonial-item">
+	              <div class="d-flex align-items-center mb-4">
+	                <div class="mr-3" style="max-width: 100px">
+	                  <img src="images/cosmos.png" alt="Image" class="img-fluid"> <!-- 책 이미지 -->
+	                </div>
+	                <div class="author">
+	                  <cite class="d-block mb-0" style="font-size: large">책 이름</cite>
+	                  <br>
+	                  <span>아이디 닉네임</span>
+	                </div>
+	              </div>
+	              <div class="d-flex align-items-end mb-2" style="padding-left: 60%">등록일 : 2022-11-25 &nbsp;&nbsp; 조회수 : 305</div>
+	
+	              <blockquote>
+	                <p>&ldquo;한 줄 서평 미리보기&rdquo;</p>
+	              </blockquote>
+	            </div>  
+	
+	            <div class="testimonial-item">
+	              <div class="d-flex align-items-center mb-4">
+	                <div class="mr-3" style="max-width: 100px">
+	                  <img src="images/person_1-min.jpg" alt="Image" class="img-fluid">
+	                </div>
+	                <div class="author">
+	                  <cite class="d-block mb-0" style="font-size: large">등산이 내 몸을 망친다</cite>
+	                  <br>
+	                  <span>ksa1**** 충청도 사나이</span>
+	                </div>
+	              </div>
+	              <div class="d-flex align-items-end mb-2" style="padding-left: 60%">등록일 : 2022-11-25 &nbsp;&nbsp; 조회수 : 305</div>
+	
+	              <blockquote>
+	                <p>&ldquo;등산을 사랑하는 당신, 이 책을 추천합니다. 10점 만 점에 100점!&rdquo;</p>
+	              </blockquote>
+	            </div>  
+	
+	            <div class="testimonial-item">
+	              <div class="d-flex align-items-center mb-4">
+	                <div class="mr-3" style="max-width: 100px">
+	                  <img src="images/person_2-min.jpg" alt="Image" class="img-fluid">
+	                </div>
+	                <div class="author">
+	                  <cite class="d-block mb-0" style="font-size: large">식객 허영만의 백반기행</cite>
+	                  <br>
+	                  <span>hanyi***** 행복한 돼지</span>
+	                </div>
+	              </div>
+	              <div class="d-flex align-items-end mb-2" style="padding-left: 60%">등록일 : 2022-11-25 &nbsp;&nbsp; 조회수 : 305</div>
+	
+	              <blockquote>
+	                <p>&ldquo;전국 방방곡곡 맛집을 기행하며.. 허영만 님을 뛰어넘는 식객이 되겠습니다.&rdquo;</p>
+	              </blockquote>
+	            </div>  
+	          </div>
+	          <div class="custom-nav-wrap">
+	            <a href="#" class="custom-owl-prev"><span class="icon-keyboard_backspace"></span></a>
+	            <a href="#" class="custom-owl-next"><span class="icon-keyboard_backspace"></span></a>
+	          </div>
+	        </div>
+	
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- 서평 끝 (한이) -------------------------------------------------------------------------->
+<!-- 본문 끝 -->
+<!-- footer 시작 -->
  <div class="site-footer">
   <div class="container">
     <div class="row justify-content-between">
       <div class="col-lg-4">
         <div class="widget">
-          <h3>About</h3>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live.</p>
+          <h3>한양서재란?</h3>
+          <p>책을 사랑하는 독자분들에게 다양한 E-Book들을 언제, 어디서든 볼 수 있도록 제공해드립니다. 또한 같은 책을 읽은 다양한 사람들과 이야기를 나누고 소통할 수 있는 공간이 되어 드리려 합니다.</p>
         </div>
         <div class="widget">
           <h3>Connect with us</h3>
@@ -558,35 +330,35 @@
         <div class="row">
           <div class="col-12">
             <div class="widget">
-              <h3>Navigations</h3>
+              <h3>Members</h3>
             </div>
           </div>
           <div class="col-6 col-sm-6 col-md-4">
             <div class="widget">
               <ul class="links list-unstyled">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Work</a></li>
-                <li><a href="#">Process</a></li>
-                <li><a href="#">About Us</a></li>
+                <li><a href="#">김경환</a></li>
+                <li><a href="#">강한이</a></li>
+                <li><a href="#">김성훈</a></li>
+                <li><a href="#">김한주</a></li>
+                <li><a href="#">방미연</a></li>
               </ul>
             </div>
           </div>
           <div class="col-6 col-sm-6 col-md-4">
             <div class="widget">
               <ul class="links list-unstyled">
-                <li><a href="#">Press</a></li>
-                <li><a href="#">Blog</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Support</a></li>
-                <li><a href="#">Privacy</a></li>
+                <li>조장</li>
+                <li>기술자문</li>
+                <li>기술자문</li>
+                <li>자료조사</li>
+                <li>회의록</li>
               </ul>
             </div>
           </div>
           <div class="col-6 col-sm-6 col-md-4">
             <div class="widget">
               <ul class="links list-unstyled">
-                <li><a href="#">Privacy</a></li>
+                <li><a href="#">(만든 페이지 열거)</a></li>
                 <li><a href="#">FAQ</a></li>
                 <li><a href="#">Careers</a></li>
                 <li><a href="#">Process</a></li>
@@ -600,20 +372,22 @@
 
     <div class="row justify-content-center text-center copyright">
       <div class="col-md-8">
-        <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>. All Rights Reserved. &mdash; Designed with love by <a href="https://untree.co">Untree.co</a> <!-- License information: https://untree.co/license/ -->
+        <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> HanyangLibrary<br>All Rights Reserved
           </p>
         </div>
       </div>
     </div>
   </div>
-  
+ <!-- footer 시작 -->
 
-  <div id="overlayer"></div>
-  <div class="loader">
-    <div class="spinner-border" role="status">
-      <span class="sr-only">Loading...</span>
-    </div>
+<!-- 로딩창 시작 -->
+<div id="overlayer"></div>
+<div class="loader">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
   </div>
+</div>
+<!-- 로딩창 끝 -->
 
   <script src="js/jquery-3.5.1.min.js"></script>
   <script src="js/jquery-migrate-3.0.0.min.js"></script>
