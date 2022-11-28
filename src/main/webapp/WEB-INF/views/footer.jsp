@@ -29,7 +29,7 @@
             <div class="widget">
               <ul class="links list-unstyled">
                 <li><a href="#">김경환</a></li>
-                <li><a href="#">강한이 멋쟁이</a></li>
+                <li><a href="#">강한이</a></li>
                 <li><a href="#">김성훈</a></li>
                 <li><a href="#">김한주</a></li>
                 <li><a href="#">방미연</a></li>
