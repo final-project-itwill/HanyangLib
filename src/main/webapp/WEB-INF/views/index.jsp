@@ -5,10 +5,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="author" content="Untree.co">
 <link rel="shortcut icon" href="favicon.png">
-<meta name="description" content="" />
-<meta name="keywords" content="bootstrap, bootstrap4" />
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/owl.carousel.min.css">
@@ -19,7 +16,11 @@
 <link rel="stylesheet" href="css/jquery.fancybox.min.css">
 <link rel="stylesheet" href="css/aos.css">
 <link rel="stylesheet" href="css/style.css">
-<title>index.jsp</title>
+<!-- 대부분의 검색엔진 웹 크롤러 차단 -->
+<meta name="robots" content="noindex">
+<!-- 구글 검색엔진 웹 크롤러만 차단 -->
+<meta name="googlebot" content="noindex">
+<title>한양서재</title>
 </head>
 <body>
 <!-- header 시작 -->
@@ -372,13 +373,17 @@
 
     <div class="row justify-content-center text-center copyright">
       <div class="col-md-8">
-        <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> HanyangLibrary<br>All Rights Reserved
-          </p>
+		  <div class="row justify-content-center text-center copyright">
+			  <div class="col-md-8">
+				  <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> HanyangLibrary<br>All Rights Reserved</p>
+				  <p style="font-size: 4px;">— Designed with love by <a href="https://untree.co/">Untree.co</a> • <a href="https://untree.co/license/">License</a></p>
+			  </div>
+		  </div>ㅎ
         </div>
       </div>
     </div>
   </div>
- <!-- footer 시작 -->
+ <!-- footer 끝 -->
 
 <!-- 로딩창 시작 -->
 <div id="overlayer"></div>

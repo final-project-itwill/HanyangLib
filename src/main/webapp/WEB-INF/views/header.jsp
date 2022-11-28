@@ -5,10 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="author" content="Untree.co">
     <link rel="shortcut icon" href="favicon.png">
-    <meta name="description" content="" />
-    <meta name="keywords" content="bootstrap, bootstrap4" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/owl.carousel.min.css">
@@ -19,7 +16,11 @@
     <link rel="stylesheet" href="css/jquery.fancybox.min.css">
     <link rel="stylesheet" href="css/aos.css">
     <link rel="stylesheet" href="css/style.css">
-    <title>index.jsp</title>
+    <!-- 대부분의 검색엔진 웹 크롤러 차단 -->
+    <meta name="robots" content="noindex">
+    <!-- 구글 검색엔진 웹 크롤러만 차단 -->
+    <meta name="googlebot" content="noindex">
+    <title>한양서재</title>
 </head>
 <body>
 <!-- header 시작 -->
