@@ -176,6 +176,16 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   position: absolute;
   right: 15px; }
 
+/* 퀵메뉴 관련 */
+div, ul, li {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;padding:0;margin:0}
+
+.quickmenu {position:absolute;width:90px;top:50%;margin-top:-50px;right:10px;background:#fff;z-index: 2;}
+.quickmenu ul {position:relative;float:left;width:100%;display:inline-block;*display:inline;border:1px solid #ddd;}
+.quickmenu ul li {float:left;width:100%;border-bottom:1px solid #ddd;text-align:center;display:inline-block;*display:inline;}
+.quickmenu ul li a {position:relative;float:left;width:100%;height:30px;line-height:30px;text-align:center;color:#999;font-size:9.5pt;}
+.quickmenu ul li a:hover {color:#000;}
+.quickmenu ul li:last-child {border-bottom:0;}
+
 .site-nav {
   padding-top: 20px;
   padding-bottom: 20px; }
@@ -600,50 +610,6 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     margin-bottom: 30px;
     font-size: 50px;
     color: #e84545; }
-
-.section-stack {
-  position: relative; }
-  .section-stack img {
-    width: 100%;
-    display: block; }
-  .section-stack .image-stack::after {
-    content: ' ';
-    display: table;
-    clear: both; }
-  .section-stack .image-stack__item--top {
-    float: left;
-    width: 66%;
-    margin-right: -100%;
-    position: relative;
-    z-index: 1; }
-    .section-stack .image-stack__item--top img {
-      border: 4px solid #ffffff;
-      -webkit-box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
-      box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1); }
-  .section-stack .image-stack__item--bottom {
-    float: right;
-    width: 75%; }
-  @supports ((display: -ms-grid) or (display: grid)) {
-    .section-stack .image-stack {
-      display: -ms-grid;
-      display: grid;
-      position: relative;
-      -ms-grid-columns: (1fr)[12];
-      grid-template-columns: repeat(12, 1fr); }
-    .section-stack .image-stack__item--bottom {
-      grid-column: 4 / -1;
-      -ms-grid-row: 1;
-      grid-row: 1;
-      width: 100%; }
-    .section-stack .image-stack__item--top {
-      -ms-grid-row: 1;
-      grid-row: 1;
-      -ms-grid-column: 1;
-      -ms-grid-column-span: 8;
-      grid-column: 1 / span 8;
-      padding-top: 20%;
-      width: 100%; }
-      }
 
 .service {
   display: block; }

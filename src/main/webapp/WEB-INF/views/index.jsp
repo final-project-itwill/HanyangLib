@@ -73,10 +73,19 @@
 	 <div class="slant" style="background-image: url('images/slant.svg');"></div>
 	</div>
 	
+	<!-- 퀵메뉴 -->
+	<div class="quickmenu">
+	  <ul>
+	    <li><a href="#">등급별혜택</a></li>
+	    <li><a href="#">1:1문의</a></li>
+	    <li><a href="#">후기</a></li>
+	  </ul>
+	</div>
+	
 	<!-- 미연: 광고배너 -->
 	<div class="container pt-5 pb-5 mb-5 border-bottom">
 		<div class="row">
-		  <div class="col-lg-12">
+			<div class="col-lg-12">
 		    <h1 class="h6 mb-3 text-black"></h1>
 		  </div>
 		  <div class="col-lg-12">
@@ -403,6 +412,16 @@
   <script src="js/jquery.waypoints.min.js"></script>
   <script src="js/jquery.fancybox.min.js"></script>
   <script src="js/custom.js"></script>
+  <!-- 퀵메뉴 스크롤 따라 다니기 -->
+  <script>
+  	$(document).ready(function(){
+	  var currentPosition = parseInt($(".quickmenu").css("top"));
+	  $(window).scroll(function() {
+	    var position = $(window).scrollTop(); 
+	    $(".quickmenu").stop().animate({"top":position+currentPosition+"px"},1000);
+	  });
+	});
+  </script>
 
   
 </body>
