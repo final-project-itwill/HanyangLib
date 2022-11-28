@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <!-- footer 시작 -->
  <div class="site-footer">
   <div class="container">
@@ -80,7 +82,6 @@
   </div>
 </div>
 <!-- 로딩창 끝 -->
-
   <script src="js/jquery-3.5.1.min.js"></script>
   <script src="js/jquery-migrate-3.0.0.min.js"></script>
   <script src="js/popper.min.js"></script>
@@ -95,6 +96,6 @@
   <script src="js/jquery.fancybox.min.js"></script>
   <script src="js/custom.js"></script>
 
-  
+
 </body>
 </html>
