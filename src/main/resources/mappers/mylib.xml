@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="mylib">
+	<insert id="insert" parameterType="kr.co.itwill.mylib.MylibDTO">
+		<![CDATA[
+		INSERT INTO mylib(lib_id, lib_bcode, lib_proc)
+ 		VALUES (#{lib_id},#{lib_bcode},#{lib_proc});
+ 		]]>
+	</insert>
+
+
+	<select id="list_date" resultType="kr.co.itwill.mylib.MylibDTO" parameterType="int">
+		<![CDATA[
+		SELECT *
+		FROM mylib
+		]]>	
+	</select>
+
 
 </mapper>
