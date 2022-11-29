@@ -20,7 +20,7 @@
 <meta name="robots" content="noindex">
 <!-- 구글 검색엔진 웹 크롤러만 차단 -->
 <meta name="googlebot" content="noindex">
-<title>한양서재</title>
+<title>&#128218 한양서재</title>
 </head>
 <body>
 <!-- header 시작 -->
@@ -35,15 +35,15 @@
 	<div class="container">
 	  <nav class="site-nav">
 	    <div class="logo">
-	      <a href="/"><img src="images/hanyanglogo_w.png" style="width:60px; margin-top: 20px;"></a>
+	      <a href="/"><img src="images/hylogo_w.png" style="width:120px; margin-top: 20px;"></a>
 	    </div>
 	    <div class="row align-items-center">
 	      <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
 	        <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
 	          <li class="active"><a href="/" style="font-weight: bold;">Home</a></li>
-	          <li><a href="elements.html" style="font-weight: bold;">도서목록</a></li>
-	          <li><a href="elements.html" style="font-weight: bold;">구독</a></li>
-	          <li><a href="contact.html" style="font-weight: bold;">나만의 서재</a></li>
+	          <li><a href="/book/booklist" style="font-weight: bold;">도서목록</a></li>
+	          <li><a href="/gudok/detail" style="font-weight: bold;">구독</a></li>
+	          <li><a href="/mylib/libindex" style="font-weight: bold;">나만의 서재</a></li>
 	        </ul>
 	        <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right menu-absolute">
 	          <li class="cta-button"><a href="https://untree.co/" target="_blank" style="font-weight: bold;">고객센터</a></li>
@@ -337,42 +337,19 @@
         </div>
       </div>
       <div class="col-lg-6">
-        <div class="row">
           <div class="col-12">
             <div class="widget">
               <h3>Members</h3>
             </div>
           </div>
-          <div class="col-6 col-sm-6 col-md-4">
+          <div class="col-12">
             <div class="widget">
               <ul class="links list-unstyled">
-                <li><a href="#">김경환</a></li>
-                <li><a href="#">강한이</a></li>
-                <li><a href="#">김성훈</a></li>
-                <li><a href="#">김한주</a></li>
-                <li><a href="#">방미연</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-6 col-sm-6 col-md-4">
-            <div class="widget">
-              <ul class="links list-unstyled">
-                <li>조장</li>
-                <li>기술자문</li>
-                <li>기술자문</li>
-                <li>자료조사</li>
-                <li>회의록</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-6 col-sm-6 col-md-4">
-            <div class="widget">
-              <ul class="links list-unstyled">
-                <li><a href="#">(만든 페이지 열거)</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Process</a></li>
-                <li><a href="#">About Us</a></li>
+                <li>&#127744 김경환 / 조장, 전체디자인 / <a href="/">메인페이지</a>, <a href="gudok/detail">구독페이지</a>, <a href="mylib/libindex">나만의 서제</a></li>
+                <li>&#127744 강한이 / 기술자문 / <a href="/">커뮤니티페이지</a>, <a href="notice/list">공지사항페이지</a></li>
+                <li>&#127744 김성훈 / 기술자문 / <a href="survey/list">설문지페이지</a>, <a href="survey/templet">설문지탬플릿페이지</a></li>
+                <li>&#127744 김한주 / 자료조사 / <a href="/">회원페이지</a>, <a href="gudok/detail">결제페이지</a></li>
+                <li>&#127744 방미연 / 회의록 / <a href="book/booklist">도서페이지</a>, <a href="gudok/detail">페이지</a></li>
               </ul>
             </div>
           </div>
@@ -387,7 +364,6 @@
         </div>
       </div>
     </div>
-  </div>
  <!-- footer 끝 -->
 
 <!-- 로딩창 시작 -->

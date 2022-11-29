@@ -2039,3 +2039,21 @@ div, ul, li {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizi
       content: "";
       height: 1px;
       background: #ebedee; }
+      
+/* 나만의 서재 */
+.userphoto {
+	width:10vw;
+	position: absolute;
+	margin-left: 7.5vw;
+	background-color: white;
+	top:30vh;
+	z-index: 2;
+}
+.lib-info, .lib-cont {
+	padding-top: 20vh;
+}
+
+.lib-info {
+	margin: 0px;
+	text-align: center;
+}

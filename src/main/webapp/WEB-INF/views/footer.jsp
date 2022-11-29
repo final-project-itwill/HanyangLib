@@ -21,42 +21,19 @@
         </div>
       </div>
       <div class="col-lg-6">
-        <div class="row">
           <div class="col-12">
             <div class="widget">
               <h3>Members</h3>
             </div>
           </div>
-          <div class="col-6 col-sm-6 col-md-4">
+          <div class="col-12">
             <div class="widget">
               <ul class="links list-unstyled">
-                <li><a href="#">김경환</a></li>
-                <li><a href="#">강한이</a></li>
-                <li><a href="#">김성훈</a></li>
-                <li><a href="#">김한주</a></li>
-                <li><a href="#">방미연</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-6 col-sm-6 col-md-4">
-            <div class="widget">
-              <ul class="links list-unstyled">
-                <li>조장</li>
-                <li>기술자문</li>
-                <li>기술자문</li>
-                <li>자료조사</li>
-                <li>회의록</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-6 col-sm-6 col-md-4">
-            <div class="widget">
-              <ul class="links list-unstyled">
-                <li><a href="#">(만든 페이지 열거)</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Process</a></li>
-                <li><a href="#">About Us</a></li>
+                <li>&#127744 김경환 / 조장, 전체디자인 / <a href="/">메인페이지</a>, <a href="gudok/detail">구독페이지</a>, <a href="mylib/libindex">나만의 서제</a></li>
+                <li>&#127744 강한이 / 기술자문 / <a href="/">커뮤니티페이지</a>, <a href="notice/list">공지사항페이지</a></li>
+                <li>&#127744 김성훈 / 기술자문 / <a href="survey/list">설문지페이지</a>, <a href="survey/templet">설문지탬플릿페이지</a></li>
+                <li>&#127744 김한주 / 자료조사 / <a href="/">회원페이지</a>, <a href="gudok/detail">결제페이지</a></li>
+                <li>&#127744 방미연 / 회의록 / <a href="book/booklist">도서페이지</a>, <a href="gudok/detail">페이지</a></li>
               </ul>
             </div>
           </div>
@@ -64,14 +41,13 @@
       </div>
     </div>
 
-      <div class="row justify-content-center text-center copyright">
-        <div class="col-md-8">
-          <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> HanyangLibrary<br>All Rights Reserved</p>
-          <p style="font-size: 4px;">— Designed with love by <a href="https://untree.co/">Untree.co</a> • <a href="https://untree.co/license/">License</a></p>
+    <div class="row justify-content-center text-center copyright">
+      <div class="col-md-8">
+		  <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> HanyangLibrary<br>All Rights Reserved</p>
+		  <p style="font-size: 4px;">— Designed with love by <a href="https://untree.co/">Untree.co</a> • <a href="https://untree.co/license/">License</a></p>
         </div>
       </div>
     </div>
-  </div>
  <!-- footer 끝 -->
 
 <!-- 로딩창 시작 -->
@@ -82,19 +58,19 @@
   </div>
 </div>
 <!-- 로딩창 끝 -->
-  <script src="js/jquery-3.5.1.min.js"></script>
-  <script src="js/jquery-migrate-3.0.0.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/imagesloaded.pkgd.js"></script>
-  <script src="js/isotope.pkgd.min.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.fancybox.min.js"></script>
-  <script src="js/custom.js"></script>
+  <script src="../js/jquery-3.5.1.min.js"></script>
+  <script src="../js/jquery-migrate-3.0.0.min.js"></script>
+  <script src="../js/popper.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/owl.carousel.min.js"></script>
+  <script src="../js/aos.js"></script>
+  <script src="../js/imagesloaded.pkgd.js"></script>
+  <script src="../js/isotope.pkgd.min.js"></script>
+  <script src="../js/jquery.animateNumber.min.js"></script>
+  <script src="../js/jquery.stellar.min.js"></script>
+  <script src="../js/jquery.waypoints.min.js"></script>
+  <script src="../js/jquery.fancybox.min.js"></script>
+  <script src="../js/custom.js"></script>
 
 
 </body>
