@@ -2,4 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="notice">
 
+    <select id="list" resultType="kr.co.itwill.notice.NoticeDTO">
+        SELECT n_no, n_type, n_title, n_content, n_rdate, n_writer
+        FROM notice
+        ORDER BY n_no DESC
+    </select>
+
+
+    <insert id="insert">
+        INSERT INTO notice(n_type, n_title, n_content, n_writer)
+        VALUES (#{n_type}, #{n_title}, #{n_content}, #{n_writer})
+    </insert>
+
+
+    <select id="search" resultType="kr.co.itwill.notice.NoticeDTO" parameterType="String">
+        SELECT n_no, n_type, n_title, n_content, n_rdate, n_writer
+        FROM notice
+        WHERE n_title LIKE CONCAT('%', #{keyword}, '%')
+        ORDER BY n_no DESC
+    </select>
+
+
+    <select id="read" resultType="kr.co.itwill.notice.NoticeDTO">
+        SELECT n_no, n_type, n_title, n_content, n_rdate, n_writer
+        FROM notice
+        WHERE n_no = #{n_no}
+    </select>
+
+
+    <delete id="delete">
+        DELETE FROM notice
+        WHERE n_no = #{n_no}
+    </delete>
+
+
+    <update id="update">
+        UPDATE notice
+        SET  n_type    = #{n_type}
+            ,n_title   = #{n_title}
+            ,n_content = #{n_content}
+        WHERE n_no = #{n_no}
+    </update>
+
 </mapper>
