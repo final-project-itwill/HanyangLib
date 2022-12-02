@@ -2,18 +2,110 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mylib">
-	<insert id="insert" parameterType="kr.co.itwill.mylib.MylibDTO">
+
+	<select id="getCount" resultType="int" parameterType="String">
+		<![CDATA[
+			SELECT COUNT(*)
+			FROM mylib
+			WHERE lib_id = #{lib_id};
+		]]>
+	</select>
+	
+	<select id="get80Count" resultType="int" parameterType="String">
+		<![CDATA[
+		SELECT COUNT(*)
+		FROM mylib
+		WHERE lib_id = #{lib_id} AND lib_proc >= 80;
+		]]>	
+	</select>
+	
+	<select id="libInfoRead" resultType="kr.co.itwill.mylib.LibinfoDTO">
+		<![CDATA[
+		SELECT lib_id, m_id, m_nick, m_heat
+		FROM (
+			SELECT lib_id
+			FROM mylib
+			WHERE lib_id = #{lib_id}
+			) AS AA LEFT OUTER JOIN (
+			SELECT m_id, m_nick, m_heat
+			FROM member
+			) AS BB
+		ON AA.lib_id = BB.m_id
+		UNION
+		SELECT *
+		FROM (
+			SELECT lib_id
+			FROM mylib
+			) AS AA RIGHT OUTER JOIN (
+			SELECT m_id, m_nick, m_heat
+			FROM member
+			WHERE m_id = #{lib_id}
+			) AS BB
+		ON AA.lib_id = BB.m_id
+		]]>	
+	</select>
+
+	<select id="libRead" resultType="kr.co.itwill.mylib.LibReadDTO">
+		<![CDATA[
+		SELECT b_code, b_bookcover, b_name, lib_proc
+		FROM (
+			SELECT lib_bcode, lib_proc
+			FROM mylib
+			WHERE lib_id = #{lib_id}
+			) AA RIGHT OUTER JOIN (
+			SELECT b_code, b_bookcover, b_name
+			FROM book
+			) BB
+		ON AA.lib_bcode = BB.b_code
+		WHERE AA.lib_proc IS NOT NULL LIMIT 3
+		]]>	
+	</select>
+	
+	<insert id="getBook">
 		<![CDATA[
 		INSERT INTO mylib(lib_id, lib_bcode, lib_proc)
- 		VALUES (#{lib_id},#{lib_bcode},#{lib_proc});
- 		]]>
+		VALUES (#{lib_id}, #{lib_bcode}, 0);
+		]]>
 	</insert>
-
-
-	<select id="list_date" resultType="kr.co.itwill.mylib.MylibDTO" parameterType="int">
+	
+	<select id="commuRead" resultType="kr.co.itwill.mylib.CommuReadDTO">
 		<![CDATA[
-		SELECT *
-		FROM mylib
+		SELECT c_code, c_name, c_id, c_state, ac_ccode, ac_manjok, ac_review, ac_id
+		FROM (
+			SELECT c_code, c_name, c_id, c_state
+			FROM community
+			WHERE c_id = #{lib_id}
+			) AA LEFT OUTER JOIN (
+			SELECT ac_ccode, ac_manjok, ac_review, ac_id
+			FROM community_ac
+			) BB
+		ON AA.c_id = BB.ac_id
+		UNION
+		SELECT c_code, c_name, c_id, c_state, ac_ccode, ac_manjok, ac_review, ac_id
+		FROM (
+			SELECT c_code, c_name, c_id, c_state
+			FROM community
+			) AA RIGHT OUTER JOIN (
+			SELECT ac_ccode, ac_manjok, ac_review, ac_id
+			FROM community_ac
+			WHERE ac_id = #{lib_id}
+			) BB
+		ON AA.c_id = BB.ac_id
+		]]>	
+	</select>
+	
+	<select id="reviewRead" resultType="kr.co.itwill.mylib.BookReviewDTO">
+		<![CDATA[
+		SELECT br_title, br_bcode, br_id, br_star, br_count, br_rdate, b_code, b_name
+		FROM (
+			SELECT br_title, br_bcode, br_id, br_star, br_count, br_rdate
+			FROM bookreview
+			WHERE br_id = #{lib_id}
+			) AA LEFT OUTER JOIN (
+			SELECT b_code, b_name
+			FROM book
+			) BB
+		ON AA.br_bcode = BB.b_code
 		]]>	
 	</select>
 

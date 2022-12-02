@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="visitor">
+
+	<insert id="insert" parameterType="kr.co.itwill.mylib.VisitorDTO">
+	    <![CDATA[
+	    INSERT INTO visitor( vis_pid, vis_myid, vis_content )
+	    VALUES ( #{lib_id}, #{vis_myid}, #{vis_content} )
+	    ]]>	    
+	</insert>
+	
+	<select id="list" resultType="kr.co.itwill.mylib.VisitorDTO" parameterType="String">
+		<![CDATA[
+		SELECT vis_no, vis_pid, vis_myid, vis_content, vis_rdate
+		FROM visitor
+		WHERE vis_pid = #{lib_id}
+		]]>	
+	</select>
+
+
+</mapper>
