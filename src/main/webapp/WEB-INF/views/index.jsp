@@ -3,24 +3,37 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="shortcut icon" href="favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<link rel="stylesheet" href="fonts/icomoon/style.css">
-<link rel="stylesheet" href="fonts/feather/style.css">
-<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
-<link rel="stylesheet" href="css/jquery.fancybox.min.css">
-<link rel="stylesheet" href="css/aos.css">
-<link rel="stylesheet" href="css/style.css">
-<!-- 대부분의 검색엔진 웹 크롤러 차단 -->
-<meta name="robots" content="noindex">
-<!-- 구글 검색엔진 웹 크롤러만 차단 -->
-<meta name="googlebot" content="noindex">
-<title>&#128218 한양서재</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- 대부분의 검색엔진 웹 크롤러 차단 -->
+	<meta name="robots" content="noindex">
+	<!-- 구글 검색엔진 웹 크롤러만 차단 -->
+	<meta name="googlebot" content="noindex">
+	<link rel="shortcut icon" href="favicon.png">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="fonts/icomoon/style.css">
+	<link rel="stylesheet" href="fonts/feather/style.css">
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+	<link rel="stylesheet" href="css/jquery.fancybox.min.css">
+	<link rel="stylesheet" href="css/aos.css">
+	<link rel="stylesheet" href="css/style.css">
+	<script src="js/jquery-3.5.1.min.js"></script>
+	<script src="js/jquery-migrate-3.0.0.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/aos.js"></script>
+	<script src="js/imagesloaded.pkgd.js"></script>
+	<script src="js/isotope.pkgd.min.js"></script>
+	<script src="js/jquery.animateNumber.min.js"></script>
+	<script src="js/jquery.stellar.min.js"></script>
+	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="js/jquery.fancybox.min.js"></script>
+	<script src="js/custom.js"></script>
+	<title>&#128218 한양서재</title>
 </head>
 <body>
 <!-- header 시작 -->
@@ -43,10 +56,15 @@
 	          <li class="active"><a href="/" style="font-weight: bold;">Home</a></li>
 	          <li><a href="/book/booklist" style="font-weight: bold;">도서목록</a></li>
 	          <li><a href="/gudok/detail" style="font-weight: bold;">구독</a></li>
-	          <li><a href="/mylib/libindex" style="font-weight: bold;">나만의 서재</a></li>
-	        </ul>
-	        <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right menu-absolute">
-	          <li class="cta-button"><a href="https://untree.co/" target="_blank" style="font-weight: bold;">고객센터</a></li>
+	          <li><a href="/mylib/libindex/ksh134625" style="font-weight: bold;">나만의 서재</a></li>
+	          <li><a href="/comm/index" style="font-weight: bold;">커뮤니티</a></li>
+              <li class="has-children">
+              	<a href="#">고객센터</a>
+                <ul class="dropdown">
+                  <li><a href="/notice/list">공지사항</a></li>
+                  <li><a href="#">문의</a></li>
+                </ul>
+              </li>
 	        </ul>
 	        <a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
 	          <span></span>
@@ -345,11 +363,11 @@
           <div class="col-12">
             <div class="widget">
               <ul class="links list-unstyled">
-                <li>&#127744 김경환 / 조장, 전체디자인 / <a href="/">메인페이지</a>, <a href="gudok/detail">구독페이지</a>, <a href="mylib/libindex">나만의 서제</a></li>
-                <li>&#127744 강한이 / 기술자문 / <a href="/">커뮤니티페이지</a>, <a href="notice/list">공지사항페이지</a></li>
-                <li>&#127744 김성훈 / 기술자문 / <a href="survey/list">설문지페이지</a>, <a href="survey/templet">설문지탬플릿페이지</a></li>
-                <li>&#127744 김한주 / 자료조사 / <a href="/">회원페이지</a>, <a href="gudok/detail">결제페이지</a></li>
-                <li>&#127744 방미연 / 회의록 / <a href="book/booklist">도서페이지</a>, <a href="gudok/detail">페이지</a></li>
+                <li>&#127744 김경환 / 조장, 전체디자인 / <a href="/">메인페이지</a>, <a href="/gudok/detail">구독페이지</a>, <a href="/mylib/libindex">나만의 서제</a></li>
+                <li>&#127744 강한이 / 기술자문 / <a href="/">커뮤니티페이지</a>, <a href="/notice/list">공지사항페이지</a></li>
+                <li>&#127744 김성훈 / 기술자문 / <a href="/survey/list">설문지페이지</a>, <a href="/survey/templet">설문지탬플릿페이지</a></li>
+                <li>&#127744 김한주 / 자료조사 / <a href="/">회원페이지</a>, <a href="/gudok/detail">결제페이지</a></li>
+                <li>&#127744 방미연 / 회의록 / <a href="/book/booklist">도서페이지</a>, <a href="/gudok/detail">페이지</a></li>
               </ul>
             </div>
           </div>
@@ -375,19 +393,6 @@
 </div>
 <!-- 로딩창 끝 -->
 
-  <script src="js/jquery-3.5.1.min.js"></script>
-  <script src="js/jquery-migrate-3.0.0.min.js"></script>
-  <script src="js/popper.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/aos.js"></script>
-  <script src="js/imagesloaded.pkgd.js"></script>
-  <script src="js/isotope.pkgd.min.js"></script>
-  <script src="js/jquery.animateNumber.min.js"></script>
-  <script src="js/jquery.stellar.min.js"></script>
-  <script src="js/jquery.waypoints.min.js"></script>
-  <script src="js/jquery.fancybox.min.js"></script>
-  <script src="js/custom.js"></script>
   <!-- 퀵메뉴 스크롤 따라 다니기 -->
   <script>
   	$(document).ready(function(){
