@@ -20,9 +20,4 @@
 		WHERE ch_code = #{sv_code}
 	</select>
 	
-	<insert id="insert">
-		INSERT INTO answer( ans_code, ans_dsvno, ans_order, ans_anscode, ans_content)
-		VALUES(#{sv_code}, #{ch_dsvno, #{ch_order}, #{ch_anscode}, #{ans_content})
-	</insert>
-	
 </mapper>

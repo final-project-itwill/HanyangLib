@@ -48,15 +48,6 @@ public class SurveyCont {
 		return mav;
 	}// write() end
 	
-	
-	public String insert(@RequestParam Map<String, Object> map) {
-		SurveyDAO.insert(map);
-		return "redirect:/survey/answer";
-	}// insert() end
-	
-	
-	
-
 
 	@RequestMapping("create/{sv_code}")
 	public ModelAndView create(@PathVariable String sv_code) {

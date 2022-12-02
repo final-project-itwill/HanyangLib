@@ -31,8 +31,5 @@ public class SurveyDAO {
 		return sqlSession.selectList("survey.details", sv_code);
 	}// detail2() end	
 	
-	public void insert(Map<String, Object> map) {
-		sqlSession.insert("survey.insert", map);
-	}// insert() end
 	
 }// class end
