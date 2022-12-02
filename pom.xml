@@ -90,7 +90,16 @@
 			<artifactId>spring-boot-autoconfigure</artifactId>
 			<version>2.7.4</version>
 		</dependency>
+		
+		<!-- 메일 의존성 추가 -->
+		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<dependency>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.7</version>
+		</dependency>
 
+		
 		<!-- 사용자 추가 의존성 끝 -->
 	</dependencies>
 
