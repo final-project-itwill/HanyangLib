@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
-
+	
+	<insert id="insert" parameterType="kr.co.itwill.member.MemberDTO">
+		insert into member(m_id, m_pw, m_name, m_nick,m_birth,m_gender
+		,m_zip,m_add1,m_add2,m_tel, m_email, m_mailcheck,m_smscheck,m_grade
+		,m_gudok,m_point,m_heat,m_rdate)
+		
+		values(#{m_id}, #{m_pw}, #{m_name},#{m_nick},#{m_birth},#{m_gender}
+		,#{m_zip},#{m_add1},#{m_add2},#{m_tel},#{m_emai},#{m_mailcheck}
+		,#{m_smscheck},#{m_grade},#{m_gudol},#{m_point},#{m_heat},now())
+	</insert>
+	
+	<select id="select" resultType="kr.co.itwill.member.MemberDTO" parameterType="String">
+		select count(email) as cnt
+		from member
+		where #{m_mailcheck}=#{m_email}
+	</select>
+	
+	
 </mapper>

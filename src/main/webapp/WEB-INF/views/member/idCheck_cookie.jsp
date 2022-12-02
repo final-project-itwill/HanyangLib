@@ -4,7 +4,10 @@
 <%@ include file="../header.jsp"%>
 <!-- 본문작성 시작 -->
 
-   
+
+
+
+
 
 <!-- 본문작성 끝 -->
 <%@ include file="../footer.jsp"%>
