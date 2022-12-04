@@ -1,4 +1,4 @@
-<h1 style="text-align:center; font-weight:bold;">Hanyang Library📚</h1>
+<h1 class="text-center" style="text-align:center; font-weight:bold;">Hanyang Library📚</h1>
 <h2>아이티윌 자바 웹개발자 양성과정 133기</h2>
 <h4>1조의 Final Project Organization</h4>
 <hr>
