@@ -1,5 +1,5 @@
 <div align="center">
- <h2>Hanyang Library📚</h2>
+ <h1>Hanyang Library📚</h1>
  아이티윌 자바 웹개발자 양성과정 133기<br>
  1조의 Final Project Organization
 </div>
