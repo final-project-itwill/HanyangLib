@@ -1,4 +1,4 @@
-<p class="text-center" style="text-align:center; font-weight:bold;">Hanyang Library📚</p>
+<p style="text-align:center; font-weight:bold; font-size:20px;">Hanyang Library📚</p>
 아이티윌 자바 웹개발자 양성과정 133기
 1조의 Final Project Organization
 <hr>
