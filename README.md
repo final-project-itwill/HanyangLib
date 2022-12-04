@@ -1,7 +1,8 @@
-<p style="text-align:center; font-weight:bold; font-size:20px;">Hanyang Library📚</p>
-아이티윌 자바 웹개발자 양성과정 133기
-1조의 Final Project Organization
-<hr>
+<div align="center">
+ <h2>Hanyang Library📚</h2>
+ 아이티윌 자바 웹개발자 양성과정 133기
+ 1조의 Final Project Organization
+</div>
 
 Logo ver.1
  - 급하게 대충 만든 로고
