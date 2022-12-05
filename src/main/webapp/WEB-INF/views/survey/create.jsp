@@ -18,16 +18,26 @@
 	<form name="fom1" method="post" enctype="multipart/form-data">
 	<div id="panel"></div>
 	
+
 	
 	
 <!-- 객관식  -->
 	<div class="container">
-		<label for="content">댓굴</label>
+		<label for="content"></label>
 		<form name="commentInsertForm" id="commentInsertForm">
 			<div>
 				<input type="hidden" name="pno" id="pno" value="${dsurvey.dsv_no}">
 				<input type="text" name="content" id="content" placeholder="내용을 입력해주세요">
-				<button type="button" name="commentInsertBtn" id="commentInsertBtn">등록</button>
+				<button type="button" name="commentInsertBtn" id="commentInsertBtn">등</button>
+				<select name="type" id="type">
+					<option>--선택--</option>
+					<option value="0">객관식</option>
+					<option value="1">체크박스</option>
+					<option value="2">주관식</option>
+					<option value="3">시간</option>
+					<option value="4">날짜</option>
+				</select> <br>
+				<div id="typetable"></div>
 			</div>
 		</form>
 	</div>
@@ -35,6 +45,8 @@
 	<div class="container">
 		<div class="commentList"></div>
 	</div>
+	<button id="btn">확인입니</button>
+	<div id="panel"></div>
 	
 	
 <!-- 퀵메뉴 -->
@@ -59,6 +71,17 @@
 	    $(".quickmenu").stop().animate({"top":position+currentPosition+"px"},1000);
 	  });
 	});
+  	
+  	
+  //문제 추가
+  $("#panel").click(function(){
+	  $.get("test", responseProc);
+  }); // click end
+  
+  function responseProc(result) {
+	  $("#panel").append(result);
+  }// responseProc() end
+
   </script>
 
 <!-- 본문작성 끝 -->
