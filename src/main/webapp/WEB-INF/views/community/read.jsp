@@ -12,7 +12,7 @@
 
 <div class="text-center">
     <img class="userphoto rounded-circle" src="../images/hanyanglogo.png" style="width: 30vh; position: absolute;">
-    <h4 style="text-align: center; font-weight: bold">커뮤니티명</h4>
+    <h1 style="text-align: center; font-weight: bold">커뮤니티명</h1>
 </div>
 
 <div class="container-fluid border-bottom">
@@ -23,7 +23,7 @@
             <div class="container-fluid" style="padding: 0 15vw 15vw 1vw">
                 <img src="../images/none.jpg" class="img-fluid img-thumbnail">
                 <div>
-                    <h3g style="text-align: center; font-weight: bold; margin-top: 5vh">커뮤니티 소개</h3g>
+                    <h3 style="text-align: center; font-weight: bold; margin-top: 5vh">커뮤니티 소개</h3>
                     <p style="margin-top: 5vh">얼마나 생생하며 그들의 눈에 무엇이 타오르고 있는가? 우리 눈이 그것을 보는 때에 우리의 귀는 생의 찬미를 하였으며 예수는 무엇을 위하여 광야에서 방황하였으며 공자는 무엇을 위하여 천하를 철환하였는가? 밥을 위하여서 옷을 위하여서 미인을 구하기 위하여서 그리하였는가? 아니다 그들은 커다란 이상 곧 만천하의 대중을 품에 안고 그들에게 밝은 길을 찾아 주며 그들을 행복스럽고 평화스러운 곳으로 인도하겠다는 커다란 이상을 품었기 때문이다</p>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                 <button type="submit">커뮤니티 신청하기</button><!-- 신청 버튼 end-->
             </div>
         </div><!-- 우측 bar end-->
-    </div>
+    </div><!-- row end-->
 
     <br><br>
 
@@ -97,9 +97,44 @@
     </div><!-- 커뮤니티 구성원 end-->
 
     <br><br><br><br><br><br>
+
     <!-- 커뮤니티 후기 (ajax 더보기) -->
-    <div class="container-fluid">
-        <h3 style="text-align: center; font-weight: bold">커뮤니티 후기</h3>
+    <div class="container-fluid text-center">
+        <h3 style="text-align: center; font-weight: bold; padding-bottom: 1vh">커뮤니티 후기</h3>
+        <p style="font-size: 18px; padding-bottom: 40px">방문해 주신 당신, 발자취를 남겨주세요!</p>
+
+
+        <!-- 후기 테이블 시작 -->
+        <div class="container-fluid col-lg-3 d-sm-none"></div>
+        <div class="container-fluid text-center col-lg-6 col-sm-12">
+            <table  style="">
+                <tr>
+                    <td colspan="3" style="text-align: right"><button type="submit">후기 남기기</button> </td>
+                </tr>
+                <tr>
+                    <td class="col-sm-2 col-md-2 col-lg-2"><img src="../images/user.png" style="width: 4vw"> </td>
+                    <td class="col-sm-8 col-md-8 col-lg-8">Message</td>
+                    <td class="col-sm-2 col-md-2 col-lg-2">★★★★☆</td>
+                </tr>
+                <tr>
+                    <td class="col-sm-2 col-md-2 col-lg-2"><img src="../images/user.png" style="width: 4vw"> </td>
+                    <td class="col-sm-8 col-md-8 col-lg-8">Message</td>
+                    <td class="col-sm-2 col-md-2 col-lg-2">★★★★☆</td>
+                </tr>
+                <tr>
+                    <td class="col-sm-2 col-md-2 col-lg-2"><img src="../images/user.png" style="width: 4vw"> </td>
+                    <td class="col-sm-8 col-md-8 col-lg-8">Message</td>
+                    <td class="col-sm-2 col-md-2 col-lg-2">★★★★☆</td>
+                </tr>
+                <tr></tr>
+                <tr></tr>
+                <tr>
+                    <td colspan="3"><a href="#">후기 더보기</a></td>
+                </tr>
+            </table>
+        </div>
+        <div class="container-fluid col-lg-3 d-sm-none"></div>
+        <!-- 후기 테이블 끝 -->
     </div><!-- 커뮤니티 후기 end -->
 
     <br><br><br>
