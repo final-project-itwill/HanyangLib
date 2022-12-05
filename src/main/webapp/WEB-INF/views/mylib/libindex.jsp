@@ -19,9 +19,7 @@
 				<table class="table">
 				<tr align="center">
 					<td valign="middle" style="line-height: 180%;">
-						<span style="font-weight: bold; font-size: 35px;">
-							<a class="text-black" href="/mylib/libindex/${lib_id}">${info.m_nick}</a>
-						</span><br>
+						<span style="font-weight: bold; font-size: 35px;">${info.m_nick}</span><br>
 						${lib_id}<br>
 					</td>
 				</tr>
@@ -66,33 +64,24 @@
 			<!-- 상세페이지 -->
 			<div class="lib-cont col-12 col-sm-9 col-lg-9">
 				<table class="table">
-				<!-- 서재 목록 시작 -->
-				<!-- 나의 서재에 책이 없을 경우 -->
-				<c:if test="${bookCount==0}">
+				<!-- 도서 목록 -->
 				<tr>
 					<td colspan="4">
 						<span style="font-weight: bold; font-size: 35px;">나의 서재 > </span>요즘 읽고 있는 책들이에요
 					</td>
 				</tr>
-				<tr><td colspan="4">서재에 책 없음</td></tr>
+				<c:if test="${bookCount==0}"> <!-- 전체 글 개수가 0일 때 : 글이 없을 때 -->
+					<tr><td colspan="4">서재에 책 없음</td></tr>
 				</c:if>
-				<!-- 나의 서재에 책이 있을 경우 -->
+					<tr class="col-12 col-xs-12 col-sm-4 col-lg-4">
 				<c:if test="${bookCount!=0}">
-				<tr>
-					<td colspan="4">
-						<span style="font-weight: bold; font-size: 35px;">
-							<a class="text-black" href="/mylib/myBooks/${lib_id}">나의 서재 > </a>
-						</span>요즘 읽고 있는 책들이에요
-					</td>
-				</tr>
-				<tr class="col-12 col-xs-12 col-sm-4 col-lg-4">
-				<c:forEach items="${libRead}" var="read" varStatus="vs">
+					<c:forEach items="${libRead}" var="read" varStatus="vs">
 					<c:choose>
 					<c:when test="${fn:length(libRead)==1}">
 					<td colspan="4">
 						<div style="text-align: center;">
 						<c:choose>
-							<c:when test="${read.b_bookcover != null}">
+							<c:when test="${read.b_bookcover == null}">
 								<div style="height: 150px; padding: 10px;">
 								<img src="/storage/${read.b_bookcover}" width="100px" align="middle">
 								</div>
@@ -102,9 +91,9 @@
 							</c:otherwise>
 						</c:choose>
 						<br>
-						책 제목 : <a class="text-black" href="detail/${read.b_code}">${read.b_name}</a>
+						책 제목 : <a href="detail/${read.b_code}">${read.b_name}</a>
 						<br>
-							진행도 : <fmt:formatNumber value="${read.lib_proc}" pattern="###"/>%
+ 						진행도 : <fmt:formatNumber value="${read.lib_proc}" pattern="###"/>%
 						</div>
 					</td>
 					</c:when>
@@ -112,10 +101,9 @@
 					<td>
 						<div style="text-align: center;">
 						<c:choose>
-							<c:when test="${read.b_bookcover != null}">
+							<c:when test="${read.b_bookcover == null}">
 								<div style="height: 150px; padding: 10px;">
 								<img src="/storage/${read.b_bookcover}" width="100px" align="middle">
-								${read.b_bookcover}
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -123,37 +111,29 @@
 							</c:otherwise>
 						</c:choose>
 						<br>
-						책 제목 : <a class="text-black" href="detail/${read.b_code}">${read.b_name}</a>
+						책 제목 : <a href="detail/${read.b_code}">${read.b_name}</a>
 						<br>
-							진행도 : <fmt:formatNumber value="${read.lib_proc}" pattern="###"/>%
+ 						진행도 : <fmt:formatNumber value="${read.lib_proc}" pattern="###"/>%
 						</div>
 					</td>
 					</c:otherwise>
-					</c:choose>
+				</c:choose>
 				</c:forEach>
-				</tr>
 				</c:if>
+				</tr>
 				<tr><td colspan="4"><br><br></td></tr>
-				<!-- 서재 목록 끝 -->
-				<!-- 커뮤니티 목록 시작 -->
-				<!-- 가입한 커뮤니티가 없을 때 -->
-				<c:if test="${fn:length(commuRead)==0}">
+				<!-- 커뮤니티 -->
 				<tr class="col-12 col-xs-12 col-sm-4 col-lg-4">
 					<td colspan="4">
 						<span style="font-weight: bold; font-size: 35px;">나의 커뮤니티 활동 > </span>최근에 활동한 커뮤니티들이에요
 					</td>
 				</tr>
+					<!-- 가입한 커뮤니티가 없을 때 -->
+				<c:if test="${fn:length(commuRead)==0}">
 				<tr><td colspan="4">오 이런, 가입한 커뮤니티가 없군요!</td></tr>
 				</c:if>
-				<!-- 가입한 커뮤니티가 있을 때 -->
+					<!-- 가입한 커뮤니티가 있을 때 -->
 				<c:if test="${fn:length(commuRead)!=0}">
-				<tr class="col-12 col-xs-12 col-sm-4 col-lg-4">
-					<td colspan="4">
-						<span style="font-weight: bold; font-size: 35px;">
-							<a class="text-black" href="/mylib/myComm/${lib_id}">나의 커뮤니티 활동 > </a>
-						</span>최근에 활동한 커뮤니티들이에요
-					</td>
-				</tr>
 				<tr class="col-12 col-xs-12 col-sm-4 col-lg-4" style="text-align: center;">
 					<td colspan="2">커뮤니티 이름</td>
 					<td>상태</td>
@@ -161,33 +141,25 @@
 				</tr>
 				<c:forEach items="${commuRead}" var="commu">
 				<tr style="text-align: center;">
-					<td colspan="2"><a class="text-black" href="#">${commu.c_name}</a></td>
+					<td colspan="2"><a href="#">${commu.c_name}</a></td>
 					<td>${commu.c_state}</td>
 					<td>${commu.ac_manjok}</td>
 				</tr>
 				</c:forEach>
 				</c:if>
 				<tr><td colspan="4"><br><br></td></tr>
-				<!-- 커뮤니티 목록 끝 -->
-				<!-- 서평 목록 시작 -->
-				<!-- 작성한 서평이 없을 때 -->
-				<c:if test="${fn:length(review)==0}">
+				<!-- 서평 -->
 				<tr class="col-12 col-xs-12 col-sm-4 col-lg-4">
 					<td colspan="4">
 						<span style="font-weight: bold; font-size: 35px;">나의 서평 > </span>읽기만 하지 않고 쓰기도 하는 당신
 					</td>
 				</tr>
+					<!-- 작성한 서평이 없을 때 -->
+				<c:if test="${fn:length(review)==0}">
 				<tr><td colspan="4">오 이런, 서평을 작성하지 않았군요!</td></tr>
 				</c:if>
-				<!-- 작성한 서평이 있을 때 -->
+					<!-- 작성한 서평이 있을 때 -->
 				<c:if test="${fn:length(review)!=0}">
-				<tr>
-					<td colspan="4">
-						<span style="font-weight: bold; font-size: 35px;">
-							<a class="text-black" href="/mylib/myReview/${lib_id}">나의 서평 ></a> 
-						</span>읽기만 하지 않고 쓰기도 하는 당신
-					</td>
-				</tr>
 				<tr class="col-12 col-xs-12 col-sm-4 col-lg-4" style="text-align: center;">
 					<td>제목</td>
 					<td>책 이름</td>
@@ -215,7 +187,7 @@
 				    <label for="content">방명록</label>
 				    <form name="visitorInsertForm" id="visitorInsertForm">
 				    <div>
-				        <input type="hidden" name="vis_pid" id="vis_pid" value="${lib_id}">
+				        <input type="hidden" name="lib_id" id="lib_id" value="${lib_id}">
 				        <input type="text" name="content" id="content" placeholder="내용을 입력하세요">
 				        <button type="button" name="visitorInsertBtn" id="visitorInsertBtn">등록</button>
 				    </div>
@@ -228,13 +200,11 @@
 				
 				<!-- 방명록 관련 자바스크립트 -->
 				<script>
-				    let vis_pid='${lib_id}';
-				    /* 임의로 아이디 배정, 로그인 후 세션 값으로 받아오기 */
-				    let loginId='cloudd81';
+				    let lib_id='${lib_id}';
 				
 				    $('#visitorInsertBtn').click(function(){
 				        let insertData = $('#visitorInsertForm').serialize();
-				        //alert(insertData);
+				        alert(insertData);
 				        visitorInsert(insertData);
 				    }); // click() end
 				
@@ -247,85 +217,45 @@
 				            ,success:function(data){
 				                if(data==1){
 				                    visitorList(); // 댓글 작성 후 댓글 목록 함수 호출
-				                    $('#content').val('');
+				                    $('#vis_content').val('');
 				                } // if end
 				            } // success end
 				        }); // ajax() end
 				    }; // commentInsert() end
-				    // 여기까지 성공
 				    
 				    // 방명록 목록
 				    function visitorList(){
 				        $.ajax({
 				             url:"/mylib/vslist"
 				            ,type:"get"
-				            ,data:{'vis_pid':vis_pid}
+				            ,data:{'lib_no':lib_no}
 				            ,success:function(data){
-				                //alert(data);
+				                // alert(data);
 				                let a = "";
 				                $.each(data, function(key, value){
 				                    a += "<div class='visitorArea' style='border-bottm:1px solid darkgray; margin-bottom:15px;'>";
 				                    a += "	<div class='visitorInfo" + value.vis_no + "'>";
 				                    a += "		댓글번호 : " + value.vis_no + " / 작성자 : " + value.vis_myid + " " + value.vis_rdate;
-									if(value.vis_myid == loginId || value.vis_myid == 'webmaster'){
 				                    a += "		<a href='javascript:visitorUpdate(" + value.vis_no + ", \"" + value.vis_content + "\");'>수정</a>";
 				                    a += "		<a href='javascript:visitorDelete(" + value.vis_no + ");'>삭제</a>";
-				                	};
 				                    a += "	</div>";
-				                    a += "	<div class='visitorContent" + value.vis_no + "'>";
+				                    a += "	<div class='commentContent" + value.vis_no + "'>";
 				                    a += "		<p>내용 : " + value.vis_content + "</p>";
 				                    a += "	</div>";
 				                    a += "</div>";
-				                    //alert(a);
+				                    // alert(a);
 				                }); // each end
 
 				                $(".visitorList").html(a);
 				            } // success end
 				        }); // ajax() end
-				    } // visitorList() end
+				    } // commentList() end
 
 				    // 페이지 로딩 시 댓글 목록 출력시키기
 				    $(document).ready(function(){
-				    	visitorList();
+				        commentList();
 				    }); // ready() end
 				    
-				    // 방명록 수정하기
-				    function visitorUpdate(vis_no, vis_content) {
-					    let a = "";
-					    a += "<div class='input-group'>";
-					    // a += "	<input type='text' name='content_" + cno + "' value='" + content + "'>";
-					    a += "	<input type='text' id='content_" + vis_no + "' value='" + vis_content + "'>";
-					    a += "	<button type='button' onclick='visitorUpdateProc(" + vis_no + ")'>수정</button>";
-					    a += "</div>";
-					
-					    $(".visitorContent" + vis_no).html(a);
-					} // visitorUpdate() end 
-					
-					// 방명록 수정
-					function visitorUpdateProc(vis_no) {
-					    // let updateContent = $('[name=content_' + cno + ']').val();
-					    let updateContent = $('#content_' + vis_no).val();
-					
-					    $.ajax({
-					        url:"/mylib/vsupdate"
-					        ,type:"post"
-					        ,data:{'content':updateContent, 'vis_no':vis_no}
-					        ,success:function(data){
-					            if(data==1) visitorList();
-					        }
-					    }); // ajax() end
-					} // visitorUpdateProc() end
-					
-					// 방명록 삭제
-					function visitorDelete(vis_no){
-					    $.ajax({
-					        url:"/mylib/delete/"+vis_no
-					        ,type:"post"
-					        ,success:function(data){
-					            if(data==1) {visitorList()};
-					        }
-					    }); // ajax() end
-					} // visitorDelete() end
 				</script>
 
 			</div>

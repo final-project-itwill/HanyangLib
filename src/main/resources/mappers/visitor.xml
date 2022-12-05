@@ -5,7 +5,7 @@
 	<insert id="insert" parameterType="kr.co.itwill.mylib.VisitorDTO">
 	    <![CDATA[
 	    INSERT INTO visitor( vis_pid, vis_myid, vis_content )
-	    VALUES ( #{vis_pid}, #{vis_myid}, #{vis_content} )
+	    VALUES ( #{lib_id}, #{vis_myid}, #{vis_content} )
 	    ]]>	    
 	</insert>
 	
@@ -13,24 +13,9 @@
 		<![CDATA[
 		SELECT vis_no, vis_pid, vis_myid, vis_content, vis_rdate
 		FROM visitor
-		WHERE vis_pid = #{vis_pid}
+		WHERE vis_pid = #{lib_id}
 		]]>	
 	</select>
-	
-	<update id="update" parameterType="kr.co.itwill.mylib.VisitorDTO">
-		<![CDATA[
-		UPDATE visitor
-		SET vis_content = #{vis_content}
-		WHERE vis_no = #{vis_no}
-		]]>
-	</update>
-	
-	<delete id="delete" parameterType="int">
-		<![CDATA[
-		DELETE FROM visitor
-		WHERE vis_no = #{vis_no}
-		]]>
-	</delete>
 
 
 </mapper>
