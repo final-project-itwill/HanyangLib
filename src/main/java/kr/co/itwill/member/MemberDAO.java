@@ -22,9 +22,13 @@ public class MemberDAO {
 		sqlSession.insert("member.insert", map);
 	}//insert() end
 	
-	public List<Map<String, Object>>  duplecateEmail(String email){
-		return sqlSession.selectList("member.select",email);
+	public List<Map<String, Object>>  emailCheck(String m_email){
+		return sqlSession.selectList("member.emailCheck",m_email);
 	}//select() end
+	
+	public List<Map<String, Object>> idcheck(String m_id){
+		return sqlSession.selectList("member.idcheck",m_id);
+	}//idcheck() end
 	
 	
 }//class end
