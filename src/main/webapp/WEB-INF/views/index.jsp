@@ -21,7 +21,7 @@
 	<link rel="stylesheet" href="css/aos.css">
 	<link rel="stylesheet" href="css/style.css">
 	<script src="js/jquery-3.5.1.min.js"></script>
-    <scipipt src="/js/jquery.cookie.js"></scipipt>
+    <script src="/js/jquery.cookie.js"></script>
 	<title>&#128218 한양서재</title>
 </head>
 <body>
