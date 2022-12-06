@@ -34,8 +34,8 @@
 
     <div style="text-align: center">
         글 수 : ${fn:length(list)}
-        <form method="post" action="search">
-            <input type="text" name="n_search" value="${keyword}" placeholder="공지사항에서 검색하기">
+        <form name="keyword" method="post" action="search">
+            <input type="text" id="keyword" name="keyword" value="${keyword}" placeholder="공지사항에서 검색하기">
             <input type="submit" value="검색">
         </form>
     </div>
