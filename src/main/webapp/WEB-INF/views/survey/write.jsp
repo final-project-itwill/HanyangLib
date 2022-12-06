@@ -1,16 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%@ include file="../header.jsp"%>
-
 <%@ taglib prefix="c"	uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt"	uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn"	uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ include file="../header.jsp"%>
 
-
-<script src="/js/jquery-3.5.1.min.js"></script>
-
-<!--이미 -->
+<!-- 상단 배너 -->
 	<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/libbg.jpg'); height: 40vh;"></div>
 
 
@@ -22,91 +17,154 @@
 	<br>
 		<div>
 		<h3> 신청서 작성 </h3>
-		<form name="answer" id="answer" method="post" action="answer"  enctype="multipart/form-data">
-		
+		<form name="answer" id="answer" method="post" action="answer">
+		<!-- 파일 첨부는 하지 않기 때문에 enctype="multipart/form-data"는 필요 없어유 -->
+		<input type="hidden" id="dsv_code" name="dsv_code" value="${dsv_code}">
 		<table class="table">
-		
-		
 		<!-- 주관식 반복 -->
-		<c:forEach var="row" items="${detail}" varStatus="vs">
+		<c:forEach items="${title}" var="title" varStatus="tvs">
+		<!-- 순서코드 만들기(od01, od02) -->
+		<c:if test="${tvs.count<10}">
+			<c:set var="orderno" value="od0${tvs.count}"></c:set>
+		</c:if>
+		<c:if test="${tvs.count>=10}">
+			<c:set var="orderno" value="od${tvs.count}"></c:set>
+		</c:if>
+		${orderno}
+		<tr>
+			<td style="font-weight: bold;">${title.dsv_subject}</td>
+		</tr>
 		<tr>
 			<c:choose>
-					<c:when test="${row.dsv_subject != '-'}">
-					<td>${row.dsv_subject}
-					
-					<c:choose>
-						<c:when test="${row.dsv_type eq 'ju'}"><br>
-						<c:forEach var="var" items="${details}" varStatus="vs">
-							<c:choose>
-							<c:when test="${ row.dsv_order eq var.ch_order}">
-								<input type="text" id="${var.ch_no}" name="${var.ch_order}" value="${var.ch_content}">
+						<c:when test="${title.dsv_type eq 'ju'}">
+						<td>
+						<c:forEach items="${choice}" var="choice">
+						<c:choose>
+							<c:when test="${title.dsv_order eq choice.ch_order}">
+								<!-- 주관식 답변 코드 만들기 -->
+								<c:set var="j" value="${j+1}"/>
+								<c:if test="${j<10}">
+									<c:set var="anscodeno" value="ju0${j}"></c:set>
+								</c:if>
+								<c:if test="${j>=10}">
+									<c:set var="anscodeno" value="ju${j}"></c:set>
+								</c:if>
+								${anscodeno}
+								<input type="text" id="${orderno}" name="${orderno}">
 							</c:when>
-							</c:choose>						
+						</c:choose>
 						</c:forEach>
+						</td>
 						</c:when>
 						
-						<c:when test="${row.dsv_type eq 'gaek' or 'etc'}"><br>
-						<c:forEach var="var" items="${details}" varStatus="vs">
+						<c:when test="${title.dsv_type eq 'gaek' or 'etc'}">
+						<td>
+						<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
-							<c:when test="${ row.dsv_order eq var.ch_order}">
-								<input type="radio" id="${var.ch_no}" name="${var.ch_order}" value="${var.ch_content}"><label for="${var.ch_order}">${var.ch_content}</label>
+							<c:when test="${title.dsv_order eq choice.ch_order}">
+								<!-- 객관식 답변 코드 만들기 -->
+								<c:set var="g" value="${g+1}"/>
+								<c:if test="${g<10}">
+									<c:set var="anscodeno" value="g0${g}"></c:set>
+								</c:if>
+								<c:if test="${g>=10}">
+									<c:set var="anscodeno" value="g${g}"></c:set>
+								</c:if>
+								${anscodeno}
+								<input type="radio" id="${choice.ch_no}" name="${choice.ch_order}"><label for="${choice.ch_order}">${choice.ch_content}</label>
 							</c:when>
 							</c:choose>
 						</c:forEach>
+						</td>
 						</c:when>
 						
-						<c:when test="${row.dsv_type eq 'check' or 'etc' }"><br>
-						<c:forEach var="var" items="${details}" varStatus="vs">
+						<c:when test="${title.dsv_type eq 'check' or 'etc' }">
+						<td>
+						<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
-							<c:when test="${ row.dsv_order eq var.ch_order}">
-								<input type="checkbox" id="${var.ch_no}" name="${var.ch_order}" value="${var.ch_content}"><label for="${var.ch_order}">${var.ch_content}</label>
+							<c:when test="${title.dsv_order eq choice.ch_order}">
+								<!-- 체크박스 답변 코드 만들기 -->
+								<c:set var="c" value="${c+1}"/>
+								<c:if test="${c<10}">
+									<c:set var="anscodeno" value="c0${c}"></c:set>
+								</c:if>
+								<c:if test="${c>=10}">
+									<c:set var="anscodeno" value="c${c}"></c:set>
+								</c:if>
+								${anscodeno}
+								<input type="checkbox" id="${choice.ch_no}" name="${choice.ch_order}" value="${choice.ch_content}"><label for="${choice.ch_order}">${choice.ch_content}</label>
 							</c:when>
 							</c:choose>
-						</c:forEach>						
+						</c:forEach>
+						</td>						
 						</c:when>
 						
-						<c:when test="${row.dsv_type eq 'drop' or 'etc'}"><br>
+						<c:when test="${title.dsv_type eq 'drop' or 'etc'}">
+						<td>
 						<select>
-						<c:forEach var="var" items="${details}" varStatus="vs">
+						<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
-							<c:when test="${ row.dsv_order eq var.ch_order}">
-								<option id="${var.ch_no}" name="${var.ch_order}" value="${var.ch_content}">${var.ch_content}</option>
+							<c:when test="${title.dsv_order eq choice.ch_order}">
+								<!-- 드롭박스 답변 코드 만들기 -->
+								<c:set var="d" value="${d+1}"/>
+								<c:if test="${d<10}">
+									<c:set var="anscodeno" value="d0${d}"></c:set>
+								</c:if>
+								<c:if test="${d>=10}">
+									<c:set var="anscodeno" value="d${d}"></c:set>
+								</c:if>
+								${anscodeno}
+								<option id="${choice.ch_no}" name="${choice.ch_order}" value="${choice.ch_content}">${choice.ch_content}</option>
 							</c:when>
 							</c:choose>
 						</c:forEach>
 						</select>
+						</td>
 						</c:when>
 						
-						<c:when test="${row.dsv_type eq 'schedule' }"><br>
-							<c:forEach var="var" items="${details}" varStatus="vs">
+						<c:when test="${title.dsv_type eq 'schedule' }">
+						<td>
+							<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
-							<c:when test="${ row.dsv_order eq var.ch_order}">
-								<input type="date" id="${var.cho_no}" name="${var.ch_order}" value="${var.ch_content}">
+							<c:when test="${title.dsv_order eq choice.ch_order}">
+								<!-- 달력 답변 코드 만들기 -->
+								<c:set var="s" value="${s+1}"/>
+								<c:if test="${s<10}">
+									<c:set var="anscodeno" value="s0${s}"></c:set>
+								</c:if>
+								<c:if test="${s>=10}">
+									<c:set var="anscodeno" value="s${s}"></c:set>
+								</c:if>
+								${anscodeno}
+								<input type="date" id="${choice.ch_no}" name="${choice.ch_order}" value="${choice.ch_content}">
 							</c:when>
 							</c:choose>
 							</c:forEach>
+						</td>
 						</c:when>
 						
-						<c:when test="${row.dsv_type eq 'time' }"><br>
-							<c:forEach var="var" items="${details}" varStatus="vs">
+						<c:when test="${title.dsv_type eq 'time' }">
+						<td>
+							<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
-							<c:when test="${ row.dsv_order eq var.ch_order}">											
-								<input type="time" id="${var.ch_no}" name="${var.ch_order}" value="${var.ch_content}">
+							<c:when test="${title.dsv_order eq choice.ch_order}">
+								<!-- 시간 답변 코드 만들기 -->
+								<c:set var="t" value="${t+1}"/>
+								<c:if test="${t<10}">
+									<c:set var="anscodeno" value="t0${t}"></c:set>
+								</c:if>
+								<c:if test="${t>=10}">
+									<c:set var="anscodeno" value="t${t}"></c:set>
+								</c:if>
+								${anscodeno}											
+								<input type="time" id="${choice.ch_no}" name="${choice.ch_order}" value="${choice.ch_content}">
 							</c:when>
 							</c:choose>
 							</c:forEach>
+						</td>
 						</c:when>
 					</c:choose>	
-
-					</td>
-					</c:when>
-			</c:choose>
-
 		</tr>
-		
-		<!-- 보기 5개씩 보이게 만들] -->
-		<c:if test="${vs.count mod 5==0}"></c:if>
-				
 		</c:forEach> 
 
 		

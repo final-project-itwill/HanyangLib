@@ -9,7 +9,6 @@
     <meta name="robots" content="noindex">
     <!-- 구글 검색엔진 웹 크롤러만 차단 -->
     <meta name="googlebot" content="noindex">
-    <link rel="shortcut icon" href="favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/owl.carousel.min.css">
@@ -21,7 +20,7 @@
     <link rel="stylesheet" href="/css/aos.css">
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/jquery-3.5.1.min.js"></script>
-    <script src="/js/jquery.cookie.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <title>&#128218 한양서재</title>
 </head>
 <body>

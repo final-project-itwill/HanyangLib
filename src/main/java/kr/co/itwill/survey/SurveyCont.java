@@ -40,27 +40,27 @@ public class SurveyCont {
 	return mav;
 	} // home () end
 	
-	@RequestMapping("/write/{sv_code}")
-	public ModelAndView write(@PathVariable String sv_code) {
+	@RequestMapping("/write/{dsv_code}")
+	public ModelAndView write(@PathVariable String dsv_code) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/survey/write");
-		mav.addObject("detail", surveyDAO.detail(sv_code));
-		mav.addObject("details", surveyDAO.details(sv_code));
+		mav.addObject("title", surveyDAO.svTitle(dsv_code));
+		mav.addObject("choice", surveyDAO.svChoice(dsv_code));
+		mav.addObject("dsv_code", dsv_code);
 		return mav;
 	}// write() end
 	
-	@RequestMapping(value = "/write/{sv_code}", method = RequestMethod.POST)
-	public String insert(@ModelAttribute AnswerDTO dto) {
+	@ResponseBody
+	@RequestMapping(value = "/answer", method = RequestMethod.POST)
+	private String insert(@PathVariable String dsv_code) {
 		AnswerDTO answer = new AnswerDTO();
-		answer.setAns_anscode(dto.getAns_anscode());
-		answer.setAns_code(dto.getAns_code());
-		answer.setAns_content(dto.getAns_content());
-		answer.setAns_dsvno(dto.getAns_dsvno());
-		answer.setAns_order(dto.getAns_order());
-		answer.setAns_id("mimimi05"); // 나중에 session변수를
-		
-		surveyDAO.insert(answer);
-		
+		answer.setAns_code(dsv_code);	// 설문지 코드 글 번호
+		answer.setAns_dsvno(1);			// 질문 번호(부모 글번호)
+		answer.setAns_order("od01");		// 순서 코드(ex: od01)
+		answer.setAns_anscode("g03");		// 답변 코드(ex: g01)
+		answer.setAns_id("mimimi05");	// 지금은 임의 배정
+		answer.setAns_content("");
+		surveyDAO.insert(answer);		
 		return "redirect:/survey/write";
 	}// insert() end
 	
