@@ -19,7 +19,7 @@ public class CrawlingCon {
 
 	//교보문고 소설 주간베스트 페이지 책제목 크롤링
 
-	try {
+	/*try {
 		
 			String URL = "http://www.yes24.com/24/Category/More/001001046";
 			String params = "?ElemNo=104";	
@@ -297,6 +297,6 @@ System.out.println("============================================================
 		
 		}//end
 	
-	
+*/	
 	
 }}
