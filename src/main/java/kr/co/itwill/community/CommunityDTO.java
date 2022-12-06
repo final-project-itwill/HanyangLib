@@ -1,5 +1,6 @@
 package kr.co.itwill.community;
 
+
 import lombok.Data;
 
 @Data
