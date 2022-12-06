@@ -36,12 +36,12 @@ body {
     visibility: visible; }
 
 a {
-  color: #e84545;
+  color: black;
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
   transition: .3s all ease; }
   a:hover {
-    color: #e84545;
+    color: gray;
     text-decoration: none; }
 
 h1, h2, h3, h4, h5 {
@@ -1448,7 +1448,6 @@ div, ul, li {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizi
     color: rgba(0, 0, 0, 0.4); }
 
 .section-latest {
-  padding-top: 100px;
   padding-bottom: 100px !important; }
 
 .floating-block {
