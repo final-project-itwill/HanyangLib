@@ -16,7 +16,7 @@
 <!-- 본문작성 시작 -->	
 	<div class="container" style="margin-top :70px;"></div>
 	<form name="fom1" method="post" enctype="multipart/form-data">
-	<div id="panel"></div>
+
 	
 
 	
@@ -30,29 +30,34 @@
 				<input type="text" name="content" id="content" placeholder="내용을 입력해주세요">
 				<button type="button" name="commentInsertBtn" id="commentInsertBtn">등</button>
 				<select name="type" id="type">
-					<option>--선택--</option>
-					<option value="0">객관식</option>
-					<option value="1">체크박스</option>
-					<option value="2">주관식</option>
-					<option value="3">시간</option>
-					<option value="4">날짜</option>
+					<option value="gaek">객관식</option>
+					<option value="check">체크박스</option>
+					<option value="ju">주관식</option>
+					<option value="time">시간</option>
+					<option value="schedule">날짜</option>
 				</select> <br>
-				<div id="typetable"></div>
+				<div id="typetable">
+				
+				</div>
 			</div>
 		</form>
 	</div>
 	<hr>
 	<div class="container">
 		<div class="commentList"></div>
-	</div>
-	<button id="btn">확인입니</button>
-	<div id="panel"></div>
+		
+	</div>	
+
+    <div class="buttons">            
+       <input type="text" name="txt"> <input type="button" class="btnAdd" value="Add"><br>        
+    </div> 
+
 	
 	
 <!-- 퀵메뉴 -->
 <div class="quickmenu">
   <ul>
-    <li><button id="btn_1">문항 생성</button></li>
+    <li><button id="btn_1" class="btnAdd">문항 생성</button></li>
     <li><button id="btn_2" type="submit">설문지 생성</button></li>
     <li><button id="btn_3" type="reset">설문지 삭제</button></li>
   </ul>
@@ -71,17 +76,43 @@
 	    $(".quickmenu").stop().animate({"top":position+currentPosition+"px"},1000);
 	  });
 	});
-  	
-  	
-  //문제 추가
-  $("#panel").click(function(){
-	  $.get("test", responseProc);
-  }); // click end
-  
-  function responseProc(result) {
-	  $("#panel").append(result);
-  }// responseProc() end
 
+  /////////////////// AJAX
+  
+	  $(document).ready (function () {                
+	      $('.btnAdd').click (function () {                                        
+	          $('.buttons').append (                        
+	              '<input type="text" name="txt"> <input type="button" class="btnRemove" value="Remove"><br>'                    
+	          ); // end append                            
+	          $('.btnRemove').on('click', function () { 
+	              $(this).prev().remove (); // remove the textbox
+	              $(this).next ().remove (); // remove the <br>
+	              $(this).remove (); // remove the button
+	          });
+	      }); // end click                                            
+	  }); // end ready     
+	  
+	  
+	  
+	   	$("#type").change(function(){
+	   		//alert($(this).val());
+	   		$.post(
+	   				 "booksend.do"
+	   				,"book=" + $(this).val()
+	   				, responseProc
+	   				);
+	   	}); // change() end
+	   	
+	   	function responseProc(result) {
+	   		$("#display").append (
+	   				'<input type="text" name="txt"> <input type="button" class="btnRemove1" value="Remove1"><br>'
+	   			); // end append
+	   			$('.btnRemove1').on('click', function () {
+	   				$(this).prev().remove (); // remove the textbox
+	   				$(this).next().remove (); // remove the <br>
+	   				$(this).remove (); // remove the button
+	   			});
+	   	}// responseProc() end
   </script>
 
 <!-- 본문작성 끝 -->

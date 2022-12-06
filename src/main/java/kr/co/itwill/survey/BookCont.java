@@ -19,15 +19,14 @@ public class BookCont {
 		return "survey/bookTest";
 	}// bookTest() end
 	
-	@RequestMapping("/booksend.do")
+	@RequestMapping("/title.do")
 	@ResponseBody
 	public String bookSend(HttpServletRequest req) {
 		// 요청한 정보 가져오기
-		int bookIndex=Integer.parseInt(req.getParameter("book"));
+		int titleIndex=Integer.parseInt(req.getParameter("title"));
 
-		String img[] = {"book_1.jpg", "book_2.jpg", "book_2.jpg", "book_3.jpg", "book_4.jpg"};
-		
-		return img[bookIndex]; // 응답메세
+		String title[] = {"gaek", "ju", "check", "time", "date"};
+		return title[titleIndex]; // 응답메세
 	}// bookSend() end
 	
 	
