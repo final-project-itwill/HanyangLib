@@ -30,6 +30,8 @@ public class SurveyDAO {
 	public List<Map<String,  Object>> details(String sv_code) {
 		return sqlSession.selectList("survey.details", sv_code);
 	}// detail2() end	
-	
+	public int insert(AnswerDTO answer) {
+		return sqlSession.insert("survey.insert", answer);
+	}
 	
 }// class end

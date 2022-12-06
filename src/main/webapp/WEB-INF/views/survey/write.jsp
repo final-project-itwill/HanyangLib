@@ -14,8 +14,6 @@
 	<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/libbg.jpg'); height: 40vh;"></div>
 
 
-
-
 <!-- 본문작성 시작 -->	
 	<div class="container" style="margin-top :70px;">
 	<p>
@@ -24,8 +22,10 @@
 	<br>
 		<div>
 		<h3> 신청서 작성 </h3>
-		<form name="survey" method="post" action="" enctype="multipart/form-data">
+		<form name="answer" id="answer" method="post" action="answer"  enctype="multipart/form-data">
+		
 		<table class="table">
+		
 		
 		<!-- 주관식 반복 -->
 		<c:forEach var="row" items="${detail}" varStatus="vs">
@@ -39,7 +39,7 @@
 						<c:forEach var="var" items="${details}" varStatus="vs">
 							<c:choose>
 							<c:when test="${ row.dsv_order eq var.ch_order}">
-								<input type="text" id="${var.ch_no}" name="${var.ch_order}">
+								<input type="text" id="${var.ch_no}" name="${var.ch_order}" value="${var.ch_content}">
 							</c:when>
 							</c:choose>						
 						</c:forEach>
@@ -49,7 +49,7 @@
 						<c:forEach var="var" items="${details}" varStatus="vs">
 							<c:choose>
 							<c:when test="${ row.dsv_order eq var.ch_order}">
-								<input type="radio" id="${var.ch_no}" name="${var.ch_order}" value="${var.ch_order}"><label for="${var.ch_order}">${var.ch_content}</label>
+								<input type="radio" id="${var.ch_no}" name="${var.ch_order}" value="${var.ch_content}"><label for="${var.ch_order}">${var.ch_content}</label>
 							</c:when>
 							</c:choose>
 						</c:forEach>
@@ -59,7 +59,7 @@
 						<c:forEach var="var" items="${details}" varStatus="vs">
 							<c:choose>
 							<c:when test="${ row.dsv_order eq var.ch_order}">
-								<input type="checkbox" id="${var.ch_no}" name="${var.ch_order}" value="${var.ch_order}"><label for="${var.ch_order}">${var.ch_content}</label>
+								<input type="checkbox" id="${var.ch_no}" name="${var.ch_order}" value="${var.ch_content}"><label for="${var.ch_order}">${var.ch_content}</label>
 							</c:when>
 							</c:choose>
 						</c:forEach>						
@@ -70,7 +70,7 @@
 						<c:forEach var="var" items="${details}" varStatus="vs">
 							<c:choose>
 							<c:when test="${ row.dsv_order eq var.ch_order}">
-								<option id="${var.ch_no}" name="${var.ch_order}" value="${var.ch_order}">${var.ch_content}</option>
+								<option id="${var.ch_no}" name="${var.ch_order}" value="${var.ch_content}">${var.ch_content}</option>
 							</c:when>
 							</c:choose>
 						</c:forEach>
@@ -81,7 +81,7 @@
 							<c:forEach var="var" items="${details}" varStatus="vs">
 							<c:choose>
 							<c:when test="${ row.dsv_order eq var.ch_order}">
-								<input type="date">
+								<input type="date" id="${var.cho_no}" name="${var.ch_order}" value="${var.ch_content}">
 							</c:when>
 							</c:choose>
 							</c:forEach>
@@ -91,7 +91,7 @@
 							<c:forEach var="var" items="${details}" varStatus="vs">
 							<c:choose>
 							<c:when test="${ row.dsv_order eq var.ch_order}">											
-								<input type="time">
+								<input type="time" id="${var.ch_no}" name="${var.ch_order}" value="${var.ch_content}">
 							</c:when>
 							</c:choose>
 							</c:forEach>
@@ -113,8 +113,8 @@
 <!-- 설문 End -->
 		<tr>
 		    <td colspan="2" align="center">
-		       <input type="submit" value="쓰기" class="btn btn-success">
-		       <input type="reset"  value="취소" class="btn btn-danger">
+		    	<input type="submit" value="설문등록">
+		    	<input type="reset" value="취소">
 		    </td>
 		</tr>    
 		</table>
@@ -122,6 +122,11 @@
 		</form>
 		</div>
 	</div>
+	
+	
+	<script >
+		
+	</script>
 
    
 <!-- 본문작성 끝 -->

@@ -24,7 +24,7 @@
 	<br>
 		<div>
 		<h3> 신청서 작성 </h3>
-		<form name="survey" method="post" action="" enctype="multipart/form-data">
+		<form name="survey" method="post" action="../answer" enctype="multipart/form-data">
 		<table class="table">
 		
 		<!-- 주관식 반복 -->
