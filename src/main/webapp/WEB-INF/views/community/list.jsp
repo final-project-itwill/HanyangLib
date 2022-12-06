@@ -3,6 +3,8 @@
 
 <%@ include file="../header.jsp"%>
 <!-- 본문작성 시작 list.jsp -->
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <div class="hero-slant overlay" style="background-image: url('../images/galaxy.jpeg'); height: 50vh;">
     <div class="container">
@@ -35,8 +37,8 @@
         <div class="col-lg-3"></div>
 
         <div class="col-lg-6" style="margin-right: 0">
-        <form class=" text-right">
-            <input type="text" style="height: 5vh; width: 40vh" placeholder="커뮤니티 찾아보기">
+        <form class=" text-right" name="keyword" action="search" method="post">
+            <input type="text" name="keyword" style="height: 5vh; width: 40vh" value="${keyword}" placeholder="커뮤니티 찾아보기">
             <input type="submit" class="btn-dark" value="검색">
         </form>
         </div>
@@ -46,27 +48,29 @@
     <table class="table table-hover">
         <thead>
         <tr class="active">
-            <th>No.</th>
             <th>커뮤니티 이름</th>
-            <th>뭘 넣을까?</th>
+            <th>책</th>
+            <th>모집상태</th>
+            <th>등록일</th>
         </tr>
         </thead>
         <tbody>
+
+        <c:forEach var="dto" items="${list}">
         <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
+            <td><a href="read">${dto.c_name}</a></td>
+                <td>${dto.b_name}</td>
+                <td>
+                    <c:choose>
+                        <c:when test="${dto.c_state == 'i'}">모집중</c:when>
+                        <c:when test="${dto.c_state == 'd'}">모집완료</c:when>
+                        <c:when test="${dto.c_state == 'e'}">활동완료</c:when>
+                    </c:choose>
+                </td>
+                <td>${dto.c_rdate}</td>
         </tr>
-        <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>mary@example.com</td>
-        </tr>
-        <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>july@example.com</td>
-        </tr>
+        </c:forEach>
+
         </tbody>
     </table>
 

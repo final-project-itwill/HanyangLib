@@ -52,6 +52,7 @@ public class NoticeCont {
     public ModelAndView search(@RequestParam(defaultValue = "") String keyword){
         ModelAndView mav = new ModelAndView();
         mav.setViewName("notice/list");
+        mav.addObject("keyword", keyword);
         mav.addObject("list", noticeDao.search(keyword));
         return mav;
     }//search() end
