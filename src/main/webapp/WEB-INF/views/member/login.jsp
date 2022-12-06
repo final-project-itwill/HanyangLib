@@ -12,7 +12,7 @@
 
     if(id.equals(password)){
         // ID와 암호가 같으면 로그인에 성공한 것으로 판단
-        response.addCookie(Cookie.createCookie("AUTH", id, "/", -1));
+        // response.addCookie(Cookie.createCookie("AUTH", id, "/", -1));
 %>
 
 로그인에 성공했습니다.
