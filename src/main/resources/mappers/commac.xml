@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="commac">
+
+    <insert id="insert">
+        INSERT INTO community_ac( ac_id ,ac_ccode ,ac_cname ,ac_manjok ,ac_review )
+        VALUES (#{ac_id}, #{ac_ccode}, #{ac_cname}, #{ac_manjok}, #{ac_review})
+    </insert>
+
+
+    <select id="list" resultType="kr.co.itwill.community.CommacDTO" parameterType="String">
+        SELECT ac_no, ac_id ,ac_ccode ,ac_cname ,ac_manjok ,ac_review, ac_rdate
+        FROM community_ac
+        WHERE ac_ccode = #{ac_ccode}
+    </select>
+
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM community_ac
+        WHERE ac_no = #{ac_no}
+    </delete>
+
+</mapper>

@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -41,7 +40,7 @@
                     <table class="table" style="width: 100%">
                         <tr>
                             <th>커뮤니티장</th>
-                            <td>${read.c_id}</td>
+                            <td>${read.m_nick}</td>
                         </tr>
                         <tr>
                             <th>커뮤니티 상태</th>
@@ -106,20 +105,29 @@
 
     <br><br><br><br><br><br>
 
-    <!-- 커뮤니티 후기 (ajax 더보기) -->
+    <!-- 커뮤니티 후기 (ajax 더보기) ------------------------------------------------------------------>
+
     <div class="container-fluid text-center">
         <h3 style="text-align: center; font-weight: bold; padding-bottom: 1vh">커뮤니티 후기</h3>
         <p style="font-size: 18px; padding-bottom: 40px">방문해 주신 당신, 발자취를 남겨주세요!</p>
 
-
-        <!-- 후기 테이블 시작 -->
         <div class="container-fluid col-lg-3 d-sm-none"></div>
         <div class="container-fluid text-center col-lg-6 col-sm-12">
-            <table  style="width: 100%">
-                <tr>
-                    <td colspan="3" style="text-align: right"><button type="submit">후기 남기기</button> </td>
-                </tr>
 
+            <!-- 후기 등록 form 시작 -->
+            <form name="commacForm" id="commacForm" style="margin-bottom: 30px">
+                <input type="hidden" id="ac_ccode" name="ac_ccode" value="${read.c_code}"><!-- 부모 PK키-->
+                <input type="hidden" id="ac_cname" name="ac_cname" value="${read.c_name}"><!-- 부모 커뮤니티 이름 -->
+                <input type="text" name="ac_review" id="ac_review" placeholder="후기를 남겨주세요">
+                <input type="range" name="ac_manjok" id="ac_manjok" min=1 max=5>
+                <button type="button" name="commacBtn" id="commacBtn">후기 남기기</button>
+            </form><!-- 후기 등록 form 끝 -->
+
+            <!-- 후기 목록 div -->
+            <div class="commacList"></div>
+
+            <!-- 후기 list 테이블로 출력했을 때
+            <table  style="width: 100%">
                 <c:forEach var="dto" items="${acList}">
                     <tr>
                         <td class="col-sm-2 col-md-2 col-lg-2"><img src="/images/user.png" style="width: 4vw"> </td>
@@ -133,18 +141,121 @@
                     </tr>
                 </c:forEach>
 
-                <tr></tr>
-                <tr></tr>
                 <tr>
                     <td colspan="3"><a href="#">후기 더보기</a></td>
                 </tr>
-            </table>
+            </table>-->
+
         </div>
         <div class="container-fluid col-lg-3 d-sm-none"></div>
-        <!-- 후기 테이블 끝 -->
     </div><!-- 커뮤니티 후기 end -->
 
     <br><br><br>
 </div>
+
+<!-- 후기 관련 자바스크립트 -->
+<script>
+    let ac_ccode = '${read.c_code}';  //부모 PK키
+
+    //후기 남기기 버튼 클릭했을 때
+    $("#commacBtn").click(function (){
+        //id="commac"의 내용을 전부 가져온다
+        let insertData=$("#commacForm").serialize();
+        //alert(insertData);
+        commacInsert(insertData);   //후기등록 함수호출
+    });//click() end
+
+    function commacInsert(insertData){
+        //alert("댓글등록함수호출" + insertData);
+        $.ajax({
+             url    :'/commac/insert'
+            ,type   :'post'
+            ,data   :insertData
+            ,success:function (data){
+                 //alert(data);
+                if(data==1){        //후기등록 성공
+                    commacList();   //후기등록 후 후기목록 함수호출
+                    $('#ac_review').val('');    //기존 후기내용 빈값으로
+                    $('#ac_manjok').val(3);     //기본별점 3
+                }//if end
+            }//success end
+        });//ajax() end
+    }//commacInsert() end
+
+    function commacList(){
+        $.ajax({
+             url    :'/commac/list'
+            ,type   :'get'
+            ,data   :{'ac_ccode':ac_ccode} //부모 PK키
+            ,success:function (data){
+                //alert(data);
+                let a = ''; //출력할 결과값
+                $.each(data, function (key, value){
+                    // alert(key);
+                    // alert(value);
+                    a += '<div class="commacArea" style="border-bottom: 1px solid darkgray; margin-bottom: 15px">';
+                    a += '  <div class="commacInfo' + value.ac_no +'">';
+                    a += '      번호 : ' + value.ac_no + ' / 작성자 : ' + value.ac_id + "  " + value.ac_rdate;
+                    a += '      <a href="javascript:commacUpdate(' + value.ac_no + ',\'' + value.ac_review + '\',' + value.ac_manjok + ');">수정</a>';
+                    a += '      <a href="javascript:commacDelete(' + value.ac_no + ');">삭제</a>';
+                    a += '  </div>';
+                    a += '  <div class="commacReview' + value.ac_no +'">'
+                    a += '      <p>후기 내용 : ' + value.ac_review + ' / 만족도 :' + value.ac_manjok + '</p>';
+                    a += '  </div>';
+                    a += '</div>';
+                });//each() end
+
+                $(".commacList").html(a);   //<div class="commacList"></div>
+
+            }//success end
+        });//ajax() end
+    }//commacList() end
+
+
+    //후기 수정 - 수정할 내용 폼으로 출력
+    function commacUpdate(ac_no, ac_review, ac_manjok){
+        let a = '';
+        a += '<div class="input-group" style="text-align: center">';
+        a += '  <input type="text" value="' + ac_review + '" id="ac_review_' + ac_no + '">';
+        a += '  <input type="range" value="' + ac_manjok +'" id="ac_manjok_' + ac_no + '">';
+        a += '  <button type="button" onclick="commacUpdateProc(' + ac_no + ')">수정</button>';
+        a += '</div>';
+
+        $(".commacReview" + ac_no).html(a);
+    }//commacUpdate() end
+
+
+    //후기 수정
+    function commacUpdateProc(ac_no){
+
+        let updateReview = $('#ac_review_' + ac_no).val();
+        let updateManjok = $('#ac_manjok' + ac_no).val();
+        alert(ac_no);
+        alert(updateReview);
+        alert(updateManjok);
+
+    }//commacUpdateProc() end
+
+
+    //후기 삭제
+    function commacDelete(ac_no){
+        $.ajax({
+             url    :'/commac/delete/' + ac_no
+            ,type   :'post'
+            ,success:function (data){
+                 if(data == 1){             //후기 삭제되면
+                     commacList(ac_ccode);  //목록 출력
+                 }//if end
+            }//success end
+        });//ajax() end
+    }//commacDelete() end
+
+
+    //페이지 로딩시 댓글 목록 출력
+    $(document).ready(function (){
+        commacList();
+    });//ready() end
+
+</script>
 <!-- 본문작성 끝 -->
 <%@ include file="../footer.jsp"%>
