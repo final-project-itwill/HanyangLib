@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
 <%@ include file="auth.jsp" %>
+
 <!-- 본문작성 시작 -->
 <%if(s_id.equals("guest") || s_passwd.equals("guest") || s_mlevel.equals("guset")){
 	//아이디 저장 쿠키 확인-----------------------
