@@ -9,7 +9,6 @@
     <meta name="robots" content="noindex">
     <!-- 구글 검색엔진 웹 크롤러만 차단 -->
     <meta name="googlebot" content="noindex">
-    <link rel="shortcut icon" href="favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/owl.carousel.min.css">

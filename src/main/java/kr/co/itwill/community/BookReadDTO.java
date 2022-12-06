@@ -17,5 +17,6 @@ public class BookReadDTO {
     private String c_rdate;
     private String b_name;
     private String b_bookcover;
+    private String m_nick;
 
 }//class end
