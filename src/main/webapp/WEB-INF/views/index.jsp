@@ -21,6 +21,7 @@
 	<link rel="stylesheet" href="css/aos.css">
 	<link rel="stylesheet" href="css/style.css">
 	<script src="js/jquery-3.5.1.min.js"></script>
+    <script src="/js/jquery.cookie.js"></script>
 	<title>&#128218 한양서재</title>
 </head>
 <body>
@@ -71,7 +72,7 @@
 	       <p class="text-white mb-4" data-aos="fade-up" data-aos-delay="100" style="text-shadow: 3px 3px 3px black;">책 한 권만으로도 펼쳐지는 수많은 이야기가 존재하는데, 하물며 책은 몇 권이 쓰여져도 아깝지 않을 당신의 삶은 아니할까요</p>
 	       <form action="#" class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="200">
 	         <input type="text" class="form-control" placeholder="당신같은 사람을 기다려왔다우">
-	         <input type="submit" class="btn btn-primary" value="Sign up">
+	         <input type="button" class="btn btn-primary" value="Sign up" onclick="location.href='/member/agreement'">
 	       </form>
 	     </div>
 	   </div>
@@ -82,7 +83,7 @@
 	<!-- 퀵메뉴 -->
 	<div class="quickmenu">
 	  <ul>
-	    <li><a href="#">등급별혜택</a></li>
+	    <li>오늘 본 책</li>
 	    <li><a href="#">1:1문의</a></li>
 	    <li><a href="#">후기</a></li>
 	  </ul>
@@ -352,8 +353,8 @@
             <div class="widget">
               <ul class="links list-unstyled">
                 <li>&#127744 김경환 / 조장, 전체디자인 / <a href="/">메인페이지</a>, <a href="/gudok/detail">구독페이지</a>, <a href="/mylib/libindex">나만의 서제</a></li>
-                <li>&#127744 강한이 / 기술자문 / <a href="/">커뮤니티페이지</a>, <a href="/notice/list">공지사항페이지</a></li>
-                <li>&#127744 김성훈 / 기술자문 / <a href="/survey/list">설문지페이지</a>, <a href="/survey/templet">설문지탬플릿페이지</a></li>
+                <li>&#127744 강한이 / 기술자문 / <a href="/comm/index">커뮤니티페이지</a>, <a href="/notice/list">공지사항페이지</a></li>
+                <li>&#127744 김성훈 / 기술자문 / <a href="/survey/survey">설문지페이지</a>, <a href="/survey/survey">설문지탬플릿페이지</a></li>
                 <li>&#127744 김한주 / 자료조사 / <a href="/">회원페이지</a>, <a href="/gudok/detail">결제페이지</a></li>
                 <li>&#127744 방미연 / 회의록 / <a href="/book/booklist">도서페이지</a>, <a href="/gudok/detail">페이지</a></li>
               </ul>

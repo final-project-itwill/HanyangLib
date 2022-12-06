@@ -2,4 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="book">
 
+	<select id="list_n" resultType="kr.co.itwill.book.BookDTO">
+		SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
+		FROM book
+		WHERE b_type = 'novel'
+	</select>
+	
+	<select id="list_e" resultType="kr.co.itwill.book.BookDTO">
+		SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
+		FROM book
+		WHERE b_type = 'essay'
+	</select>
+	
+	
+	<select id="list_h" resultType="kr.co.itwill.book.BookDTO">
+		SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
+		FROM book
+		WHERE b_type = 'humanity'
+	</select>
+	
+	
+	<select id="list_s" resultType="kr.co.itwill.book.BookDTO">
+		SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
+		FROM book
+		WHERE b_type = 'science'
+	</select>
+
 </mapper>

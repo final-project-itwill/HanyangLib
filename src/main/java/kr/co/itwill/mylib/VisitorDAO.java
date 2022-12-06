@@ -21,15 +21,15 @@ public class VisitorDAO {
 	} // commentInsert() end
 	
 	public List<VisitorDTO> visitorList(String vis_pid) {
-		return sqlSession.selectList("comment.list", vis_pid);
+		return sqlSession.selectList("visitor.list", vis_pid);
 	} // commentList() end
 	
-	public int commentUpdate(VisitorDTO comment) {
-		return sqlSession.update("comment.update", comment);
+	public int visitorUpdate(VisitorDTO visitor) {
+		return sqlSession.update("visitor.update", visitor);
 	} // commentUpdate() end
 	
-	public int commentDelete(int cno) throws Exception {
-		return sqlSession.delete("comment.delete", cno);
+	public int visitorDelete(int vis_no) throws Exception {
+		return sqlSession.delete("visitor.delete", vis_no);
 	} // delete() end
 	
 } // class end

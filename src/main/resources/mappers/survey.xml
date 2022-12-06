@@ -2,4 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="survey">
 
+	<select id="list" resultType="java.util.Map">
+		SELECT sv_code, sv_comcode, sv_id, sv_title, sv_des, sv_rdate, sv_edate, sv_max, sv_status
+		FROM survey
+		ORDER BY sv_code
+	</select>
+	
+	<select id="detail" resultType="java.util.Map" parameterType="String">
+		SELECT dsv_code, dsv_type, dsv_order, dsv_subject, dsv_check
+		FROM   dsurvey
+		WHERE dsv_code = #{sv_code}
+	</select>
+	
+	<select id="details" resultType="java.util.Map" parameterType="String">
+		SELECT ch_no, ch_code, ch_dsvno, ch_order, ch_type, ch_anscode, ch_content
+		FROM	choice
+		WHERE ch_code = #{sv_code}
+	</select>
+	
+	<insert id="insert">
+	 	INSERT INTO answer(ans_code, ans_dsvno, ans_order, ans_anscode, ans_id, ans_content)
+		VALUES (#{ch_code}, #{ch_dsvno}, #{ch_order}, #{ch_anscode}, "cloudd81", #{ch_content}  )
+	 
+	 
+	 </insert>
+	
+	
+	<!-- answer -->
+	
+	
 </mapper>
