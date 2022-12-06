@@ -13,7 +13,7 @@
 <tr>
     <th>*아이디</th>
     <td style="text-align: left">
-      <input type="text" name="id" id="id" size="15">
+      <input type="text" name="userid" id="userid" size="15">
       <input type="button" value="ID중복확인" id="btn_userid"> 
       <span id="panel"></span>
     </td>
@@ -31,10 +31,15 @@
     <td style="text-align: left"><input type="text" name="mname" id="mname" size="15" maxlength="20" required></td>
 </tr>
 <tr>
+    <th>*닉네임</th>
+    <td style="text-align: left"><input type="text" name="nickname" id="nickname" size="15" maxlength="20" required></td>
+</tr>
+<tr>
     <th>*이메일</th>
     <td style="text-align: left">
-      <input type="email" name="email" id="email" size="30" readonly>
-      <input type="button" value="Email 중복확인" onclick="emailCheck()">
+      <input type="email" name="useremail" id="useremail" size="30">
+      <input type="button" value="Email 중복확인" onclick="checkEMAIL()" id="btn_useremail">
+      <span id="emailpanel"></span>
     </td>
 </tr>
 <tr>
@@ -86,7 +91,6 @@
 <script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script>
    
-      //6)해당 페이지가 로딩되었을 아이디 중복확인과 관련된 쿠키변수 삭제
       $(function(){
          $.removeCookie("checkID");
       });//end
@@ -94,48 +98,58 @@
        
        let params="userid=" + $("#userid").val();
    
-   
-      
-       
        //JSON응답
        $.post("idcheckcookieproc.do", params, checkID, "json")
        
       });//click end
    
-   //4) 콜백함수 
+  
+      $(function() {
+		$.removeCookie("checkEMAIL");
+	})//end
+	$("#btn_useremail").click(function(){
+		let params="useremail" + $("useremail").val;
+		
+		$.post("emailcheckproc.do", params, checkEMAIL , "json")
+	})//click end
+   
+    
    function checkID(result) {
-      
-      //(1) text응답
-      //alert(result); //0 또는 1
-      
-      
-      //(2) JSON응답
-      //alert(result); //[object Object] 또는
-      //alert(result.count);
-      
-      
-      //5)서버에서 응답받는 메세지(result)를 본문의 id=panel에 출력하고, 쿠키변수에 저장
+
+      //서버에서 응답받는 메세지(result)를 본문의 id=panel에 출력하고, 쿠키변수에 저장
       // 형식) $.cookie("쿠키변수명", 값)
       let count=eval(result.count); //형변환
       
       if(count==0){
-         $("#panel").css("color", "blue");
-         $("#panel").text("사용 가능한 아이디 입니다");
-         //$.cookie("checkID", "PASS"); //아이디중복확인을 했다는 증거
+    	  $.cookie("checkID", "pass")
       }else{
-         $("#panel").css("color", "red");
-         $("#panel").text("중복된 아이디 입니다");
-         $("#userid").focus(); //커서생성 잘됨 ㅋ
+    	  $("#userid").focus();
       }//if end
-         
+          
    }//checkID()
+   
+     function checkEMAIL(result) {
 
+      //서버에서 응답받는 메세지(result)를 본문의 id=panel에 출력하고, 쿠키변수에 저장
+      // 형식) $.cookie("쿠키변수명", 값)
+      let count=eval(result.count); //형변환
+      
+      if(count==0){
+    	  $.cookie("checkEMAIL", "pass")
+      }else{
+    	  $("#useremail").focus();
+      }//if end
+          
+   }//checkID()
+   
    
    //7)아이디중복확인을 해야만 회원가입폼이 서버로 전송
    function send() {
       //아이디 입력했는지?
 	  let wid=$.cookie("wid");
-       
+      if(){
+    	  
+      }
       //비밀번호 입력했는지?
     		  
       //이름 입력헀는지?
@@ -147,8 +161,6 @@
       if(checkID=="PASS"){
          return true; //서버로 전송
       }else{
-         $("#panel").css("color", "green");
-         $("#panel").text("아이디 중복 확인 해주세요");
          $("#userid").focus();
          return false;
       }//if end
@@ -168,12 +180,30 @@
 	}); //click() end
 	
 	
-	function responseProc() {
+	$("#btn_useremail").click(function() {
+		$.post(
+				"emailcheckproc.do"
+				,"useremail=" + $("#useremail").val()
+				,emailresponseProc		
+		);
+	}); //click() end
+	
+	function responseProc(result) {
 		$("#panel").empty();
 		$("#panel").html(result);
 		$("#panel").show();
 	}//responseProc() end
+	
+	
+	function emailresponseProc(result) {
+		$("#emailpanel").empty();
+		$("#emailpanel").html(result);
+		$("#emailpanel").show();
+	}//responseProc() end
+	
+	
 </script>
+
 
 
 

@@ -65,6 +65,29 @@ public class MemberCont {
 	      return message;
 	   }//idCheckProc() end
 	   
+	   @RequestMapping("emailcheckproc.do")
+	   @ResponseBody
+	   public String emailCheckProc(HttpServletRequest req) {
+	      String useremail=req.getParameter("useremail").trim();
+	      String message="";
+	      
+	      if(useremail.length()<5 || useremail.length()>25) {
+	         message="<span style='color: red; font-weight: bold'>이메일은 5~25글자 이내 입력해주세요</span>";
+	      }else {
+	         if(useremail.equals("hanju1000@naver.com") || useremail.equals("webmaster@naver.com")) {
+	            message="<span style='color: red; font-weight: bold'>중복된 이메일 입니다!!</span>";
+	         }else {
+	            message="<span style='color: green; font-weight: bold'>사용가능한 아메일입니다~~~!</span>";
+	         }//if end
+	      }//if end
+	      return message;
+	   }//idCheckProc() end
+	   
+	   
+	   
+	   
+	   
+	   
 	   @RequestMapping("idcheckcookieproc.do")
 	   @ResponseBody
 	   public String idCheckCookieProc(HttpServletRequest req) {

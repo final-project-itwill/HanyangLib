@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
 <%@ include file="auth.jsp" %>
-
+ <div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/libbg.jpg'); height: 40vh;"></div>
 <!-- 본문작성 시작 -->
 <%if(s_id.equals("guest") || s_passwd.equals("guest") || s_mlevel.equals("guset")){
 	//아이디 저장 쿠키 확인-----------------------
@@ -48,7 +48,7 @@
               <input type="submit" class="btn" id="btn" value="Login">
               
             	<input type="button" class="btn" id="btn" value="signup"
-            	onclick="location.href='/member/memberform'">
+            	onclick="location.href='/member/agreement'">
  
             </form>
             
