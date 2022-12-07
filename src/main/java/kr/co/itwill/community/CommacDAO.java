@@ -30,4 +30,9 @@ public class CommacDAO {
         return sqlSession.delete("commac.delete", ac_no);
     }//commacDelete() end
 
+
+    public int commacUpdate(CommacDTO commac){
+        return sqlSession.update("commac.update", commac);
+    }//commacUpdate() end
+
 }//class end

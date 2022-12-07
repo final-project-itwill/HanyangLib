@@ -115,36 +115,41 @@
         <div class="container-fluid text-center col-lg-6 col-sm-12">
 
             <!-- 후기 등록 form 시작 -->
-            <form name="commacForm" id="commacForm" style="margin-bottom: 30px">
-                <input type="hidden" id="ac_ccode" name="ac_ccode" value="${read.c_code}"><!-- 부모 PK키-->
-                <input type="hidden" id="ac_cname" name="ac_cname" value="${read.c_name}"><!-- 부모 커뮤니티 이름 -->
-                <input type="text" name="ac_review" id="ac_review" placeholder="후기를 남겨주세요">
-                <input type="range" name="ac_manjok" id="ac_manjok" min=1 max=5>
-                <button type="button" name="commacBtn" id="commacBtn">후기 남기기</button>
-            </form><!-- 후기 등록 form 끝 -->
+            <!-- 로그인 id가 해당 커뮤니티에 가입된 상태일 때만 후기 작성 가능-->
+            <%--<c:if test="${loginID=='hanyihanyi'}">--%>
+
+            <c:if test="${(commCheck.c_state=='d' || commCheck.c_state=='e') && idCheck.s_state=='s'}">
+                <form name="commacForm" id="commacForm" style="margin-bottom: 30px">
+                    <input type="hidden" id="ac_ccode" name="ac_ccode" value="${read.c_code}"><!-- 부모 PK키-->
+                    <input type="hidden" id="ac_cname" name="ac_cname" value="${read.c_name}"><!-- 부모 커뮤니티 이름 -->
+                    <input type="text" name="ac_review" id="ac_review" placeholder="후기를 남겨주세요">
+                    <input type="range" name="ac_manjok" id="ac_manjok" min=1 max=5>
+                    <button type="button" name="commacBtn" id="commacBtn">후기 남기기</button>
+                </form><!-- 후기 등록 form 끝 -->
+            </c:if>
 
             <!-- 후기 목록 div -->
             <div class="commacList"></div>
 
-            <!-- 후기 list 테이블로 출력했을 때
-            <table  style="width: 100%">
-                <c:forEach var="dto" items="${acList}">
-                    <tr>
-                        <td class="col-sm-2 col-md-2 col-lg-2"><img src="/images/user.png" style="width: 4vw"> </td>
-                        <td class="col-sm-8 col-md-8 col-lg-8">${dto.ac_review}</td>
-                        <td class="col-sm-2 col-md-2 col-lg-2">
+<%--            후기 list for:each 반복문으로 테이블로 출력했을 때--%>
+<%--            <table  style="width: 100%">--%>
+<%--                <c:forEach var="dto" items="${acList}">--%>
+<%--                    <tr>--%>
+<%--                        <td class="col-sm-2 col-md-2 col-lg-2"><img src="/images/user.png" style="width: 4vw"> </td>--%>
+<%--                        <td class="col-sm-8 col-md-8 col-lg-8">${dto.ac_review}</td>--%>
+<%--                        <td class="col-sm-2 col-md-2 col-lg-2">--%>
 
-                            <c:forEach var="star" begin="1" end="${dto.ac_manjok}">
-                                ★
-                            </c:forEach>
-                        </td>
-                    </tr>
-                </c:forEach>
+<%--                            <c:forEach var="star" begin="1" end="${dto.ac_manjok}">--%>
+<%--                                ★--%>
+<%--                            </c:forEach>--%>
+<%--                        </td>--%>
+<%--                    </tr>--%>
+<%--                </c:forEach>--%>
 
-                <tr>
-                    <td colspan="3"><a href="#">후기 더보기</a></td>
-                </tr>
-            </table>-->
+<%--                <tr>--%>
+<%--                    <td colspan="3"><a href="#">후기 더보기</a></td>--%>
+<%--                </tr>--%>
+<%--            </table>--%>
 
         </div>
         <div class="container-fluid col-lg-3 d-sm-none"></div>
@@ -156,6 +161,11 @@
 <!-- 후기 관련 자바스크립트 -->
 <script>
     let ac_ccode = '${read.c_code}';  //부모 PK키
+
+    //로그인 id가 작성자와 동일한 경우에만 후기 수정/삭제 가능
+    let loginID = 'hanyihanyi';   //세션변수로 받아올 것.
+    //현재 ac_id 값은 컨트롤러에 임의로 hanyihanyi로 세팅했다.
+
 
     //후기 남기기 버튼 클릭했을 때
     $("#commacBtn").click(function (){
@@ -182,6 +192,8 @@
         });//ajax() end
     }//commacInsert() end
 
+
+    //후기 목록
     function commacList(){
         $.ajax({
              url    :'/commac/list'
@@ -196,8 +208,12 @@
                     a += '<div class="commacArea" style="border-bottom: 1px solid darkgray; margin-bottom: 15px">';
                     a += '  <div class="commacInfo' + value.ac_no +'">';
                     a += '      번호 : ' + value.ac_no + ' / 작성자 : ' + value.ac_id + "  " + value.ac_rdate;
-                    a += '      <a href="javascript:commacUpdate(' + value.ac_no + ',\'' + value.ac_review + '\',' + value.ac_manjok + ');">수정</a>';
-                    a += '      <a href="javascript:commacDelete(' + value.ac_no + ');">삭제</a>';
+
+                    //작성자||관리자만 수정/삭제 버튼 접근 가능
+                    if(value.ac_id == loginID || value.ac_id =='webmaster'){
+                        a += '      <a href="javascript:commacUpdate(' + value.ac_no + ',\'' + value.ac_review + '\',' + value.ac_manjok + ');">수정</a>';
+                        a += '      <a href="javascript:commacDelete(' + value.ac_no + ');">삭제</a>';
+                    };//if end
                     a += '  </div>';
                     a += '  <div class="commacReview' + value.ac_no +'">'
                     a += '      <p>후기 내용 : ' + value.ac_review + ' / 만족도 :' + value.ac_manjok + '</p>';
@@ -217,7 +233,7 @@
         let a = '';
         a += '<div class="input-group" style="text-align: center">';
         a += '  <input type="text" value="' + ac_review + '" id="ac_review_' + ac_no + '">';
-        a += '  <input type="range" value="' + ac_manjok +'" id="ac_manjok_' + ac_no + '">';
+        a += '  <input type="range" min="1" max="5" value="' + ac_manjok +'" id="ac_manjok_' + ac_no + '">';
         a += '  <button type="button" onclick="commacUpdateProc(' + ac_no + ')">수정</button>';
         a += '</div>';
 
@@ -229,11 +245,19 @@
     function commacUpdateProc(ac_no){
 
         let updateReview = $('#ac_review_' + ac_no).val();
-        let updateManjok = $('#ac_manjok' + ac_no).val();
-        alert(ac_no);
-        alert(updateReview);
-        alert(updateManjok);
+        let updateManjok = $('#ac_manjok_' + ac_no).val();
+        // alert(ac_no);
+        // alert(updateReview);
+        // alert(updateManjok);
 
+        $.ajax({
+             url:'/commac/update'
+            ,type:'post'
+            ,data:{'ac_review':updateReview, 'ac_manjok':updateManjok, 'ac_no':ac_no}
+            ,success:function (data){
+                 if(data == 1) commacList();    //후기수정 후 목록 출력
+            }//success end
+        });//ajax() end
     }//commacUpdateProc() end
 
 
