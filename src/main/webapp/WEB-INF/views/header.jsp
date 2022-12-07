@@ -42,7 +42,15 @@
 	      <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
 	        <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
 	          <li class="active"><a href="/" style="font-weight: bold;">Home</a></li>
-	          <li><a href="/book/booklist" style="font-weight: bold;">도서목록</a></li>
+	          <li class="has-children">
+	          <a href="/book/booklist" style="font-weight: bold;">도서목록</a>
+	          <ul class="dropdown">
+                  <li><a href="/book/bookcate_n">소설/시</a></li>
+                  <li><a href="/book/bookcate_e">에세이</a></li>
+                  <li><a href="/book/bookcate_h">인문</a></li>
+                  <li><a href="/book/bookcate_s">자연과학</a></li>
+                </ul>
+	          </li>
 	          <li><a href="/gudok/detail" style="font-weight: bold;">구독</a></li>
 	          <li><a href="/mylib/libindex/ksh134625" style="font-weight: bold;">나만의 서재</a></li>
 	          <li><a href="/comm/index" style="font-weight: bold;">커뮤니티</a></li>
