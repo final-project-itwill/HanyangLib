@@ -17,7 +17,7 @@
 					<h1 class="text-white text-left font-weight-bold mb-4"
 						data-aos="fade-up" data-aos-delay="0"
 						style="text-shadow: 3px 3px 3px black;">
-						소설/시
+						소설&bullet;시
 					</h1>
 					<form action="read" class="sign-up-form d-flex" data-aos="fade-up"
 						data-aos-delay="100">
@@ -82,7 +82,7 @@
 					<div class="post-entry horizontal d-md-flex">
 						<div class="media">
 							<a href="#">
-							<img src="/images/${dto.b_bookcover}"
+							<img src="${dto.b_bookcover}"
 								style="width: 140px; margin-right: 20px;"></a>
 						</div>
 						<div class="text">
