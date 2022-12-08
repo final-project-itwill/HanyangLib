@@ -47,4 +47,17 @@ public class CommacCont {
         return commacDao.commacDelete(ac_no);
     }//commacDelete() end
 
+
+    @RequestMapping("/update")
+    @ResponseBody
+    public int commacUpdate(@RequestParam int ac_no,
+                            @RequestParam String ac_review, @RequestParam int ac_manjok) throws Exception{
+        CommacDTO commac = new CommacDTO();
+        commac.setAc_no(ac_no);
+        commac.setAc_review(ac_review);
+        commac.setAc_manjok(ac_manjok);
+        return commacDao.commacUpdate(commac);
+    }//commacUpdate() end
+
+
 }//class end

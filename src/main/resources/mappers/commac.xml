@@ -20,4 +20,11 @@
         WHERE ac_no = #{ac_no}
     </delete>
 
+
+    <update id="update">
+        UPDATE community_ac
+        SET ac_review = #{ac_review}, ac_manjok = #{ac_manjok}
+        WHERE ac_no = #{ac_no}
+    </update>
+
 </mapper>

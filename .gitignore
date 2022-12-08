@@ -23,7 +23,7 @@ target/
 /nbproject/private/
 /nbbuild/
 /dist/
-/nbdist/
+/nbdist/s
 /.nb-gradle/
 build/
 !**/src/main/**/build/
@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### application properties ###
+src/main/resources/application.properties

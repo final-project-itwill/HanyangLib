@@ -46,11 +46,19 @@ public class CommunityCont {
     }//search() end
 
 
-    @RequestMapping("/read/{c_code}")
-    public ModelAndView read(@PathVariable String c_code){
+    @RequestMapping("/read")
+    public ModelAndView read(@RequestParam String c_code, @RequestParam String loginID){
         ModelAndView mav = new ModelAndView();
+        mav.addObject("loginID", loginID);
+        //mav.addObject("c_code", c_code);
         mav.addObject("read", commDao.read(c_code));
         mav.addObject("acList", commDao.acList(c_code));
+        mav.addObject("commCheck", commDao.commCheck(c_code));
+        CommSignDTO sign = new CommSignDTO();
+        sign.setS_code(c_code);
+        sign.setS_id(loginID);
+        mav.addObject("sign", sign);
+        mav.addObject("idCheck", commDao.idCheck(sign));
         mav.setViewName("community/read");
         return mav;
     }//read() end

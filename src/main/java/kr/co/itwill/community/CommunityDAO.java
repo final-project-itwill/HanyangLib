@@ -41,4 +41,14 @@ public class CommunityDAO {
         return sqlSession.selectList("community.acList", c_code);
     }//read() end
 
+    //커뮤니티 모집상태 가져오기
+    public CommunityDTO commCheck(String c_code){
+        return sqlSession.selectOne("community.commCheck", c_code);
+    }//commCheck() end
+
+    //로그인id의 커뮤니티 가입상태 가져오기
+    public CommSignDTO idCheck(CommSignDTO sign){
+        return sqlSession.selectOne("community.idCheck", sign);
+    }//idCheck() end
+
 }//class end
