@@ -18,13 +18,14 @@ public class MemberDAO {
 	@Autowired 
 	SqlSession sqlSession;
 	
-	public void insert(Map<String, Object> map) {
-		sqlSession.insert("member.insert", map);
-	}//insert() end
+	public int memberinsert(MemberDTO member) {
+		return sqlSession.insert("member.memberinsert", member);
+	}//memberinsert() end
+	
 	
 	public List<Map<String, Object>>  emailCheck(String m_email){
 		return sqlSession.selectList("member.emailCheck",m_email);
-	}//select() end
+	}// emailCheck() end
 	
 	public List<Map<String, Object>> idcheck(String m_id){
 		return sqlSession.selectList("member.idcheck",m_id);
