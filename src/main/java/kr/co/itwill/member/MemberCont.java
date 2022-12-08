@@ -27,9 +27,9 @@ public class MemberCont {
 		//이용약관 불러오기
 		@RequestMapping("/agreement")
 		public ModelAndView agreement() {
-			ModelAndView mav=new ModelAndView();
-			mav.setViewName("member/agreement");
-			return mav;
+				ModelAndView mav=new ModelAndView();
+				mav.setViewName("member/agreement");
+				return mav;
 		}//agreement() end
 		
 		//회원가입 폼 불러오기 
@@ -40,15 +40,24 @@ public class MemberCont {
 				return mav;
 		}//Member() end
 		
+		//회원가입을 성공했을때 회원가입성공 페이지 불러오기
+		@RequestMapping("welcomeform")
+		public ModelAndView welcomform() {
+				ModelAndView mav=new ModelAndView();
+				
+				mav.setViewName("member/welcomeform");
+				
+				return mav;
+		}//welcomform() end
 		
 		
 		//아이디 중복확인 페이지 불러오기
-		//결과확인
 		@RequestMapping("idcheckform.do")
 		public String idCheckform() {
 			return "memer/idCheck";
 		}//idCheckForm()
 		
+		//아이디 중복확인 버튼을 눌렀을때 버튼옆에 출력하기
 	   @RequestMapping("idcheckproc.do")
 	   @ResponseBody
 	   public String idCheckProc(HttpServletRequest req) {
@@ -67,6 +76,7 @@ public class MemberCont {
 	      return message;
 	   }//idCheckProc() end
 	   
+	 //이메일 중복확인 버튼을 눌렀을때 버튼옆에 출력하기
 	   @RequestMapping("emailcheckproc.do")
 	   @ResponseBody
 	   public String emailCheckProc(HttpServletRequest req) {
@@ -105,7 +115,7 @@ public class MemberCont {
 		
 	   }//idCheckCookieProc() end
 	   
-	   
+	   //회원가입을 했을때 member테이블에 insert하기
 	   @RequestMapping(value = "/insert", method = RequestMethod.POST)
 	   @ResponseBody
 	   public String insert(@ModelAttribute MemberDTO dto) throws Exception{
@@ -145,10 +155,10 @@ public class MemberCont {
 		   
 		   memberDao.memberinsert(member);
 		   
-		   return "redirect:/member/loginForm";
+		   return "redirect:/login/loginForm";
 		   
 		   
-	   }//insert() end/
+	   }//insert() end
 	   
 	   
 	   
