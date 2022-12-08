@@ -79,7 +79,7 @@
 	       <p class="text-white mb-4" data-aos="fade-up" data-aos-delay="100" style="text-shadow: 3px 3px 3px black;">책 한 권만으로도 펼쳐지는 수많은 이야기가 존재하는데, 하물며 책은 몇 권이 쓰여져도 아깝지 않을 당신의 삶은 아니할까요</p>
 	       <form action="#" class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="200">
 	         <input type="text" class="form-control" placeholder="당신같은 사람을 기다려왔다우">
-	         <input type="button" class="btn btn-primary" value="Sign up" onclick="location.href='/member/loginForm'">
+	         <input type="button" class="btn btn-primary" value="Sign up" onclick="location.href='/login/loginForm'">
 	       </form>
 	     </div>
 	   </div>
