@@ -4,6 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+application.properties
+
 ### STS ###
 .apt_generated
 .classpath
@@ -23,7 +25,7 @@ target/
 /nbproject/private/
 /nbbuild/
 /dist/
-/nbdist/s
+/nbdist/
 /.nb-gradle/
 build/
 !**/src/main/**/build/
@@ -31,6 +33,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### application properties ###
-src/main/resources/application.properties
