@@ -5,8 +5,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,7 +52,7 @@ public class MemberCont {
 	   @RequestMapping("idcheckproc.do")
 	   @ResponseBody
 	   public String idCheckProc(HttpServletRequest req) {
-	      String userid=req.getParameter("userid").trim();
+	      String userid=req.getParameter("m_id").trim();
 	      String message="";
 	      
 	      if(userid.length()<5 || userid.length()>15) {
@@ -68,7 +70,7 @@ public class MemberCont {
 	   @RequestMapping("emailcheckproc.do")
 	   @ResponseBody
 	   public String emailCheckProc(HttpServletRequest req) {
-	      String useremail=req.getParameter("useremail").trim();
+	      String useremail=req.getParameter("m_email").trim();
 	      String message="";
 	      
 	      if(useremail.length()<5 || useremail.length()>25) {
@@ -85,13 +87,10 @@ public class MemberCont {
 	   
 	   
 	   
-	   
-	   
-	   
 	   @RequestMapping("idcheckcookieproc.do")
 	   @ResponseBody
 	   public String idCheckCookieProc(HttpServletRequest req) {
-		   String userid = req.getParameter("userid").trim();
+		   String userid = req.getParameter("m_id").trim();
 		   
 		   String cnt="0";
 		   
@@ -99,38 +98,61 @@ public class MemberCont {
 			   cnt="1";
 		   }//if end
 			   
-			   
 			   JSONObject json=new JSONObject();
 			   json.put("count", cnt);
 			   
 			   return json.toString();
-					   
-		  
 		
 	   }//idCheckCookieProc() end
 	   
 	   
-	   @RequestMapping(value = "insert.do", method = RequestMethod.POST)
-	   public void insert(HttpServletRequest req) {
-		   System.out.println("아이디:" + req.getParameter("userid"));
-		   System.out.println("비번:" + req.getParameter("passwd"));
-		   System.out.println("이름:" + req.getParameter("name"));
-		   System.out.println("이메일:" + req.getParameter("이메일"));
+	   @RequestMapping(value = "/insert", method = RequestMethod.POST)
+	   @ResponseBody
+	   public String insert(@ModelAttribute MemberDTO dto) throws Exception{
 		   
-	   }//insert() end
+		   /*
+		   System.out.println("아이디:" + req.getParameter("m_id"));
+		   System.out.println("비번:" + req.getParameter("passwd"));
+		   System.out.println("이름:" + req.getParameter("mname"));
+		   System.out.println("이메일:" + req.getParameter("m_mail"));
+		   System.out.println("닉네임:" + req.getParameter("nickname"));
+		   System.out.println("생년:" + req.getParameter("my_year"));
+		   System.out.println("월:" + req.getParameter("month"));
+		   System.out.println("일:" + req.getParameter("day"));
+		   System.out.println("주소:" + req.getParameter("address1"));
+		   System.out.println("주소2:" + req.getParameter("address2"));
+		   System.out.println("직업:" + req.getParameter("job"));
+		   System.out.println("전화번호:" + req.getParameter("tel"));
+		  */
+		  
+		   
+		   MemberDTO member=new MemberDTO();
+		   member.setM_id(dto.getM_id());
+		   member.setM_pw(dto.getM_pw());
+		   member.setM_name(dto.getM_name());
+		   member.setM_nick(dto.getM_nick());
+		   member.setM_birth(dto.getM_birth());
+		   member.setM_gender(dto.getM_gender());
+		   member.setM_zip(dto.getM_zip());
+		   member.setM_add1(dto.getM_add1());
+		   member.setM_add2(dto.getM_add2());
+		   member.setM_tel(dto.getM_tel());
+		   member.setM_email(dto.getM_email());
+		   member.setM_mailcheck(dto.getM_mailcheck());
+		   member.setM_smscheck(dto.getM_smscheck());
+		   member.setM_gudok(dto.getM_gudok());
+		   member.setM_rdate(dto.getM_rdate());
+		   
+		   memberDao.memberinsert(member);
+		   
+		   return "redirect:/member/loginForm";
+		   
+		   
+	   }//insert() end/
 	   
 	   
 	   
 	   
 	   
 	   
-	   
-	   
-	   
-	   
-	   
-	   
-	   
-	   
-		
 }//class end
