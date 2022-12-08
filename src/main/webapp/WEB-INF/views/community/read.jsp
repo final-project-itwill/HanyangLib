@@ -129,7 +129,7 @@
             </c:if>
 
             <!-- 후기 목록 div -->
-            <div class="commacList"></div>
+            <div class="activityList"></div>
 
 <%--            후기 list for:each 반복문으로 테이블로 출력했을 때--%>
 <%--            <table  style="width: 100%">--%>
@@ -172,10 +172,10 @@
         //id="commac"의 내용을 전부 가져온다
         let insertData=$("#commacForm").serialize();
         //alert(insertData);
-        commacInsert(insertData);   //후기등록 함수호출
+        InsertIntoCommunityActivity(insertData);   //후기등록 함수호출
     });//click() end
 
-    function commacInsert(insertData){
+    function InsertIntoCommunityActivity(insertData){
         //alert("댓글등록함수호출" + insertData);
         $.ajax({
              url    :'/commac/insert'
@@ -184,17 +184,17 @@
             ,success:function (data){
                  //alert(data);
                 if(data==1){        //후기등록 성공
-                    commacList();   //후기등록 후 후기목록 함수호출
+                    listActivity();   //후기등록 후 후기목록 함수호출
                     $('#ac_review').val('');    //기존 후기내용 빈값으로
                     $('#ac_manjok').val(3);     //기본별점 3
                 }//if end
             }//success end
         });//ajax() end
-    }//commacInsert() end
+    }//InsertIntoCommunityActivity() end
 
 
     //후기 목록
-    function commacList(){
+    function listActivity(){
         $.ajax({
              url    :'/commac/list'
             ,type   :'get'
@@ -211,8 +211,8 @@
 
                     //작성자||관리자만 수정/삭제 버튼 접근 가능
                     if(value.ac_id == loginID || value.ac_id =='webmaster'){
-                        a += '      <a href="javascript:commacUpdate(' + value.ac_no + ',\'' + value.ac_review + '\',' + value.ac_manjok + ');">수정</a>';
-                        a += '      <a href="javascript:commacDelete(' + value.ac_no + ');">삭제</a>';
+                        a += '      <a href="javascript:openActivityUpdatePanel(' + value.ac_no + ',\'' + value.ac_review + '\',' + value.ac_manjok + ');">수정</a>';
+                        a += '      <a href="javascript:deleteActivity(' + value.ac_no + ');">삭제</a>';
                     };//if end
                     a += '  </div>';
                     a += '  <div class="commacReview' + value.ac_no +'">'
@@ -221,28 +221,28 @@
                     a += '</div>';
                 });//each() end
 
-                $(".commacList").html(a);   //<div class="commacList"></div>
+                $(".activityList").html(a);   //<div class="activityList"></div>
 
             }//success end
         });//ajax() end
-    }//commacList() end
+    }//listActivity() end
 
 
     //후기 수정 - 수정할 내용 폼으로 출력
-    function commacUpdate(ac_no, ac_review, ac_manjok){
+    function openActivityUpdatePanel(ac_no, ac_review, ac_manjok){
         let a = '';
         a += '<div class="input-group" style="text-align: center">';
         a += '  <input type="text" value="' + ac_review + '" id="ac_review_' + ac_no + '">';
         a += '  <input type="range" min="1" max="5" value="' + ac_manjok +'" id="ac_manjok_' + ac_no + '">';
-        a += '  <button type="button" onclick="commacUpdateProc(' + ac_no + ')">수정</button>';
+        a += '  <button type="button" onclick="updateActivity(' + ac_no + ')">수정</button>';
         a += '</div>';
 
         $(".commacReview" + ac_no).html(a);
-    }//commacUpdate() end
+    }//openActivityUpdatePanel() end
 
 
     //후기 수정
-    function commacUpdateProc(ac_no){
+    function updateActivity(ac_no){
 
         let updateReview = $('#ac_review_' + ac_no).val();
         let updateManjok = $('#ac_manjok_' + ac_no).val();
@@ -255,29 +255,29 @@
             ,type:'post'
             ,data:{'ac_review':updateReview, 'ac_manjok':updateManjok, 'ac_no':ac_no}
             ,success:function (data){
-                 if(data == 1) commacList();    //후기수정 후 목록 출력
+                 if(data == 1) listActivity();    //후기수정 후 목록 출력
             }//success end
         });//ajax() end
-    }//commacUpdateProc() end
+    }//updateActivity() end
 
 
     //후기 삭제
-    function commacDelete(ac_no){
+    function deleteActivity(ac_no){
         $.ajax({
              url    :'/commac/delete/' + ac_no
             ,type   :'post'
             ,success:function (data){
                  if(data == 1){             //후기 삭제되면
-                     commacList(ac_ccode);  //목록 출력
+                     listActivity(ac_ccode);  //목록 출력
                  }//if end
             }//success end
         });//ajax() end
-    }//commacDelete() end
+    }//deleteActivity() end
 
 
     //페이지 로딩시 댓글 목록 출력
     $(document).ready(function (){
-        commacList();
+        listActivity();
     });//ready() end
 
 </script>
