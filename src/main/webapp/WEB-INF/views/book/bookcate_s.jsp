@@ -9,7 +9,7 @@
 <body>
 	<!-- 상단 시작과 검색창 -->
 	<div class="hero-slant overlay" data-stellar-background-ratio="0.5"
-		style="background-image: url('../images/novel.jpg'); height: 80vh; margin-bottom: 20px;">
+		style="background-image: url('../images/science.jpg'); height: 80vh; margin-bottom: 20px;">
 		<div class="container">
 			<div class="row align-items-center justify-content-between"
 				style="display: flex; flex-direction: row-reverse;">
@@ -17,7 +17,7 @@
 					<h1 class="text-white text-left font-weight-bold mb-4"
 						data-aos="fade-up" data-aos-delay="0"
 						style="text-shadow: 3px 3px 3px black;">
-						소설&bullet;시
+						인문
 					</h1>
 					<form action="read" class="sign-up-form d-flex" data-aos="fade-up"
 						data-aos-delay="100">
@@ -49,40 +49,14 @@
 
 
 	<table border="0" align = "center">
-	<tr>
-		<td>
-			<div class="col-12">
-				<div class="post-entry horizontal d-md-flex">
-					<div class="media">
-						<a href="#"><img
-							src="http://image.yes24.com/goods/115094437/M"
-							style="width: 140px; margin-right: 20px;" /></a>
-					</div>
-					<div class="text">
-						<div class="meta">
-							<span>출판사 현대문학</span> <span>&bullet;</span> <span>작가 천선란</span>
-						</div>
-						<h2>
-							<a href="#" style="color: #906D3B">랑과 나의사막</a>
-						</h2>
-						<p>출판일 2022-10-25</p>
-						<p>당대 한국 문학의 가장 현대적이면서도 첨예한 작가들을 선정, 신작 시와 소설을 수록하는 월간 『현대문학』의
-							특집 지면 [현대문학 핀 시리즈]의 마흔세 번째 소설선</p>
-
-					</div>
-				</div>
-			</div>
-		 </td>
-		</tr>
-
 		<tr>
 			<td>
-			<c:forEach var="dto" items="${list_n}">
+			<c:forEach var="dto" items="${list_s}">
 				<div class="col-12">
 					<div class="post-entry horizontal d-md-flex">
 						<div class="media">
 							<a href="#">
-							<img src="${dto.b_bookcover}"
+							<img src="/images/${dto.b_bookcover}"
 								style="width: 140px; margin-right: 20px;"></a>
 						</div>
 						<div class="text">
