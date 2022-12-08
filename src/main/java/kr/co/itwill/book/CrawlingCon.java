@@ -16,15 +16,17 @@ public class CrawlingCon {
 	
 	public void crawling(){	
 	
-
+/*
 	//교보문고 소설 주간베스트 페이지 책제목 크롤링
 
-	/*try {
+	try {
 		
 			String URL = "http://www.yes24.com/24/Category/More/001001046";
 			String params = "?ElemNo=104";	
 			params += "&ElemSeq=1";
 			params += "&PageNumber=";
+			
+			CrawlingDTO dto = new CrawlingDTO();
 			
 			// 웹페이지 (1~50)까지 가져오기
 			for(int p=1; p<=50; p++) {
@@ -35,7 +37,7 @@ public class CrawlingCon {
 				Elements n_title = doc.select(".goods_name");
 				for(Element element : n_title) {
 					System.out.println(element.text());
-					
+					//(천우)dto.setN_name(element.text());
 				}//for end
 				
 				
@@ -43,12 +45,14 @@ public class CrawlingCon {
 				Elements n_auth = doc.select(".goods_auth");
 				for(Element element : n_auth) {
 					System.out.println(element.text());
+					//(천우) dto의 setter로 담기
 				}//for end
 				
 				//출판사
 				Elements n_pub = doc.select(".goods_pub");
 				for(Element element : n_pub) {
 					System.out.println(element.text());
+					//(천우) dto의 setter로 담기
 				}//for end
 				
 				
@@ -56,6 +60,7 @@ public class CrawlingCon {
 				Elements n_cdate = doc.select(".goods_date");
 				for(Element element : n_cdate) {
 					System.out.println(element.text());
+					//(천우) dto의 setter로 담기
 				}//for end
 				
 				
@@ -63,6 +68,7 @@ public class CrawlingCon {
 				Elements n_des = doc.select(".goods_read");
 				for(Element element : n_des) {
 					System.out.println(element.text());
+					//(천우) dto의 setter로 담기
 				}//for end
 				
 				
@@ -70,14 +76,19 @@ public class CrawlingCon {
 				Elements n_price = doc.select(".goods_price > .yes_b");
 				for(Element element : n_price) {
 					System.out.println(element.text());
+					//(천우) dto의 setter로 담기
 				}//for end]
 				
 				//이미지링크
 				Elements n_img = doc.select(".imgBdr img");
 				for(Element element : n_img) {
 					System.out.println(element.attr("src"));
+					//(천우) dto의 setter로 담기
 				}
 			
+				//(천우) dao 실행 (insert)
+				
+				//return sqlsession.~~~~
 				
 				
 			}//for end	
@@ -86,7 +97,7 @@ public class CrawlingCon {
 					System.out.println("크롤링 실패"+e);
 		
 		}//end
-	
+
 System.out.println("================================================================================================================");		
 	
 	//교보문고 에세이 주간베스트 페이지 책제목 크롤링
@@ -297,6 +308,6 @@ System.out.println("============================================================
 		
 		}//end
 	
-*/	
+	*/
 	
 }}

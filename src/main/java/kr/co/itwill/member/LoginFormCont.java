@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-@RequestMapping("/member")
+@RequestMapping("/login")
 @Controller
 public class LoginFormCont {
 
@@ -17,12 +17,15 @@ public class LoginFormCont {
 	@Autowired
 	MemberDAO memberDao;
 	
+	// 로그인 폼 띄우기
 	@RequestMapping("/loginForm")
 	public ModelAndView login() {
 			ModelAndView mav=new ModelAndView();
 			mav.setViewName("member/loginForm");
 			return mav;
 	}//Member() end
+	
+	// 로그인 실행시키기
 	
 	
 	
