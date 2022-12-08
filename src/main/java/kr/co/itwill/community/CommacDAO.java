@@ -31,7 +31,7 @@ public class CommacDAO {
     }//deleteActivity() end
 
 
-    public int InsertIntoCommunityActivity(CommacDTO commac){
+    public int updateActivity(CommacDTO commac){
         return sqlSession.update("commac.update", commac);
     }//openActivityUpdatePanel() end
 

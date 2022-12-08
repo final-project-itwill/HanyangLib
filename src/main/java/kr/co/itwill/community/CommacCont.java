@@ -50,13 +50,13 @@ public class CommacCont {
 
     @RequestMapping("/update")
     @ResponseBody
-    public int openActivityUpdatePanel(@RequestParam int ac_no,
+    public int updateActivity(@RequestParam int ac_no,
                             @RequestParam String ac_review, @RequestParam int ac_manjok) throws Exception{
         CommacDTO commac = new CommacDTO();
         commac.setAc_no(ac_no);
         commac.setAc_review(ac_review);
         commac.setAc_manjok(ac_manjok);
-        return commacDao.openActivityUpdatePanel(commac);
+        return commacDao.updateActivity(commac);
     }//openActivityUpdatePanel() end
 
 
