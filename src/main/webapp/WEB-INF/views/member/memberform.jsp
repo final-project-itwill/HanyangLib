@@ -5,7 +5,7 @@
 
 <div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/libbg.jpg'); height: 40vh;"></div>
 <br>
-<form name="memfrm" method="post" action="insert.do" onsubmit="return send()">
+<form name="memberform" method="post" action="insert" onsubmit="return send()">
 <span style="color:red; font-weight: bold">필수입력</span>
 <br>
 <div class= container">
@@ -13,72 +13,92 @@
 <tr>
     <th>*아이디</th>
     <td style="text-align: left">
-      <input type="text" name="userid" id="userid" size="15">
+      <input type="text" name="m_id" id="m_id" size="15">
       <input type="button" value="ID중복확인" id="btn_userid"> 
       <span id="panel"></span>
     </td>
 </tr>
 <tr>
     <th>*비밀번호</th>
-    <td style="text-align: left"><input type="password" name="passwd" id="passwd" size="15" required></td>
+    <td style="text-align: left"><input type="password" name="m_pw" id="m_pw" size="15" required></td>
 </tr>
 <tr>
     <th>*비밀번호 확인</th>
-    <td style="text-align: left"><input type="password" name="repasswd" id="repasswd" size="15" required></td>
+    <td style="text-align: left"><input type="password" name="m_pw" id="m_pw" size="15" required></td>
 </tr>
 <tr>
     <th>*이름</th>
-    <td style="text-align: left"><input type="text" name="mname" id="mname" size="15" maxlength="20" required></td>
+    <td style="text-align: left"><input type="text" name="m_name" id="m_name" size="15" maxlength="20" required></td>
 </tr>
 <tr>
     <th>*닉네임</th>
-    <td style="text-align: left"><input type="text" name="nickname" id="nickname" size="15" maxlength="20" required></td>
+    <td style="text-align: left"><input type="text" name="m_nick" id="m_nick" size="15" maxlength="20" required></td>
+</tr>
+<tr>  
+  <th>*생년월일</th>
+	<td  style="text-align: left"><input type="number" name="m_birth" id="m_birth" required>
+	</td>
 </tr>
 <tr>
     <th>*이메일</th>
     <td style="text-align: left">
-      <input type="email" name="useremail" id="useremail" size="30">
-      <input type="button" value="Email 중복확인" onclick="checkEMAIL()" id="btn_useremail">
+      <input type="email" name="m_email" id="m_email" size="30">
+      <input type="button" value="Email 중복확인" onclick="checkEMAIL()" id="btn_m_email">
       <span id="emailpanel"></span>
+    </td>
+</tr>
+ <tr>
+    <th>이메일 수신여부</th>
+    <td>
+        <input type="checkbox" name="m_mailcheck" id="m_mailcheck" value="Y">
+    </td>
+</tr>
+<tr>
+    <th>sms 수신여부</th>
+    <td>
+        <input type="checkbox" name="m_smscheck" id="m_smscheck" value="Y">
+    </td>
+</tr>
+<tr>
+    <th>구독 여부</th>
+    <td>
+        <input type="checkbox" name="m_gudok" id="m_gudok" value="Y">
     </td>
 </tr>
 <tr>
     <th>전화번호</th>
-    <td style="text-align: left"><input type="text" name="tel" id="tel" size="15"></td>
+    <td style="text-align: left"><input type="text" name="m_tel" id="m_tel" size="15"></td>
 </tr>
 <tr>
     <th>우편번호</th>
     <td style="text-align: left">
-      <input type="text" name="zipcode" id="zipcode" size="7"  readonly>
+      <input type="text" name="m_zip" id="m_zip" size="7"  readonly>
       <input type="button" value="주소찾기" onclick="DaumPostcode()">
       <span></span>    
     </td>
 </tr>
 <tr>  
   <th>주소</th>
-  <td style="text-align: left"><input type="text" name="address1" id="address1" size="45" readonly></td>
+  <td style="text-align: left"><input type="text" name="m_add1" id="m_add1" size="45" readonly></td>
 </tr>
 <tr>  
   <th>나머지주소</th>
-  <td style="text-align: left"><input type="text" name="address2" id="address2" size="45"></td>
+  <td style="text-align: left"><input type="text" name="m_add2" id="m_add2" size="45"></td>
 </tr>
 <tr>  
-  <th>직업</th>
+  <th>성별</th>
   <td style="text-align: left">
-        <select name="job"  id="job">
+        <select name="m_gender"  id="m_gender">
           <option value="0">선택하세요.</option>
-          <option value="A01">회사원</option>
-          <option value="A02" selected>IT관련직</option>
-          <option value="A03">학생</option>
-          <option value="A04">주부</option>
-          <option value="A05">기타</option>
+          <option value="m" selected>남자</option>
+          <option value="f">여자</option>
         </select>
   </td>
 </tr>
 <tr>
     <td colspan="2">
         <input type="submit" value="회원가입"  class="btn btn-primary"/>
-        <input type="reset"  value="취소"      class="btn btn-primary"/>
+        <input type="reset"  value="취소"     class="btn btn-primary"/>
     </td>
 </tr>
 </table>
@@ -96,19 +116,19 @@
       });//end
        $("#btn_userid").click(function(){
        
-       let params="userid=" + $("#userid").val();
+       let params="m_id=" + $("#m_id").val(d);
    
        //JSON응답
        $.post("idcheckcookieproc.do", params, checkID, "json")
        
       });//click end
-   
+      
   
       $(function() {
 		$.removeCookie("checkEMAIL");
 	})//end
-	$("#btn_useremail").click(function(){
-		let params="useremail" + $("useremail").val;
+	$("#btn_m_email").click(function(){
+		let params="m_email" + $("m_email").val;
 		
 		$.post("emailcheckproc.do", params, checkEMAIL , "json")
 	})//click end
@@ -123,7 +143,7 @@
       if(count==0){
     	  $.cookie("checkID", "pass")
       }else{
-    	  $("#userid").focus();
+    	  $("#m_id").focus();
       }//if end
           
    }//checkID()
@@ -137,12 +157,12 @@
       if(count==0){
     	  $.cookie("checkEMAIL", "pass")
       }else{
-    	  $("#useremail").focus();
+    	  $("#m_email").focus();
       }//if end
           
    }//checkID()
    
-   
+   /* 
    //7)아이디중복확인을 해야만 회원가입폼이 서버로 전송
    function send() {
       //아이디 입력했는지?
@@ -167,6 +187,7 @@
    
             
    }// send() end
+   */
    
    </script>
 
@@ -174,16 +195,16 @@
 	$("#btn_userid").click(function() {
 		$.post(
 				"idcheckproc.do"
-				,"userid=" + $("#userid").val()
+				,"m_id" + $("#m_id").val()
 				,responseProc		
 		);
 	}); //click() end
 	
 	
-	$("#btn_useremail").click(function() {
+	$("#btn_m_email").click(function() {
 		$.post(
 				"emailcheckproc.do"
-				,"useremail=" + $("#useremail").val()
+				,"m_email=" + $("#m_email").val()
 				,emailresponseProc		
 		);
 	}); //click() end
@@ -206,7 +227,7 @@
 
 
 
-
+<!-- ----- DAUM 우편번호 API 시작----- -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script>
@@ -245,8 +266,8 @@
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('zipcode').value = data.zonecode; //5자리 새우편번호 사용
-                document.getElementById('address1').value = fullAddr;
+                document.getElementById('m_zip').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('m_add1').value = fullAddr;
 
                 // iframe을 넣은 element를 안보이게 한다.
                 // (autoClose:false 기능을 이용한다면, 아래 코드를 제거해야 화면에서 사라지지 않는다.)
@@ -255,7 +276,7 @@
                 // 우편번호 찾기 화면이 보이기 이전으로 scroll 위치를 되돌린다.
                 document.body.scrollTop = currentScroll;
                 
-                $('#address2').focus();
+                $('#m_add2').focus();
             },
             // 우편번호 찾기 화면 크기가 조정되었을때 실행할 코드를 작성하는 부분. iframe을 넣은 element의 높이값을 조정한다.
             onresize : function(size) {
