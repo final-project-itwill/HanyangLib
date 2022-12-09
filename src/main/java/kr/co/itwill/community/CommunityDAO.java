@@ -1,5 +1,6 @@
 package kr.co.itwill.community;
 
+import kr.co.itwill.book.BookDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -51,8 +52,16 @@ public class CommunityDAO {
         return sqlSession.selectOne("community.idCheck", sign);
     }//idCheck() end
 
-//    public int listMylib(String loginID){
-//        return sqlSession.selectList("community", loginID);
-//    }//listMylib() end
+    public List<CommunityMylipDTO> listMylib(String loginID){
+        return sqlSession.selectList("community.listMylib", loginID);
+    }//listMylib() end
+
+    public BookDTO readBook(String b_code){
+        return sqlSession.selectOne("community.readBook", b_code);
+    }//readBook() end
+
+    public int insert(CommunityDTO community){
+        return sqlSession.insert("community.insert", community);
+    }//insert() end
 
 }//class end

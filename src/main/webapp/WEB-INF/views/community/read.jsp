@@ -22,7 +22,7 @@
         <div class="lib-cont col-12 col-sm-7 col-md-7 col-lg-7" style="padding-left: 5vw">
 
             <div class="container-fluid" style="padding: 0 10vw 15vw 5vw">
-                <img src="/images/none.jpg" class="img-fluid img-thumbnail"><!-- 추후 read로 c_banner 가져올 것 -->
+                <img src="/storage/${read.c_banner}" class="img-fluid img-thumbnail"><!-- 추후 read로 c_banner 가져올 것 -->
                 <div>
                     <h3 style="text-align: center; font-weight: bold; margin-top: 5vh">커뮤니티 소개</h3>
                     <p style="margin-top: 5vh; font-size: 20px">"${read.c_des}"</p>
