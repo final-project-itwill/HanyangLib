@@ -29,7 +29,7 @@
 	<div class="login-content" id="login-content">
     
 	      <h2 class="title">환영합니다</h2>   
-	      <form action="/account/check" method="post">
+	      <form action="/login/loginproc" method="post">
 			<div class="input-div one">
 			   <div class="i" id="user">
 			      <i class="fas fa-user"></i>
