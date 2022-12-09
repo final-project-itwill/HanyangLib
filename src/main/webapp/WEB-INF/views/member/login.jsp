@@ -3,7 +3,21 @@
 <%@ include file="../header.jsp"%>
 <!-- 본문작성 시작 -->
 <!-- login.jsp -->
-
+	<h1>로그인 결과</h1>
+	1) JSP<br>
+	<%=request.getAttribute("user") %><br>
+	아이디(세션) : <%=session.getAttribute("s_id") %><br>
+	비번 (세션) : <%=session.getAttribute("s_pw") %><br>
+	<hr>
+	
+	2)EL<br>
+	${requestScope.message}<br>
+	아이디(세션) : ${sessionScope.s_id}<br>	
+	비번(세션) : ${sessionScope.s_pw}<br>	
+	
+	${user}<br>
+	아이디(세션) : ${s_id}<br>
+	비번(세션) : ${s_pw}<br>
 
 
 
