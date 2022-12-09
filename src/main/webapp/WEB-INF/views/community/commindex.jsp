@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
+
 <!-- 본문작성 시작 commindex.jsp -->
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<!-- 타이틀 사진과 상단 검색창 -->
+<%-- 타이틀 사진과 상단 검색창 --%>
 <div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/galaxy.jpeg'); height: 90vh;">
     <div class="container">
         <div class="row align-items-center justify-content-between" style="display:flex; flex-direction: row-reverse;">
@@ -25,10 +26,49 @@
 
 
 <!---------------------------------------------------------------------------->
-<!-- 인기 커뮤니티 -->
+
+
+<%-- 인기 커뮤니티 --%>
 <div class="container pb-md-5 border-bottom">
     <div class="row">
         <div class="col-lg-12">
+
+            <%-- 커뮤니티 생성하기 버튼 : 모달창으로 나만의서재 책 불러오기 ------------------------------------------------------------------------------%>
+            <div class="modal" id="modal">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" style="font-weight: bold">내 서재에서 소통하고 싶은 책을 선택해주세요</h5>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body">
+                            나만의 서재 불러오기
+                            <table class="table">
+                                <tr>
+                                    <td>이미지</td>
+                                    <td>책이름</td>
+                                </tr>
+                                <tr>
+                                    <td>이미지</td>
+                                    <td>책이름</td>
+                                </tr>
+                                <tr>
+                                    <td>이미지</td>
+                                    <td>책이름</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn-light" data-toggle="modal" data-target="#modal" style="font-weight: bold; color: #3b5998;margin-bottom: 20px">커뮤니티 만들러 가기</button>
+            <a href="createForm"><h5 class="text-right" data-aos="fade-up" data-aos-delay="0" style="font-weight: bold; color: #3b5998;margin-bottom: 20px">커뮤니티 만들러 가기</h5></a>
+            <%-- 커뮤니티 생성하기 버튼 끝 ---------------------------------------------------------------------------------------------------------%>
+
+
             <a href="list"><!-- 인기순 list로 가기-->
                 <h1 class="listtext-black text-left font-weight-bold mb-4" data-aos="fade-up" data-aos-delay="0">종이에 쓰인<br>글자만으로<br>이런 모임이</h1>
             </a>
@@ -60,12 +100,12 @@
 </div>
 
 
-<!-- 신규 커뮤니티 -->
+<%--신규 커뮤니티--%>
 <div class="container pb-md-5"></div>
 <div class="container pb-md-5 border-bottom">
     <div class="row">
         <div class="col-lg-12">
-            <a href="list"><!-- 최신순 list로 가기-->
+            <a href="list"><%--최신순 list로 가기--%>
                 <h1 class="text-black text-right font-weight-bold mb-4" data-aos="fade-up" data-aos-delay="0">새로운 모임은<br>언제든 환영이야</h1>
             </a>
         </div>
@@ -97,7 +137,7 @@
 </div>
 
 
-<!-- 마감일 임박 커뮤니티 -->
+<%-- 마감일 임박 커뮤니티 --%>
 <div class="container pb-md-5"></div>
 <div class="container pb-md-5 border-bottom">
     <div class="row" data-aos="fade-up" data-aos-delay="0">
@@ -132,5 +172,5 @@
 </div>
 
 
-<!-- 본문작성 끝 -->
+<%-- 본문작성 끝 --%>
 <%@ include file="../footer.jsp"%>

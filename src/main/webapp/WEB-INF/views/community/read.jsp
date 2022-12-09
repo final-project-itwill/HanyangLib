@@ -66,7 +66,12 @@
                         </tr>
                     </table>
                 </div><!-- 정보 테이블 end-->
-                <button type="submit">커뮤니티 신청하기</button><!-- 신청 버튼 end-->
+
+                <%-- 커뮤니티 신청 버튼 --%>
+
+                    <button type="button" onclick="clickSignup()">이 커뮤니티 신청하기</button>
+
+
             </div>
         </div><!-- 우측 bar end-->
     </div><!-- row end-->
@@ -154,7 +159,6 @@
         </div>
         <div class="container-fluid col-lg-3 d-sm-none"></div>
     </div><!-- 커뮤니티 후기 end -->
-
     <br><br><br>
 </div>
 
@@ -162,9 +166,22 @@
 <script>
     let ac_ccode = '${read.c_code}';  //부모 PK키
 
+
     //로그인 id가 작성자와 동일한 경우에만 후기 수정/삭제 가능
     let loginID = 'hanyihanyi';   //세션변수로 받아올 것.
     //현재 ac_id 값은 컨트롤러에 임의로 hanyihanyi로 세팅했다.
+
+
+    //커뮤니티 신청버튼 누르면, 가입 여부 체크 및 신청폼페이지로 이동
+    function clickSignup(){
+        let id = '${idCheck.s_id}';
+        if(id == ''){
+            location.href = "signupForm";   //나중에 설문지페이지와 바로 연결하기
+        }else{
+            alert("이미 가입을 신청한 커뮤니티입니다.");
+        }//if end
+    }//checkSignup() end
+
 
 
     //후기 남기기 버튼 클릭했을 때
@@ -279,6 +296,11 @@
     $(document).ready(function (){
         listActivity();
     });//ready() end
+
+
+
+
+
 
 </script>
 <!-- 본문작성 끝 -->

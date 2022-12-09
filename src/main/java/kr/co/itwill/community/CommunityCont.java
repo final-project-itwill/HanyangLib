@@ -19,9 +19,10 @@ public class CommunityCont {
 
 
     @RequestMapping("/index")
-    public ModelAndView index(){
+    public ModelAndView index(@RequestParam String loginID){
         ModelAndView mav = new ModelAndView();
         mav.addObject("newComm", commDao.newComm());
+        //mav.addObject("listMylib", commDao.listMylib(loginID));    //커뮤니티 생성시 내서재 조회하기
         mav.setViewName("community/commindex");
         return mav;
     }//index() end
@@ -62,6 +63,18 @@ public class CommunityCont {
         return mav;
     }//read() end
 
+
+    //커뮤니티 가입 신청 (설문지랑 연결해야 함)
+    @RequestMapping("/signupForm")
+    public String signupForm(){
+        return "community/signupForm";
+    }//signupForm() end
+
+    //커뮤니티 생성하기
+    @RequestMapping("/createForm")
+    public String createForm(){
+        return "community/createForm";
+    }//createForm() end
 
 
 }//class end

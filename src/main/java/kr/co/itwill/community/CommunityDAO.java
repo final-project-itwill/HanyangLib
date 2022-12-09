@@ -51,4 +51,8 @@ public class CommunityDAO {
         return sqlSession.selectOne("community.idCheck", sign);
     }//idCheck() end
 
+//    public int listMylib(String loginID){
+//        return sqlSession.selectList("community", loginID);
+//    }//listMylib() end
+
 }//class end

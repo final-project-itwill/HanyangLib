@@ -52,7 +52,7 @@
 
     <!--  현재 로그인id의 커뮤니티 가입상태 보기  -->
     <select id="idCheck" resultType="kr.co.itwill.community.CommSignDTO">
-        SELECT s_state
+        SELECT s_state, s_id
         FROM community_signup
         WHERE s_id = #{s_id} and s_code = #{s_code}
     </select>
