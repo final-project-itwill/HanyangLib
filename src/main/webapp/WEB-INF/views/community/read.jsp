@@ -22,7 +22,7 @@
         <div class="lib-cont col-12 col-sm-7 col-md-7 col-lg-7" style="padding-left: 5vw">
 
             <div class="container-fluid" style="padding: 0 10vw 15vw 5vw">
-                <img src="/images/none.jpg" class="img-fluid img-thumbnail"><!-- 추후 read로 c_banner 가져올 것 -->
+                <img src="/storage/${read.c_banner}" class="img-fluid img-thumbnail"><!-- 추후 read로 c_banner 가져올 것 -->
                 <div>
                     <h3 style="text-align: center; font-weight: bold; margin-top: 5vh">커뮤니티 소개</h3>
                     <p style="margin-top: 5vh; font-size: 20px">"${read.c_des}"</p>
@@ -66,7 +66,12 @@
                         </tr>
                     </table>
                 </div><!-- 정보 테이블 end-->
-                <button type="submit">커뮤니티 신청하기</button><!-- 신청 버튼 end-->
+
+                <%-- 커뮤니티 신청 버튼 --%>
+
+                    <button type="button" onclick="clickSignup()">이 커뮤니티 신청하기</button>
+
+
             </div>
         </div><!-- 우측 bar end-->
     </div><!-- row end-->
@@ -129,7 +134,7 @@
             </c:if>
 
             <!-- 후기 목록 div -->
-            <div class="commacList"></div>
+            <div class="activityList"></div>
 
 <%--            후기 list for:each 반복문으로 테이블로 출력했을 때--%>
 <%--            <table  style="width: 100%">--%>
@@ -154,7 +159,6 @@
         </div>
         <div class="container-fluid col-lg-3 d-sm-none"></div>
     </div><!-- 커뮤니티 후기 end -->
-
     <br><br><br>
 </div>
 
@@ -162,9 +166,22 @@
 <script>
     let ac_ccode = '${read.c_code}';  //부모 PK키
 
+
     //로그인 id가 작성자와 동일한 경우에만 후기 수정/삭제 가능
     let loginID = 'hanyihanyi';   //세션변수로 받아올 것.
     //현재 ac_id 값은 컨트롤러에 임의로 hanyihanyi로 세팅했다.
+
+
+    //커뮤니티 신청버튼 누르면, 가입 여부 체크 및 신청폼페이지로 이동
+    function clickSignup(){
+        let id = '${idCheck.s_id}';
+        if(id == ''){
+            location.href = "signupForm";   //나중에 설문지페이지와 바로 연결하기
+        }else{
+            alert("이미 가입을 신청한 커뮤니티입니다.");
+        }//if end
+    }//checkSignup() end
+
 
 
     //후기 남기기 버튼 클릭했을 때
@@ -172,10 +189,10 @@
         //id="commac"의 내용을 전부 가져온다
         let insertData=$("#commacForm").serialize();
         //alert(insertData);
-        commacInsert(insertData);   //후기등록 함수호출
+        InsertIntoCommunityActivity(insertData);   //후기등록 함수호출
     });//click() end
 
-    function commacInsert(insertData){
+    function InsertIntoCommunityActivity(insertData){
         //alert("댓글등록함수호출" + insertData);
         $.ajax({
              url    :'/commac/insert'
@@ -184,17 +201,17 @@
             ,success:function (data){
                  //alert(data);
                 if(data==1){        //후기등록 성공
-                    commacList();   //후기등록 후 후기목록 함수호출
+                    listActivity();   //후기등록 후 후기목록 함수호출
                     $('#ac_review').val('');    //기존 후기내용 빈값으로
                     $('#ac_manjok').val(3);     //기본별점 3
                 }//if end
             }//success end
         });//ajax() end
-    }//commacInsert() end
+    }//InsertIntoCommunityActivity() end
 
 
     //후기 목록
-    function commacList(){
+    function listActivity(){
         $.ajax({
              url    :'/commac/list'
             ,type   :'get'
@@ -211,8 +228,8 @@
 
                     //작성자||관리자만 수정/삭제 버튼 접근 가능
                     if(value.ac_id == loginID || value.ac_id =='webmaster'){
-                        a += '      <a href="javascript:commacUpdate(' + value.ac_no + ',\'' + value.ac_review + '\',' + value.ac_manjok + ');">수정</a>';
-                        a += '      <a href="javascript:commacDelete(' + value.ac_no + ');">삭제</a>';
+                        a += '      <a href="javascript:openActivityUpdatePanel(' + value.ac_no + ',\'' + value.ac_review + '\',' + value.ac_manjok + ');">수정</a>';
+                        a += '      <a href="javascript:deleteActivity(' + value.ac_no + ');">삭제</a>';
                     };//if end
                     a += '  </div>';
                     a += '  <div class="commacReview' + value.ac_no +'">'
@@ -221,28 +238,28 @@
                     a += '</div>';
                 });//each() end
 
-                $(".commacList").html(a);   //<div class="commacList"></div>
+                $(".activityList").html(a);   //<div class="activityList"></div>
 
             }//success end
         });//ajax() end
-    }//commacList() end
+    }//listActivity() end
 
 
     //후기 수정 - 수정할 내용 폼으로 출력
-    function commacUpdate(ac_no, ac_review, ac_manjok){
+    function openActivityUpdatePanel(ac_no, ac_review, ac_manjok){
         let a = '';
         a += '<div class="input-group" style="text-align: center">';
         a += '  <input type="text" value="' + ac_review + '" id="ac_review_' + ac_no + '">';
         a += '  <input type="range" min="1" max="5" value="' + ac_manjok +'" id="ac_manjok_' + ac_no + '">';
-        a += '  <button type="button" onclick="commacUpdateProc(' + ac_no + ')">수정</button>';
+        a += '  <button type="button" onclick="updateActivity(' + ac_no + ')">수정</button>';
         a += '</div>';
 
         $(".commacReview" + ac_no).html(a);
-    }//commacUpdate() end
+    }//openActivityUpdatePanel() end
 
 
     //후기 수정
-    function commacUpdateProc(ac_no){
+    function updateActivity(ac_no){
 
         let updateReview = $('#ac_review_' + ac_no).val();
         let updateManjok = $('#ac_manjok_' + ac_no).val();
@@ -255,30 +272,35 @@
             ,type:'post'
             ,data:{'ac_review':updateReview, 'ac_manjok':updateManjok, 'ac_no':ac_no}
             ,success:function (data){
-                 if(data == 1) commacList();    //후기수정 후 목록 출력
+                 if(data == 1) listActivity();    //후기수정 후 목록 출력
             }//success end
         });//ajax() end
-    }//commacUpdateProc() end
+    }//updateActivity() end
 
 
     //후기 삭제
-    function commacDelete(ac_no){
+    function deleteActivity(ac_no){
         $.ajax({
              url    :'/commac/delete/' + ac_no
             ,type   :'post'
             ,success:function (data){
                  if(data == 1){             //후기 삭제되면
-                     commacList(ac_ccode);  //목록 출력
+                     listActivity(ac_ccode);  //목록 출력
                  }//if end
             }//success end
         });//ajax() end
-    }//commacDelete() end
+    }//deleteActivity() end
 
 
     //페이지 로딩시 댓글 목록 출력
     $(document).ready(function (){
-        commacList();
+        listActivity();
     });//ready() end
+
+
+
+
+
 
 </script>
 <!-- 본문작성 끝 -->

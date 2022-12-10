@@ -9,6 +9,7 @@
         SELECT c_code, c_name, c_des, c_bcode, c_local, c_id, c_chat, c_banner ,c_count, c_state, c_rdate, b_name, b_bookcover
         FROM book JOIN community
         ON book.b_code = community.c_bcode
+        ORDER BY c_code DESC
     </select>
 
     <select id="search" resultType="kr.co.itwill.community.BookReadDTO" parameterType="String">
@@ -19,7 +20,7 @@
     </select>
 
 
-<!--  최신순  -->
+    <!-- list 최신순 정렬 -->
     <select id="newComm" resultType="kr.co.itwill.community.BookReadDTO">
         SELECT c_code, c_name, c_des, c_bcode, c_local, c_id, c_chat, c_banner ,c_count, c_state, c_rdate, b_name, b_bookcover
         FROM book JOIN community
@@ -28,6 +29,7 @@
     </select>
 
 
+    <!-- read 상세보기  -->
     <select id="read" resultType="kr.co.itwill.community.BookReadDTO">
         SELECT c_code, c_name, c_des, c_bcode, c_local, c_id, c_chat, c_banner ,c_count, c_state, c_rdate, b_name, b_bookcover, m_nick
         FROM book JOIN community
@@ -52,9 +54,61 @@
 
     <!--  현재 로그인id의 커뮤니티 가입상태 보기  -->
     <select id="idCheck" resultType="kr.co.itwill.community.CommSignDTO">
-        SELECT s_state
+        SELECT s_state, s_id
         FROM community_signup
         WHERE s_id = #{s_id} and s_code = #{s_code}
     </select>
+
+
+    <!--  나만의 서재 조회  -->
+    <select id="listMylib" resultType="kr.co.itwill.community.CommunityMylipDTO">
+        SELECT lib_id, b_code, b_name, b_bookcover, lib_proc
+        FROM mylib
+                 JOIN book
+                      ON mylib.lib_bcode = book.b_code
+        WHERE lib_id = #{loginID} and lib_proc >= 0;
+    </select>
+
+    <select id="readBook" resultType="kr.co.itwill.book.BookDTO">
+        SELECT b_code, b_name
+        FROM book
+        WHERE b_code = #{b_code}
+    </select>
+
+    <insert id="insert" parameterType="kr.co.itwill.community.CommunityDTO">
+        INSERT INTO community (c_code, c_name, c_des, c_bcode, c_local, c_id, c_chat, c_banner ,c_count)
+        VALUES (#{c_code}, #{c_name}, #{c_des}, #{c_bcode}, #{c_local}, #{c_id}, #{c_chat}, #{c_banner}, #{c_count})
+    </insert>
+
+
+    <select id="filename" resultType="String">
+        SELECT c_banner
+        FROM community
+        WHERE c_code = #{c_code}
+    </select>
+
+    <delete id="delete">
+        DELETE FROM community
+        WHERE c_code = #{c_code}
+    </delete>
+
+    <update id="update">
+        UPDATE community
+        SET c_name    = #{c_name}
+            ,c_des    = #{c_des}
+            ,c_local  = #{c_local}
+            ,c_chat   = #{c_chat}
+            ,c_banner = #{c_banner}
+            ,c_count  = #{c_count}
+        WHERE c_code  = #{c_code}
+    </update>
+
+
+    <!--  PK키 코드 쿼리  -->
+    <select id="createCode" resultType="int">
+        SELECT MAX(CAST(substr(c_code, 4, 6) AS INT))
+        FROM community
+    </select>
+
 
 </mapper>

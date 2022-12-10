@@ -1,6 +1,7 @@
 package kr.co.itwill.community;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class CommunityDTO {
@@ -15,4 +16,6 @@ public class CommunityDTO {
     private int c_count;
     private String c_state;
     private String c_rdate;
+
+    private MultipartFile poster;
 }//class end

@@ -22,7 +22,7 @@ public class CommacCont {
 
     @RequestMapping("/insert")
     @ResponseBody
-    public int commacInsert(@RequestParam String ac_ccode, @RequestParam String ac_cname,
+    public int InsertIntoCommunityActivity(@RequestParam String ac_ccode, @RequestParam String ac_cname,
                             @RequestParam String ac_review, @RequestParam int ac_manjok) throws Exception{
         CommacDTO commac = new CommacDTO();
         commac.setAc_ccode(ac_ccode);
@@ -30,34 +30,34 @@ public class CommacCont {
         commac.setAc_review(ac_review);
         commac.setAc_manjok(ac_manjok);
         commac.setAc_id("hanyihanyi");  //session으로 id 갖고오기
-        return commacDao.commacInsert(commac);
-    }//commacInsert() end
+        return commacDao.InsertIntoCommunityActivity(commac);
+    }//InsertIntoCommunityActivity() end
 
 
     @RequestMapping("/list")
     @ResponseBody
-    private List<CommacDTO> commacList(@RequestParam String ac_ccode, Model model) throws Exception{
-        return commacDao.commacList(ac_ccode);
-    }//commacList() end
+    private List<CommacDTO> listActivity(@RequestParam String ac_ccode, Model model) throws Exception{
+        return commacDao.listActivity(ac_ccode);
+    }//listActivity() end
 
 
     @RequestMapping("/delete/{ac_no}")
     @ResponseBody
-    public int commacDelete(@PathVariable int ac_no) throws Exception{
-        return commacDao.commacDelete(ac_no);
-    }//commacDelete() end
+    public int deleteActivity(@PathVariable int ac_no) throws Exception{
+        return commacDao.deleteActivity(ac_no);
+    }//deleteActivity() end
 
 
     @RequestMapping("/update")
     @ResponseBody
-    public int commacUpdate(@RequestParam int ac_no,
+    public int updateActivity(@RequestParam int ac_no,
                             @RequestParam String ac_review, @RequestParam int ac_manjok) throws Exception{
         CommacDTO commac = new CommacDTO();
         commac.setAc_no(ac_no);
         commac.setAc_review(ac_review);
         commac.setAc_manjok(ac_manjok);
-        return commacDao.commacUpdate(commac);
-    }//commacUpdate() end
+        return commacDao.updateActivity(commac);
+    }//openActivityUpdatePanel() end
 
 
 }//class end

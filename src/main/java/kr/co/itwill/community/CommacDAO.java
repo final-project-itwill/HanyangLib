@@ -16,23 +16,23 @@ public class CommacDAO {
     SqlSession sqlSession;
 
 
-    public int commacInsert(CommacDTO commac){
+    public int InsertIntoCommunityActivity(CommacDTO commac){
         return sqlSession.insert("commac.insert", commac);
-    }//commacInsert() end
+    }//InsertIntoCommunityActivity() end
 
 
-    public List<CommacDTO> commacList(String ac_ccode){
+    public List<CommacDTO> listActivity(String ac_ccode){
         return sqlSession.selectList("commac.list", ac_ccode);
-    }//commacList() end
+    }//listActivity() end
 
 
-    public int commacDelete(int ac_no) throws Exception{
+    public int deleteActivity(int ac_no) throws Exception{
         return sqlSession.delete("commac.delete", ac_no);
-    }//commacDelete() end
+    }//deleteActivity() end
 
 
-    public int commacUpdate(CommacDTO commac){
+    public int updateActivity(CommacDTO commac){
         return sqlSession.update("commac.update", commac);
-    }//commacUpdate() end
+    }//openActivityUpdatePanel() end
 
 }//class end
