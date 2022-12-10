@@ -1,6 +1,7 @@
 package kr.co.itwill.community;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class BookReadDTO {
@@ -18,5 +19,7 @@ public class BookReadDTO {
     private String b_name;
     private String b_bookcover;
     private String m_nick;
+
+    private MultipartFile poster;
 
 }//class end
