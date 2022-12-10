@@ -115,16 +115,7 @@
                 <c:forEach items="${newComm}" var="dto">
                 <div class="col-lg-4">
                     <a href="read?c_code=${dto.c_code}&loginID=hanyihanyi" class="gal-item">
-                        <c:choose>
-                            <c:when test="${dto.b_bookcover == null}">
-                                <img src="/storage/none.jpg" class="img-fluid"><!-- 실제로는 c_banner기본값이 none.jpg이므로 신경쓰지 않아도 된다-->
-                            </c:when>
-                            <c:otherwise>
-                                <img src="/storage/none.jpg" class="img-fluid">
-                            </c:otherwise>
-                        </c:choose>
-
-
+                                <img src="/storage/${dto.c_banner}" class="img-fluid">
                     </a>
                     <br>
                     <h4 style="text-align: center; font-weight: bold">${dto.c_name}</h4>

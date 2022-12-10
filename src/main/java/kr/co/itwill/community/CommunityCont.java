@@ -80,10 +80,10 @@ public class CommunityCont {
     //커뮤니티 생성하기
     @RequestMapping("/createForm/{b_code}")
     public ModelAndView createForm(@PathVariable String b_code){
-        System.out.println("get로 넘김");
 
         ModelAndView mav = new ModelAndView();
         mav.addObject("readBook", commDao.readBook(b_code));
+        mav.addObject("createCode", commDao.createCode());
         mav.addObject("list", commDao.list());
 //        List<BookReadDTO> test = commDao.list();
 //        for(int i=0; i<test.size(); i++){
@@ -96,7 +96,6 @@ public class CommunityCont {
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     public ModelAndView createForm(@ModelAttribute CommunityDTO dto, HttpServletRequest request) throws Exception{
-        System.out.println("post로 넘김");
         //파일명 리네임 구현 안 했음.
         ModelAndView mav = new ModelAndView();
 
@@ -123,10 +122,85 @@ public class CommunityCont {
         dto.setC_chat(dto.getC_chat());
         dto.setC_count(dto.getC_count());
 
-
         mav.addObject("community", commDao.insert(dto));
-        mav.setViewName("community/commindex");    //메인으로 돌아가기
+        mav.setViewName("redirect:/comm/index");    //메인으로 돌아가기
         return mav;
     }//createForm() end
+
+
+    @RequestMapping("/delete/{c_code}")
+    public String delete(@PathVariable String c_code, HttpServletRequest request){
+
+        String filename = commDao.filename(c_code); //삭제할 파일이름 조회
+        if(!filename.equals("none.jpg")){
+            ServletContext application = request.getSession().getServletContext();
+            String path = application.getRealPath("/storage");
+            File file = new File(path + "/" + filename);
+            if(file.exists()){
+                file.delete();
+            }//file() end
+        }//if end
+
+        commDao.delete(c_code);
+        return "redirect:/comm/index";
+    }//delete() end
+
+
+    @RequestMapping("/update/{c_code}")
+    public ModelAndView update(@PathVariable String c_code){
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("read", commDao.read(c_code));
+        mav.setViewName("community/update");
+        return mav;
+    }//update() end
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ModelAndView update(@ModelAttribute CommunityDTO dto, HttpServletRequest request) throws Exception{
+
+        ModelAndView mav = new ModelAndView();
+
+
+        //기존 저장된 정보 가져오기
+        BookReadDTO oldDTO = commDao.read(dto.getC_code());
+
+        String filename = "";
+        //파일을 수정할 것인지?
+        MultipartFile poster = dto.getPoster();         //파일 가져오기
+        if(poster.getSize() > 0){                       //새파일이 업로드 되었다면
+             filename = poster.getOriginalFilename();   //새로운 파일명
+
+            try {
+                //저장 폴더의 실제 경로 가져오기
+                ServletContext application = request.getSession().getServletContext();
+                String path = application.getRealPath("/storage");
+                poster.transferTo(new File(path + "/" + filename));   //신규로 전송된 파일 저장
+                dto.setC_banner(filename);                                     //리네임된 파일명 dto에 담기
+
+                String oldFilename = oldDTO.getC_banner();                     //old파일 /storage에서 삭제하기
+                File oldFile = new File(path + "/" + oldFilename);
+                if(oldFile.exists()){
+                    oldFile.delete();
+                }//file() end
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }//try end
+
+        }else {                                         //파일 수정 안 할 경우
+            filename = oldDTO.getC_banner();            //oldDTO에서 파일이름 가져오기
+            dto.setC_banner(oldDTO.getC_banner());      //기존파일이름 dto에 담기
+        }//if end
+
+        dto.setC_code(dto.getC_code());
+        dto.setC_name(dto.getC_name());
+        dto.setC_des(dto.getC_des());
+        dto.setC_local(dto.getC_local());
+        dto.setC_chat(dto.getC_chat());
+        dto.setC_count(dto.getC_count());
+
+        mav.addObject("update", commDao.update(dto));
+        mav.setViewName("redirect:/comm/index"); //수정 필요 : 관리자 페이지로 이동
+        return mav;
+    }//update() end
 
 }//class end

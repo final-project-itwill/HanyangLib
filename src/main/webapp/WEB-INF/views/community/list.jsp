@@ -52,6 +52,7 @@
             <th>책</th>
             <th>모집상태</th>
             <th>등록일</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -59,15 +60,22 @@
         <c:forEach var="dto" items="${list}">
         <tr>
             <td><a href="read?c_code=${dto.c_code}&loginID=hanyihanyi">${dto.c_name}</a></td>
-                <td>${dto.b_name}</td>
-                <td>
-                    <c:choose>
-                        <c:when test="${dto.c_state == 'i'}">모집중</c:when>
-                        <c:when test="${dto.c_state == 'd'}">모집완료</c:when>
-                        <c:when test="${dto.c_state == 'e'}">활동완료</c:when>
-                    </c:choose>
-                </td>
-                <td>${dto.c_rdate}</td>
+            <td>${dto.b_name}</td>
+            <td>
+                <c:choose>
+                    <c:when test="${dto.c_state == 'i'}">모집중</c:when>
+                    <c:when test="${dto.c_state == 'd'}">모집완료</c:when>
+                    <c:when test="${dto.c_state == 'e'}">활동완료</c:when>
+                </c:choose>
+            </td>
+            <td>${dto.c_rdate}</td>
+
+            <!-- 관리자 페이지로 이동 필요-->
+            <td>
+                <a href="/comm/update/${dto.c_code}">수정</a> &nbsp;&nbsp;
+                <a href="/comm/delete/${dto.c_code}">삭제</a>
+            </td>
+
         </tr>
         </c:forEach>
 
@@ -76,7 +84,19 @@
 
 </div>
 
+<!--
+<script>
 
+    function checkDelete(){
+        let msg = "삭제하면 복구되지 않습니다. \n 진행하시겠습니까?"
+        if(confirm(msg)) {
+            return true;
+        }else {
+            history.back();
+        }//if end
+    }//checkDelete() end
+</script>
+-->
 <!-- 페이징 추가하기 / border-bottom 클래스 여기에 추가?-->
 
 

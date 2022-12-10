@@ -20,21 +20,20 @@
 
         <form name="frm" method="post" action="/comm/insert" enctype="multipart/form-data">
             <%-- 커뮤니티 코드 ex.com001 --%>
-            <c:forEach var="list" items="${list}" varStatus="vs">
-                <c:if test="${vs.count < 9}">
-                    <c:set var="c_code" value="com00${vs.count+1}"></c:set>
+
+                <c:if test="${createCode < 9}">
+                    <c:set var="c_code" value="com00${createCode+1}"></c:set>
                 </c:if>
-                <c:if test="${vs.count >= 9}">
-                    <c:set var="c_code" value="com0${vs.count+1}"></c:set>
+                <c:if test="${createCode >= 9}">
+                    <c:set var="c_code" value="com0${createCode+1}"></c:set>
                 </c:if>
-                <c:if test="${vs.count >=100}">
-                    <c:set var="c_code" value="com${vs.count+1}"></c:set>
+                <c:if test="${createCode >= 99}">
+                    <c:set var="c_code" value="com${createCode+1}"></c:set>
                 </c:if>
 
-            </c:forEach>
+
             <input type="hidden" name="c_code" value="${c_code}">
             <input type="hidden" name="c_bcode" value="${b_code}">
-            <input type="hidden" name="c_banner" value="none.jpg">
 
             <table class="table" style="text-align: center">
                 <tr>

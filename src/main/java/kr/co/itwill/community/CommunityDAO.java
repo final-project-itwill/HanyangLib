@@ -64,4 +64,21 @@ public class CommunityDAO {
         return sqlSession.insert("community.insert", community);
     }//insert() end
 
+
+    public String filename(String c_code){
+        return sqlSession.selectOne("community.filename", c_code);
+    }//filename() end
+    public int delete(String c_code){
+        return sqlSession.delete("community.delete", c_code);
+    }//delete() end
+
+    public int update(CommunityDTO dto){
+        return sqlSession.update("community.update", dto);
+    }//update() end
+
+
+    public int createCode(){
+        return sqlSession.selectOne("community.createCode");
+    }//createCode() end
+
 }//class end
