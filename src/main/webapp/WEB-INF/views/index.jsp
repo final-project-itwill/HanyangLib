@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -19,8 +21,10 @@
 	<link rel="stylesheet" href="css/jquery.fancybox.min.css">
 	<link rel="stylesheet" href="css/aos.css">
 	<link rel="stylesheet" href="css/style.css">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 	<script src="js/jquery-3.5.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 	<title>&#128218 한양서재</title>
 </head>
 <body>
@@ -39,6 +43,9 @@
 	      <a href="/"><img src="images/hylogo_w.png" style="width:120px; margin-top: 20px;"></a>
 	    </div>
 	    <div class="row align-items-center">
+		<c:choose>
+		<%-- 로그인 했을 때 --%>
+		<c:when test="${grade!=null}">
 	      <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
 	        <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
 	          <li class="active"><a href="/" style="font-weight: bold;">Home</a></li>
@@ -50,22 +57,68 @@
                   <li><a href="/book/bookcate_h">인문</a></li>
                   <li><a href="/book/bookcate_s">자연과학</a></li>
                 </ul>
-	          </li>
-	          <li><a href="/gudok/detail" style="font-weight: bold;">구독</a></li>
-	          <li><a href="/mylib/libindex/ksh134625" style="font-weight: bold;">나만의 서재</a></li>
-	          <li><a href="/comm/index" style="font-weight: bold;">커뮤니티</a></li>
-              <li class="has-children">
-              	<a href="#">고객센터</a>
-                <ul class="dropdown">
-                  <li><a href="/notice/list">공지사항</a></li>
-                  <li><a href="#">문의</a></li>
-                </ul>
-              </li>
+          	</li>
+          	<li><a href="/gudok/detail" style="font-weight: bold;">구독</a></li>
+	          	<li><a href="/mylib/libindex/${s_id}" style="font-weight: bold;">나만의 서재</a></li>
+	          	<li><a href="/comm/index" style="font-weight: bold;">커뮤니티</a></li>
+              	<li class="has-children">
+              		<a href="#">고객센터</a>
+	                <ul class="dropdown">
+	                  <li><a href="/notice/list">공지사항</a></li>
+	                  <li><a href="#">문의</a></li>
+	                </ul>
+	              </li>
 	        </ul>
-	        <a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
+			<ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right menu-absolute">
+            	<li>
+        			<a class="font2" href="/login/index">
+        			<i class="fas fa-user"></i> ${s_id}님
+        			</a>
+        		</li>
+        	</ul>
+        	<a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
 	          <span></span>
 	        </a>
 	      </div>
+		</c:when>
+		<%-- 로그인 안했을 때 --%>
+		<c:otherwise> 
+	      	<div class="col-12 col-sm-12 col-lg-12 site-navigation text-center">
+	        <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
+	          <li class="active"><a href="/" style="font-weight: bold;">Home</a></li>
+	          <li class="has-children">
+	          <a href="/book/booklist" style="font-weight: bold;">도서목록</a>
+	          <ul class="dropdown">
+                  <li><a href="/book/bookcate_n">소설/시</a></li>
+                  <li><a href="/book/bookcate_e">에세이</a></li>
+                  <li><a href="/book/bookcate_h">인문</a></li>
+                  <li><a href="/book/bookcate_s">자연과학</a></li>
+                </ul>
+	          </li>
+   	        <li><a href="/login/index" style="font-weight: bold;">구독</a></li>
+	          	<li><a href="/login/index" style="font-weight: bold;">나만의 서재</a></li>
+	          	<li><a href="/login/index" style="font-weight: bold;">커뮤니티</a></li>
+              	<li class="has-children">
+              		<a href="#">고객센터</a>
+	                <ul class="dropdown">
+	                  <li><a href="/notice/list">공지사항</a></li>
+	                  <li><a href="#">문의</a></li>
+	                </ul>
+	              </li>
+	        </ul>          
+	        <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right menu-absolute">
+            	<li class="cta-button">
+              		<a class="font2" href="/login/index">
+        				<i class="fas fa-sign-in-alt"></i> 로그인
+        			</a>
+        		</li>
+            </ul>
+       		<a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
+	          <span></span>
+	        </a>
+	      </div>
+        </c:otherwise>
+        </c:choose>	
 	    </div>  
 	  </nav> <!-- END nav -->
 	</div> <!-- END container -->
@@ -77,10 +130,6 @@
 	     <div class="col-lg-7 intro">
 	       <h1 class="text-white font-weight-bold mb-4" data-aos="fade-up" data-aos-delay="0" style="text-shadow: 3px 3px 3px black;">책 속에 담긴<br>당신의 이야기가 펼쳐지는<br>이곳은 한양서재입니다</h1>
 	       <p class="text-white mb-4" data-aos="fade-up" data-aos-delay="100" style="text-shadow: 3px 3px 3px black;">책 한 권만으로도 펼쳐지는 수많은 이야기가 존재하는데, 하물며 책은 몇 권이 쓰여져도 아깝지 않을 당신의 삶은 아니할까요</p>
-	       <form action="#" class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="200">
-	         <input type="text" class="form-control" placeholder="당신같은 사람을 기다려왔다우">
-	         <input type="button" class="btn btn-primary" value="Sign up" onclick="location.href='/account/login'">
-	       </form>
 	     </div>
 	   </div>
 	 </div>
@@ -359,10 +408,10 @@
           <div class="col-12">
             <div class="widget">
               <ul class="links list-unstyled">
-                <li>&#127744 김경환 / 조장, 전체디자인 / <a href="/">메인페이지</a>, <a href="/gudok/detail">구독페이지</a>, <a href="/mylib/libindex">나만의 서제</a></li>
+                <li>&#127744 김경환 / 조장 / <a href="/">메인페이지</a>, <a href="/gudok/detail">구독페이지</a>, <a href="/mylib/libindex">나만의 서재</a>, <a href="/login/index">로그인</a></li>
                 <li>&#127744 강한이 / 기술자문 / <a href="/comm/index">커뮤니티페이지</a>, <a href="/notice/list">공지사항페이지</a></li>
                 <li>&#127744 김성훈 / 기술자문 / <a href="/survey/survey">설문지페이지</a>, <a href="/survey/survey">설문지탬플릿페이지</a></li>
-                <li>&#127744 김한주 / 자료조사 / <a href="/">회원페이지</a>, <a href="/gudok/detail">결제페이지</a></li>
+                <li>&#127744 김한주 / 자료조사 / <a href="/">회원가입</a>, <a href="/gudok/detail">결제페이지</a></li>
                 <li>&#127744 방미연 / 회의록 / <a href="/book/booklist">도서페이지</a>, <a href="/gudok/detail">페이지</a></li>
               </ul>
             </div>

@@ -14,6 +14,15 @@
 		SELECT vis_no, vis_pid, vis_myid, vis_content, vis_rdate
 		FROM visitor
 		WHERE vis_pid = #{vis_pid}
+		ORDER BY vis_rdate DESC LIMIT ${limit}
+		]]>	
+	</select>
+	
+	<select id="getVsCount" resultType="int" parameterType="String">
+		<![CDATA[
+		SELECT COUNT(*)
+		FROM visitor
+		WHERE vis_pid = #{lib_id}
 		]]>	
 	</select>
 	
