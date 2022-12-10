@@ -20,9 +20,16 @@ public class VisitorDAO {
 		return sqlSession.insert("visitor.insert", visitor);
 	} // commentInsert() end
 	
-	public List<VisitorDTO> visitorList(String vis_pid) {
-		return sqlSession.selectList("visitor.list", vis_pid);
+	public List<VisitorDTO> visitorList(VisitorDTO dto) {
+		return sqlSession.selectList("visitor.list", dto);
 	} // commentList() end
+	
+	// 방명록 총 개수
+	public int getVsCount(String lib_id) throws Exception {
+		int cnt = 0;
+		cnt = sqlSession.selectOne("visitor.getVsCount", lib_id);
+		return cnt;
+	} // get80Count() end
 	
 	public int visitorUpdate(VisitorDTO visitor) {
 		return sqlSession.update("visitor.update", visitor);

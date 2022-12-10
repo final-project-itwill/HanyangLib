@@ -2,11 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="login">
 
-	<select id="loginCheck" parameterType="kr.co.itwill.member.LoginDTO" resultType="int">
+	<select id="loginCheck" parameterType="kr.co.itwill.member.LoginDTO" resultType="String">
 		<![CDATA[
-			SELECT count(m_id) as cnt
+			SELECT m_grade
 			FROM member
 			WHERE m_id = #{m_id} AND m_pw = #{m_pw}
+			AND m_grade IN ('A', 'B', 'C') 
 		]]>
 	</select>
 

@@ -36,30 +36,30 @@ public class MylibCont {
 		mav.addObject("libRead", mylibDao.getLibRead(lib_id));
 		mav.addObject("commuRead", mylibDao.getCommuRead(lib_id));
 		mav.addObject("review", mylibDao.getReviewRead(lib_id));
+		mav.addObject("vsCount", visitorDao.getVsCount(lib_id));
 		mav.addObject("lib_id", lib_id);
 		return mav;
 	}
 	
 	@ResponseBody
 	@RequestMapping("/vsinsert")
-	private int vsInsert(@RequestParam String vis_pid, @RequestParam String content, HttpServletRequest req) throws Exception {
-	    VisitorDTO visitor = new VisitorDTO();
+	private int vsInsert(@RequestParam String vis_pid, @RequestParam String vis_myid, @RequestParam String content, HttpServletRequest req) throws Exception {
+		VisitorDTO visitor = new VisitorDTO();
 	    visitor.setVis_pid(vis_pid);
 	    visitor.setVis_content(content);
-	    // 로그인 기능을 구현했거나 따로 댓글 작성자를 입력받는 폼이 있다면 입력받아온 값을 사용하면 된다.
-	    // 따로 구현하지 않았기 때문에 아이디는 임시로 "cloudd81"
-	    String vis_myid = "cloudd81";
 	    visitor.setVis_myid(vis_myid);
-	    req.setAttribute("vis_myid", vis_myid);
 	    return visitorDao.visitorInsert(visitor);
 	} // vsInsert() end
 	
 	@RequestMapping("/vslist")
 	@ResponseBody
-	private List<VisitorDTO> vsList(@RequestParam String vis_pid) throws Exception {
-	    return visitorDao.visitorList(vis_pid);	    
+	private List<VisitorDTO> vsList(@RequestParam String vis_pid, @RequestParam int limit) throws Exception {
+		VisitorDTO dto = new VisitorDTO();
+		dto.setVis_pid(vis_pid);
+		dto.setLimit(limit);
+	    return visitorDao.visitorList(dto);
 	} // vsList() end
-	
+		
 	@ResponseBody
 	@RequestMapping("/vsupdate")
 	private int vsUpdate(@RequestParam int vis_no, @RequestParam String content) throws Exception {

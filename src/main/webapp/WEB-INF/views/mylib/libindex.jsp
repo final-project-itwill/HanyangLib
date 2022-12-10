@@ -162,7 +162,14 @@
 				<c:forEach items="${commuRead}" var="commu">
 				<tr style="text-align: center;">
 					<td colspan="2"><a class="text-black" href="#">${commu.c_name}</a></td>
-					<td>${commu.c_state}</td>
+					<td>
+						<c:if test="${commu.c_state=='i'}">
+							진행중
+						</c:if>
+						<c:if test="${commu.c_state=='e'}">
+							활동 종료
+						</c:if>
+					</td>
 					<td>${commu.ac_manjok}</td>
 				</tr>
 				</c:forEach>
@@ -212,25 +219,40 @@
 				</tr>			
 				</table>
 				<div class="container">
-				    <label for="content">방명록</label>
 				    <form name="visitorInsertForm" id="visitorInsertForm">
+				    <input type="text" name="content" id="content" placeholder="방명록 내용을 입력해주세요" style="width: 600px;">
+<!-- 				    <textarea name="content" id="content"></textarea>
+				        <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
+						<script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
+						<script>
+						  ClassicEditor.create( document.querySelector( '#content' ), {
+						    language: "ko"
+						  } );
+						</script>
+						<style>
+						  .ck-editor__editable { height: 200px; }
+						</style> -->
 				    <div>
 				        <input type="hidden" name="vis_pid" id="vis_pid" value="${lib_id}">
-				        <input type="text" name="content" id="content" placeholder="내용을 입력하세요">
+				        <input type="hidden" name="vis_myid" id="vis_myid" value="${s_id}">
+				        <!-- CKEditor 5 -->				        
 				        <button type="button" name="visitorInsertBtn" id="visitorInsertBtn">등록</button>
 				    </div>
 				    </form>
 				</div>
-				<hr>
-				<div class="container">
-				    <div class="visitorList"></div>
-				</div>
+				<br>
+					<div class="container">
+					    <table class="table table-default visitorList" id="visitorList"></table>
+					</div>
 				
 				<!-- 방명록 관련 자바스크립트 -->
 				<script>
 				    let vis_pid='${lib_id}';
-				    /* 임의로 아이디 배정, 로그인 후 세션 값으로 받아오기 */
-				    let loginId='cloudd81';
+				    let loginId='${s_id}';
+				    
+				    // 더보기를 위한 limit 변수 선언
+	                let limit = 5;	// 5개씩 출력
+	                let size = ${vsCount};	// 총 댓글의 수를 담음
 				
 				    $('#visitorInsertBtn').click(function(){
 				        let insertData = $('#visitorInsertForm').serialize();
@@ -238,7 +260,7 @@
 				        visitorInsert(insertData);
 				    }); // click() end
 				
-				    // 댓글 등록
+				    // 방명록 등록
 				    function visitorInsert(insertData){
 				        $.ajax({
 				             url:'/mylib/vsinsert'
@@ -252,38 +274,61 @@
 				            } // success end
 				        }); // ajax() end
 				    }; // commentInsert() end
-				    // 여기까지 성공
 				    
 				    // 방명록 목록
 				    function visitorList(){
 				        $.ajax({
 				             url:"/mylib/vslist"
 				            ,type:"get"
-				            ,data:{'vis_pid':vis_pid}
+				            ,data:{'vis_pid':vis_pid, 'limit':limit}
 				            ,success:function(data){
-				                //alert(data);
+				                // alert(size);
+				                // alert(limit);
+				                
 				                let a = "";
 				                $.each(data, function(key, value){
-				                    a += "<div class='visitorArea' style='border-bottm:1px solid darkgray; margin-bottom:15px;'>";
-				                    a += "	<div class='visitorInfo" + value.vis_no + "'>";
+				                    a += "<tr class='visitorArea' style='border-bottm:1px solid darkgray; margin-bottom:15px;'>";
+				                    a += "	<td class='visitorInfo" + value.vis_no + "'>";
 				                    a += "		댓글번호 : " + value.vis_no + " / 작성자 : " + value.vis_myid + " " + value.vis_rdate;
-									if(value.vis_myid == loginId || value.vis_myid == 'webmaster'){
+				                    a += "	</td><td>";
+									if(loginId == 'webmaster' || value.vis_myid == loginId){
 				                    a += "		<a href='javascript:visitorUpdate(" + value.vis_no + ", \"" + value.vis_content + "\");'>수정</a>";
 				                    a += "		<a href='javascript:visitorDelete(" + value.vis_no + ");'>삭제</a>";
 				                	};
-				                    a += "	</div>";
-				                    a += "	<div class='visitorContent" + value.vis_no + "'>";
+				                    a += "	</td>";
+				                    a += "	</tr><tr>";
+				                    a += "	<td class='vsContent' id='visitorContent" + value.vis_no + "'>";
 				                    a += "		<p>내용 : " + value.vis_content + "</p>";
-				                    a += "	</div>";
-				                    a += "</div>";
+				                    a += "	</td>";				                    
+				                    a += "</tr>";
 				                    //alert(a);
 				                }); // each end
-
+				                
+				                let b = "";
+			                    b += "	<tr class='moreBtnDiv'>";
+			                    b += "	<td colspan='2'>";
+			                    b += "		<button type='button' class='btn btn-outline-light text-dark btn-block' id='more' name='more' onclick='more()'>더보기</button>";
+			                    b += "	</td></tr>";
+			                    if(limit<size) a += b;
 				                $(".visitorList").html(a);
 				            } // success end
 				        }); // ajax() end
 				    } // visitorList() end
-
+				    
+				    // 더보기 버튼을 누르면 limit가 증가
+				    function more(){
+				    	alert(limit);
+				    	alert(size);
+				    	if(limit<size){
+				    		limit+=5;
+				    		alert('늘어남');
+				    		visitorList();
+				    	} else {
+				    		alert('그대로');
+				    		visitorList();
+				    	} // while end		                
+				    };
+				    
 				    // 페이지 로딩 시 댓글 목록 출력시키기
 				    $(document).ready(function(){
 				    	visitorList();
@@ -325,12 +370,13 @@
 					            if(data==1) {visitorList()};
 					        }
 					    }); // ajax() end
-					} // visitorDelete() end
+					} // visitorDelete() end		
+
+					
 				</script>
 
 			</div>
 		</div>
 	</div>
-
 <!-- 본문작성 끝 -->
 <%@ include file="../footer.jsp"%>
