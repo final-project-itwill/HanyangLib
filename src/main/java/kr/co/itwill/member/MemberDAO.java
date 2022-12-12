@@ -22,16 +22,14 @@ public class MemberDAO {
 		return sqlSession.insert("member.memberinsert", member);
 	}//memberinsert() end
 	
-	public MemberDTO detail(String m_id) {
-		return sqlSession.selectOne("member.memberdetail", m_id);
-	}//detail() end
 	
+	public List<Map<String, Object>>  emailCheck(String m_email){
+		return sqlSession.selectList("member.emailCheck",m_email);
+	}// emailCheck() end
 	
-	public int memberupdate(MemberDTO member) {
-		return sqlSession.update("member.memberupdate", member);
-	}//memberupdate() end
-	
-	
+	public List<Map<String, Object>> idcheck(String m_id){
+		return sqlSession.selectList("member.idcheck",m_id);
+	}//idcheck() end
 	
 	
 }//class end
