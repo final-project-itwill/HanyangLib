@@ -178,9 +178,9 @@
               <!-- 링크 넣어줘야 해 -->
               <ul>
               	<li><a href="bookcate_n">소설/시</a></li>
-              	<li><a href="#">에세이</a></li>
-              	<li><a href="#">인문</a></li>
-              	<li><a href="#">자연과학</a></li>
+              	<li><a href="bookcate_e">에세이</a></li>
+              	<li><a href="bookcate_h">인문</a></li>
+              	<li><a href="bookcate_s">자연과학</a></li>
               </ul>
               <form action="#">
               </form>
