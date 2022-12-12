@@ -27,6 +27,9 @@
 	
 	
 	<!-- answer -->
-	
+	<insert id="surveyWrite" parameterType="kr.co.itwill.survey.SurveyDTO">
+		INSERT INTO survey( sv_code, sv_comcode, sv_title, sv_des )
+		VALUES ( "s221121-002","com002", #{sv_title}, #{sv_des})
+	</insert>
 	
 </mapper>

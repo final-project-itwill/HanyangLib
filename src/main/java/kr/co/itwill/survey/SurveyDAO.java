@@ -41,4 +41,17 @@ public class SurveyDAO {
 		return sqlSession.insert("survey.insert", answer);
 	}
 	
+
+	public int surveyWrite(SurveyDTO survey) {
+		return sqlSession.insert("survey.surveyWrite", survey);
+	}// choiceinsert() end
+	
+	public int questionWrite(SurveyDTO survey) {
+		return sqlSession.insert("survey.questionWrite", survey);
+	}// choiceinsert() end
+	
+	public int items(DsurveyDTO question) {
+		return sqlSession.insert("survey.items", question);
+	} // items() end
+	
 }// class end
