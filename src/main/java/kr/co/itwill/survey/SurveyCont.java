@@ -44,8 +44,8 @@ public class SurveyCont {
 	public ModelAndView write(@PathVariable String dsv_code) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/survey/write");
-		mav.addObject("title", surveyDAO.svTitle(dsv_code));
-		mav.addObject("choice", surveyDAO.svChoice(dsv_code));
+//		mav.addObject("title", surveyDAO.svTitle(dsv_code));
+//		mav.addObject("choice", surveyDAO.svChoice(dsv_code));
 		mav.addObject("dsv_code", dsv_code);
 		return mav;
 	}// write() end

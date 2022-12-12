@@ -101,43 +101,23 @@ public class CommunityCont {
     }//search() end
 
 
-    @RequestMapping("/read/{c_code}")
-    public ModelAndView read(@PathVariable String c_code) throws Exception {
+    @RequestMapping("/read")
+    public ModelAndView read(@RequestParam String c_code, @RequestParam String loginID){
         ModelAndView mav = new ModelAndView();
-
+        mav.addObject("loginID", loginID);
+        //mav.addObject("c_code", c_code);
         mav.addObject("read", commDao.read(c_code));
-
-/*        CommacDTO dto = new CommacDTO();
-        dto.setAc_ccode(c_code);
-        dto.setLimit(limit);
-        mav.addObject("acList", commDao.acList(dto));*/
-
+//        mav.addObject("acList", commDao);
         mav.addObject("commCheck", commDao.commCheck(c_code));
-///*        mav.addObject("idCheck", commDao.idCheck(c_code));
-//        mav.addObject("idCheck2", commDao.idCheck2(c_code));*/
-
-        mav.addObject("acCount", commDao.acCount(c_code));
-
+        CommSignDTO sign = new CommSignDTO();
+        sign.setS_code(c_code);
+        sign.setS_id(loginID);
+        mav.addObject("sign", sign);
+//        mav.addObject("idCheck", commDao.idCheck(sign));
         mav.setViewName("community/read");
         return mav;
     }//read() end
 
-    @RequestMapping("/aclist")
-    public List<CommacDTO> acList(@RequestParam String ac_ccode, @RequestParam int limit){
-        System.out.println(ac_ccode);
-        System.out.println(limit);
-        CommacDTO dto = new CommacDTO();
-        dto.setAc_ccode(ac_ccode);
-        dto.setLimit(limit);
-        System.out.println(dto.toString()+"리퀘매핑");
-
-        List<CommacDTO> lis = commDao.acList(dto);
-        for(int i=0; i<lis.size(); i++){
-            System.out.println(lis.get(i));
-        }
-
-        return commDao.acList(dto);
-    }//acList() end
 
     //커뮤니티 가입 신청 (설문지랑 연결해야 함)
     @RequestMapping("/signupForm")

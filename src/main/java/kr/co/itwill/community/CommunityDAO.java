@@ -50,14 +50,9 @@ public class CommunityDAO {
         return sqlSession.selectOne("community.read", c_code);
     }//read() end
 
-    public List<CommacDTO> acList(CommacDTO dto){
-        System.out.println(dto.toString());
-        List<CommacDTO> textli = new ArrayList<>();
-        for(int i=0; i<textli.size(); i++){
-            System.out.println(textli.get(i));
-        }
-        return sqlSession.selectList("community.acList", dto);
-    }//read() end
+//    public List<CommacDTO> acList(String c_code){
+//        return sqlSession.selectList("community.acList", c_code);
+//    }//read() end
 
     //커뮤니티 모집상태 가져오기
     public CommunityDTO commCheck(String c_code){
@@ -65,8 +60,8 @@ public class CommunityDAO {
     }//commCheck() end
 
     //로그인id의 커뮤니티 가입상태 가져오기
-//    public CommSignDTO idCheck(String c_code){
-//        return sqlSession.selectOne("community.idCheck", c_code);
+//    public CommSignDTO idCheck(CommSignDTO sign){
+//        return sqlSession.selectOne("community.idCheck", sign);
 //    }//idCheck() end
 //
 //    public CommunityDTO idCheck2(String c_code){
