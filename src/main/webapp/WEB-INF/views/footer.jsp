@@ -30,7 +30,7 @@
             <div class="widget">
               <ul class="links list-unstyled">
                 <li>&#127744 김경환 / 조장 / <a href="/">메인페이지</a>, <a href="/gudok/detail">구독페이지</a>, <a href="/mylib/libindex">나만의 서재</a>, <a href="/login/index">로그인</a></li>
-                <li>&#127744 강한이 / 기술자문 / <a href="/comm/index">커뮤니티페이지</a>, <a href="/notice/list">공지사항페이지</a></li>
+                <li>&#127744 강한이 / 기술자문 / <a href="/comm/index">커뮤니티페이지</a>, <a href="/notice/list?pageNum=1">공지사항페이지</a></li>
                 <li>&#127744 김성훈 / 기술자문 / <a href="/survey/survey">설문지페이지</a>, <a href="/survey/survey">설문지탬플릿페이지</a></li>
                 <li>&#127744 김한주 / 자료조사 / <a href="/">회원가입</a>, <a href="/gudok/detail">결제페이지</a></li>
                 <li>&#127744 방미연 / 회의록 / <a href="/book/booklist">도서페이지</a>, <a href="/gudok/detail">페이지</a></li>

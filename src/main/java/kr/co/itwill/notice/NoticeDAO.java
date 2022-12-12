@@ -18,8 +18,14 @@ public class NoticeDAO {
     @Autowired
     SqlSession sqlSession;
 
-    public List<NoticeDTO> list(){
+    //페이징 없는 목록
+/*    public List<NoticeDTO> list(){
         return sqlSession.selectList("notice.list");
+    }//list() end*/
+
+    //페이징 있는 목록
+    public List<NoticeDTO> list(NoticeDTO rows){
+        return sqlSession.selectList("notice.list", rows);
     }//list() end
 
     public int insert(NoticeDTO notice){
@@ -44,5 +50,10 @@ public class NoticeDAO {
     public int update(NoticeDTO notice){
         return sqlSession.update("notice.update", notice);
     }//update() end
+
+    //총 행 갯수
+    public int totalRowCount(){
+        return sqlSession.selectOne("notice.totalRowCount");
+    }//totalRowCount() end
 
 }//class end

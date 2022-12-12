@@ -70,7 +70,7 @@
               	<li class="has-children">
               		<a href="#">고객센터</a>
 	                <ul class="dropdown">
-	                  <li><a href="/notice/list">공지사항</a></li>
+	                  <li><a href="/notice/list?pageNum=1">공지사항</a></li>
 	                  <li><a href="#">문의</a></li>
 	                </ul>
 	              </li>
@@ -107,7 +107,7 @@
               	<li class="has-children">
               		<a href="#">고객센터</a>
 	                <ul class="dropdown">
-	                  <li><a href="/notice/list">공지사항</a></li>
+	                  <li><a href="/notice/list?pageNum=1">공지사항</a></li>
 	                  <li><a href="#">문의</a></li>
 	                </ul>
 	              </li>

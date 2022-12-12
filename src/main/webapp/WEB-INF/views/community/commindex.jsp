@@ -69,7 +69,7 @@
     <%-- 커뮤니티 생성하기 버튼 끝 ---------------------------------------------------------------------------------------------------------%>
 
 
-            <a href="list"><!-- 인기순 list로 가기-->
+            <a href="list?pageNum=1"><!-- 인기순 list로 가기-->
                 <h1 class="listtext-black text-left font-weight-bold mb-4" data-aos="fade-up" data-aos-delay="0">종이에 쓰인<br>글자만으로<br>이런 모임이</h1>
             </a>
         </div>
@@ -105,7 +105,7 @@
 <div class="container pb-md-5 border-bottom">
     <div class="row">
         <div class="col-lg-12">
-            <a href="list"><%--최신순 list로 가기--%>
+            <a href="list?pageNum=1"><%--최신순 list로 가기--%>
                 <h1 class="text-black text-right font-weight-bold mb-4" data-aos="fade-up" data-aos-delay="0">새로운 모임은<br>언제든 환영이야</h1>
             </a>
         </div>
@@ -114,7 +114,7 @@
 
                 <c:forEach items="${newComm}" var="dto">
                 <div class="col-lg-4">
-                    <a href="read?c_code=${dto.c_code}&loginID=hanyihanyi" class="gal-item">
+                    <a href="read/${dto.c_code}" class="gal-item">
                                 <img src="/storage/${dto.c_banner}" class="img-fluid">
                     </a>
                     <br>
@@ -133,7 +133,7 @@
 <div class="container pb-md-5 border-bottom">
     <div class="row" data-aos="fade-up" data-aos-delay="0">
         <div class="col-lg-12">
-            <a href="list"><!-- 마감순 list로 가기-->
+            <a href="list?pageNum=1"><!-- 마감순 list로 가기-->
                 <h1 class="text-black text-left font-weight-bold mb-4" data-aos="fade-up" data-aos-delay="0">열두시가 되면은<br>문을 닫는다</h1>
             </a>
         </div>

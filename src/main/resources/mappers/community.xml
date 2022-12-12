@@ -4,14 +4,37 @@
 
 
 
-<!-- list : book 테이블 조인해서 목록 출력  -->
-    <select id="list" resultType="kr.co.itwill.community.BookReadDTO">
+    <!-- 페이징 없는 list : book 테이블 조인해서 목록 출력  -->
+    <select id="list1" resultType="kr.co.itwill.community.BookReadDTO">
         SELECT c_code, c_name, c_des, c_bcode, c_local, c_id, c_chat, c_banner ,c_count, c_state, c_rdate, b_name, b_bookcover
         FROM book JOIN community
         ON book.b_code = community.c_bcode
         ORDER BY c_code DESC
     </select>
 
+    <!-- 페이징 있는 목록 -->
+    <select id="list" resultType="kr.co.itwill.community.BookReadDTO">
+        select AA.*
+        FROM(
+                select @RNO := @RNO + 1 as r, CC.*
+                FROM(
+                    SELECT c_code, c_name, c_des, c_bcode, c_local, c_id, c_chat, c_banner ,c_count, c_state, c_rdate, b_name, b_bookcover
+                    FROM book JOIN community
+                    ON book.b_code = community.c_bcode
+                    ORDER BY c_code DESC
+                    ) CC, (SELECT @RNO := 0) BB ORDER BY c_code DESC
+            ) AA
+        WHERE r BETWEEN #{startRow} AND #{endRow}
+        ORDER BY c_code DESC
+    </select>
+
+    <!-- 총 행 갯수 -->
+    <select id="totalRowCount" resultType="int">
+        SELECT COUNT(*)
+        FROM community
+    </select>
+
+    <!-- 검색 -->
     <select id="search" resultType="kr.co.itwill.community.BookReadDTO" parameterType="String">
         SELECT c_code, c_name, c_des, c_bcode, c_local, c_id, c_chat, c_banner ,c_count, c_state, c_rdate, b_name, b_bookcover
         FROM book JOIN community
@@ -39,9 +62,12 @@
     </select>
 
     <select id="acList" resultType="kr.co.itwill.community.CommacDTO">
+        <![CDATA[
         SELECT ac_no, ac_id ,ac_ccode ,ac_cname ,ac_manjok ,ac_review, ac_rdate
         FROM community_ac
-        WHERE ac_ccode = #{c_code}
+        WHERE ac_ccode = #{ac_ccode}
+        ORDER BY ac_rdate DESC LIMIT #{limit}
+        ]]>
     </select>
 
 
@@ -56,7 +82,13 @@
     <select id="idCheck" resultType="kr.co.itwill.community.CommSignDTO">
         SELECT s_state, s_id
         FROM community_signup
-        WHERE s_id = #{s_id} and s_code = #{s_code}
+        WHERE s_code = #{s_code}
+    </select>
+
+    <select id="idCheck2" resultType="kr.co.itwill.community.CommunityDTO">
+        SELECT c_id
+        FROM community
+        WHERE c_code = #{c_code}
     </select>
 
 
@@ -110,5 +142,13 @@
         FROM community
     </select>
 
+    <!-- 총 후기 수 -->
+    <select id="acCount" resultType="int">
+        <![CDATA[
+        SELECT COUNT(*)
+        FROM community_ac
+        WHERE ac_ccode = #{c_code}
+        ]]>
+    </select>
 
 </mapper>

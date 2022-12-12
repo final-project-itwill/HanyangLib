@@ -19,14 +19,59 @@ public class NoticeCont {
 
 
     //공지사항 목록
-    @RequestMapping("/list")
+/*    @RequestMapping("/list")
     public ModelAndView list(){
         ModelAndView mav = new ModelAndView();
         mav.setViewName("notice/list");
         mav.addObject("list", noticeDao.list());
         return mav;
-    }//list() end
+    }//list() end*/
 
+    //페이징 있는 목록
+    @RequestMapping("/list")
+    public ModelAndView list(@RequestParam String pageNum)throws Exception{
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("notice/list");
+
+        int totalRowCount = noticeDao.totalRowCount();  //총 행 갯수
+
+        //페이징
+        int numPerPage   = 5;   //한 페이지당 행 갯수
+        int pagePerBlock = 10;  //페이지 리스트(1~10페이지 : 1세트에 10페이지)
+
+        if(pageNum == null){    //페이징 번호의 a태그 명령어 ? 뒤에서 받아옴
+            pageNum = "1";      //자료가 없으면 무조건 1페이지
+        }
+
+        int currentPage = Integer.parseInt(pageNum);        //현재 2페이지라면,
+        int startRow    = (currentPage-1)*numPerPage+1;     //시작 rnum은 6
+        int endRow      = currentPage * numPerPage;         //끝 rnum은 10
+
+        //페이지 수
+        double totcnt = (double)totalRowCount/numPerPage;   //총 페이지수 = 글갯수/5
+        int totalPage = (int)Math.ceil(totcnt);             //올림해서 정수형으로 변환
+
+        //페이지가 10이 넘어가면 11~20 페이지가 나와야 함(2세트)
+        double d_page = (double)currentPage/pagePerBlock;   //12페이지라면, 1.2
+        int Pages     = (int)Math.ceil(d_page) - 1;         //1
+        int startPage = Pages * pagePerBlock + 1;           //11
+        int endPage   = startPage + pagePerBlock - 1;       //20
+
+        NoticeDTO rows = new NoticeDTO();
+        rows.setStartRow(startRow);
+        rows.setEndRow(endRow);
+
+        mav.addObject("pageNum", currentPage);
+        mav.addObject("count", totalRowCount);
+        mav.addObject("totalPage", totalPage);
+        mav.addObject("startPage", startPage);
+        mav.addObject("endPage", endPage);
+        mav.addObject("rows", rows);
+        mav.addObject("list", noticeDao.list(rows));
+
+        return mav;
+    }//list() end
 
     //공지사항 쓰기 페이지 호출
     @RequestMapping("/insert")

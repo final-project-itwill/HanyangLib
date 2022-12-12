@@ -1,5 +1,6 @@
 package kr.co.itwill.community;
 
+import kr.co.itwill.notice.NoticeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -26,20 +27,67 @@ public class CommunityCont {
     @RequestMapping("/index")
     public ModelAndView index(){
         ModelAndView mav = new ModelAndView();
-        mav.addObject("newComm", commDao.newComm());
+        mav.addObject("newComm", commDao.newComm());             //최신 커뮤니티 3개 출력
 
         String loginID = "hanyihanyi";
-        mav.addObject("listMylib", commDao.listMylib(loginID));    //커뮤니티 생성시 내서재 조회하기
+        mav.addObject("listMylib", commDao.listMylib(loginID));  //커뮤니티 생성시 내서재 조회하기
         mav.setViewName("community/commindex");
         return mav;
     }//index() end
 
 
-    @RequestMapping("/list")
+    //페이징 없는 목록
+/*    @RequestMapping("/list")
     public ModelAndView list(){
         ModelAndView mav = new ModelAndView();
         mav.setViewName("community/list");
         mav.addObject("list", commDao.list());
+        return mav;
+    }//list()*/
+
+
+    //페이징 있는 목록
+    @RequestMapping("/list")
+    public ModelAndView list(@RequestParam String pageNum){
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("community/list");
+
+        int totalRowCount = commDao.totalRowCount();    //총 행 갯수
+
+        //페이징
+        int numPerPage   = 5;   //한 페이지당 행 갯수
+        int pagePerBlock = 10;  //페이지 리스트(1~10페이지 : 1세트에 10페이지)
+
+        if(pageNum == null){    //페이징 번호의 a태그 명령어 ? 뒤에서 받아옴
+            pageNum = "1";      //자료가 없으면 무조건 1페이지
+        }
+
+        int currentPage = Integer.parseInt(pageNum);        //현재 2페이지라면,
+        int startRow    = (currentPage-1)*numPerPage+1;     //시작 rnum은 6
+        int endRow      = currentPage * numPerPage;         //끝 rnum은 10
+
+        //페이지 수
+        double totcnt = (double)totalRowCount/numPerPage;   //총 페이지수 = 글갯수/5
+        int totalPage = (int)Math.ceil(totcnt);             //올림해서 정수형으로 변환
+
+        //페이지가 10이 넘어가면 11~20 페이지가 나와야 함(2세트)
+        double d_page = (double)currentPage/pagePerBlock;   //12페이지라면, 1.2
+        int Pages     = (int)Math.ceil(d_page) - 1;         //1
+        int startPage = Pages * pagePerBlock + 1;           //11
+        int endPage   = startPage + pagePerBlock - 1;       //20
+
+        BookReadDTO rows = new BookReadDTO();
+        rows.setStartRow(startRow);
+        rows.setEndRow(endRow);
+
+        mav.addObject("pageNum", currentPage);
+        mav.addObject("count", totalRowCount);
+        mav.addObject("totalPage", totalPage);
+        mav.addObject("startPage", startPage);
+        mav.addObject("endPage", endPage);
+        mav.addObject("rows", rows);
+        mav.addObject("list", commDao.list(rows));
         return mav;
     }//list() end
 
@@ -53,23 +101,43 @@ public class CommunityCont {
     }//search() end
 
 
-    @RequestMapping("/read")
-    public ModelAndView read(@RequestParam String c_code, @RequestParam String loginID){
+    @RequestMapping("/read/{c_code}")
+    public ModelAndView read(@PathVariable String c_code) throws Exception {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("loginID", loginID);
-        //mav.addObject("c_code", c_code);
+
         mav.addObject("read", commDao.read(c_code));
-        mav.addObject("acList", commDao.acList(c_code));
+
+/*        CommacDTO dto = new CommacDTO();
+        dto.setAc_ccode(c_code);
+        dto.setLimit(limit);
+        mav.addObject("acList", commDao.acList(dto));*/
+
         mav.addObject("commCheck", commDao.commCheck(c_code));
-        CommSignDTO sign = new CommSignDTO();
-        sign.setS_code(c_code);
-        sign.setS_id(loginID);
-        mav.addObject("sign", sign);
-        mav.addObject("idCheck", commDao.idCheck(sign));
+///*        mav.addObject("idCheck", commDao.idCheck(c_code));
+//        mav.addObject("idCheck2", commDao.idCheck2(c_code));*/
+
+        mav.addObject("acCount", commDao.acCount(c_code));
+
         mav.setViewName("community/read");
         return mav;
     }//read() end
 
+    @RequestMapping("/aclist")
+    public List<CommacDTO> acList(@RequestParam String ac_ccode, @RequestParam int limit){
+        System.out.println(ac_ccode);
+        System.out.println(limit);
+        CommacDTO dto = new CommacDTO();
+        dto.setAc_ccode(ac_ccode);
+        dto.setLimit(limit);
+        System.out.println(dto.toString()+"리퀘매핑");
+
+        List<CommacDTO> lis = commDao.acList(dto);
+        for(int i=0; i<lis.size(); i++){
+            System.out.println(lis.get(i));
+        }
+
+        return commDao.acList(dto);
+    }//acList() end
 
     //커뮤니티 가입 신청 (설문지랑 연결해야 함)
     @RequestMapping("/signupForm")
@@ -84,7 +152,7 @@ public class CommunityCont {
         ModelAndView mav = new ModelAndView();
         mav.addObject("readBook", commDao.readBook(b_code));
         mav.addObject("createCode", commDao.createCode());
-        mav.addObject("list", commDao.list());
+        mav.addObject("list", commDao.list1());
 //        List<BookReadDTO> test = commDao.list();
 //        for(int i=0; i<test.size(); i++){
 //            System.out.println(test);
