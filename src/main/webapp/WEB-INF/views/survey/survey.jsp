@@ -15,7 +15,6 @@
 	<div class="container" style="margin-top :70px;">
 	<p>
 		<button type="button" onclick="location.href='survey'">설문</button>
-		<button type="button" onclick="location.href='create'">설문생</button>
 	</p>
 	<br>
 		<div>
