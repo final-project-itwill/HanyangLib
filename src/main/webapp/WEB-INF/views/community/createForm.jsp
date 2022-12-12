@@ -34,6 +34,7 @@
 
             <input type="hidden" name="c_code" value="${c_code}">
             <input type="hidden" name="c_bcode" value="${b_code}">
+            <input type="hidden" name="c_id" value="${s_id}">
 
             <table class="table" style="text-align: center">
                 <tr>

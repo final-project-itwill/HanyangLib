@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.List;
 
@@ -25,9 +26,11 @@ public class CommunityCont {
 
 
     @RequestMapping("/index")
-    public ModelAndView index(){
+    public ModelAndView index(HttpSession session){
         ModelAndView mav = new ModelAndView();
         mav.addObject("newComm", commDao.newComm());             //최신 커뮤니티 3개 출력
+
+        System.out.println((String)session.getAttribute("s_id"));
 
         String loginID = "hanyihanyi";
         mav.addObject("listMylib", commDao.listMylib(loginID));  //커뮤니티 생성시 내서재 조회하기
@@ -166,7 +169,7 @@ public class CommunityCont {
         dto.setC_des(dto.getC_des());
         dto.setC_bcode(dto.getC_bcode());
         dto.setC_local(dto.getC_local());
-        dto.setC_id("hanyihanyi");
+        dto.setC_id(dto.getC_id());
         dto.setC_chat(dto.getC_chat());
         dto.setC_count(dto.getC_count());
 
