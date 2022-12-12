@@ -1,3 +1,4 @@
+
 package kr.co.itwill.survey;
 
 import java.io.File;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,27 +64,26 @@ public class SurveyCont {
 		return "redirect:/survey/write";
 	}// insert() end
 	
-	@RequestMapping("/create/{sv_code}")
-	public ModelAndView create(@PathVariable String sv_code) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("survey/create");
-		mav.addObject("sv_code",sv_code);
-	return mav;
+//	
+//	@RequestMapping("/answer")
+//	public String insert(@RequestParam Map<String, Object> map) {
+//		surveyDAO.insert(map);
+//		return "redirect:/survey/answer";
+//	}// insert() end
+//	
+	
+	
+
+	@RequestMapping("/create")
+	public String create() {
+	return "/survey/create";
 	} // create() end
 	
-	@RequestMapping("/create/insert")
-	public String surveyinsert(@RequestBody SurveyDTO survey, ChoiceDTO item, DsurveyDTO question) {
-		surveyDAO.surveyWrite(survey);
-		surveyDAO.questionWrite(survey);
+	@ResponseBody
+	@RequestMapping(value= "test", method = RequestMethod.GET)
+	public String test() {
+		return " testest :testest";
+	}// test() end
 
-		return "/surveyprocess";
-		
-	}// surveyinsert() end
-	
-	
-
-	public interface SurveyService {
-		
-	}
 	
 }// class end
