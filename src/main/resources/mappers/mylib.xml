@@ -94,11 +94,11 @@
 		]]>	
 	</select>
 	
-	<select id="reviewRead" resultType="kr.co.itwill.mylib.BookReviewDTO">
+	<select id="rvList" resultType="kr.co.itwill.mylib.BookReviewDTO">
 		<![CDATA[
-		SELECT br_title, br_bcode, br_id, br_star, br_count, br_rdate, b_code, b_name
+		SELECT br_no, br_title, br_bcode, br_id, br_star, br_count, br_rdate, br_content, b_code, b_name
 		FROM (
-			SELECT br_title, br_bcode, br_id, br_star, br_count, br_rdate
+			SELECT br_no, br_title, br_bcode, br_id, br_star, br_count, br_rdate, br_content
 			FROM bookreview
 			WHERE br_id = #{lib_id}
 			) AA LEFT OUTER JOIN (
@@ -108,6 +108,28 @@
 		ON AA.br_bcode = BB.b_code
 		]]>	
 	</select>
+	
+	<select id="rVRead" resultType="kr.co.itwill.mylib.BookReviewDTO">
+		<![CDATA[
+		SELECT br_no, br_title, br_bcode, br_id, br_star, br_count, br_rdate, br_content, b_code, b_name
+		FROM (
+			SELECT br_no, br_title, br_bcode, br_id, br_star, br_count, br_rdate, br_content
+			FROM bookreview
+			WHERE br_no = #{br_no}
+			) AA LEFT OUTER JOIN (
+			SELECT b_code, b_name
+			FROM book
+			) BB
+		ON AA.br_bcode = BB.b_code
+		]]>	
+	</select>
+	
+	<insert id="rvInsert">
+		<![CDATA[
+		INSERT INTO bookreview(br_bcode, br_id, br_title, br_content, br_star)
+		VALUES(#{br_bcode}, #{br_id}, #{br_title}, #{br_content}, #{br_star});
+		]]>
+	</insert>
 
 
 </mapper>
