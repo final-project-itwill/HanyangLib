@@ -30,9 +30,7 @@ public class CommunityCont {
         ModelAndView mav = new ModelAndView();
         mav.addObject("newComm", commDao.newComm());             //최신 커뮤니티 3개 출력
 
-        System.out.println((String)session.getAttribute("s_id"));
-
-        String loginID = "hanyihanyi";
+        String loginID = (String) session.getAttribute("s_id");           //로그인id
         mav.addObject("listMylib", commDao.listMylib(loginID));  //커뮤니티 생성시 내서재 조회하기
         mav.setViewName("community/commindex");
         return mav;
@@ -104,11 +102,12 @@ public class CommunityCont {
     }//search() end
 
 
-    @RequestMapping("/read")
-    public ModelAndView read(@RequestParam String c_code, @RequestParam String loginID){
+    @RequestMapping("/read/{c_code}")
+    public ModelAndView read(@PathVariable String c_code, HttpSession session){
         ModelAndView mav = new ModelAndView();
-        mav.addObject("loginID", loginID);
-        //mav.addObject("c_code", c_code);
+
+        String loginID = (String)session.getAttribute("s_id");
+
         mav.addObject("read", commDao.read(c_code));
 //        mav.addObject("acList", commDao);
         mav.addObject("commCheck", commDao.commCheck(c_code));

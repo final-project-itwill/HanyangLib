@@ -114,7 +114,7 @@
 
                 <c:forEach items="${newComm}" var="dto">
                 <div class="col-lg-4">
-                    <a href="read?c_code=${dto.c_code}&loginID=${s_id}" class="gal-item">
+                    <a href="read/${dto.c_code}" class="gal-item">
                                 <img src="/storage/${dto.c_banner}" class="img-fluid">
                     </a>
                     <br>

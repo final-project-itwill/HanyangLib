@@ -59,7 +59,7 @@
 
         <c:forEach var="dto" items="${list}">
         <tr>
-            <td><a href="read?c_code=${dto.c_code}&loginID=${s_id}">${dto.c_name}</a></td>
+            <td><a href="read/${dto.c_code}">${dto.c_name}</a></td>
             <td>${dto.b_name}</td>
             <td>
                 <c:choose>
