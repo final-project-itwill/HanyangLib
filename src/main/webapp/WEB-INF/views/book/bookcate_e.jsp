@@ -38,7 +38,7 @@
 
 
 
-	<table border="0" align = "center"  width=70%>
+	<table border="0" align = "center">
 		<tr>
 			<td>
 			<c:forEach var="dto" items="${list_e}">
@@ -53,9 +53,9 @@
 							<div class="meta">
 								<span>출판사 ${dto.b_publish}</span> <span>&bullet;</span> <span>작가 ${dto.b_author}</span>
 							</div>
-							<h3>
-								<a href="bookdetail/${dto.b_code}" style="color: #906D3B">${dto.b_name}</a>
-							</h3>
+							<h2>
+								<a href="#" style="color: #906D3B">${dto.b_name}</a>
+							</h2>
 							<p>출판일 ${dto.b_rdate}</p>
 							<p>${dto.b_des}</p>
 

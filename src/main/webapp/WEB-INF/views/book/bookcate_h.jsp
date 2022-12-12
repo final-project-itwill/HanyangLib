@@ -56,7 +56,7 @@
 					<div class="post-entry horizontal d-md-flex">
 						<div class="media">
 							<a href="#">
-							<img src="${dto.b_bookcover}"
+							<img src="/images/${dto.b_bookcover}"
 								style="width: 140px; margin-right: 20px;"></a>
 						</div>
 						<div class="text">
