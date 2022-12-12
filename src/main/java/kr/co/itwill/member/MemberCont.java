@@ -134,7 +134,6 @@ public class MemberCont {
 		   System.out.println("직업:" + req.getParameter("job"));
 		   System.out.println("전화번호:" + req.getParameter("tel"));
 		  */
-		  
 		   
 		   MemberDTO member=new MemberDTO();
 		   member.setM_id(dto.getM_id());
@@ -159,6 +158,26 @@ public class MemberCont {
 		   
 		   
 	   }//insert() end
+	   
+	   @RequestMapping("/memberdetail")
+	   public ModelAndView detail() {
+		   ModelAndView mav=new ModelAndView();
+		   mav.setViewName("member/memberdetail");
+		   
+		   return mav;
+	   }//memberdetail() end
+	   
+	   
+	   @RequestMapping("/update")
+	   public ModelAndView update(@RequestParam String m_id) {
+		   ModelAndView mav=new ModelAndView();
+		   mav.setViewName("member/update");
+		   
+		   return mav;
+	   }//update() end
+	   
+	   
+	   
 	   
 	   
 	   
