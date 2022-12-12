@@ -23,6 +23,6 @@ public class MemberDTO {
 	   private String m_gudok;			//구독
 	   private int	  m_point;			//포인트
 	   private String m_heat;			//온도
-	   private int	  m_rdate;			//가입일
+	   private String m_rdate;			//가입일
 	
 }//class end

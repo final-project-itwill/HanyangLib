@@ -27,8 +27,8 @@
    
 		<a href="/login/logout" class="btn-notice-master ml30">로그아웃</a>
 		<div class="mt30 text-center">
-			<a href="#" class="btn btn-primary">회원정보수정</a>
-			<a href="#" class="btn btn-primary ml30">회원탈퇴</a>	
+			<a href="/member/update?s_id=${s_id}" class="btn btn-primary">회원정보수정</a>
+			<a href="/member/deleteform" class="btn btn-primary ml30">회원탈퇴</a>	
 		</div>
 <!-- 		<div onclick="kakaoLogout();">
 		     <a href="javascript:void(0)">
