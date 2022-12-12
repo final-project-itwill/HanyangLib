@@ -2056,39 +2056,3 @@ div, ul, li {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizi
 	margin: 0px;
 	text-align: center;
 }
-
-
-/*bookdetail*/
-
-.search-wrap form {
-  position: absolute;
-  right: 10px;
-  width: 0;
-  top: -10px;
-  -webkit-transition: .3s width ease;
-  -o-transition: .3s width ease;
-  transition: .3s width ease;
-  overflow: hidden;
-  z-index: 2; }
-  .search-wrap form input {
-    position: relative;
-    z-index: 2; }
-
-.search-wrap.active form {
-  width: 100%; }
-  @media (max-width: 991.98px) {
-    .search-wrap.active form {
-      width: 70%; } }
-  .search-wrap.active form #s {
-    display: block; }
-  .search-wrap.active form .search-icon-toggle {
-    position: absolute;
-    top: 50%;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%); }
-
-.logo {
-  font-size: 2rem; }
-  .logo a {
-    color: #000000; }
