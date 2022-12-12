@@ -12,28 +12,18 @@
 		,#{m_smscheck},#{m_gudok},now())
 	</insert>
 	
-	<select id="memberdetail" resultType="kr.co.itwill.member.MemberDTO" parameterType="String">
-		SELECT m_pw, m_name, m_nick, m_birth, m_gender, m_zip, m_add1, m_add2
-		, m_tel, m_email, m_gudok, m_point, m_heat, m_mailcheck, m_smscheck
-		FROM member
+	
+	<select id="idcheck" resultType="String" parameterType="kr.co.itwill.member.MemberDTO">
+		select *
+		from member
+		where m_id = #{m_id}
 	</select>
 	
-	<update id="memberupdate">
-		UPDATE member
-		SET m_id=#{m_id}, m_pw=#{m_pw}, m_nick=#{m_nick}, m_birth=#{m_birth}, m_zip=#{m_zip}
-		, m_add1=#{m_add1}, m_add2=#{m_add2}, m_tel=#{m_tel}, m_email=#{m_eail}, m_mailcheck=#{m_mailcheck}
-		, m_smscheck=#{m_smscheck}
-		WHERE m_id=#{m_id}
-	</update>
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<select id="emailCheck" resultType="kr.co.itwill.member.MemberDTO" parameterType="String">
+		select count(*)
+		from member
+		where m_email=#{m_email}
+	</select>
 	
 	
 </mapper>
