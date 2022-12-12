@@ -184,6 +184,9 @@
 						<span style="font-weight: bold; font-size: 35px;">나의 서평 > </span>읽기만 하지 않고 쓰기도 하는 당신
 					</td>
 				</tr>
+				<c:if test="${s_id eq lib_id}">
+				<tr><td><button class="btn btn-warnning" onclick="location.href='/mylib/rvInsert'">서평 등록</button></td></tr>
+				</c:if>
 				<tr><td colspan="4">오 이런, 서평을 작성하지 않았군요!</td></tr>
 				</c:if>
 				<!-- 작성한 서평이 있을 때 -->
@@ -195,6 +198,9 @@
 						</span>읽기만 하지 않고 쓰기도 하는 당신
 					</td>
 				</tr>
+				<c:if test="${s_id eq lib_id}">
+				<tr><td><button class="btn btn-warnning" onclick="location.href='/mylib/rvInsert'">서평 등록</button></td></tr>
+				</c:if>
 				<tr class="col-12 col-xs-12 col-sm-4 col-lg-4" style="text-align: center;">
 					<td>제목</td>
 					<td>책 이름</td>
@@ -203,7 +209,7 @@
 				</tr>
 				<c:forEach items="${review}" var="rv">
 				<tr style="text-align: center;">
-					<td>${rv.br_title}</td>
+					<td><a href="/mylib/reviewRead?br_no=${rv.br_no}">${rv.br_title}</a></td>
 					<td>${rv.b_name}</td>
 					<td>${rv.br_star}</td>
 					<td>${rv.br_count}</td>

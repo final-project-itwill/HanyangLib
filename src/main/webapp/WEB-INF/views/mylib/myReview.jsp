@@ -116,7 +116,7 @@
 	</tr>
 	<c:forEach items="${review}" var="rv">
 	<tr style="text-align: center;">
-		<td>${rv.br_title}</td>
+		<td><a href="/mylib/reviewRead?br_no=${rv.br_no}">${rv.br_title}</a></td>
 		<td>${rv.b_name}</td>
 		<td>${rv.br_star}</td>
 		<td>${rv.br_count}</td>

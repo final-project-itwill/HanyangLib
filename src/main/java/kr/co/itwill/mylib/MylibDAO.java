@@ -53,8 +53,18 @@ public class MylibDAO {
 	} // getCommuRead() end
 	
 	// 나만의 서재의 서평 목록 조회
-	public List<BookReviewDTO> getReviewRead(String lib_id) throws Exception {
-		return sqlSession.selectList("mylib.reviewRead", lib_id);
+	public List<BookReviewDTO> getReviewList(String lib_id) throws Exception {
+		return sqlSession.selectList("mylib.rvList", lib_id);
 	} // getReviewRead() end
+	
+	// 서평 상세보기
+	public List<BookReviewDTO> getReviewRead(int br_no) throws Exception {
+		return sqlSession.selectList("mylib.rvRead", br_no);
+	} // getReviewRead() end
+	
+	// 서평 insert
+	public int insertRv(BookReviewDTO dto) throws Exception {
+		return sqlSession.insert("mylib.rvInsert", dto);
+	} // insertRv() end
 	
 } // class end
