@@ -29,35 +29,4 @@
 	<!-- answer -->
 	
 	
-	<!-- choice -->
-	<insert id="surveyWrite" parameterType="kr.co.itwill.survey.SurveyDTO">
-		INSERT INTO survey( sv_code, sv_title, sv_des )
-		VALUES ( #{s_idx}, #{s_title}, #{s_content})
-		<selectKey keyProperty="s_idx" resultType="Integer">
-		SELECT LAST_INSERT_ID()
-		</selectKey>
-	</insert>
-	
-	<insert id="questionWrite" parameterType="kr.co.itwill.survey.SurveyDTO">
-		INSERT INTO dsurvey( dsv_code, dsv_no, dsv_subject, dsv_type )
-		VALUES 
-		<foreach item="q" index="index" collection="questions" separator=","> 
-		( #{s_idx}, #{index}+1, #{q.q_title}, #{q.q_type} )
-		</foreach>
-	</insert>
-	
-	<insert id="items" parameterType="kr.co.itwill.survey.DsurveyDTO">
-		INSERT INTO choice(ch_code, ch_dsvno, ch_no, ch_content)
-		
-		VALUES
-		<foreach item="i" index="index" collection="items" separator=",">
-		(
-			#{s_idx},
-			#{q_idx},
-			#{index}+1,
-			#{i.i_content}
-		)
-		</foreach>
-	</insert>
-	
 </mapper>
