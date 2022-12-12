@@ -9,12 +9,12 @@
 	    ]]>	    
 	</insert>
 	
-	<select id="list" resultType="kr.co.itwill.mylib.VisitorDTO" parameterType="String">
+	<select id="list" resultType="kr.co.itwill.mylib.VisitorDTO">
 		<![CDATA[
 		SELECT vis_no, vis_pid, vis_myid, vis_content, vis_rdate
 		FROM visitor
 		WHERE vis_pid = #{vis_pid}
-		ORDER BY vis_rdate DESC LIMIT ${limit}
+		ORDER BY vis_rdate DESC LIMIT #{limit}
 		]]>	
 	</select>
 	

@@ -22,7 +22,7 @@ public class VisitorDAO {
 	
 	public List<VisitorDTO> visitorList(VisitorDTO dto) {
 		return sqlSession.selectList("visitor.list", dto);
-	} // commentList() end
+	} // visitorList() end
 	
 	// 방명록 총 개수
 	public int getVsCount(String lib_id) throws Exception {

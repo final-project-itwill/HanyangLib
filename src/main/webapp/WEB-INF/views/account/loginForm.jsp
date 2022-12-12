@@ -3,33 +3,31 @@
 <%@ include file="../header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
- <div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/libbg.jpg'); height: 40vh;"></div>
-<!-- 본문작성 시작 -->
-<!-- 쿠키 확인 -->
-<%
-	Cookie[] cookies = request.getCookies();
-	String c_id = "";
-	if(cookies!=null){ // 쿠키가 존재하는지?
-		for(int i=0; i<cookies.length; i++){
-			Cookie cookie = cookies[i]; // 쿠키 하나씩 가져오기
-			if(cookie.getName().equals("c_id")==true){
-				c_id = cookie.getValue();	
-			} // if end
-		} // for end
-	} // if end
-%>
-
 <c:choose>
 	<%-- 로그인 한 상태라면 --%>
 	<c:when test="${grade!=null}">
-	<div class="text-center">
+	<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/login2.jpg'); height: 100vh;">
+	<!-- 본문작성 시작 -->
+	<!-- 쿠키 확인 -->
+	<%
+		Cookie[] cookies = request.getCookies();
+		String c_id = "";
+		if(cookies!=null){ // 쿠키가 존재하는지?
+			for(int i=0; i<cookies.length; i++){
+				Cookie cookie = cookies[i]; // 쿠키 하나씩 가져오기
+				if(cookie.getName().equals("c_id")==true){
+					c_id = cookie.getValue();	
+				} // if end
+			} // for end
+		} // if end
+	%>
+	<div class="text-center" style="background-color: white; background-color: rgba( 255, 255, 255, 0.8 ); width: 400px; position: absolute; top:50%; left:50%; transform: translate(-50%, -50%);">
 		<h2 class="title">환영합니다</h2>   
 		<h3 class="user-name"><strong>${s_id}</strong> 님  </h3>
    
 		<a href="/login/logout" class="btn-notice-master ml30">로그아웃</a>
 		<div class="mt30 text-center">
-			<a href="#" class="btn btn-primary">회원정보수정</a>
+			<a href="/member/memberdetail" class="btn btn-primary">회원정보수정</a>
 			<a href="#" class="btn btn-primary ml30">회원탈퇴</a>	
 		</div>
 <!-- 		<div onclick="kakaoLogout();">
@@ -38,10 +36,28 @@
 		     </a>
 		</div> -->
 	</div>
+	</div>
 	</c:when>
+	
 	<%-- 로그인을 안 한 상태라면 --%>
 	<c:otherwise>
-	<div class="container text-center">
+	<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/login1.jpg'); height: 100vh;">
+	<!-- 본문작성 시작 -->
+	<!-- 쿠키 확인 -->
+	<%
+		Cookie[] cookies = request.getCookies();
+		String c_id = "";
+		if(cookies!=null){ // 쿠키가 존재하는지?
+			for(int i=0; i<cookies.length; i++){
+				Cookie cookie = cookies[i]; // 쿠키 하나씩 가져오기
+				if(cookie.getName().equals("c_id")==true){
+					c_id = cookie.getValue();	
+				} // if end
+			} // for end
+		} // if end
+	%>
+	<div style="height: 100vh;"></div>
+	<div class="container text-center" style="background-color: white; background-color: rgba( 255, 255, 255, 0.8 ); width: 400px; position: absolute; top:50%; left:50%; transform: translate(-50%, -50%);">
 		<div class="login-content" id="login-content">
 	    
 		      <h2 class="title">로그인을 하여<br>한양서재를 이용해보세요</h2>   
@@ -172,11 +188,9 @@
 			 -->
 		</div>
 	</div>
+	</div>
 	</c:otherwise>
 </c:choose>
 
-
-
-
 <!-- 본문작성 끝 -->
-<%@ include file="../footer.jsp"%>
+<%-- <%@ include file="../footer.jsp"%> --%>

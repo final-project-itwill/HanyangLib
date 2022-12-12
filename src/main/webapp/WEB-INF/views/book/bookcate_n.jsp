@@ -1,6 +1,5 @@
 <%@page import="kr.co.itwill.book.BookDTO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -45,76 +44,80 @@
 	</div>
 <!-- 오늘 본 책 끝-->
 
+	<c:if test="${requestScope.count==0}">
+		<!-- 전체 글 개수가 0일 때 : 글이 없을 때 -->
+		<table>
+			<tr>
+				<td>게시판에 글 없음!!</td>
+			</tr>
+		</table>
+	</c:if>
 
+	<c:if test="${requestScope.count>0}">
+		<!-- 전체 글 개수가 0 이상일 때 : 글이 있을 때 -->
+		<table border="0" align="center" width=70%>
+			<tr>
+				<td>
+					<c:forEach var="dto" items="${list_n}">	
+						<div class="col-12">
+							<div class="post-entry horizontal d-md-flex">
+								<div class="media">
+									<a href="#"> 
+									<img src="${dto.b_bookcover}"
+										style="width: 140px; margin-right: 20px;"></a>
+								</div>
+								<div class="text">
+									<div class="meta">
+										<span>출판사 ${dto.b_publish}</span> <span>&bullet;</span> <span>작가
+											${dto.b_author}</span>
+									</div>
+									<h3>
+										<a href="#" style="color: #906D3B">${dto.b_name}</a>
+									</h3>
+									<p>출판일 ${dto.b_rdate}</p>
+									<p>${dto.b_des}</p>
 
-
-	<table border="0" align = "center">
-	<tr>
-		<td>
-			<div class="col-12">
-				<div class="post-entry horizontal d-md-flex">
-					<div class="media">
-						<a href="#"><img
-							src="http://image.yes24.com/goods/115094437/M"
-							style="width: 140px; margin-right: 20px;" /></a>
-					</div>
-					<div class="text">
-						<div class="meta">
-							<span>출판사 현대문학</span> <span>&bullet;</span> <span>작가 천선란</span>
-						</div>
-						<h2>
-							<a href="#" style="color: #906D3B">랑과 나의사막</a>
-						</h2>
-						<p>출판일 2022-10-25</p>
-						<p>당대 한국 문학의 가장 현대적이면서도 첨예한 작가들을 선정, 신작 시와 소설을 수록하는 월간 『현대문학』의
-							특집 지면 [현대문학 핀 시리즈]의 마흔세 번째 소설선</p>
-
-					</div>
-				</div>
-			</div>
-		 </td>
-		</tr>
-
-		<tr>
-			<td>
-			<c:forEach var="dto" items="${list_n}">
-				<div class="col-12">
-					<div class="post-entry horizontal d-md-flex">
-						<div class="media">
-							<a href="#">
-							<img src="${dto.b_bookcover}"
-								style="width: 140px; margin-right: 20px;"></a>
-						</div>
-						<div class="text">
-							<div class="meta">
-								<span>출판사 ${dto.b_publish}</span> <span>&bullet;</span> <span>작가 ${dto.b_author}</span>
+								</div>
 							</div>
-							<h2>
-								<a href="#" style="color: #906D3B">${dto.b_name}</a>
-							</h2>
-							<p>출판일 ${dto.b_rdate}</p>
-							<p>${dto.b_des}</p>
-
 						</div>
-					</div>
-				</div>
-				</c:forEach>
-			</td>
-		</tr>
+					</c:forEach>
+				</td>
+			</tr>
 
-	</table>
+		</table>
+	</c:if>
 
+<!-- 페이지 리스트 -->
+<c:if test="${requestScope.count > 0}">
 
-<div style = "display : inliine-block; color : black; float : left; padding : 8px 16px; text-decoration: none; text-align:center;">
-  <a href="#">&laquo;</a>
-  <a href="#">1</a>
-  <a class="active" href="#">2</a>
-  <a href="#">3</a>
-  <a href="#">4</a>
-  <a href="#">5</a>
-  <a href="#">6</a>
-  <a href="#">&raquo;</a>
-</div>
+	<c:set var="pageCount" 	value="${requestScope.totalPage}"/>
+	<c:set var="startPage" 	value="${requestScope.startPage}"/>
+	<c:set var="endPage" 	value="${requestScope.endPage}"/>
+	
+	<div class="content">
+		<c:if test="${endPage > pageCount}">
+			<c:set var="endPage" value="${pageCount}"></c:set>
+		</c:if>
+		
+		
+		<c:if test="${startPage > 1}">
+			<a href = "./bookcate_n?pageNum=${startPage-1}">[이전]</a>
+		</c:if>
+		
+		
+		<c:forEach var="i" begin="${startPage}" end="${endpage}">
+			<c:choose>
+				<c:when test="${pageNum == i}"><span style="font-weight: bold;">${i}</span></c:when>
+				<c:when test="${pageNum != i}"><a href="./bookcate_n?pageNum=${i}">[${i}]</a></c:when>
+			</c:choose>	
+		</c:forEach>
+		
+		<c:if test="${endPage < pageCount}">
+			<a href = "./bookcate_n?pageNum=${pageNum+1}">[다음]</a>
+		</c:if>
+	</div>
+</c:if>
+
 
 
   <!-- 퀵메뉴 스크롤 따라 다니기 -->

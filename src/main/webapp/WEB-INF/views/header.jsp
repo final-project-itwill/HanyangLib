@@ -68,7 +68,7 @@
 	          	<li><a href="/mylib/libindex/${s_id}" style="font-weight: bold;">나만의 서재</a></li>
 	          	<li><a href="/comm/index" style="font-weight: bold;">커뮤니티</a></li>
               	<li class="has-children">
-              		<a href="#">고객센터</a>
+              		<a href="#" style="font-weight: bold;">고객센터</a>
 	                <ul class="dropdown">
 	                  <li><a href="/notice/list?pageNum=1">공지사항</a></li>
 	                  <li><a href="#">문의</a></li>
@@ -77,7 +77,7 @@
 	        </ul>
 			<ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right menu-absolute">
             	<li>
-        			<a class="font2" href="/login/index">
+        			<a class="font2" href="/login/index" style="font-weight: bold;">
         			<i class="fas fa-user"></i> ${s_id}님
         			</a>
         		</li>
@@ -105,7 +105,7 @@
 	          	<li><a href="/login/index" style="font-weight: bold;">나만의 서재</a></li>
 	          	<li><a href="/login/index" style="font-weight: bold;">커뮤니티</a></li>
               	<li class="has-children">
-              		<a href="#">고객센터</a>
+              		<a href="#" style="font-weight: bold;">고객센터</a>
 	                <ul class="dropdown">
 	                  <li><a href="/notice/list?pageNum=1">공지사항</a></li>
 	                  <li><a href="#">문의</a></li>
@@ -114,7 +114,7 @@
 	        </ul>          
 	        <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right menu-absolute">
             	<li class="cta-button">
-              		<a class="font2" href="/login/index">
+              		<a class="font2" href="/login/index" style="font-weight: bold;">
         				<i class="fas fa-sign-in-alt"></i> 로그인
         			</a>
         		</li>

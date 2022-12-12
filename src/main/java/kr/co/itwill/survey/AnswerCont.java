@@ -5,11 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/answer")
+@RequestMapping("/answers")
 public class AnswerCont {
 	
 	public AnswerCont() {
-		System.out.println("------CommentCont() 객체 생성");
+		System.out.println("------AnswerCont() 객체 생성");
 	}// end
 	
 	@Autowired

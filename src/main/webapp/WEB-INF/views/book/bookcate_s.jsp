@@ -45,10 +45,10 @@
 	</div>
 <!-- 오늘 본 책 끝-->
 
-
-
+<!-- 테이블 시작 -->
 
 	<table border="0" align = "center">
+		
 		<tr>
 			<td>
 			<c:forEach var="dto" items="${list_s}">
@@ -56,7 +56,7 @@
 					<div class="post-entry horizontal d-md-flex">
 						<div class="media">
 							<a href="#">
-							<img src="/images/${dto.b_bookcover}"
+							<img src="${dto.b_bookcover}"
 								style="width: 140px; margin-right: 20px;"></a>
 						</div>
 						<div class="text">
