@@ -6,8 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 
 
@@ -34,14 +32,28 @@ public class SurveyDAO {
 	// 커뮤니티 가입 신청서의 문항별 세부 선택 사항 조회
 	public List<ChoiceDTO> svChoice(String dsv_code) throws Exception {
 		return sqlSession.selectList("survey.choice", dsv_code);
-	}// detail() end
+	}// detail2() end	
 	
-	// insert문 실행
+	
+	// survey/insert문 실행
 	public int insert(AnswerDTO answer) {
 		return sqlSession.insert("survey.insert", answer);
-	}
+	} // insert() end
+	// survey/Delete문 실행
+	public int delete(String sv_code) {
+		return sqlSession.delete("survey.delete",sv_code );
+	} // delete() end
 	
-
+	// survey/update/read
+	public SurveyDTO read(String sv_code) {
+		return sqlSession.selectOne("survey.read", sv_code);
+	} // read() end
+	// survey/update
+	public int update(SurveyDTO dto) {
+		return sqlSession.update("survey.update", dto);
+	} // update() end
+	
+	
 	public int surveyWrite(SurveyDTO survey) {
 		return sqlSession.insert("survey.surveyWrite", survey);
 	}// choiceinsert() end

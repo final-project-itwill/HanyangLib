@@ -40,12 +40,14 @@ public class SurveyCont {
 	return mav;
 	} // home () end
 	
+	
+	
 	@RequestMapping("/write/{dsv_code}")
 	public ModelAndView write(@PathVariable String dsv_code) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/survey/write");
-//		mav.addObject("title", surveyDAO.svTitle(dsv_code));
-//		mav.addObject("choice", surveyDAO.svChoice(dsv_code));
+		mav.addObject("title", surveyDAO.svTitle(dsv_code));
+		mav.addObject("choice", surveyDAO.svChoice(dsv_code));
 		mav.addObject("dsv_code", dsv_code);
 		return mav;
 	}// write() end
@@ -61,8 +63,9 @@ public class SurveyCont {
 		answer.setAns_id("mimimi05");	// 지금은 임의 배정
 		answer.setAns_content("");
 		surveyDAO.insert(answer);		
-		return "redirect:/survey/write";
+		return "redirect:/survey/survey";
 	}// insert() end
+	
 	
 	@RequestMapping("/create/{dsv_code}")
 	public ModelAndView create(@PathVariable String dsv_code) {
@@ -72,23 +75,60 @@ public class SurveyCont {
 	return mav;
 	} // create() end
 	
-	@RequestMapping( "/create/insert")
-	@ResponseBody
-	public int surveyinsert(@RequestParam String dsv_code
-							,@RequestParam String s_title
-							,@RequestParam String s_content) throws Exception {
-		SurveyDTO sur = new SurveyDTO();
-		sur.setSv_code(dsv_code);
-		sur.setSv_comcode("com002");
-		sur.setSv_title(s_title);
-		sur.setSv_des(s_content);
-		return surveyDAO.surveyWrite(sur);
+//	설문지 survey 생성, dsurvey choice 생성해야함..
+	@RequestMapping(value = "/create/insert", method = RequestMethod.POST)
+	public String surveyinsert(@RequestBody SurveyDTO dto, DsurveyDTO sdto) throws Exception {
+		SurveyDTO survey = new SurveyDTO();
+		survey.setSv_code(dto.getSv_code());
+		survey.setSv_comcode("com002"); // 커뮤니티 코드 받아오기.
+		survey.setSv_id("mimimi05");	// 지금은 임의 배정
+		survey.setSv_title(dto.getSv_title());
+		survey.setSv_des(dto.getSv_des());
+		
+		surveyDAO.surveyWrite(survey); 
+		
+		return "/survey/survey";
+		
 	}// surveyinsert() end
 	
 	
-
-	public interface SurveyService {
-		
-	}
+	
+// survey delete
+	@RequestMapping(value = "/delete.do", method = RequestMethod.GET)
+	public ModelAndView deleteForm(String sv_code) {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("survey/deleteForm");
+		mav.addObject("sv_code", sv_code);
+		return mav;
+	} // deleteForm() end
+	
+	@RequestMapping(value = "/delete.do", method = RequestMethod.POST)
+	public ModelAndView deleteProc(String sv_code) {
+		ModelAndView mav = new ModelAndView();
+		surveyDAO.delete(sv_code);
+		mav.setViewName("redirect:/survey/survey");
+		return mav;		
+	} // deleteProc() end
+	
+	
+// survey update
+	@RequestMapping(value = "/update.do", method = RequestMethod.GET)
+	public ModelAndView updateForm(String sv_code) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("survey/updateForm");
+		mav.addObject("read", surveyDAO.read(sv_code));
+		return mav;		
+	} // updateForm() end
+	
+	@RequestMapping(value = "/update.do", method = RequestMethod.POST)
+	public ModelAndView updateProc(@ModelAttribute SurveyDTO dto) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/survey/survey");
+		surveyDAO.update(dto);
+		return mav;
+	} // updateProc() end
+	
+	
+	
 	
 }// class end
