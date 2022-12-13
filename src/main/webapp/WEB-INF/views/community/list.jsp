@@ -27,10 +27,8 @@
     <div class="row">
         <div class="col-lg-3">
         <select class="" style="width: 20vh; height: 5vh">
-            <option>인기순</option>
-            <option>최신순</option>
-            <option>마감순</option>
-            <option>모두보기</option>
+            <option value="new">최신순</option>
+            <option value="due">마감순</option>
         </select>
         </div>
 
@@ -59,7 +57,7 @@
 
         <c:forEach var="dto" items="${list}">
         <tr>
-            <td><a href="read/${dto.c_code}">${dto.c_name}</a></td>
+            <td style="color: #0E2A47"><a href="read/${dto.c_code}">${dto.c_name}</a></td>
             <td>${dto.b_name}</td>
             <td>
                 <c:choose>

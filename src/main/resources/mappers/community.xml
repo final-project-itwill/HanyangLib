@@ -22,10 +22,10 @@
                     FROM book JOIN community
                     ON book.b_code = community.c_bcode
                     ORDER BY c_code DESC
-                    ) CC, (SELECT @RNO := 0) BB ORDER BY c_code DESC
+                    ) CC, (SELECT @RNO := 0) BB ORDER BY c_rdate DESC
             ) AA
         WHERE r BETWEEN #{startRow} AND #{endRow}
-        ORDER BY c_code DESC
+        ORDER BY c_rdate DESC
     </select>
 
     <!-- 총 행 갯수 -->

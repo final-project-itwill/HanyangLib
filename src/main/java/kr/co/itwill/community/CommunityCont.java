@@ -264,7 +264,7 @@ public class CommunityCont {
 
 
     /*
-    *  review 후기 관련 함수 (더보기)
+    *  review 후기 CRUD (ajax 더보기)
     *
     * */
 
