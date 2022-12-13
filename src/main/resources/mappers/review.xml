@@ -11,7 +11,7 @@
     <select id="list" resultType="kr.co.itwill.community.ReviewDTO" parameterType="String">
         SELECT ac_no, ac_id ,ac_ccode ,ac_cname ,ac_manjok ,ac_review, ac_rdate
         FROM community_ac
-        WHERE ac_ccode = #{ac_ccode}
+        WHERE ac_ccode = #{c_code}
     </select>
 
 

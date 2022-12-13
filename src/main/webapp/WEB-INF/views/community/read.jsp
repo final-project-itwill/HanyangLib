@@ -125,16 +125,17 @@
             <!-- 후기 등록 form 시작 -->
             <!-- 로그인 id가 해당 커뮤니티에 가입된 상태일 때만 후기 작성 가능-->
                 <form name="reviewForm" id="reviewForm" style="margin-bottom: 30px">
-                    <input type="hidden" id="ac_ccode" name="ac_ccode" value="${read.c_code}"><!-- 부모 PK키-->
-                    <input type="hidden" id="ac_cname" name="ac_cname" value="${read.c_name}"><!-- 부모 커뮤니티 이름 -->
-                    <input type="text" name="ac_review" id="ac_review" placeholder="후기를 남겨주세요">
-                    <input type="range" name="ac_manjok" id="ac_manjok" min=1 max=5>
+                    <input type="hidden" id="c_code" name="c_code" value="${read.c_code}">  <!-- 부모 PK키-->
+                    <input type="hidden" id="cname" name="cname" value="${read.c_name}">    <!-- 부모 커뮤니티 이름 -->
+                    <input type="hidden" id="loginID" name="loginID" value="${s_id}">       <!-- 작성자 -->
+                    <input type="text" name="review" id="review" placeholder="후기를 남겨주세요">
+                    <input type="range" name="manjok" id="manjok" min=1 max=5>
                     <button type="button" name="reviewInsertBtn" id="reviewInsertBtn">후기 남기기</button>
                 </form><!-- 후기 등록 form 끝 -->
 
 
             <!-- 후기 목록 div -->
-            <div class="activityList"></div>
+            <div class="reviewList"></div>
 
         </div>
         <div class="container-fluid col-lg-3 d-sm-none"></div>
@@ -142,9 +143,10 @@
     <br><br><br>
 </div>
 
+
 <!-- 후기 관련 자바스크립트 -->
 <script>
-    let ac_ccode = '${read.c_code}';  //부모 PK키
+    let c_code = '${read.c_code}';  //부모 PK키
     //로그인 id가 작성자와 동일한 경우에만 후기 수정/삭제 가능
     let loginID = '${s_id}';
 
@@ -174,10 +176,11 @@
         //id="reviewForm"의 내용을 전부 가져온다
         let insertData=$("#reviewForm").serialize();
         //alert(insertData);
-        InsertIntoCommunityActivity(insertData);   //후기등록 함수호출
+        insertReview(insertData);   //후기등록 함수호출
     });//click() end
 
-    function InsertIntoCommunityActivity(insertData){
+    //후기 등록
+    function insertReview(insertData){
         //alert("댓글등록함수호출" + insertData);
         $.ajax({
             url    :'/review/insert'
@@ -186,85 +189,98 @@
             ,success:function (data){
                 //alert(data);
                 if(data==1){        //후기등록 성공
-                    listActivity();   //후기등록 후 후기목록 함수호출
-                    $('#ac_review').val('');    //기존 후기내용 빈값으로
-                    $('#ac_manjok').val(3);     //기본별점 3
+                    listReview();   //후기등록 후 후기목록 함수호출
+                    $('#review').val('');    //기존 후기내용 빈값으로
+                    $('#manjok').val(3);     //기본별점 3
                 }//if end
             }//success end
         });//ajax() end
-    }//InsertIntoCommunityActivity() end
+    }//insertReview() end
+
+
     //후기 목록
-    function listActivity(){
+    function listReview(){
         $.ajax({
             url    :'/review/list'
             ,type   :'get'
-            ,data   :{'ac_ccode':ac_ccode} //부모 PK키
+            ,data   :{'c_code':c_code} //부모 PK키
             ,success:function (data){
                 //alert(data);
                 let a = ''; //출력할 결과값
                 $.each(data, function (key, value){
-                    // alert(key);
-                    // alert(value);
-                    a += '<div class="commacArea" style="border-bottom: 1px solid darkgray; margin-bottom: 15px">';
-                    a += '  <div class="commacInfo' + value.ac_no +'">';
+                    //alert(key);
+                    //alert(value);
+                    a += '<div class="reviewArea" style="border-bottom: 1px solid darkgray; margin-bottom: 15px">';
+                    a += '  <div class="reviewInfo' + value.ac_no +'">';
                     a += '      번호 : ' + value.ac_no + ' / 작성자 : ' + value.ac_id + "  " + value.ac_rdate;
                     //작성자||관리자만 수정/삭제 버튼 접근 가능
                     if(value.ac_id == loginID || value.ac_id =='webmaster'){
-                        a += '      <a href="javascript:openActivityUpdatePanel(' + value.ac_no + ',\'' + value.ac_review + '\',' + value.ac_manjok + ');">수정</a>';
-                        a += '      <a href="javascript:deleteActivity(' + value.ac_no + ');">삭제</a>';
+                        a += '      <a href="javascript:openReviewUpdatePanel(' + value.ac_no + ',\'' + value.ac_review + '\',' + value.ac_manjok + ');">수정</a>';
+                        a += '      <a href="javascript:deleteReview(' + value.ac_no + ');">삭제</a>';
                     };//if end
                     a += '  </div>';
-                    a += '  <div class="commacReview' + value.ac_no +'">'
+                    a += '  <div class="content' + value.ac_no +'">'
                     a += '      <p>후기 내용 : ' + value.ac_review + ' / 만족도 :' + value.ac_manjok + '</p>';
                     a += '  </div>';
                     a += '</div>';
                 });//each() end
-                $(".activityList").html(a);   //<div class="activityList"></div>
+                $(".reviewList").html(a);   //<div class="reviewList"></div>
             }//success end
         });//ajax() end
-    }//listActivity() end
+    }//listReview() end
+
+
     //후기 수정 - 수정할 내용 폼으로 출력
-    function openActivityUpdatePanel(ac_no, ac_review, ac_manjok){
+    function openReviewUpdatePanel(ac_no, review, manjok){
         let a = '';
         a += '<div class="input-group" style="text-align: center">';
-        a += '  <input type="text" value="' + ac_review + '" id="ac_review_' + ac_no + '">';
-        a += '  <input type="range" min="1" max="5" value="' + ac_manjok +'" id="ac_manjok_' + ac_no + '">';
-        a += '  <button type="button" onclick="updateActivity(' + ac_no + ')">수정</button>';
+        a += '  <input type="text" value="' + review + '" id="review_' + ac_no + '">';
+        a += '  <input type="range" min="1" max="5" value="' + manjok +'" id="manjok_' + ac_no + '">';
+        a += '  <button type="button" onclick="updateReview(' + ac_no + ')">수정</button>';
         a += '</div>';
-        $(".commacReview" + ac_no).html(a);
-    }//openActivityUpdatePanel() end
+
+        $(".content" + ac_no).html(a);
+    }//openReviewUpdatePanel() end
+
+
     //후기 수정
-    function updateActivity(ac_no){
-        let updateReview = $('#ac_review_' + ac_no).val();
-        let updateManjok = $('#ac_manjok_' + ac_no).val();
+    function updateReview(ac_no){
+        let updateReview = $('#review_' + ac_no).val();
+        let updateManjok = $('#manjok_' + ac_no).val();
         // alert(ac_no);
         // alert(updateReview);
         // alert(updateManjok);
         $.ajax({
             url:'/review/update'
             ,type:'post'
-            ,data:{'ac_review':updateReview, 'ac_manjok':updateManjok, 'ac_no':ac_no}
+            ,data:{'review':updateReview, 'manjok':updateManjok, 'ac_no':ac_no}
             ,success:function (data){
-                if(data == 1) listActivity();    //후기수정 후 목록 출력
+                if(data == 1) listReview();    //후기수정 후 목록 출력
             }//success end
         });//ajax() end
-    }//updateActivity() end
+    }//updateReview() end
+
+
     //후기 삭제
-    function deleteActivity(ac_no){
+    function deleteReview(ac_no){
         $.ajax({
             url    :'/review/delete/' + ac_no
             ,type   :'post'
             ,success:function (data){
                 if(data == 1){             //후기 삭제되면
-                    listActivity(ac_ccode);  //목록 출력
+                    listReview(c_code);  //목록 출력
                 }//if end
             }//success end
         });//ajax() end
-    }//deleteActivity() end
+    }//deleteReview() end
+
+
     //페이지 로딩시 댓글 목록 출력
     $(document).ready(function (){
-        listActivity();
+        listReview();
     });//ready() end
+
+
 </script>
 <!-- 본문작성 끝 -->
 <%@ include file="../footer.jsp"%>

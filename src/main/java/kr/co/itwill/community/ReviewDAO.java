@@ -16,22 +16,22 @@ public class ReviewDAO {
     SqlSession sqlSession;
 
 
-    public int InsertIntoCommunityActivity(ReviewDTO dto){
+    public int insertReview(ReviewDTO dto){
         return sqlSession.insert("review.insert", dto);
-    }//InsertIntoCommunityActivity() end
+    }//insertReview() end
 
 
-    public List<ReviewDTO> listActivity(String ac_ccode){
-        return sqlSession.selectList("review.list", ac_ccode);
-    }//listActivity() end
+    public List<ReviewDTO> listReview(String c_code){
+        return sqlSession.selectList("review.list", c_code);
+    }//listReview() end
 
 
-    public int deleteActivity(int ac_no) throws Exception{
+    public int deleteReview(int ac_no) throws Exception{
         return sqlSession.delete("review.delete", ac_no);
     }//deleteActivity() end
 
 
-    public int updateActivity(ReviewDTO dto){
+    public int updateReview(ReviewDTO dto){
         return sqlSession.update("review.update", dto);
     }//openActivityUpdatePanel() end
 

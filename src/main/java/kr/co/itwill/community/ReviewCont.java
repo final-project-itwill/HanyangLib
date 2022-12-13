@@ -22,42 +22,42 @@ public class ReviewCont {
 
     @RequestMapping("/insert")
     @ResponseBody
-    public int InsertIntoCommunityActivity(@RequestParam String ac_ccode, @RequestParam String ac_cname,
-                            @RequestParam String ac_review, @RequestParam int ac_manjok, @RequestParam String ac_id) throws Exception{
+    public int InsertIntoCommunityActivity(@RequestParam String c_code, @RequestParam String cname,
+                            @RequestParam String review, @RequestParam int manjok, @RequestParam String loginID) throws Exception{
         ReviewDTO dto = new ReviewDTO();
-        dto.setAc_ccode(ac_ccode);
-        dto.setAc_cname(ac_cname);
-        dto.setAc_review(ac_review);
-        dto.setAc_manjok(ac_manjok);
-        dto.setAc_id(ac_id);
-        return reviewDAO.InsertIntoCommunityActivity(dto);
+        dto.setAc_ccode(c_code);
+        dto.setAc_cname(cname);
+        dto.setAc_review(review);
+        dto.setAc_manjok(manjok);
+        dto.setAc_id(loginID);
+        return reviewDAO.insertReview(dto);
     }//InsertIntoCommunityActivity() end
 
 
     @RequestMapping("/list")
     @ResponseBody
-    private List<ReviewDTO> listActivity(@RequestParam String ac_ccode, Model model) throws Exception{
-        return reviewDAO.listActivity(ac_ccode);
-    }//listActivity() end
+    private List<ReviewDTO> listReview(@RequestParam String c_code, Model model) throws Exception{
+        return reviewDAO.listReview(c_code);
+    }//listReview() end
 
 
     @RequestMapping("/delete/{ac_no}")
     @ResponseBody
-    public int deleteActivity(@PathVariable int ac_no) throws Exception{
-        return reviewDAO.deleteActivity(ac_no);
-    }//deleteActivity() end
+    public int deleteReview(@PathVariable int ac_no) throws Exception{
+        return reviewDAO.deleteReview(ac_no);
+    }//deleteReview() end
 
 
     @RequestMapping("/update")
     @ResponseBody
-    public int updateActivity(@RequestParam int ac_no,
-                            @RequestParam String ac_review, @RequestParam int ac_manjok) throws Exception{
+    public int updateReview(@RequestParam int ac_no,
+                            @RequestParam String review, @RequestParam int manjok) throws Exception{
         ReviewDTO dto = new ReviewDTO();
         dto.setAc_no(ac_no);
-        dto.setAc_review(ac_review);
-        dto.setAc_manjok(ac_manjok);
-        return reviewDAO.updateActivity(dto);
-    }//openActivityUpdatePanel() end
+        dto.setAc_review(review);
+        dto.setAc_manjok(manjok);
+        return reviewDAO.updateReview(dto);
+    }//updateReview() end
 
 
 }//class end
