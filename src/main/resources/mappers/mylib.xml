@@ -137,6 +137,17 @@
 		WHERE br_no = #{br_no}
 		]]>
 	</delete>
+	
+	<update id="rvUpdate">
+		<![CDATA[
+		UPDATE bookreview
+		SET  br_bcode = #{br_bcode}
+			,br_title = #{br_title}
+			,br_content = #{br_content}
+			,br_star = #{br_star}
+		WHERE br_no = #{br_no}
+		]]>
+	</update>
 
 
 </mapper>

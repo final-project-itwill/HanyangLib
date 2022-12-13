@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.itwill.notice.NoticeDTO;
+
 @RequestMapping("/mylib")
 @Controller
 public class MylibCont {
@@ -117,8 +119,12 @@ public class MylibCont {
 	
 	// 서평 insert 페이지 호출
 	@RequestMapping("/rvInsert")
-	public String create() throws Exception {
-		return "mylib/rvCreateForm";
+	public ModelAndView create(@RequestParam String br_id) throws Exception {
+		String lib_id = br_id;
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("libRead", mylibDao.getLibRead(lib_id));
+		mav.setViewName("mylib/rvCreateForm");
+		return mav;
 	} // rvInsert() end
 	
 	// 서평 등록
@@ -145,6 +151,7 @@ public class MylibCont {
 		return mav;
 	} // reviewRead() end
 	
+	// 서평 삭제
     @RequestMapping("/rvDelete")
     public String delete(int br_no, String br_id){
         mylibDao.delete(br_no);
@@ -154,14 +161,31 @@ public class MylibCont {
     // 서평 update 페이지 호출
     @RequestMapping("/rvUpdate")
  	public ModelAndView update(@RequestParam int br_no, @RequestParam String br_id) throws Exception {
- 		ModelAndView mav = new ModelAndView();
+    	String lib_id = br_id;
+    	ModelAndView mav = new ModelAndView();
  		mav.addObject("br_id", br_id);
  		mav.addObject("br_no", br_no);
+ 		mav.addObject("read", mylibDao.getReviewRead(br_no));
+ 		mav.addObject("libRead", mylibDao.getLibRead(lib_id));
  		mav.setViewName("mylib/rvUpdateForm");
     	return mav;
  	} // rvInsert() end
 
-	
+	// 서평 UpdateProc
+    @RequestMapping(value = "/rvUpdate", method = RequestMethod.POST)
+    public String update(@RequestParam int br_no, @RequestParam String br_id, @ModelAttribute BookReviewDTO dto){
+        BookReviewDTO rv = new BookReviewDTO();
+        rv.setBr_id(br_id);
+        rv.setBr_no(br_no);
+        rv.setBr_bcode(dto.getBr_bcode());
+        rv.setBr_title(dto.getBr_title());
+        rv.setBr_content(dto.getBr_content());
+        rv.setBr_star(dto.getBr_star());
+
+        mylibDao.update(rv);
+
+        return "redirect:/mylib/reviewRead?br_no="+br_no;     //행 수정 후 목록으로 이동
+    }//update() end
 	
 	
 } // class end

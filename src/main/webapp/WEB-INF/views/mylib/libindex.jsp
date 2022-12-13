@@ -94,7 +94,7 @@
 						<c:choose>
 							<c:when test="${read.b_bookcover != null}">
 								<div style="height: 150px; padding: 10px;">
-								<img src="/storage/${read.b_bookcover}" width="100px" align="middle">
+								<img src="${read.b_bookcover}" width="100px" align="middle">
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -114,8 +114,7 @@
 						<c:choose>
 							<c:when test="${read.b_bookcover != null}">
 								<div style="height: 150px; padding: 10px;">
-								<img src="/storage/${read.b_bookcover}" width="100px" align="middle">
-								${read.b_bookcover}
+								<img src="${read.b_bookcover}" width="100px" align="middle">
 								</div>
 							</c:when>
 							<c:otherwise>
@@ -199,7 +198,7 @@
 					</td>
 				</tr>
 				<c:if test="${s_id eq lib_id}">
-				<tr><td><button class="btn btn-warnning" onclick="location.href='/mylib/rvInsert'">서평 등록</button></td></tr>
+				<tr><td><button class="btn btn-warnning" onclick="location.href='/mylib/rvInsert?br_id=${lib_id}'">서평 등록</button></td></tr>
 				</c:if>
 				<tr class="col-12 col-xs-12 col-sm-4 col-lg-4" style="text-align: center;">
 					<td>제목</td>
