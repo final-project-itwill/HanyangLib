@@ -15,21 +15,24 @@ public class MemberDAO {
 		System.out.println("-----MemberDAO() 객체 생성됨");
 	}//MemberDAO() end
 	
-	@Autowired 
+	@Autowired
 	SqlSession sqlSession;
 	
 	public int memberinsert(MemberDTO member) {
 		return sqlSession.insert("member.memberinsert", member);
 	}//memberinsert() end
 	
+	public MemberDTO detail(String s_id) {
+		return sqlSession.selectOne("member.detail", s_id);
+	}//detail() end
 	
-	public List<Map<String, Object>>  emailCheck(String m_email){
-		return sqlSession.selectList("member.emailCheck",m_email);
-	}// emailCheck() end
 	
-	public List<Map<String, Object>> idcheck(String m_id){
-		return sqlSession.selectList("member.idcheck",m_id);
-	}//idcheck() end
+
+	 public int memberupdate(MemberDTO member) { 
+		 return sqlSession.update("member.memberupdate", member);
+	 }//memberupdate() end
+	
+	
 	
 	
 }//class end
