@@ -10,7 +10,7 @@
 <div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-color: gray; height: 40vh;"></div>
 
 <div class="container" style="padding-top: 100px;">
-    <div class="title">공지사항</div>
+    <h4 style="font-weight: bold; text-align: center">공지사항</h4>
     <div class="contents">
         <input type="button" value="공지사항 쓰기" onclick="location.href='insert'">
     </div>
@@ -32,14 +32,47 @@
 
     </table>
 
+    <!-- 페이징 list -->
+    <c:set var="pageCount" value="${totalPage}"></c:set>
+    <c:set var="startPage" value="${startPage}"></c:set>
+    <c:set var="endPage"   value="${endPage}"></c:set>
+
+    <div class="container-fluid" style="text-align: center">
+        <!-- endPage는 10, 20, 30.. ex)총 페이지가 22일 때 endPage 30이 아닌 22까지 출력해야 함 -->
+        <c:if test="${endPage > pageCount}">
+            <c:set var="endPage" value="${pageCount}"></c:set>
+        </c:if>
+
+        <!-- 이전 : startPage는 10, 20, 30.. 따라서 1보다 크면 이전 페이지 이동 가능 -->
+        <c:if test="${startPage > 1}">
+            <a href="/notice/list?pageNum=${startPage-1}">[이전]</a>      <!-- pageNum값을 Controller에 보냄 -->
+        </c:if>
+
+        <!-- 현재페이지 볼드체 / 현재페이지 외 링크 걸기 -->
+        <c:forEach var="i" begin="${startPage}" end="${endPage}">
+            <c:choose>
+                <c:when test="${pageNum == i}"><span style="font-weight: bold">${i}</span></c:when>
+                <c:when test="${pageNum != i}"><a href="/notice/list?pageNum=${i}">[${i}]</a></c:when>
+            </c:choose>
+        </c:forEach>
+
+        <!-- 다음 이동 -->
+        <c:if test="${endPage < pageCount}">
+            <a href="/notice/list?pageNum=${endPage+1}">[다음]</a>
+        </c:if>
+    </div>
+
+    <br>
+
+    <!-- 검색 -->
     <div style="text-align: center">
-        글 수 : ${fn:length(list)}
         <form name="keyword" method="post" action="search">
             <input type="text" id="keyword" name="keyword" value="${keyword}" placeholder="공지사항에서 검색하기">
             <input type="submit" value="검색">
         </form>
     </div>
 </div>
+<br>
 
 
 <!-- 푸터용 div -->

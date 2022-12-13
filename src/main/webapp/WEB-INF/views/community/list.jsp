@@ -59,7 +59,7 @@
 
         <c:forEach var="dto" items="${list}">
         <tr>
-            <td><a href="read?c_code=${dto.c_code}&loginID=hanyihanyi">${dto.c_name}</a></td>
+            <td><a href="read/${dto.c_code}">${dto.c_name}</a></td>
             <td>${dto.b_name}</td>
             <td>
                 <c:choose>
@@ -81,6 +81,38 @@
 
         </tbody>
     </table>
+
+    <!-- 페이징 list -->
+    <c:set var="pageCount" value="${totalPage}"></c:set>
+    <c:set var="startPage" value="${startPage}"></c:set>
+    <c:set var="endPage"   value="${endPage}"></c:set>
+
+    <div class="container-fluid" style="text-align: center">
+        <!-- endPage는 10, 20, 30.. ex)총 페이지가 22일 때 endPage 30이 아닌 22까지 출력해야 함 -->
+        <c:if test="${endPage > pageCount}">
+            <c:set var="endPage" value="${pageCount}"></c:set>
+        </c:if>
+
+        <!-- 이전 : startPage는 10, 20, 30.. 따라서 1보다 크면 이전 페이지 이동 가능 -->
+        <c:if test="${startPage > 1}">
+            <a href="/comm/list?pageNum=${startPage-1}">[이전]</a>      <!-- pageNum값을 Controller에 보냄 -->
+        </c:if>
+
+        <!-- 현재페이지 볼드체 / 현재페이지 외 링크 걸기 -->
+        <c:forEach var="i" begin="${startPage}" end="${endPage}">
+            <c:choose>
+                <c:when test="${pageNum == i}"><span style="font-weight: bold">${i}</span></c:when>
+                <c:when test="${pageNum != i}"><a href="/comm/list?pageNum=${i}">[${i}]</a></c:when>
+            </c:choose>
+        </c:forEach>
+
+        <!-- 다음 이동 -->
+        <c:if test="${endPage < pageCount}">
+            <a href="/comm/list?pageNum=${endPage+1}">[다음]</a>
+        </c:if>
+    </div>
+
+    <br>
 
 </div>
 

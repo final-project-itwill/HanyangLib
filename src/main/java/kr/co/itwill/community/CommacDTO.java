@@ -13,4 +13,6 @@ public class CommacDTO {
     private String ac_review;
     private String ac_rdate;
 
+    private int limit;
+
 }//class end

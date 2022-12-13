@@ -12,4 +12,7 @@ public class NoticeDTO {
     private String n_rdate;
     private String n_writer;
 
+    private int startRow;
+    private int endRow;
+
 }//class end

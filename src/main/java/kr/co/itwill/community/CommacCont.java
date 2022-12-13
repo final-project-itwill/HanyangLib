@@ -23,13 +23,13 @@ public class CommacCont {
     @RequestMapping("/insert")
     @ResponseBody
     public int InsertIntoCommunityActivity(@RequestParam String ac_ccode, @RequestParam String ac_cname,
-                            @RequestParam String ac_review, @RequestParam int ac_manjok) throws Exception{
+                            @RequestParam String ac_review, @RequestParam int ac_manjok, @RequestParam String ac_id) throws Exception{
         CommacDTO commac = new CommacDTO();
         commac.setAc_ccode(ac_ccode);
         commac.setAc_cname(ac_cname);
         commac.setAc_review(ac_review);
         commac.setAc_manjok(ac_manjok);
-        commac.setAc_id("hanyihanyi");  //session으로 id 갖고오기
+        commac.setAc_id(ac_id);
         return commacDao.InsertIntoCommunityActivity(commac);
     }//InsertIntoCommunityActivity() end
 

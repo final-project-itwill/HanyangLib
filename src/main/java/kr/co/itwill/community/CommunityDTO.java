@@ -18,4 +18,5 @@ public class CommunityDTO {
     private String c_rdate;
 
     private MultipartFile poster;
+
 }//class end

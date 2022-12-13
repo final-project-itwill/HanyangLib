@@ -2,11 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="notice">
 
-    <select id="list" resultType="kr.co.itwill.notice.NoticeDTO">
+
+    <!-- 페이징 없는 목록 -->
+<!--    <select id="list" resultType="kr.co.itwill.notice.NoticeDTO">
         SELECT n_no, n_type, n_title, n_content, n_rdate, n_writer
         FROM notice
         ORDER BY n_no DESC
+    </select>-->
+
+    <!-- 페이징 있는 목록 -->
+    <select id="list" resultType="kr.co.itwill.notice.NoticeDTO">
+        SELECT AA.*
+        FROM(
+        SELECT @RNO := @RNO + 1 AS r, CC.*
+        FROM(
+        SELECT n_no, n_type, n_title, n_content, n_rdate, n_writer
+        FROM notice
+        ) CC, (SELECT @RNO := 0) BB ORDER BY n_no DESC
+        ) AA
+        WHERE r BETWEEN #{startRow} AND #{endRow}
     </select>
+
 
 
     <insert id="insert">
@@ -43,5 +59,10 @@
             ,n_content = #{n_content}
         WHERE n_no = #{n_no}
     </update>
+
+    <select id="totalRowCount" resultType="int">
+        SELECT COUNT(*)
+        FROM notice
+    </select>
 
 </mapper>

@@ -22,4 +22,7 @@ public class BookReadDTO {
 
     private MultipartFile poster;
 
+    private int startRow;
+    private int endRow;
+
 }//class end
