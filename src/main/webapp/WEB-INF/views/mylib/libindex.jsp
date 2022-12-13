@@ -296,14 +296,14 @@
 				                    a += "<tr class='visitorArea' style='border-bottm:1px solid darkgray; margin-bottom:15px;'>";
 				                    a += "	<td class='visitorInfo" + value.vis_no + "'>";
 				                    a += "		댓글번호 : " + value.vis_no + " / 작성자 : " + value.vis_myid + " " + value.vis_rdate;
-				                    a += "	</td><td>";
+				                    a += "	</td><td class='text-right'>";
 									if(loginId == 'webmaster' || value.vis_myid == loginId){
 				                    a += "		<a href='javascript:visitorUpdate(" + value.vis_no + ", \"" + value.vis_content + "\");'>수정</a>";
 				                    a += "		<a href='javascript:visitorDelete(" + value.vis_no + ");'>삭제</a>";
 				                	};
 				                    a += "	</td>";
 				                    a += "	</tr><tr>";
-				                    a += "	<td class='vsContent' id='visitorContent" + value.vis_no + "'>";
+				                    a += "	<td colspan='2' class='vsContent' id='visitorContent" + value.vis_no + "'>";
 				                    a += "		<p>내용 : " + value.vis_content + "</p>";
 				                    a += "	</td>";				                    
 				                    a += "</tr>";

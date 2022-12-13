@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.itwill.notice.NoticeDTO;
+
 @Repository
 public class MylibDAO {
 
@@ -58,13 +60,23 @@ public class MylibDAO {
 	} // getReviewRead() end
 	
 	// 서평 상세보기
-	public List<BookReviewDTO> getReviewRead(int br_no) throws Exception {
-		return sqlSession.selectList("mylib.rvRead", br_no);
+	public BookReviewDTO getReviewRead(int br_no) throws Exception {
+		return sqlSession.selectOne("mylib.rvRead", br_no);
 	} // getReviewRead() end
 	
 	// 서평 insert
 	public int insertRv(BookReviewDTO dto) throws Exception {
 		return sqlSession.insert("mylib.rvInsert", dto);
 	} // insertRv() end
+	
+	// 서평 Delete
+    public void delete(int br_no){
+        sqlSession.delete("mylib.rvDelete", br_no);
+    }//delete() end
+
+    // 서평 Update
+    public int update(BookReviewDTO review){
+        return sqlSession.update("mylib.rvUpdate", review);
+    }//update() end
 	
 } // class end
