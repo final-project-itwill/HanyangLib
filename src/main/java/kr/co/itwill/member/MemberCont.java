@@ -120,7 +120,7 @@ public class MemberCont {
 	public String insert(@ModelAttribute MemberDTO dto) throws Exception {
 
 		/*
-		 * System.out.println("아이디:" + req.getParameter("m_id"));
+		  System.out.println("아이디:" + req.getParameter("m_id"));
 		 * System.out.println("비번:" + req.getParameter("passwd"));
 		 * System.out.println("이름:" + req.getParameter("mname"));
 		 * System.out.println("이메일:" + req.getParameter("m_mail"));
@@ -154,33 +154,28 @@ public class MemberCont {
 		memberDao.memberinsert(member);
 
 		return "redirect:/login/loginForm";
-
+  
 	}// insert() end
 
+	// 수정 페이지를 불러오는 컨트롤러
 	@RequestMapping("/update")
 	public ModelAndView detail(@RequestParam String s_id) {
 		//System.out.println(s_id);
 		ModelAndView mav = new ModelAndView();
 
-		mav.setViewName("member/memberdetail");
+		mav.setViewName("member/memberupdate");
 		mav.addObject("detail", memberDao.detail(s_id));
 		return mav;
 	}// memberdetail() end
 
-	@RequestMapping("/deleteform")
-	public ModelAndView delete() {
-		ModelAndView mav=new ModelAndView();
-		mav.setViewName("member/deleteform");
-		return mav;
+	
+	@RequestMapping(value = "/update" , method = RequestMethod.POST)
+	public String update(@RequestParam String m_id, @ModelAttribute MemberDTO dto) throws Exception {
 		
-	}//delete() end
-
-	public String update(@RequestParam String m_id, @ModelAttribute MemberDTO dto) {
 		MemberDTO member=new MemberDTO();
-		
-		
+		member.setM_id(m_id);
 		member.setM_pw(dto.getM_pw());
-		member.setM_nick(dto.getM_nick());
+		member.setM_tel(dto.getM_tel());
 		member.setM_email(dto.getM_email());
 		member.setM_zip(dto.getM_zip());
 		member.setM_add1(dto.getM_add1());
@@ -188,31 +183,21 @@ public class MemberCont {
 		member.setM_mailcheck(dto.getM_mailcheck());
 		member.setM_smscheck(dto.getM_smscheck());
 		
-		//memberDao.memberupdate(member);
-		
-		
-		return "redirect:/";
-		
+		memberDao.memberupdate(member);
+		//System.out.println(member.toString());
+		return "redirect:/login/index";	//수정 후 상세(수정)폼으로 돌아기기
 		
 	}//update() end
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 
+	@RequestMapping("/deleteform")
+	public ModelAndView delete() {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("member/deleteform");
+		return mav;
+		
+	}//delete() end
 	
 	
 
