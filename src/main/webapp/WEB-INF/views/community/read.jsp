@@ -67,11 +67,14 @@
                     </table>
                 </div><!-- 정보 테이블 end-->
 
-                <%-- 커뮤니티 신청 버튼 --%>
-
-                <button type="button" onclick="clickSignup()">이 커뮤니티 신청하기</button>
-
-
+                <!-- 커뮤니티 신청 버튼 -->
+                <!-- 조건문으로 커뮤니티 모집중/완료 분기 -->
+                <c:if test="${read.c_state == 'i'}">
+                    <button type="button" onclick="clickSignup()">이 커뮤니티 신청하기</button>
+                </c:if>
+                <c:if test="${read.c_state == 'd' || read.c_state == 'e'}">
+                    <p style="font-weight: bold">신청이 마감되었습니다</p>
+                </c:if>
             </div>
         </div><!-- 우측 bar end-->
     </div><!-- row end-->
@@ -121,40 +124,17 @@
 
             <!-- 후기 등록 form 시작 -->
             <!-- 로그인 id가 해당 커뮤니티에 가입된 상태일 때만 후기 작성 가능-->
-            <%--<c:if test="${loginID=='hanyihanyi'}">--%>
-
-            <c:if test="${(commCheck.c_state=='d' || commCheck.c_state=='e') && idCheck.s_state=='s'}">
-                <form name="commacForm" id="commacForm" style="margin-bottom: 30px">
+                <form name="reviewForm" id="reviewForm" style="margin-bottom: 30px">
                     <input type="hidden" id="ac_ccode" name="ac_ccode" value="${read.c_code}"><!-- 부모 PK키-->
                     <input type="hidden" id="ac_cname" name="ac_cname" value="${read.c_name}"><!-- 부모 커뮤니티 이름 -->
                     <input type="text" name="ac_review" id="ac_review" placeholder="후기를 남겨주세요">
                     <input type="range" name="ac_manjok" id="ac_manjok" min=1 max=5>
-                    <button type="button" name="commacBtn" id="commacBtn">후기 남기기</button>
+                    <button type="button" name="reviewInsertBtn" id="reviewInsertBtn">후기 남기기</button>
                 </form><!-- 후기 등록 form 끝 -->
-            </c:if>
+
 
             <!-- 후기 목록 div -->
             <div class="activityList"></div>
-
-            <%--            후기 list for:each 반복문으로 테이블로 출력했을 때--%>
-            <%--            <table  style="width: 100%">--%>
-            <%--                <c:forEach var="dto" items="${acList}">--%>
-            <%--                    <tr>--%>
-            <%--                        <td class="col-sm-2 col-md-2 col-lg-2"><img src="/images/user.png" style="width: 4vw"> </td>--%>
-            <%--                        <td class="col-sm-8 col-md-8 col-lg-8">${dto.ac_review}</td>--%>
-            <%--                        <td class="col-sm-2 col-md-2 col-lg-2">--%>
-
-            <%--                            <c:forEach var="star" begin="1" end="${dto.ac_manjok}">--%>
-            <%--                                ★--%>
-            <%--                            </c:forEach>--%>
-            <%--                        </td>--%>
-            <%--                    </tr>--%>
-            <%--                </c:forEach>--%>
-
-            <%--                <tr>--%>
-            <%--                    <td colspan="3"><a href="#">후기 더보기</a></td>--%>
-            <%--                </tr>--%>
-            <%--            </table>--%>
 
         </div>
         <div class="container-fluid col-lg-3 d-sm-none"></div>
@@ -166,28 +146,41 @@
 <script>
     let ac_ccode = '${read.c_code}';  //부모 PK키
     //로그인 id가 작성자와 동일한 경우에만 후기 수정/삭제 가능
-    let loginID = 'hanyihanyi';   //세션변수로 받아올 것.
-    //현재 ac_id 값은 컨트롤러에 임의로 hanyihanyi로 세팅했다.
-    //커뮤니티 신청버튼 누르면, 가입 여부 체크 및 신청폼페이지로 이동
+    let loginID = '${s_id}';
+
+
+    //커뮤니티 신청
     function clickSignup(){
-        let id = '${idCheck.s_id}';
-        if(id == ''){
-            location.href = "signupForm";   //나중에 설문지페이지와 바로 연결하기
+        let signState = '${checkID.s_state}';   //로그인id의 가입 상태
+        let owner = '${checkOwner}';
+        if(owner == loginID){
+            alert("당신이 만든 커뮤니티입니다.");
         }else{
-            alert("이미 가입을 신청한 커뮤니티입니다.");
+            if(signState == ''){                    //가입이력 없음
+                location.href = "/comm/signupForm";       //나중에 설문지페이지와 바로 연결하기
+            }else if(signState == 'i') {
+                alert("이미 가입을 신청한 커뮤니티입니다. \n 가입 승인을 기다려주세요.");
+            }else if(signState == 's'){
+                alert("이미 가입이 승인된 커뮤니티입니다.");
+            }else if(signState == 'r'){
+                alert("가입 신청이 반려된 커뮤니티입니다.");
+            }//if end
         }//if end
     }//checkSignup() end
+
+
     //후기 남기기 버튼 클릭했을 때
-    $("#commacBtn").click(function (){
-        //id="commac"의 내용을 전부 가져온다
-        let insertData=$("#commacForm").serialize();
+    $("#reviewInsertBtn").click(function (){
+        //id="reviewForm"의 내용을 전부 가져온다
+        let insertData=$("#reviewForm").serialize();
         //alert(insertData);
         InsertIntoCommunityActivity(insertData);   //후기등록 함수호출
     });//click() end
+
     function InsertIntoCommunityActivity(insertData){
         //alert("댓글등록함수호출" + insertData);
         $.ajax({
-            url    :'/commac/insert'
+            url    :'/review/insert'
             ,type   :'post'
             ,data   :insertData
             ,success:function (data){
@@ -203,7 +196,7 @@
     //후기 목록
     function listActivity(){
         $.ajax({
-            url    :'/commac/list'
+            url    :'/review/list'
             ,type   :'get'
             ,data   :{'ac_ccode':ac_ccode} //부모 PK키
             ,success:function (data){
@@ -248,7 +241,7 @@
         // alert(updateReview);
         // alert(updateManjok);
         $.ajax({
-            url:'/commac/update'
+            url:'/review/update'
             ,type:'post'
             ,data:{'ac_review':updateReview, 'ac_manjok':updateManjok, 'ac_no':ac_no}
             ,success:function (data){
@@ -259,7 +252,7 @@
     //후기 삭제
     function deleteActivity(ac_no){
         $.ajax({
-            url    :'/commac/delete/' + ac_no
+            url    :'/review/delete/' + ac_no
             ,type   :'post'
             ,success:function (data){
                 if(data == 1){             //후기 삭제되면

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="commac">
+<mapper namespace="review">
 
     <insert id="insert">
         INSERT INTO community_ac( ac_id ,ac_ccode ,ac_cname ,ac_manjok ,ac_review )
@@ -8,7 +8,7 @@
     </insert>
 
 
-    <select id="list" resultType="kr.co.itwill.community.CommacDTO" parameterType="String">
+    <select id="list" resultType="kr.co.itwill.community.ReviewDTO" parameterType="String">
         SELECT ac_no, ac_id ,ac_ccode ,ac_cname ,ac_manjok ,ac_review, ac_rdate
         FROM community_ac
         WHERE ac_ccode = #{ac_ccode}

@@ -50,23 +50,6 @@ public class CommunityDAO {
         return sqlSession.selectOne("community.read", c_code);
     }//read() end
 
-//    public List<CommacDTO> acList(String c_code){
-//        return sqlSession.selectList("community.acList", c_code);
-//    }//read() end
-
-    //커뮤니티 모집상태 가져오기
-    public CommunityDTO commCheck(String c_code){
-        return sqlSession.selectOne("community.commCheck", c_code);
-    }//commCheck() end
-
-    //로그인id의 커뮤니티 가입상태 가져오기
-//    public CommSignDTO idCheck(CommSignDTO sign){
-//        return sqlSession.selectOne("community.idCheck", sign);
-//    }//idCheck() end
-//
-//    public CommunityDTO idCheck2(String c_code){
-//        return sqlSession.selectOne("community.idCheck2", c_code);
-//    }//idCheck2() end
 
     public List<CommunityMylipDTO> listMylib(String loginID){
         return sqlSession.selectList("community.listMylib", loginID);
@@ -97,10 +80,17 @@ public class CommunityDAO {
         return sqlSession.selectOne("community.createCode");
     }//createCode() end
 
-    public int acCount(String c_code) throws Exception{
-        int cnt = 0;
-        cnt = sqlSession.selectOne("community.acCount", c_code);
-        return cnt;
-    }//acCount() end
+
+    //가입 신청 제약 조건 (해당 커뮤 가입 전이여야 함)
+    public CommSignDTO checkID(CommSignDTO sign){
+        return sqlSession.selectOne("community.checkID", sign);
+    }//checkID() end
+
+    //커뮤니티장 확인하기
+    public String checkOwner(String c_code){
+        String owner = "";
+        owner = sqlSession.selectOne("community.checkOwner", c_code);
+        return owner;
+    }//checkOwner() end
 
 }//class end

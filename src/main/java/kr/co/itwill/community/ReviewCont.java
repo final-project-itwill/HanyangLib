@@ -11,40 +11,40 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping("/commac")
-public class CommacCont {
-    public CommacCont(){
-        System.out.println("-----CommacCont() 객체 생성됨");
+@RequestMapping("/review")
+public class ReviewCont {
+    public ReviewCont(){
+        System.out.println("-----ReviewCont() 객체 생성됨");
     }//end
 
     @Autowired
-    CommacDAO commacDao;
+    ReviewDAO reviewDAO;
 
     @RequestMapping("/insert")
     @ResponseBody
     public int InsertIntoCommunityActivity(@RequestParam String ac_ccode, @RequestParam String ac_cname,
                             @RequestParam String ac_review, @RequestParam int ac_manjok, @RequestParam String ac_id) throws Exception{
-        CommacDTO commac = new CommacDTO();
-        commac.setAc_ccode(ac_ccode);
-        commac.setAc_cname(ac_cname);
-        commac.setAc_review(ac_review);
-        commac.setAc_manjok(ac_manjok);
-        commac.setAc_id(ac_id);
-        return commacDao.InsertIntoCommunityActivity(commac);
+        ReviewDTO dto = new ReviewDTO();
+        dto.setAc_ccode(ac_ccode);
+        dto.setAc_cname(ac_cname);
+        dto.setAc_review(ac_review);
+        dto.setAc_manjok(ac_manjok);
+        dto.setAc_id(ac_id);
+        return reviewDAO.InsertIntoCommunityActivity(dto);
     }//InsertIntoCommunityActivity() end
 
 
     @RequestMapping("/list")
     @ResponseBody
-    private List<CommacDTO> listActivity(@RequestParam String ac_ccode, Model model) throws Exception{
-        return commacDao.listActivity(ac_ccode);
+    private List<ReviewDTO> listActivity(@RequestParam String ac_ccode, Model model) throws Exception{
+        return reviewDAO.listActivity(ac_ccode);
     }//listActivity() end
 
 
     @RequestMapping("/delete/{ac_no}")
     @ResponseBody
     public int deleteActivity(@PathVariable int ac_no) throws Exception{
-        return commacDao.deleteActivity(ac_no);
+        return reviewDAO.deleteActivity(ac_no);
     }//deleteActivity() end
 
 
@@ -52,11 +52,11 @@ public class CommacCont {
     @ResponseBody
     public int updateActivity(@RequestParam int ac_no,
                             @RequestParam String ac_review, @RequestParam int ac_manjok) throws Exception{
-        CommacDTO commac = new CommacDTO();
-        commac.setAc_no(ac_no);
-        commac.setAc_review(ac_review);
-        commac.setAc_manjok(ac_manjok);
-        return commacDao.updateActivity(commac);
+        ReviewDTO dto = new ReviewDTO();
+        dto.setAc_no(ac_no);
+        dto.setAc_review(ac_review);
+        dto.setAc_manjok(ac_manjok);
+        return reviewDAO.updateActivity(dto);
     }//openActivityUpdatePanel() end
 
 

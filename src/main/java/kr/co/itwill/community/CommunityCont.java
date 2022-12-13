@@ -102,6 +102,7 @@ public class CommunityCont {
     }//search() end
 
 
+
     @RequestMapping("/read/{c_code}")
     public ModelAndView read(@PathVariable String c_code, HttpSession session){
         ModelAndView mav = new ModelAndView();
@@ -109,14 +110,17 @@ public class CommunityCont {
         String loginID = (String)session.getAttribute("s_id");
 
         mav.addObject("read", commDao.read(c_code));
-//        mav.addObject("acList", commDao);
-        mav.addObject("commCheck", commDao.commCheck(c_code));
-        CommSignDTO sign = new CommSignDTO();
-        sign.setS_code(c_code);
-        sign.setS_id(loginID);
-        mav.addObject("sign", sign);
-//        mav.addObject("idCheck", commDao.idCheck(sign));
         mav.setViewName("community/read");
+
+        //loginID 커뮤니티 가입 상태 확인하기
+        CommSignDTO sign = new CommSignDTO();
+        sign.setS_id(loginID);
+        sign.setS_code(c_code);
+        mav.addObject("checkID", commDao.checkID(sign));
+
+        //커뮤니티장 확인하기
+        mav.addObject("checkOwner", commDao.checkOwner(c_code));
+
         return mav;
     }//read() end
 
