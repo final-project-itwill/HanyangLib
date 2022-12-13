@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.co.itwill.notice.NoticeDTO;
-
 @RequestMapping("/mylib")
 @Controller
 public class MylibCont {
@@ -162,20 +160,7 @@ public class MylibCont {
  		mav.setViewName("mylib/rvUpdateForm");
     	return mav;
  	} // rvInsert() end
-    
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(@RequestParam int br_no, @RequestParam String br_id, @ModelAttribute NoticeDTO dto){
-        BookReviewDTO review = BookReviewDTO;
 
-        review.setN_no(n_no);
-        notice.setN_type(dto.getN_type());
-        notice.setN_title(dto.getN_title());
-        notice.setN_content(dto.getN_content());
-
-        noticeDao.update(notice);
-
-        return "redirect:/mylib/myReview";     //행 수정 후 목록으로 이동
-    }//update() end
 	
 	
 	
