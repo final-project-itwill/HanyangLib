@@ -109,7 +109,7 @@
 		]]>	
 	</select>
 	
-	<select id="rVRead" resultType="kr.co.itwill.mylib.BookReviewDTO">
+	<select id="rvRead" resultType="kr.co.itwill.mylib.BookReviewDTO">
 		<![CDATA[
 		SELECT br_no, br_title, br_bcode, br_id, br_star, br_count, br_rdate, br_content, b_code, b_name
 		FROM (
@@ -130,6 +130,13 @@
 		VALUES(#{br_bcode}, #{br_id}, #{br_title}, #{br_content}, #{br_star});
 		]]>
 	</insert>
+	
+	<delete id="rvDelete">
+		<![CDATA[
+		DELETE FROM bookreview
+		WHERE br_no = #{br_no}
+		]]>
+	</delete>
 
 
 </mapper>
