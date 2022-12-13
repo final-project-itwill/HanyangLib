@@ -39,8 +39,8 @@
 
         </table>
         <div style="text-align: center">
-            <input type="submit" value="등록">
-            <input type="button" value="목록" onclick="location.href='list'">
+            <input type="submit" value="수정">
+            <input type="button" value="목록" onclick="location.href='list?pageNum=1'">
         </div>
     </form>
 </div>

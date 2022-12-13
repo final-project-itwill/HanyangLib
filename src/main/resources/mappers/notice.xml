@@ -18,7 +18,7 @@
         FROM(
         SELECT n_no, n_type, n_title, n_content, n_rdate, n_writer
         FROM notice
-        ) CC, (SELECT @RNO := 0) BB ORDER BY n_no DESC
+        ) CC, (SELECT @RNO := 0) BB ORDER BY n_rdate DESC
         ) AA
         WHERE r BETWEEN #{startRow} AND #{endRow}
     </select>
