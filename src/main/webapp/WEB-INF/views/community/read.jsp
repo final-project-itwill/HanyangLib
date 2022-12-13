@@ -81,37 +81,31 @@
 
     <br><br>
 
-    <!-- 커뮤니티 구성원 -->
+    <!-- 커뮤니티 구성원 시작-->
     <div class="container-fluid">
         <h3 style="text-align: center; font-weight: bold; padding-bottom: 5vh">커뮤니티 구성원</h3>
-        <div id="parent" style="text-align: center" class="photo mr-3">
             <div class="container-fluid" style="text-align: center; justify-content: center; display: flex; height: 18vh">
-                <figure style="position: absolute">
+            <c:if test="${memberCnt==0}">
+                <p style="font-size: 18px; padding-bottom: 40px">아직 참여한 인원이 없습니다. <br>책을 읽고 커뮤니티에 구성원이 되어주세요!</p>
+            </c:if>
+            <c:if test="${memberCnt!=0}">
+                <table class="table col-lg-8">
+
+                    <c:forEach var="dto" items="${checkMember}">
+                        <tr>
+                            <td>${dto.s_nick}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+<%--                <figure style="position: absolute">
                     <img src="/images/user.png" class="img-fluid rounded-circle" style="width: 8vw">
                     <figcaption style="font-weight: bold; color: black; font-size: 1.5vw">닉네임</figcaption>
-                </figure>
-                <figure style="position: absolute; margin-left: 20vw">
-                    <img src="/images/user.png" class="img-fluid rounded-circle" style="width: 8vw">
-                    <figcaption style="font-weight: bold; color: black; font-size: 1.5vw">닉네임</figcaption>
-                </figure>
-                <figure style="position: absolute; margin-left: 40vw">
-                    <img src="/images/user.png" class="img-fluid rounded-circle" style="width: 8vw">
-                    <figcaption style="font-weight: bold; color: black; font-size: 1.5vw">닉네임</figcaption>
-                </figure>
-                <figure style="position: absolute; margin-right: 20vw">
-                    <img src="/images/user.png" class="img-fluid rounded-circle" style="width: 8vw">
-                    <figcaption style="font-weight: bold; color: black; font-size: 1.5vw">닉네임</figcaption>
-                </figure>
-                <figure style="position: absolute; margin-right: 40vw">
-                    <img src="/images/user.png" class="img-fluid rounded-circle" style="width: 8vw">
-                    <figcaption style="font-weight: bold; color: black; font-size: 1.5vw">닉네임</figcaption>
-                </figure>
-                <br>
+                </figure>--%>
+            </c:if>
             </div>
-        </div>
     </div><!-- 커뮤니티 구성원 end-->
 
-    <br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br>
 
     <!-- 커뮤니티 후기 (ajax 더보기) ------------------------------------------------------------------>
 
@@ -123,7 +117,11 @@
         <div class="container-fluid text-center col-lg-6 col-sm-12">
 
             <!-- 후기 등록 form 시작 -->
-            <!-- 로그인 id가 해당 커뮤니티에 가입된 상태일 때만 후기 작성 가능-->
+            <!-- 조건 : 1)id 가입 승인 완료(s)
+                       2)해당 커뮤니티장
+                       3)커뮤니티 모집완료/활동완료(d, e) -->
+
+            <c:if test="${(checkID.s_state == 's' || s_id == checkOwner) && (read.c_state == 'd' || read.c_state == 'e')}">
                 <form name="reviewForm" id="reviewForm" style="margin-bottom: 30px">
                     <input type="hidden" id="c_code" name="c_code" value="${read.c_code}">  <!-- 부모 PK키-->
                     <input type="hidden" id="cname" name="cname" value="${read.c_name}">    <!-- 부모 커뮤니티 이름 -->
@@ -132,7 +130,7 @@
                     <input type="range" name="manjok" id="manjok" min=1 max=5>
                     <button type="button" name="reviewInsertBtn" id="reviewInsertBtn">후기 남기기</button>
                 </form><!-- 후기 등록 form 끝 -->
-
+            </c:if>
 
             <!-- 후기 목록 div -->
             <div class="reviewList"></div>

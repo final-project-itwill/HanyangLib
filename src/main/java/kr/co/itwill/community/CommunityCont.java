@@ -118,9 +118,9 @@ public class CommunityCont {
         sign.setS_code(c_code);
         mav.addObject("checkID", commDao.checkID(sign));
 
-        //커뮤니티장 확인하기
-        mav.addObject("checkOwner", commDao.checkOwner(c_code));
-
+        mav.addObject("checkOwner", commDao.checkOwner(c_code));    //커뮤니티장 확인하기
+        mav.addObject("checkMember", commDao.checkMember(c_code));  //커뮤니티 구성원 확인
+        mav.addObject("memberCnt", commDao.memberCnt(c_code));
         return mav;
     }//read() end
 

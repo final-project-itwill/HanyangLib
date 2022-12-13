@@ -93,4 +93,14 @@ public class CommunityDAO {
         return owner;
     }//checkOwner() end
 
+    public List<CommSignDTO> checkMember(String c_code){
+        return sqlSession.selectList("community.checkMember", c_code);
+    }//communityMember() end
+
+    public int memberCnt(String c_code){
+        int cnt = 0;
+        cnt = sqlSession.selectOne("community.memberCnt", c_code);
+        return cnt;
+    }//memberCnt() end
+
 }//class end

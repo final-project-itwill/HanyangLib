@@ -129,4 +129,19 @@
         WHERE c_code = #{c_code}
     </select>
 
+
+    <!-- 커뮤니티 구성원 조회-->
+    <select id="checkMember" resultType="kr.co.itwill.community.CommSignDTO">
+        SELECT s_no, s_code , s_id, s_nick, s_state, s_surveycode, s_rdate
+        FROM community_signup
+        WHERE s_code = #{c_code}
+    </select>
+
+    <!-- 해당 커뮤니티 가입한 사람 수 -->
+    <select id="memberCnt" resultType="int">
+        SELECT COUNT(*)
+        FROM community_signup
+        WHERE s_code = #{c_code}
+    </select>
+
 </mapper>
