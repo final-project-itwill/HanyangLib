@@ -133,7 +133,9 @@
             </c:if>
 
             <!-- 후기 목록 div -->
-            <div class="reviewList"></div>
+            <div class="container-fluid">
+                <table class="table table-default reviewList" id="reviewList"></table>
+            </div>
 
         </div>
         <div class="container-fluid col-lg-3 d-sm-none"></div>
@@ -145,8 +147,11 @@
 <!-- 후기 관련 자바스크립트 -->
 <script>
     let c_code = '${read.c_code}';  //부모 PK키
-    //로그인 id가 작성자와 동일한 경우에만 후기 수정/삭제 가능
     let loginID = '${s_id}';
+
+    //더보기
+    let limit = 3;              //3개씩 출력
+    let size = ${reviewCnt};    //총 후기 수
 
 
     //커뮤니티 신청
@@ -181,15 +186,15 @@
     function insertReview(insertData){
         //alert("댓글등록함수호출" + insertData);
         $.ajax({
-            url    :'/review/insert'
+            url    :'/comm/reviewinsert'
             ,type   :'post'
             ,data   :insertData
             ,success:function (data){
                 //alert(data);
-                if(data==1){        //후기등록 성공
-                    listReview();   //후기등록 후 후기목록 함수호출
-                    $('#review').val('');    //기존 후기내용 빈값으로
-                    $('#manjok').val(3);     //기본별점 3
+                if(data==1){                //후기등록 성공
+                    listReview();           //후기등록 후 후기목록 함수호출
+                    $('#review').val('');   //기존 후기내용 빈값으로
+                    $('#manjok').val(3);    //기본별점 3
                 }//if end
             }//success end
         });//ajax() end
@@ -199,40 +204,66 @@
     //후기 목록
     function listReview(){
         $.ajax({
-            url    :'/review/list'
+            url    :'/comm/reviewlist'
             ,type   :'get'
-            ,data   :{'c_code':c_code} //부모 PK키
+            ,data   :{'c_code':c_code, 'limit':limit} //부모 PK키
             ,success:function (data){
-                //alert(data);
+                // alert(size);
+                // alert(limit);
+
                 let a = ''; //출력할 결과값
                 $.each(data, function (key, value){
                     //alert(key);
                     //alert(value);
-                    a += '<div class="reviewArea" style="border-bottom: 1px solid darkgray; margin-bottom: 15px">';
-                    a += '  <div class="reviewInfo' + value.ac_no +'">';
+                    a += '<tr class="reviewArea" style="border-bottom: 1px solid darkgray; margin-bottom: 15px">';
+                    a += '  <td class="reviewInfo' + value.ac_no +'">';
                     a += '      번호 : ' + value.ac_no + ' / 작성자 : ' + value.ac_id + "  " + value.ac_rdate;
-                    //작성자||관리자만 수정/삭제 버튼 접근 가능
-                    if(value.ac_id == loginID || value.ac_id =='webmaster'){
+                    a += '  </td><td class="text-right">';
+
+                    if(value.ac_id == loginID || value.ac_id =='webmaster'){    //작성자||관리자만 수정/삭제 버튼 접근 가능
                         a += '      <a href="javascript:openReviewUpdatePanel(' + value.ac_no + ',\'' + value.ac_review + '\',' + value.ac_manjok + ');">수정</a>';
                         a += '      <a href="javascript:deleteReview(' + value.ac_no + ');">삭제</a>';
                     };//if end
-                    a += '  </div>';
-                    a += '  <div class="content' + value.ac_no +'">'
+                    a += '  </td>';
+                    a += '  </tr><tr>';
+                    a += '  <td colspan="2" class="content' + value.ac_no +'">'
                     a += '      <p>후기 내용 : ' + value.ac_review + ' / 만족도 :' + value.ac_manjok + '</p>';
-                    a += '  </div>';
-                    a += '</div>';
+                    a += '  </td>';
+                    a += '</tr>';
                 });//each() end
+
+                let b = '';
+                b += '  <tr class="moreBtnDiv">';
+                b += '  <td colspan="2">';
+                b += '      <button type="button" class="btn btn-outline-light text-dark btn-block" id="moreBtn" name="moreBtn" onclick="more()">더보기</button>';
+                b += '  </td></tr>';
+                if(limit < size) a += b;
                 $(".reviewList").html(a);   //<div class="reviewList"></div>
             }//success end
         });//ajax() end
     }//listReview() end
 
 
+    //더보기버튼 moreBtn 누르면 limit 증가
+    function more(){
+        // alert(limit);
+        // alert(size);
+        if(limit < size){
+            limit += 3;
+            //alert('늘어남');
+            listReview();
+        }else {
+            //alert('그대로');
+            listReview()
+        }//if end
+    }//more() end
+
+
     //후기 수정 - 수정할 내용 폼으로 출력
     function openReviewUpdatePanel(ac_no, review, manjok){
         let a = '';
         a += '<div class="input-group" style="text-align: center">';
-        a += '  <input type="text" value="' + review + '" id="review_' + ac_no + '">';
+        a += '  <input type="text" class="col-lg-8" value="' + review + '" id="review_' + ac_no + '">';
         a += '  <input type="range" min="1" max="5" value="' + manjok +'" id="manjok_' + ac_no + '">';
         a += '  <button type="button" onclick="updateReview(' + ac_no + ')">수정</button>';
         a += '</div>';
@@ -249,7 +280,7 @@
         // alert(updateReview);
         // alert(updateManjok);
         $.ajax({
-            url:'/review/update'
+            url:'/comm/reviewupdate'
             ,type:'post'
             ,data:{'review':updateReview, 'manjok':updateManjok, 'ac_no':ac_no}
             ,success:function (data){
@@ -262,7 +293,7 @@
     //후기 삭제
     function deleteReview(ac_no){
         $.ajax({
-            url    :'/review/delete/' + ac_no
+            url    :'/comm/reviewdelete/' + ac_no
             ,type   :'post'
             ,success:function (data){
                 if(data == 1){             //후기 삭제되면

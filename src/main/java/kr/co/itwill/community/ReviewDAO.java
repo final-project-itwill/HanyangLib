@@ -21,8 +21,8 @@ public class ReviewDAO {
     }//insertReview() end
 
 
-    public List<ReviewDTO> listReview(String c_code){
-        return sqlSession.selectList("review.list", c_code);
+    public List<ReviewDTO> listReview(ReviewDTO dto){
+        return sqlSession.selectList("review.list", dto);
     }//listReview() end
 
 

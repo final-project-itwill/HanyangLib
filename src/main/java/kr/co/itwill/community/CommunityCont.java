@@ -24,6 +24,9 @@ public class CommunityCont {
     @Autowired
     CommunityDAO commDao;
 
+    @Autowired
+    ReviewDAO reviewDAO;
+
 
     @RequestMapping("/index")
     public ModelAndView index(HttpSession session){
@@ -121,6 +124,8 @@ public class CommunityCont {
         mav.addObject("checkOwner", commDao.checkOwner(c_code));    //커뮤니티장 확인하기
         mav.addObject("checkMember", commDao.checkMember(c_code));  //커뮤니티 구성원 확인
         mav.addObject("memberCnt", commDao.memberCnt(c_code));
+
+        mav.addObject("reviewCnt", commDao.reviewCnt(c_code));
         return mav;
     }//read() end
 
@@ -256,5 +261,53 @@ public class CommunityCont {
         mav.setViewName("redirect:/comm/index"); //수정 필요 : 관리자 페이지로 이동
         return mav;
     }//update() end
+
+
+    /*
+    *  review 후기 관련 함수 (더보기)
+    *
+    * */
+
+    @RequestMapping("/reviewinsert")
+    @ResponseBody
+    public int InsertIntoCommunityActivity(@RequestParam String c_code, @RequestParam String cname,
+                                           @RequestParam String review, @RequestParam int manjok, @RequestParam String loginID) throws Exception{
+        ReviewDTO dto = new ReviewDTO();
+        dto.setAc_ccode(c_code);
+        dto.setAc_cname(cname);
+        dto.setAc_review(review);
+        dto.setAc_manjok(manjok);
+        dto.setAc_id(loginID);
+        return reviewDAO.insertReview(dto);
+    }//InsertIntoCommunityActivity() end
+
+
+    @RequestMapping("/reviewlist")
+    @ResponseBody
+    private List<ReviewDTO> listReview(@RequestParam String c_code, @RequestParam int limit) throws Exception{
+        ReviewDTO dto = new ReviewDTO();
+        dto.setAc_ccode(c_code);
+        dto.setLimit(limit);
+        return reviewDAO.listReview(dto);
+    }//listReview() end
+
+
+    @RequestMapping("/reviewdelete/{ac_no}")
+    @ResponseBody
+    public int deleteReview(@PathVariable int ac_no) throws Exception{
+        return reviewDAO.deleteReview(ac_no);
+    }//deleteReview() end
+
+
+    @RequestMapping("/reviewupdate")
+    @ResponseBody
+    public int updateReview(@RequestParam int ac_no,
+                            @RequestParam String review, @RequestParam int manjok) throws Exception{
+        ReviewDTO dto = new ReviewDTO();
+        dto.setAc_no(ac_no);
+        dto.setAc_review(review);
+        dto.setAc_manjok(manjok);
+        return reviewDAO.updateReview(dto);
+    }//updateReview() end
 
 }//class end

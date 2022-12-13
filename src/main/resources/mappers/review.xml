@@ -8,10 +8,13 @@
     </insert>
 
 
-    <select id="list" resultType="kr.co.itwill.community.ReviewDTO" parameterType="String">
+    <select id="list" resultType="kr.co.itwill.community.ReviewDTO">
+        <![CDATA[
         SELECT ac_no, ac_id ,ac_ccode ,ac_cname ,ac_manjok ,ac_review, ac_rdate
         FROM community_ac
-        WHERE ac_ccode = #{c_code}
+        WHERE ac_ccode = #{ac_ccode}
+        ORDER BY ac_rdate DESC LIMIT #{limit}
+        ]]>
     </select>
 
 

@@ -144,4 +144,15 @@
         WHERE s_code = #{c_code}
     </select>
 
+
+    <!-- 해당 커뮤니티 총 후기 갯수-->
+    <select id="reviewCnt" resultType="int" parameterType="String">
+        <![CDATA[
+        SELECT COUNT(*)
+        FROM community_ac
+        WHERE ac_ccode = #{c_code}
+        ]]>
+    </select>
+
+
 </mapper>

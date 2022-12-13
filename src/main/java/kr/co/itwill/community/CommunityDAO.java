@@ -103,4 +103,11 @@ public class CommunityDAO {
         return cnt;
     }//memberCnt() end
 
+    //후기 총 갯수
+    public int reviewCnt(String c_code){
+        int cnt = 0;
+        cnt = sqlSession.selectOne("community.reviewCnt", c_code);
+        return cnt;
+    }//reviewCnt() end
+
 }//class end
