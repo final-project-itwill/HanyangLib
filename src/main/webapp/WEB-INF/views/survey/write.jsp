@@ -20,6 +20,7 @@
 		<form name="answer" id="answer" method="post" action="answer">
 		<!-- 파일 첨부는 하지 않기 때문에 enctype="multipart/form-data"는 필요 없어유 -->
 		<input type="hidden" id="dsv_code" name="dsv_code" value="${dsv_code}">
+		<a href="../create/${dsv_code}">설문생성</a>
 		<table class="table">
 		<!-- 주관식 반복 -->
 		<c:forEach items="${title}" var="title" varStatus="tvs">
@@ -180,11 +181,7 @@
 		</form>
 		</div>
 	</div>
-	
-	
-	<script >
-		
-	</script>
+
 
    
 <!-- 본문작성 끝 -->

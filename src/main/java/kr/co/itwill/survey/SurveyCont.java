@@ -1,4 +1,3 @@
-
 package kr.co.itwill.survey;
 
 import java.io.File;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,26 +64,31 @@ public class SurveyCont {
 		return "redirect:/survey/write";
 	}// insert() end
 	
-//	
-//	@RequestMapping("/answer")
-//	public String insert(@RequestParam Map<String, Object> map) {
-//		surveyDAO.insert(map);
-//		return "redirect:/survey/answer";
-//	}// insert() end
-//	
-	
-	
-
-	@RequestMapping("/create")
-	public String create() {
-	return "/survey/create";
+	@RequestMapping("/create/{dsv_code}")
+	public ModelAndView create(@PathVariable String dsv_code) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("survey/create");
+		mav.addObject("dsv_code",dsv_code);
+	return mav;
 	} // create() end
 	
+	@RequestMapping( "/create/insert")
 	@ResponseBody
-	@RequestMapping(value= "test", method = RequestMethod.GET)
-	public String test() {
-		return " testest :testest";
-	}// test() end
+	public int surveyinsert(@RequestParam String dsv_code
+							,@RequestParam String s_title
+							,@RequestParam String s_content) throws Exception {
+		SurveyDTO sur = new SurveyDTO();
+		sur.setSv_code(dsv_code);
+		sur.setSv_comcode("com002");
+		sur.setSv_title(s_title);
+		sur.setSv_des(s_content);
+		return surveyDAO.surveyWrite(sur);
+	}// surveyinsert() end
+	
+	
 
+	public interface SurveyService {
+		
+	}
 	
 }// class end
