@@ -1,5 +1,7 @@
 package kr.co.itwill.book;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -17,5 +19,13 @@ public class BookDTO {
     private String b_bookcover;
     private int b_coversize;
     private String b_des;
+    
+    private int startRow;
+    private int endRow;
+    
+    
+    private MultipartFile img;
 
-}
+  
+	}
+    

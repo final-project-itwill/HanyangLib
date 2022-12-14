@@ -2,30 +2,125 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="book">
 
+	<!-- 페이징 없는 목록
 	<select id="list_n" resultType="kr.co.itwill.book.BookDTO">
 		SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
 		FROM book
 		WHERE b_type = 'novel'
 	</select>
+ 	 -->
+ 	 
+ 	 <!-- 페이징이 있는 목록 -->
+ 	 <select id="list_n" resultType="kr.co.itwill.book.BookDTO">
+        SELECT AA.*
+        FROM(
+        SELECT @RNO := @RNO + 1 AS r, CC.*
+        FROM(
+        SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
+        FROM book
+        WHERE b_type = 'novel'
+        ) CC, (SELECT @RNO := 0) BB order by b_rdate DESC
+        ) AA
+        WHERE r BETWEEN #{startRow} AND #{endRow}
+    </select>
+ 	 
+ 	 <select id="list_e" resultType="kr.co.itwill.book.BookDTO">
+        SELECT AA.*
+        FROM(
+        SELECT @RNO := @RNO + 1 AS r, CC.*
+        FROM(
+        SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
+        FROM book
+        WHERE b_type = 'essay'
+        ) CC, (SELECT @RNO := 0) BB order by b_rdate DESC
+        ) AA
+        WHERE r BETWEEN #{startRow} AND #{endRow}
+    </select>
+    
+  	 <select id="list_h" resultType="kr.co.itwill.book.BookDTO">
+        SELECT AA.*
+        FROM(
+        SELECT @RNO := @RNO + 1 AS r, CC.*
+        FROM(
+        SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
+        FROM book
+        WHERE b_type = 'humanity'
+        ) CC, (SELECT @RNO := 0) BB order by b_rdate DESC
+        ) AA
+        WHERE r BETWEEN #{startRow} AND #{endRow}
+    </select>
+    
+    
+     <select id="list_s" resultType="kr.co.itwill.book.BookDTO">
+        SELECT AA.*
+        FROM(
+        SELECT @RNO := @RNO + 1 AS r, CC.*
+        FROM(
+        SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
+        FROM book
+        WHERE b_type = 'science'
+        ) CC, (SELECT @RNO := 0) BB order by b_rdate DESC
+        ) AA
+        WHERE r BETWEEN #{startRow} AND #{endRow}
+    </select> 	 
+
 	
-	<select id="list_e" resultType="kr.co.itwill.book.BookDTO">
+	<select id="bookdetail" resultType="kr.co.itwill.book.BookDTO">
 		SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
 		FROM book
-		WHERE b_type = 'essay'
+		WHERE b_code = #{b_code}
 	</select>
 	
+    <select id="totalRowCount_n" resultType="int">
+        SELECT COUNT(*)
+        FROM book
+        WHERE b_type='novel'
+    </select>	
+    
+    
+    <select id="totalRowCount_e" resultType="int">
+        SELECT COUNT(*)
+        FROM book
+        WHERE b_type='essay'
+    </select>	
+    
+    
+    <select id="totalRowCount_h" resultType="int">
+        SELECT COUNT(*)
+        FROM book
+        WHERE b_type='humanity'
+    </select>	
+    
+    
+    <select id="totalRowCount_s" resultType="int">
+        SELECT COUNT(*)
+        FROM book
+        WHERE b_type='science'
+    </select>	
 	
-	<select id="list_h" resultType="kr.co.itwill.book.BookDTO">
-		SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
-		FROM book
-		WHERE b_type = 'humanity'
-	</select>
+	 <select id="totalRowCount" resultType="int">
+        SELECT COUNT(*)
+        FROM book
+    </select>	
 	
 	
-	<select id="list_s" resultType="kr.co.itwill.book.BookDTO">
-		SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
-		FROM book
-		WHERE b_type = 'science'
-	</select>
+
+	<!-- new book list -->
+	
+	<select id="booklist" resultType="kr.co.itwill.book.BookDTO">
+        SELECT AA.*
+        FROM(
+        SELECT @RNO := @RNO + 1 AS r, CC.*
+        FROM(
+        SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
+        FROM book
+        ) CC, (SELECT @RNO := 0) BB order by b_rdate DESC
+        ) AA
+        WHERE r BETWEEN #{startRow} AND #{endRow}
+    </select>
+	
+
+
+
 
 </mapper>
