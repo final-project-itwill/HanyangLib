@@ -28,8 +28,26 @@
 	
 	<!-- answer -->
 	<insert id="surveyWrite" parameterType="kr.co.itwill.survey.SurveyDTO">
-		INSERT INTO survey( sv_code, sv_comcode, sv_title, sv_des )
-		VALUES ( "s221121-002","com002", #{sv_title}, #{sv_des})
+		INSERT INTO survey( sv_code, sv_comcode, sv_id, sv_title, sv_des, sv_edate, sv_max )
+		VALUES ( "s221121-003","com002", "mimimi05", #{sv_title}, #{sv_des}, now(), 3 )
 	</insert>
+	
+	<delete id="delete">
+		DELETE FROM survey
+        WHERE sv_code = #{sv_code}
+	</delete>
+	
+	<select id="read" resultType="kr.co.itwill.survey.SurveyDTO">
+		SELECT sv_code, sv_comcode, sv_id, sv_title, sv_des, sv_rdate, sv_edate, sv_max, sv_status
+		FROM survey
+		WHERE sv_code = #{sv_code}
+	</select>
+	
+	<update id="update">
+		UPDATE survey
+        SET sv_title    = #{sv_title}
+            ,sv_des    = #{sv_des}
+        WHERE sv_code  = #{sv_code}
+	</update>
 	
 </mapper>

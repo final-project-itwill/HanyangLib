@@ -13,4 +13,5 @@ public class SurveyDTO {
 	private String sv_edate;
 	private int sv_max;
 	private String sv_status;
+
 } // class end
