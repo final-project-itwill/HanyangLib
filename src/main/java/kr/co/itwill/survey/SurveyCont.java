@@ -47,23 +47,26 @@ public class SurveyCont {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/survey/write");
 		mav.addObject("title", surveyDAO.svTitle(dsv_code));
+		mav.addObject("count", surveyDAO.svCount(dsv_code));
 		mav.addObject("choice", surveyDAO.svChoice(dsv_code));
 		mav.addObject("dsv_code", dsv_code);
 		return mav;
 	}// write() end
 	
+	
+	@RequestMapping(value = "/write/answer", method = RequestMethod.POST)
 	@ResponseBody
-	@RequestMapping(value = "/answer", method = RequestMethod.POST)
-	private String insert(@PathVariable String dsv_code) {
+	private String insert(@ModelAttribute AnswerDTO dto) throws Exception {
 		AnswerDTO answer = new AnswerDTO();
-		answer.setAns_code(dsv_code);	// 설문지 코드 글 번호
-		answer.setAns_dsvno(1);			// 질문 번호(부모 글번호)
-		answer.setAns_order("od01");		// 순서 코드(ex: od01)
-		answer.setAns_anscode("g03");		// 답변 코드(ex: g01)
-		answer.setAns_id("mimimi05");	// 지금은 임의 배정
-		answer.setAns_content("");
-		surveyDAO.insert(answer);		
-		return "redirect:/survey/survey";
+		answer.setAns_code(dto.getAns_code());	// 설문지 코드 글 번호
+		//answer.setAns_dsvno(1);			// 질문 번호(부모 글번호)
+		answer.setAns_order(dto.getAns_order());		// 순서 코드(ex: od01)
+		answer.setAns_anscode(dto.getAns_anscode());		// 답변 코드(ex: g01)
+		answer.setAns_id(dto.getAns_id());	// 지금은 임의 배정
+		//answer.setAns_content("");
+		surveyDAO.insert(answer);
+		System.out.println(answer.toString());
+		return "redirect:/answer";
 	}// insert() end
 	
 	
@@ -81,13 +84,18 @@ public class SurveyCont {
 		SurveyDTO survey = new SurveyDTO();
 		survey.setSv_code(dto.getSv_code());
 		survey.setSv_comcode("com002"); // 커뮤니티 코드 받아오기.
-		survey.setSv_id("mimimi05");	// 지금은 임의 배정
+		survey.setSv_id(dto.getSv_id());	// 지금은 임의 배정
 		survey.setSv_title(dto.getSv_title());
 		survey.setSv_des(dto.getSv_des());
 		
 		surveyDAO.surveyWrite(survey); 
+		System.out.println(survey.toString());
 		
-		return "/survey/survey";
+		DsurveyDTO dsurvey = new DsurveyDTO();
+		
+		
+		
+		return "redirect:/survey/survey";
 		
 	}// surveyinsert() end
 	

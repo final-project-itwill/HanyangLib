@@ -24,9 +24,10 @@
 	<br>
 		<div>
 		<h3> 신청서 작성 </h3>
-		<form name="survey" method="post" action="../answer" enctype="multipart/form-data">
+		<form name="survey" method="post" action="answer" enctype="multipart/form-data">
+	
+		<input type="hidden" name="ans_code" value="">
 		<table class="table">
-		
 		<!-- 주관식 반복 -->
 		<c:forEach var="row" items="${detail}" varStatus="vs">
 		<tr>
@@ -48,7 +49,7 @@
 						<c:when test="${row.dsv_type eq 'gaek' or 'etc'}"><br>
 						<c:forEach var="var" items="${details}" varStatus="vs">
 							<c:choose>
-							<c:when test="${ row.dsv_order eq var.ch_order}">
+							<c:when test="${row.dsv_order eq var.ch_order}">
 								<input type="radio" id="${var.ch_no}" name="${var.ch_order}" value="${var.ch_order}"><label for="${var.ch_order}">${var.ch_content}</label>
 							</c:when>
 							</c:choose>
