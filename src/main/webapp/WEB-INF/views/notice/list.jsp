@@ -11,10 +11,13 @@
 
 <div class="container" style="padding-top: 100px;">
     <h4 style="font-weight: bold; text-align: center">공지사항</h4>
-    <div class="contents">
-        <input type="button" value="공지사항 쓰기" onclick="location.href='insert'">
-    </div>
 
+    <!-- loginID 등급이 관리자(A)만 쓰기 가능 -->
+    <c:if test="${grade == 'A'}">
+        <div class="contents">
+            <input type="button" value="공지사항 쓰기" onclick="location.href='insert'">
+        </div>
+    </c:if>
     <table class="table">
         <tr>
             <th>분류</th>

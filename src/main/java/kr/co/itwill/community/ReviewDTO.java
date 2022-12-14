@@ -3,7 +3,7 @@ package kr.co.itwill.community;
 import lombok.Data;
 
 @Data
-public class CommacDTO {
+public class ReviewDTO {
 
     private int ac_no;
     private String ac_id;

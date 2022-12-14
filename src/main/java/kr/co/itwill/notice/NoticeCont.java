@@ -89,7 +89,7 @@ public class NoticeCont {
 
         noticeDao.insert(notice);
 
-        return "redirect:/notice/list";
+        return "redirect:/notice/list?pageNum=1";
     }//insert() end
 
 
@@ -115,7 +115,7 @@ public class NoticeCont {
     @RequestMapping("/delete")
     public String delete(int n_no){
         noticeDao.delete(n_no);
-        return "redirect:/notice/list";
+        return "redirect:/notice/list?pageNum=1";
     }//delete() end
 
 
@@ -139,7 +139,7 @@ public class NoticeCont {
 
         noticeDao.update(notice);
 
-        return "redirect:/notice/list";     //행 수정 후 목록으로 이동
+        return "redirect:/notice/list?pageNum=1";     //행 수정 후 목록으로 이동
     }//update() end
 
 

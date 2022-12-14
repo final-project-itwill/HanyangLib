@@ -28,7 +28,7 @@
 <!---------------------------------------------------------------------------->
 
 
-<%-- 인기 커뮤니티 --%>
+
 <div class="container pb-md-5 border-bottom">
     <div class="row">
         <div class="col-lg-12">
@@ -55,7 +55,7 @@
                                 <c:forEach items="${listMylib}" var="dto">
                                     <tr>
                                         <td><img src="/storage/${dto.b_bookcover}"></td>
-                                        <td><a href="createForm/${dto.b_code}">${dto.b_name}</a></td>
+                                        <td><a href="createForm/${dto.b_code}" onclick="checkProc()">${dto.b_name}</a></td>
                                         <td>${dto.lib_proc}%</td>
                                     </tr>
                                 </c:forEach>
@@ -66,38 +66,53 @@
             </div>
 
             <button type="button" class="btn-light" data-toggle="modal" data-target="#modal" style="font-weight: bold; color: #3b5998;margin-bottom: 20px;">커뮤니티 만들러 가기</button>
+
+        <script>
+            let readProc = '${dto.lib_proc}';
+
+            function checkProc(){
+                if(readProc < 80) {
+                    alert("80% 이상 읽어야만 커뮤니티를 생성할 수 있습니다.");
+                }
+            }//checkProc() end
+        </script>
     <%-- 커뮤니티 생성하기 버튼 끝 ---------------------------------------------------------------------------------------------------------%>
 
 
-            <a href="list?pageNum=1"><!-- 인기순 list로 가기-->
+
+<%-- MD 추천 커뮤니티 리스트 시작 --%>
+            <a href="list?pageNum=1"><!-- 최신순 list로 가기-->
                 <h1 class="listtext-black text-left font-weight-bold mb-4" data-aos="fade-up" data-aos-delay="0">종이에 쓰인<br>글자만으로<br>이런 모임이</h1>
             </a>
         </div>
         <div class="col-lg-12">
             <div class="row" data-aos="fade-up" data-aos-delay="0">
+
                 <div class="col-lg-4">
-                    <!-- 사진 클릭하면 해당 커뮤니티 상세보기 이동 -->
-                    <a href="read" class="gal-item"><img src="../images/img_h_2-min.jpg" class="img-fluid"></a>
+                    <a href="read/com002" class="gal-item"><img src="/storage/대표사진2.png" class="img-fluid"></a>
                     <br>
-                    <h4 style="text-align: center; font-weight: bold">커뮤니티명</h4>
-                    <p style="text-align: center; font-weight: bold">책 이름</p>
+                    <h4 style="text-align: center; font-weight: bold">책췍check</h4>
+                    <p style="text-align: center; font-weight: bold">헝거게임</p>
                 </div>
-                <div class="col-lg-4">
-                    <a href="" class="gal-item"><img src="../images/img_h_2-min.jpg" class="img-fluid"></a>
-                    <br>
-                    <h4 style="text-align: center; font-weight: bold">커뮤니티명</h4>
-                    <p style="text-align: center; font-weight: bold">책 이름</p>
-                </div>
+
                 <div class="col-lg-4">
                     <a href="" class="gal-item"><img src="../images/img_h_2-min.jpg" class="img-fluid"></a>
                     <br>
                     <h4 style="text-align: center; font-weight: bold">커뮤니티명</h4>
                     <p style="text-align: center; font-weight: bold">책 이름</p>
                 </div>
+
+                <div class="col-lg-4">
+                    <a href="" class="gal-item"><img src="../images/img_h_2-min.jpg" class="img-fluid"></a>
+                    <br>
+                    <h4 style="text-align: center; font-weight: bold">커뮤니티명</h4>
+                    <p style="text-align: center; font-weight: bold">책 이름</p>
+                </div>
+
             </div>
         </div>
     </div>
-</div>
+</div><%-- MD 추천 커뮤니티 리스트 끝 --%>
 
 
 <%--신규 커뮤니티--%>
@@ -125,7 +140,7 @@
             </div>
         </div>
     </div>
-</div>
+</div><%--신규 커뮤니티 끝 --%>
 
 
 <%-- 마감일 임박 커뮤니티 --%>
@@ -160,7 +175,7 @@
             </div>
         </div>
     </div>
-</div>
+</div><%-- 마감일 임박 커뮤니티 끝 --%>
 
 
 <%-- 본문작성 끝 --%>

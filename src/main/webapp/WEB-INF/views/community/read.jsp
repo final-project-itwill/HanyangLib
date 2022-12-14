@@ -67,48 +67,45 @@
                     </table>
                 </div><!-- 정보 테이블 end-->
 
-                <%-- 커뮤니티 신청 버튼 --%>
-
-                <button type="button" onclick="clickSignup()">이 커뮤니티 신청하기</button>
-
-
+                <!-- 커뮤니티 신청 버튼 -->
+                <!-- 조건문으로 커뮤니티 모집중/완료 분기 -->
+                <c:if test="${read.c_state == 'i'}">
+                    <button type="button" onclick="clickSignup()">이 커뮤니티 신청하기</button>
+                </c:if>
+                <c:if test="${read.c_state == 'd' || read.c_state == 'e'}">
+                    <p style="font-weight: bold">신청이 마감되었습니다</p>
+                </c:if>
             </div>
         </div><!-- 우측 bar end-->
     </div><!-- row end-->
 
     <br><br>
 
-    <!-- 커뮤니티 구성원 -->
+    <!-- 커뮤니티 구성원 시작-->
     <div class="container-fluid">
         <h3 style="text-align: center; font-weight: bold; padding-bottom: 5vh">커뮤니티 구성원</h3>
-        <div id="parent" style="text-align: center" class="photo mr-3">
             <div class="container-fluid" style="text-align: center; justify-content: center; display: flex; height: 18vh">
-                <figure style="position: absolute">
+            <c:if test="${memberCnt==0}">
+                <p style="font-size: 18px; padding-bottom: 40px">아직 참여한 인원이 없습니다. <br>책을 읽고 커뮤니티에 구성원이 되어주세요!</p>
+            </c:if>
+            <c:if test="${memberCnt!=0}">
+                <table class="table col-lg-8">
+
+                    <c:forEach var="dto" items="${checkMember}">
+                        <tr>
+                            <td>${dto.s_nick}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+<%--                <figure style="position: absolute">
                     <img src="/images/user.png" class="img-fluid rounded-circle" style="width: 8vw">
                     <figcaption style="font-weight: bold; color: black; font-size: 1.5vw">닉네임</figcaption>
-                </figure>
-                <figure style="position: absolute; margin-left: 20vw">
-                    <img src="/images/user.png" class="img-fluid rounded-circle" style="width: 8vw">
-                    <figcaption style="font-weight: bold; color: black; font-size: 1.5vw">닉네임</figcaption>
-                </figure>
-                <figure style="position: absolute; margin-left: 40vw">
-                    <img src="/images/user.png" class="img-fluid rounded-circle" style="width: 8vw">
-                    <figcaption style="font-weight: bold; color: black; font-size: 1.5vw">닉네임</figcaption>
-                </figure>
-                <figure style="position: absolute; margin-right: 20vw">
-                    <img src="/images/user.png" class="img-fluid rounded-circle" style="width: 8vw">
-                    <figcaption style="font-weight: bold; color: black; font-size: 1.5vw">닉네임</figcaption>
-                </figure>
-                <figure style="position: absolute; margin-right: 40vw">
-                    <img src="/images/user.png" class="img-fluid rounded-circle" style="width: 8vw">
-                    <figcaption style="font-weight: bold; color: black; font-size: 1.5vw">닉네임</figcaption>
-                </figure>
-                <br>
+                </figure>--%>
+            </c:if>
             </div>
-        </div>
     </div><!-- 커뮤니티 구성원 end-->
 
-    <br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br>
 
     <!-- 커뮤니티 후기 (ajax 더보기) ------------------------------------------------------------------>
 
@@ -120,41 +117,25 @@
         <div class="container-fluid text-center col-lg-6 col-sm-12">
 
             <!-- 후기 등록 form 시작 -->
-            <!-- 로그인 id가 해당 커뮤니티에 가입된 상태일 때만 후기 작성 가능-->
-            <%--<c:if test="${loginID=='hanyihanyi'}">--%>
+            <!-- 조건 : 1)id 가입 승인 완료(s)
+                       2)해당 커뮤니티장
+                       3)커뮤니티 모집완료/활동완료(d, e) -->
 
-            <c:if test="${(commCheck.c_state=='d' || commCheck.c_state=='e') && idCheck.s_state=='s'}">
-                <form name="commacForm" id="commacForm" style="margin-bottom: 30px">
-                    <input type="hidden" id="ac_ccode" name="ac_ccode" value="${read.c_code}"><!-- 부모 PK키-->
-                    <input type="hidden" id="ac_cname" name="ac_cname" value="${read.c_name}"><!-- 부모 커뮤니티 이름 -->
-                    <input type="text" name="ac_review" id="ac_review" placeholder="후기를 남겨주세요">
-                    <input type="range" name="ac_manjok" id="ac_manjok" min=1 max=5>
-                    <button type="button" name="commacBtn" id="commacBtn">후기 남기기</button>
+            <c:if test="${(checkID.s_state == 's' || s_id == checkOwner) && (read.c_state == 'd' || read.c_state == 'e')}">
+                <form name="reviewForm" id="reviewForm" style="margin-bottom: 30px">
+                    <input type="hidden" id="c_code" name="c_code" value="${read.c_code}">  <!-- 부모 PK키-->
+                    <input type="hidden" id="cname" name="cname" value="${read.c_name}">    <!-- 부모 커뮤니티 이름 -->
+                    <input type="hidden" id="loginID" name="loginID" value="${s_id}">       <!-- 작성자 -->
+                    <input type="text" name="review" id="review" placeholder="후기를 남겨주세요">
+                    <input type="range" name="manjok" id="manjok" min=1 max=5>
+                    <button type="button" name="reviewInsertBtn" id="reviewInsertBtn">후기 남기기</button>
                 </form><!-- 후기 등록 form 끝 -->
             </c:if>
 
             <!-- 후기 목록 div -->
-            <div class="activityList"></div>
-
-            <%--            후기 list for:each 반복문으로 테이블로 출력했을 때--%>
-            <%--            <table  style="width: 100%">--%>
-            <%--                <c:forEach var="dto" items="${acList}">--%>
-            <%--                    <tr>--%>
-            <%--                        <td class="col-sm-2 col-md-2 col-lg-2"><img src="/images/user.png" style="width: 4vw"> </td>--%>
-            <%--                        <td class="col-sm-8 col-md-8 col-lg-8">${dto.ac_review}</td>--%>
-            <%--                        <td class="col-sm-2 col-md-2 col-lg-2">--%>
-
-            <%--                            <c:forEach var="star" begin="1" end="${dto.ac_manjok}">--%>
-            <%--                                ★--%>
-            <%--                            </c:forEach>--%>
-            <%--                        </td>--%>
-            <%--                    </tr>--%>
-            <%--                </c:forEach>--%>
-
-            <%--                <tr>--%>
-            <%--                    <td colspan="3"><a href="#">후기 더보기</a></td>--%>
-            <%--                </tr>--%>
-            <%--            </table>--%>
+            <div class="container-fluid">
+                <table class="table table-default reviewList" id="reviewList"></table>
+            </div>
 
         </div>
         <div class="container-fluid col-lg-3 d-sm-none"></div>
@@ -162,116 +143,173 @@
     <br><br><br>
 </div>
 
+
 <!-- 후기 관련 자바스크립트 -->
 <script>
-    let ac_ccode = '${read.c_code}';  //부모 PK키
-    //로그인 id가 작성자와 동일한 경우에만 후기 수정/삭제 가능
-    let loginID = 'hanyihanyi';   //세션변수로 받아올 것.
-    //현재 ac_id 값은 컨트롤러에 임의로 hanyihanyi로 세팅했다.
-    //커뮤니티 신청버튼 누르면, 가입 여부 체크 및 신청폼페이지로 이동
+    let c_code = '${read.c_code}';  //부모 PK키
+    let loginID = '${s_id}';
+
+    //더보기
+    let limit = 3;              //3개씩 출력
+    let size = ${reviewCnt};    //총 후기 수
+
+
+    //커뮤니티 신청
     function clickSignup(){
-        let id = '${idCheck.s_id}';
-        if(id == ''){
-            location.href = "signupForm";   //나중에 설문지페이지와 바로 연결하기
+        let signState = '${checkID.s_state}';   //로그인id의 가입 상태
+        let owner = '${checkOwner}';
+        if(owner == loginID){
+            alert("당신이 만든 커뮤니티입니다.");
         }else{
-            alert("이미 가입을 신청한 커뮤니티입니다.");
+            if(signState == ''){                    //가입이력 없음
+                location.href = "/comm/signupForm";       //나중에 설문지페이지와 바로 연결하기
+            }else if(signState == 'i') {
+                alert("이미 가입을 신청한 커뮤니티입니다. \n 가입 승인을 기다려주세요.");
+            }else if(signState == 's'){
+                alert("이미 가입이 승인된 커뮤니티입니다.");
+            }else if(signState == 'r'){
+                alert("가입 신청이 반려된 커뮤니티입니다.");
+            }//if end
         }//if end
     }//checkSignup() end
+
+
     //후기 남기기 버튼 클릭했을 때
-    $("#commacBtn").click(function (){
-        //id="commac"의 내용을 전부 가져온다
-        let insertData=$("#commacForm").serialize();
+    $("#reviewInsertBtn").click(function (){
+        //id="reviewForm"의 내용을 전부 가져온다
+        let insertData=$("#reviewForm").serialize();
         //alert(insertData);
-        InsertIntoCommunityActivity(insertData);   //후기등록 함수호출
+        insertReview(insertData);   //후기등록 함수호출
     });//click() end
-    function InsertIntoCommunityActivity(insertData){
+
+    //후기 등록
+    function insertReview(insertData){
         //alert("댓글등록함수호출" + insertData);
         $.ajax({
-            url    :'/commac/insert'
+            url    :'/comm/reviewinsert'
             ,type   :'post'
             ,data   :insertData
             ,success:function (data){
                 //alert(data);
-                if(data==1){        //후기등록 성공
-                    listActivity();   //후기등록 후 후기목록 함수호출
-                    $('#ac_review').val('');    //기존 후기내용 빈값으로
-                    $('#ac_manjok').val(3);     //기본별점 3
+                if(data==1){                //후기등록 성공
+                    listReview();           //후기등록 후 후기목록 함수호출
+                    $('#review').val('');   //기존 후기내용 빈값으로
+                    $('#manjok').val(3);    //기본별점 3
                 }//if end
             }//success end
         });//ajax() end
-    }//InsertIntoCommunityActivity() end
+    }//insertReview() end
+
+
     //후기 목록
-    function listActivity(){
+    function listReview(){
         $.ajax({
-            url    :'/commac/list'
+            url    :'/comm/reviewlist'
             ,type   :'get'
-            ,data   :{'ac_ccode':ac_ccode} //부모 PK키
+            ,data   :{'c_code':c_code, 'limit':limit} //부모 PK키
             ,success:function (data){
-                //alert(data);
+                // alert(size);
+                // alert(limit);
+
                 let a = ''; //출력할 결과값
                 $.each(data, function (key, value){
-                    // alert(key);
-                    // alert(value);
-                    a += '<div class="commacArea" style="border-bottom: 1px solid darkgray; margin-bottom: 15px">';
-                    a += '  <div class="commacInfo' + value.ac_no +'">';
+                    //alert(key);
+                    //alert(value);
+                    a += '<tr class="reviewArea" style="border-bottom: 1px solid darkgray; margin-bottom: 15px">';
+                    a += '  <td class="reviewInfo' + value.ac_no +'">';
                     a += '      번호 : ' + value.ac_no + ' / 작성자 : ' + value.ac_id + "  " + value.ac_rdate;
-                    //작성자||관리자만 수정/삭제 버튼 접근 가능
-                    if(value.ac_id == loginID || value.ac_id =='webmaster'){
-                        a += '      <a href="javascript:openActivityUpdatePanel(' + value.ac_no + ',\'' + value.ac_review + '\',' + value.ac_manjok + ');">수정</a>';
-                        a += '      <a href="javascript:deleteActivity(' + value.ac_no + ');">삭제</a>';
+                    a += '  </td><td class="text-right">';
+
+                    if(value.ac_id == loginID || value.ac_id =='webmaster'){    //작성자||관리자만 수정/삭제 버튼 접근 가능
+                        a += '      <a href="javascript:openReviewUpdatePanel(' + value.ac_no + ',\'' + value.ac_review + '\',' + value.ac_manjok + ');">수정</a>';
+                        a += '      <a href="javascript:deleteReview(' + value.ac_no + ');">삭제</a>';
                     };//if end
-                    a += '  </div>';
-                    a += '  <div class="commacReview' + value.ac_no +'">'
+                    a += '  </td>';
+                    a += '  </tr><tr>';
+                    a += '  <td colspan="2" class="content' + value.ac_no +'">'
                     a += '      <p>후기 내용 : ' + value.ac_review + ' / 만족도 :' + value.ac_manjok + '</p>';
-                    a += '  </div>';
-                    a += '</div>';
+                    a += '  </td>';
+                    a += '</tr>';
                 });//each() end
-                $(".activityList").html(a);   //<div class="activityList"></div>
+
+                let b = '';
+                b += '  <tr class="moreBtnDiv">';
+                b += '  <td colspan="2">';
+                b += '      <button type="button" class="btn btn-outline-light text-dark btn-block" id="moreBtn" name="moreBtn" onclick="more()">더보기</button>';
+                b += '  </td></tr>';
+                if(limit < size) a += b;
+                $(".reviewList").html(a);   //<div class="reviewList"></div>
             }//success end
         });//ajax() end
-    }//listActivity() end
+    }//listReview() end
+
+
+    //더보기버튼 moreBtn 누르면 limit 증가
+    function more(){
+        // alert(limit);
+        // alert(size);
+        if(limit < size){
+            limit += 3;
+            //alert('늘어남');
+            listReview();
+        }else {
+            //alert('그대로');
+            listReview()
+        }//if end
+    }//more() end
+
+
     //후기 수정 - 수정할 내용 폼으로 출력
-    function openActivityUpdatePanel(ac_no, ac_review, ac_manjok){
+    function openReviewUpdatePanel(ac_no, review, manjok){
         let a = '';
         a += '<div class="input-group" style="text-align: center">';
-        a += '  <input type="text" value="' + ac_review + '" id="ac_review_' + ac_no + '">';
-        a += '  <input type="range" min="1" max="5" value="' + ac_manjok +'" id="ac_manjok_' + ac_no + '">';
-        a += '  <button type="button" onclick="updateActivity(' + ac_no + ')">수정</button>';
+        a += '  <input type="text" class="col-lg-8" value="' + review + '" id="review_' + ac_no + '">';
+        a += '  <input type="range" min="1" max="5" value="' + manjok +'" id="manjok_' + ac_no + '">';
+        a += '  <button type="button" onclick="updateReview(' + ac_no + ')">수정</button>';
         a += '</div>';
-        $(".commacReview" + ac_no).html(a);
-    }//openActivityUpdatePanel() end
+
+        $(".content" + ac_no).html(a);
+    }//openReviewUpdatePanel() end
+
+
     //후기 수정
-    function updateActivity(ac_no){
-        let updateReview = $('#ac_review_' + ac_no).val();
-        let updateManjok = $('#ac_manjok_' + ac_no).val();
+    function updateReview(ac_no){
+        let updateReview = $('#review_' + ac_no).val();
+        let updateManjok = $('#manjok_' + ac_no).val();
         // alert(ac_no);
         // alert(updateReview);
         // alert(updateManjok);
         $.ajax({
-            url:'/commac/update'
+            url:'/comm/reviewupdate'
             ,type:'post'
-            ,data:{'ac_review':updateReview, 'ac_manjok':updateManjok, 'ac_no':ac_no}
+            ,data:{'review':updateReview, 'manjok':updateManjok, 'ac_no':ac_no}
             ,success:function (data){
-                if(data == 1) listActivity();    //후기수정 후 목록 출력
+                if(data == 1) listReview();    //후기수정 후 목록 출력
             }//success end
         });//ajax() end
-    }//updateActivity() end
+    }//updateReview() end
+
+
     //후기 삭제
-    function deleteActivity(ac_no){
+    function deleteReview(ac_no){
         $.ajax({
-            url    :'/commac/delete/' + ac_no
+            url    :'/comm/reviewdelete/' + ac_no
             ,type   :'post'
             ,success:function (data){
                 if(data == 1){             //후기 삭제되면
-                    listActivity(ac_ccode);  //목록 출력
+                    listReview(c_code);  //목록 출력
                 }//if end
             }//success end
         });//ajax() end
-    }//deleteActivity() end
+    }//deleteReview() end
+
+
     //페이지 로딩시 댓글 목록 출력
     $(document).ready(function (){
-        listActivity();
+        listReview();
     });//ready() end
+
+
 </script>
 <!-- 본문작성 끝 -->
 <%@ include file="../footer.jsp"%>

@@ -8,11 +8,13 @@
 
 
 <div class="container">
-    <div class="title">공지사항</div>
+    <h4 style="font-weight: bold; text-align: center; margin-top: 30px">공지사항</h4>
     <p style="text-align: right">
-        <a href="/notice/insert">새 공지사항 작성하기</a><!-- 관리자만 접근 가능하도록 session 변수 활용 -->
+        <c:if test="${grade == 'A'}">
+            <a href="/notice/insert">새 공지사항 작성하기</a>
+        </c:if>
         &nbsp;
-        <a href="/notice/list">목록으로 돌아가기</a>
+        <a href="/notice/list?pageNum=1">목록으로 돌아가기</a>
     </p>
 
     <form name="frm">
@@ -35,11 +37,13 @@
             </tr>
         </table>
         <!-- 관리자만 접근 가능 -->
-        <div class="align-content-sm-center" style="text-align: center">
-            <input type="hidden" id="n_no" name="n_no" value="${read.n_no}">
-            <input type="button" value="수정" onclick="update()">
-            <input type="button" value="삭제" onclick="del()">
-        </div>
+        <c:if test="${grade == 'A'}">
+            <div class="align-content-sm-center" style="text-align: center">
+                <input type="hidden" id="n_no" name="n_no" value="${read.n_no}">
+                <input type="button" value="수정" onclick="update()">
+                <input type="button" value="삭제" onclick="del()">
+            </div>
+        </c:if>
 
     </form>
 

@@ -25,4 +25,5 @@ public class BookReadDTO {
     private int startRow;
     private int endRow;
 
+
 }//class end
