@@ -2,8 +2,10 @@ package kr.co.itwill.cart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+@RequestMapping("/cart")
 @Controller
 public class CartCont {
 	
@@ -14,10 +16,11 @@ public class CartCont {
 	@Autowired
 	CartDAO cartDao;
 	
-	public ModelAndView list() {
+	@RequestMapping("/cartview")
+	public ModelAndView cartview() {
 		ModelAndView mav=new ModelAndView();
 		
-		
+		mav.setViewName("cart/cart");
 		return mav;
 	}//list() end
 	

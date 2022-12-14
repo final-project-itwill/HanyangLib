@@ -91,7 +91,7 @@
 			$("#m_smscheck").val('N');
 		}
     	
-    	if(confirm("정보가 수정됩니다\n 수정할까요?")){
+    	if(confirm("정보가 입력됩니다\n가입할까요?")){
     	document.membupdate.action="/member/update";		//수정 후 수정페이지로 이동
     	document.membupdate.submit();    	
     	}//if end
