@@ -25,14 +25,16 @@ public class MemberDAO {
 	public MemberDTO detail(String s_id) {
 		return sqlSession.selectOne("member.detail", s_id);
 	}//detail() end
-	
-	
 
 	 public int memberupdate(MemberDTO member) { 
-		 return sqlSession.update("member.memberupdate", member);
+		 //System.out.println("dao에서----" + member.toString());
+		 return sqlSession.update("member.update", member);
 	 }//memberupdate() end
 	
 	
+	 
+	 
+	 
 	
 	
 }//class end
