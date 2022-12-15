@@ -11,6 +11,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -350,6 +351,28 @@ public class CommunityCont {
 
         return mav;
     }//surveyChart() end
+
+
+    // 3. 가입 승인/거절
+    @RequestMapping(value = "/adminupdate/{c_code}", method = RequestMethod.POST)
+    public String approveMember(@PathVariable String c_code, HttpServletRequest req){
+
+        String[] chkArray = req.getParameterValues("chkList");
+
+        List<CommSignDTO> updateList = new ArrayList<>();
+
+        for(int i=0; i<chkArray.length; i++){
+            String ac_no = chkArray[i];
+            System.out.println(ac_no);
+
+            CommSignDTO dto = new CommSignDTO();
+            dto.setS_id(chkArray[i]);
+            dto.setS_code(c_code);
+            updateList.add(dto);
+        }//for end
+        commDao.updateMember(updateList);
+        return "redirect:/comm/adminmember/"+c_code;
+    }//approveMember() end
 
 
 

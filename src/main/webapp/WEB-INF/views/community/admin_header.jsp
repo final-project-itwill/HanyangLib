@@ -18,6 +18,9 @@
     <!-- 구글 검색엔진 웹 크롤러만 차단 -->
     <meta name="googlebot" content="noindex">
 
+    <script src="/js/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
     <title>&#128218 한양서재</title>
 
     <!-- Custom fonts for this template-->

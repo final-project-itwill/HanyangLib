@@ -174,6 +174,21 @@
         SELECT s_no, s_code , s_id, s_nick, s_state, s_surveycode, s_rdate
         FROM community_signup
         WHERE s_code = #{c_code} AND s_state not in('s')
+        ORDER BY s_state
     </select>
+
+
+    <!-- 커뮤니티 가입 승인 -->
+    <update id="updateMember">
+
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE community_signup
+            SET s_state = 's'
+            WHERE s_id = #{item.s_id} AND s_code = #{item.s_code}
+        </foreach>
+
+    </update>
+
+
 
 </mapper>
