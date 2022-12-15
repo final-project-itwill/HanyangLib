@@ -61,6 +61,8 @@
           	<li><a href="/gudok/detail" style="font-weight: bold;">구독</a></li>
 	          	<li><a href="/mylib/libindex/${s_id}" style="font-weight: bold;">나만의 서재</a></li>
 	          	<li><a href="/comm/index" style="font-weight: bold;">커뮤니티</a></li>
+	          	 <!-- 장바구니 목록 추가 -->
+	            <li><a href="/cart/cartview" style="font-weight: bold;">장바구니</a></li>
               	<li class="has-children">
               		<a href="#" style="font-weight: bold;">고객센터</a>
 	                <ul class="dropdown">
@@ -98,6 +100,8 @@
    	        <li><a href="/login/index" style="font-weight: bold;">구독</a></li>
 	          	<li><a href="/login/index" style="font-weight: bold;">나만의 서재</a></li>
 	          	<li><a href="/login/index" style="font-weight: bold;">커뮤니티</a></li>
+	          	<!-- 장바구니 목록 추가 -->
+	            <li><a href="/cart/cartview" style="font-weight: bold;">장바구니</a></li>
               	<li class="has-children">
               		<a href="#" style="font-weight: bold;">고객센터</a>
 	                <ul class="dropdown">

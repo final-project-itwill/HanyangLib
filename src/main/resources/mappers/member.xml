@@ -32,8 +32,13 @@
 	</update>
 
 
-
-
+	<update id="withdraw" parameterType="String">
+	<![CDATA[
+			UPDATE member
+			SET m_grade='F'
+			WHERE m_id = #{m_id}
+	]]>
+	</update>
 
 
 

@@ -50,13 +50,15 @@
  <tr>
     <th>이메일 수신여부</th>
     <td>
-        <input type="checkbox" name="m_mailcheck" id="m_mailcheck" value="Y">
+        <input type="checkbox" name="mailcheck" id="mailcheck">
+        <input type="hidden" name="m_mailcheck" id="m_mailcheck">
     </td>
 </tr>
 <tr>
     <th>sms 수신여부</th>
     <td>
-        <input type="checkbox" name="m_smscheck" id="m_smscheck" value="Y">
+        <input type="checkbox" name="smscheck" id="smscheck">
+        <input type="hidden" name="m_smscheck" id="m_smscheck">
     </td>
 </tr>
 <tr>
@@ -97,13 +99,38 @@
 </tr>
 <tr>
     <td colspan="2">
-        <input type="submit" value="회원가입"  class="btn btn-primary" onclick="location.href='/member/welcomeform'">
+        <input type="submit" value="회원가입"  class="btn btn-primary"  onsubmit="location.href='/member/welcomeform'" onclick="memupdate()">
         <input type="reset"  value="취소"     class="btn btn-primary"/>
     </td>
 </tr>
 </table>
 </div>
 
+   <script>
+    function memupdate(){
+    	alert($("input:checkbox[name='mailcheck']").is(":checked"));
+    	if($("input:checkbox[name='mailcheck']").is(":checked") == true){
+			$("#m_mailcheck").val('Y');
+			//alert($("#m_mailcheck").val());
+		} else if($("input:checkbox[name='mailcheck']").is(":checked") == false){
+			$("#m_mailcheck").val('N');
+			//alert($("#m_mailcheck").val());
+		}
+		
+		if($("input:checkbox[name='smscheck']").is(":checked") == true){
+			$("#m_smscheck").val('Y');
+		} else if($("input:checkbox[name='smscheck']").is(":checked") == false){
+			$("#m_smscheck").val('N');
+		}
+    	
+    	if(confirm("정보가 수정됩니다\n 수정할까요?")){
+    	document.membupdate.action="/member/update";		//수정 후 수정페이지로 이동
+    	document.membupdate.submit();    	
+    	}//if end
+    }//memupdate
+    
+    </script>
+    
 
 <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 110px;position:relative">
   <img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">

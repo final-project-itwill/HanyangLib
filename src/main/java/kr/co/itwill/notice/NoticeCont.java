@@ -141,6 +141,6 @@ public class NoticeCont {
 
         return "redirect:/notice/list?pageNum=1";     //행 수정 후 목록으로 이동
     }//update() end
-
+       
 
 }//class end

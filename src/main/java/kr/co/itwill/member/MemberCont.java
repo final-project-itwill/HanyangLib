@@ -43,7 +43,7 @@ public class MemberCont {
 	}// Member() end
 
 	// 회원가입을 성공했을때 회원가입성공 페이지 불러오기
-	@RequestMapping("welcomeform")
+	@RequestMapping("/welcomeform")
 	public ModelAndView welcomform() {
 		ModelAndView mav = new ModelAndView();
 
@@ -153,7 +153,7 @@ public class MemberCont {
 
 		memberDao.memberinsert(member);
 
-		return "redirect:/login/loginForm";
+		return "redirect:/member/wecomform";
   
 	}// insert() end
 
@@ -185,19 +185,29 @@ public class MemberCont {
 		
 		memberDao.memberupdate(member);
 		//System.out.println(member.toString());
-		return "redirect:/login/index";	//수정 후 상세(수정)폼으로 돌아기기
+		return "redirect:/login/index";	//수정 후 로그인 인덱스폼으로 돌아기기
 		
 	}//update() end
 
 	
-	// 
-	@RequestMapping("/deleteform")
+	//회원탈퇴폼 불러오기
+	@RequestMapping("/withdrawform")
 	public ModelAndView delete() {
 		ModelAndView mav=new ModelAndView();
-		mav.setViewName("member/deleteform");
+		mav.setViewName("member/withdrawform");
 		return mav;
-		
 	}//delete() end
+	
+	
+	@RequestMapping(value = "/withdraw" , method = RequestMethod.POST)
+	public String Withdraw(@RequestParam String m_id, HttpSession session) throws Exception {
+		memberDao.memberwithdraw(m_id);
+		session.removeAttribute("s_id");
+		session.removeAttribute("grade");
+		session.removeAttribute("s_pw");
+		
+		return "redirect:/login/index";
+	}//Withdraw() end
 	
 	
 
