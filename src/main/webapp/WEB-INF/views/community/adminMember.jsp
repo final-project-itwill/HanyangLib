@@ -54,7 +54,11 @@
             }
         }//approveMember() end
 
-
+        //가입 거절 버튼
+        function rejectMember(){
+            document.frm.action = "/comm/adminreject/${read.c_code}";
+            document.frm.submit();
+        }//rejectMember() end
 
     </script>
 
@@ -79,7 +83,7 @@
                 <span class="col-md-6" style="text-align: right!important">
                     <button id="approvalBtn" name="approvalBtn" onclick="approveMember()" class="btn-light border-0" style="color: darkgreen; font-weight: bold">
                         <i class="fas fa-check"></i> 승인</button>
-                    <button id="rejectBtn" name="rejectBtn" class="btn-light border-0" style="color: #be2617; font-weight: bold">
+                    <button id="rejectBtn" name="rejectBtn" onclick="rejectMember()" class="btn-light border-0" style="color: #be2617; font-weight: bold">
                         <i class="fas fa-trash"></i> 거절</button>
                 </span>
             </div>
@@ -127,7 +131,7 @@
     </div><!-- 승인/거절 대기 명단 끝 -->
 
 
-    <%-- 가입 승인/거절 관련 스크립트 --%>
+    <%-- 체크박스 관련 스크립트 --%>
     <script>
 
         //체크박스 모두 체크

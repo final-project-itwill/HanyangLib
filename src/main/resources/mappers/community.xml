@@ -180,13 +180,20 @@
 
     <!-- 커뮤니티 가입 승인 -->
     <update id="updateMember">
-
         <foreach collection="list" item="item" index="index" separator=";">
             UPDATE community_signup
             SET s_state = 's'
             WHERE s_id = #{item.s_id} AND s_code = #{item.s_code}
         </foreach>
+    </update>
 
+    <!-- 커뮤니티 가입 거절 -->
+    <update id="rejectMember">
+        <foreach collection="list" item="item" index="index" separator=";">
+            UPDATE community_signup
+            SET s_state = 'r'
+            WHERE s_id = #{item.s_id} AND s_code = #{item.s_code}
+        </foreach>
     </update>
 
 

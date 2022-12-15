@@ -362,8 +362,8 @@ public class CommunityCont {
         List<CommSignDTO> updateList = new ArrayList<>();
 
         for(int i=0; i<chkArray.length; i++){
-            String ac_no = chkArray[i];
-            System.out.println(ac_no);
+            //String ac_no = chkArray[i];
+            //System.out.println(ac_no);
 
             CommSignDTO dto = new CommSignDTO();
             dto.setS_id(chkArray[i]);
@@ -375,5 +375,21 @@ public class CommunityCont {
     }//approveMember() end
 
 
+    @RequestMapping(value = "/adminreject/{c_code}", method = RequestMethod.POST)
+    public String rejectMember(@PathVariable String c_code, HttpServletRequest req){
+
+        String[] chkArray = req.getParameterValues("chkList");
+
+        List<CommSignDTO> updateList = new ArrayList<>();
+
+        for(int i=0; i<chkArray.length; i++){
+            CommSignDTO dto = new CommSignDTO();
+            dto.setS_id(chkArray[i]);
+            dto.setS_code(c_code);
+            updateList.add(dto);
+        }//for end
+        commDao.rejectMember(updateList);
+        return "redirect:/comm/adminmember/"+c_code;
+    }//approveMember() end
 
 }//class end

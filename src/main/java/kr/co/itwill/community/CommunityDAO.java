@@ -130,11 +130,14 @@ public class CommunityDAO {
 
     //회원 업데이트 한 번에 하기
     public int updateMember(List<CommSignDTO> updateList){
-        for(int i=0; i<updateList.size(); i++){
-            System.out.println("-------------DAO!!!!!!!!!!!!-"+updateList.get(i));
-        }
+//        for(int i=0; i<updateList.size(); i++){
+//            System.out.println("-------------DAO!!!!!!!!!!!!-"+updateList.get(i));
+//        }
         return sqlSession.update("community.updateMember", updateList);
     }//updateMember() end
 
+    public int rejectMember(List<CommSignDTO> updateList){
+        return sqlSession.update("community.rejectMember", updateList);
+    }//rejectMember() end
 
 }//class end
