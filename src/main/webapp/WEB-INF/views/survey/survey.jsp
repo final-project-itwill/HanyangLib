@@ -13,9 +13,13 @@
    
 <!-- 본문작성 시작 -->	
 	<div class="container" style="margin-top :70px;">
+	<!-- ** 경환 : 설문지코드 자동생성 : s + 날짜(yyyymmdd) + 커뮤니티코드 -->
+	<c:set var="now" value="<%=new java.util.Date()%>" />
+	<c:set var="date"><fmt:formatDate value="${now}" pattern="yyyymmdd" /></c:set> 
+	<c:set var="sv_code" value="s${date}-com001"></c:set>
 	<p>
 		<button type="button" onclick="location.href='survey'">설문</button>
-		<button type="button" onclick="location.href='create'">설문생성</button>
+		<button type="button" onclick="location.href='formCreate/${sv_code}'">설문생성</button>
 	</p>
 	<br>
 		<div>
@@ -28,18 +32,13 @@
 			<td> 제 목 </td>
 			<td> 내 용 </td>
 			<td> 등록일 </td>
-			<td> 수정/삭제 </td>
 		<c:forEach var="row" items="${list}" varStatus="vs">
 		<tr>
 			<c:choose>
 				<c:when test="${row.sv_title != '-'}">
 					<td>${row.sv_title}</td>
 					<td><a href="write/${row.sv_code}">${row.sv_des}</a></td>
-					<td>${row.sv_rdate}</td>
-					<td>
-						<input type="button" value="수정" onclick="location.href='update.do?sv_code=${row.sv_code}'">
-               			<input type="button" value="삭제" onclick="location.href='delete.do?sv_code=${row.sv_code}'">	
-					</td>
+					<td>${sv_rdate}</td>
 				</c:when>
 			</c:choose>
 

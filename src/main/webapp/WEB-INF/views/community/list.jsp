@@ -50,7 +50,6 @@
             <th>책</th>
             <th>모집상태</th>
             <th>등록일</th>
-            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -67,13 +66,6 @@
                 </c:choose>
             </td>
             <td>${dto.c_rdate}</td>
-
-            <!-- 관리자 페이지로 이동 필요-->
-            <td>
-                <a href="/comm/update/${dto.c_code}">수정</a> &nbsp;&nbsp;
-                <a href="/comm/delete/${dto.c_code}">삭제</a>
-            </td>
-
         </tr>
         </c:forEach>
 

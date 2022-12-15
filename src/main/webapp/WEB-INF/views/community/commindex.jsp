@@ -65,7 +65,10 @@
                 </div>
             </div>
 
-            <button type="button" class="btn-light" data-toggle="modal" data-target="#modal" style="font-weight: bold; color: #3b5998;margin-bottom: 20px;">커뮤니티 만들러 가기</button>
+            <%-- 커뮤니티 생성 버튼--%>
+            <button type="button" class="btn btn-outline-light btn-block col-md-4 text-dark" data-toggle="modal" data-target="#modal" style="font-weight: bold;margin-bottom: 20px; border-color: #2a96a5">
+                <i class="fas fa-fw fa-wrench"></i> 커뮤니티 만들러 가기</button>
+
 
         <script>
             let readProc = '${dto.lib_proc}';
@@ -79,8 +82,10 @@
     <%-- 커뮤니티 생성하기 버튼 끝 ---------------------------------------------------------------------------------------------------------%>
 
 
+    <br><br>
 
-<%-- MD 추천 커뮤니티 리스트 시작 --%>
+
+    <%-- MD 추천 커뮤니티 리스트 시작 --%>
             <a href="list?pageNum=1"><!-- 최신순 list로 가기-->
                 <h1 class="listtext-black text-left font-weight-bold mb-4" data-aos="fade-up" data-aos-delay="0">종이에 쓰인<br>글자만으로<br>이런 모임이</h1>
             </a>

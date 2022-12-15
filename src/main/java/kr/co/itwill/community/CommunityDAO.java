@@ -110,4 +110,21 @@ public class CommunityDAO {
         return cnt;
     }//reviewCnt() end
 
+    //후기 평균
+    public int star(String c_code){
+        int star = 0;
+        star = sqlSession.selectOne("community.star", c_code);
+        return star;
+    }//star() end
+
+    //승인된 멤버
+    public List<CommSignDTO> approvedMember(String c_code){
+        return sqlSession.selectList("community.approvedMember", c_code);
+    }//approvedMember() end
+
+    //기다리는 멤버
+    public List<CommSignDTO> waitingMember(String c_code){
+        return sqlSession.selectList("community.waitingMember", c_code);
+    }//approvedMember() end
+
 }//class end
