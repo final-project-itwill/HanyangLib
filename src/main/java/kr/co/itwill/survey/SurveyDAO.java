@@ -38,6 +38,15 @@ public class SurveyDAO {
 		return sqlSession.selectList("survey.choice", dsv_code);
 	}// detail2() end	
 	
+	public List<AnswerDTO> svanswer(AnswerDTO ans) throws Exception {
+		return sqlSession.selectList("survey.answer", ans);
+	} // svanswer() end
+	
+	// Answer Delete문 실
+	public int ansdelete(AnswerDTO ans) {
+		return sqlSession.delete("survey.ansdelete",ans );
+	} // answer delete() end	
+	
 	
 	// survey/insert문 실행
 	public int insert(AnswerDTO answer) {
@@ -69,5 +78,7 @@ public class SurveyDAO {
 	public int items(DsurveyDTO question) {
 		return sqlSession.insert("survey.items", question);
 	} // items() end
+
+
 	
 }// class end
