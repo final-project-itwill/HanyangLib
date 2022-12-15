@@ -325,6 +325,7 @@ public class CommunityCont {
         mav.addObject("read", commDao.read(c_code));
         mav.addObject("star", commDao.star(c_code));
         mav.addObject("reviewCnt", commDao.reviewCnt(c_code));
+        mav.addObject("checkOwner", commDao.checkOwner(c_code));
         return mav;
     }//admin() end
 
