@@ -1,9 +1,14 @@
 package kr.co.itwill.member;
 
+import java.io.File;
+import java.util.Map;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
+import org.jsoup.select.Evaluator.IsEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-@RequestMapping("/member")
+
 @Controller
+@RequestMapping("/member")
 public class MemberCont {
 	// 객체 생성 생성자 함수
 	public MemberCont() {
@@ -43,29 +50,23 @@ public class MemberCont {
 	}// Member() end
 
 	// 회원가입을 성공했을때 회원가입성공 페이지 불러오기
-	@RequestMapping("/welcomeform")
+	@RequestMapping("/welcome")
 	public ModelAndView welcomform() {
 		ModelAndView mav = new ModelAndView();
 
-		mav.setViewName("member/welcomeform");
+		mav.setViewName("member/welcomeform]");
 
 		return mav;
 	}// welcomform() end
 
-	// 아이디 중복확인 페이지 불러오기
-	@RequestMapping("idcheckform.do")
-	public String idCheckform() {
-		return "memer/idCheck";
-	}// idCheckForm()
-
 	// 아이디 중복확인 버튼을 눌렀을때 버튼옆에 출력하기
 	@RequestMapping("idcheckproc.do")
 	@ResponseBody
-	public String idCheckProc(HttpServletRequest req) {
-		String userid = req.getParameter("m_id").trim();
+	public String idcheckproc(HttpServletRequest req) throws Exception {
+		String userid = req.getParameter("m_id");
 		String message = "";
-
-		if (userid.length() < 5 || userid.length() > 15) {
+		
+		if (userid.length()<5 || userid.length()>15) {
 			message = "<span style='color: red; font-weight: bold'>아이디는 5~15글자 이내 입력해주세요</span>";
 		} else {
 			if (userid.equals("itwill") || userid.equals("webmaster")) {
@@ -84,7 +85,7 @@ public class MemberCont {
 		String useremail = req.getParameter("m_email").trim();
 		String message = "";
 
-		if (useremail.length() < 5 || useremail.length() > 25) {
+		if (useremail.length()<5 || useremail.length()>25) {
 			message = "<span style='color: red; font-weight: bold'>이메일은 5~25글자 이내 입력해주세요</span>";
 		} else {
 			if (useremail.equals("hanju1000@naver.com") || useremail.equals("webmaster@naver.com")) {
@@ -95,7 +96,8 @@ public class MemberCont {
 		} // if end
 		return message;
 	}// idCheckProc() end
-
+	
+	/* 지울지 말지 고민중
 	@RequestMapping("idcheckcookieproc.do")
 	@ResponseBody
 	public String idCheckCookieProc(HttpServletRequest req) {
@@ -113,11 +115,34 @@ public class MemberCont {
 		return json.toString();
 
 	}// idCheckCookieProc() end
+	*/
+	
+	@RequestMapping("nicknamecheckproc.do")
+	@ResponseBody
+	public String nicknamecheckproc(HttpServletRequest req) {
+		String usernickname = req.getParameter("m_nick").trim();
+		String message = "";
+
+		if (usernickname.length()<4 || usernickname.length()>15) {
+			message = "<span style='color: red; font-weight: bold'>닉네임은 4~15글자 이내 입력해주세요</span>";
+		} else {
+			if (usernickname.equals("nick") || usernickname.equals("nickname")) {
+				message = "<span style='color: red; font-weight: bold'>중복된 닉네임 입니다!!</span>";
+			} else {
+				message = "<span style='color: green; font-weight: bold'>사용가능한 닉네임입니다~~~!</span>";
+			} // if end
+		} // if end
+		return message;
+	}// idCheckProc() end
+
+	
 
 	// 회원가입을 했을때 member테이블에 insert하기
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	@ResponseBody
-	public String insert(@ModelAttribute MemberDTO dto) throws Exception {
+	public String insert(@ModelAttribute MemberDTO dto ,@RequestParam Map<String, Object> map
+						,@RequestParam MultipartFile img
+						,HttpServletRequest req) throws Exception {
 
 		/*
 		  System.out.println("아이디:" + req.getParameter("m_id"));
@@ -133,8 +158,23 @@ public class MemberCont {
 		 * req.getParameter("job")); System.out.println("전화번호:" +
 		 * req.getParameter("tel"));
 		 */
-
+		String imgname="-";
+		if(img != null && !img.isEmpty()) {
+			imgname=img.getOriginalFilename();
+			try {
+				ServletContext appliaction=req.getSession().getServletContext();
+				String path= appliaction.getRealPath("/storage");
+				img.transferTo(new File(path+"\\"+imgname)); 	//파일 저장
+			} catch (Exception e) {
+				e.printStackTrace();
+			}//try end
+		}//if end
+		map.put("imgname", imgname);
+		
+		
+			
 		MemberDTO member = new MemberDTO();
+		member.setM_img(dto.getM_img());
 		member.setM_id(dto.getM_id());
 		member.setM_pw(dto.getM_pw());
 		member.setM_name(dto.getM_name());
@@ -145,18 +185,24 @@ public class MemberCont {
 		member.setM_add1(dto.getM_add1());
 		member.setM_add2(dto.getM_add2());
 		member.setM_tel(dto.getM_tel());
+		member.setM_month(dto.getM_month());
+		member.setM_year(dto.getM_year());
 		member.setM_email(dto.getM_email());
 		member.setM_mailcheck(dto.getM_mailcheck());
 		member.setM_smscheck(dto.getM_smscheck());
 		member.setM_gudok(dto.getM_gudok());
 		member.setM_rdate(dto.getM_rdate());
-
+		
 		memberDao.memberinsert(member);
-
-		return "redirect:/member/wecomform";
+		
+		return "redirect:/member/welcome";
   
 	}// insert() end
 
+
+	
+	
+	
 	// 수정 페이지를 불러오는 컨트롤러
 	@RequestMapping("/update")
 	public ModelAndView detail(@RequestParam String s_id) {

@@ -5,17 +5,21 @@
 
 <div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/libbg.jpg'); height: 40vh;"></div>
 <br>
-<form name="memberform" method="post" action="insert" onsubmit="return send()">
+<form name="memberform" method="post" action="insert" enctype="multipart/form-data">
 <span style="color:red; font-weight: bold">필수입력</span>
 <br>
 <div class= container">
 <table border="1" class="table table-hover">
 <tr>
+	<th>프로필 사진</th>
+	<td><input type="file" id="m_img" name="m_img"></td>
+</tr>
+<tr>
     <th>*아이디</th>
     <td style="text-align: left">
       <input type="text" name="m_id" id="m_id" size="15">
       <input type="button" value="ID중복확인" id="btn_userid"> 
-      <span id="panel"></span>
+      <span id="idpanel" style="display:none"></span>
     </td>
 </tr>
 <tr>
@@ -32,7 +36,11 @@
 </tr>
 <tr>
     <th>*닉네임</th>
-    <td style="text-align: left"><input type="text" name="m_nick" id="m_nick" size="15" maxlength="20" required></td>
+    <td style="text-align: left">
+    	<input type="text" name="m_nick" id="m_nick" size="15" maxlength="20" required>
+    	<input type="button" value="닉네임중복확인" id="btn_usernick"> 
+    	<span id="nickpanel" style="display:none"></span>
+    </td>
 </tr>
 <tr>  
   <th>*생년월일</th>
@@ -43,9 +51,17 @@
     <th>*이메일</th>
     <td style="text-align: left">
       <input type="email" name="m_email" id="m_email" size="30">
-      <input type="button" value="Email 중복확인" onclick="checkEMAIL()" id="btn_m_email">
-      <span id="emailpanel"></span>
+      <input type="button" value="Email 중복확인" id="btn_email">
+      <span id="emailpanel" style="display:none"></span>
     </td>
+</tr>
+<tr>
+	<th>이번달 목표</th>
+	<td><input type="number" id="m_month" name="m_month" min="1" max="100"></td>
+</tr>
+<tr>
+	<th>올해의 목표</th>
+	<td><input type="number" id="m_year" name="m_year" min="1" max="100"></td>
 </tr>
  <tr>
     <th>이메일 수신여부</th>
@@ -99,7 +115,7 @@
 </tr>
 <tr>
     <td colspan="2">
-        <input type="submit" value="회원가입"  class="btn btn-primary"  onsubmit="location.href='/member/welcomeform'" onclick="memupdate()">
+        <input type="submit" value="회원가입"  class="btn btn-primary"  onsubmit="location.href='/member/welcome'" onclick="memupdate()">
         <input type="reset"  value="취소"     class="btn btn-primary"/>
     </td>
 </tr>
@@ -123,7 +139,7 @@
 			$("#m_smscheck").val('N');
 		}
     	
-    	if(confirm("정보가 수정됩니다\n 수정할까요?")){
+    	if(confirm("회원가입을 하시겠어요?")){
     	document.membupdate.action="/member/update";		//수정 후 수정페이지로 이동
     	document.membupdate.submit();    	
     	}//if end
@@ -135,100 +151,18 @@
 <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 110px;position:relative">
   <img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
 </div>
-<script src=" https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-<script>
-   
-      $(function(){
-         $.removeCookie("checkID");
-      });//end
-       $("#btn_userid").click(function(){
-       
-       let params="m_id=" + $("#m_id").val(d);
-   
-       //JSON응답
-       $.post("idcheckcookieproc.do", params, checkID, "json")
-       
-      });//click end
-      
-  
-      $(function() {
-		$.removeCookie("checkEMAIL");
-	})//end
-	$("#btn_m_email").click(function(){
-		let params="m_email" + $("m_email").val;
-		
-		$.post("emailcheckproc.do", params, checkEMAIL , "json")
-	})//click end
-   
-    
-   function checkID(result) {
-
-      //서버에서 응답받는 메세지(result)를 본문의 id=panel에 출력하고, 쿠키변수에 저장
-      // 형식) $.cookie("쿠키변수명", 값)
-      let count=eval(result.count); //형변환
-      
-      if(count==0){
-    	  $.cookie("checkID", "pass")
-      }else{
-    	  $("#m_id").focus();
-      }//if end
-          
-   }//checkID()
-   
-     function checkEMAIL(result) {
-
-      //서버에서 응답받는 메세지(result)를 본문의 id=panel에 출력하고, 쿠키변수에 저장
-      // 형식) $.cookie("쿠키변수명", 값)
-      let count=eval(result.count); //형변환
-      
-      if(count==0){
-    	  $.cookie("checkEMAIL", "pass")
-      }else{
-    	  $("#m_email").focus();
-      }//if end
-          
-   }//checkID()
-   
-   /* 
-   //7)아이디중복확인을 해야만 회원가입폼이 서버로 전송
-   function send() {
-      //아이디 입력했는지?
-	  let wid=$.cookie("wid");
-      if(){
-    	  
-      }
-      //비밀번호 입력했는지?
-    		  
-      //이름 입력헀는지?
-    		  
-      //이메일 입력했는지?
-            
-      //아이디중복확인을 했는지?
-      let checkID=$.cookie("checkID"); //쿠키변수값 가져오기
-      if(checkID=="PASS"){
-         return true; //서버로 전송
-      }else{
-         $("#userid").focus();
-         return false;
-      }//if end
-   
-            
-   }// send() end
-   */
-   
-   </script>
 
 <script>
 	$("#btn_userid").click(function() {
 		$.post(
 				"idcheckproc.do"
 				,"m_id" + $("#m_id").val()
-				,responseProc		
+				,idresponseProc		
 		);
 	}); //click() end
 	
 	
-	$("#btn_m_email").click(function() {
+	$("#btn_email").click(function() {
 		$.post(
 				"emailcheckproc.do"
 				,"m_email=" + $("#m_email").val()
@@ -236,10 +170,21 @@
 		);
 	}); //click() end
 	
-	function responseProc(result) {
-		$("#panel").empty();
-		$("#panel").html(result);
-		$("#panel").show();
+	$("#btn_usernick").click(function(){
+		$.post(
+				"nicknamecheckproc.do"
+				,"m_nick=" + $("#m_nick").val()
+				,nickresponseProc
+		);
+	});	//click() end
+	
+	</script>
+	
+	<script>
+	function idresponseProc(result) {
+		$("#idpanel").empty();
+		$("#idpanel").html(result);
+		$("#idpanel").show();
 	}//responseProc() end
 	
 	
@@ -249,6 +194,12 @@
 		$("#emailpanel").show();
 	}//responseProc() end
 	
+	
+	function nickresponseProc(result) {
+		$("#nickpanel").empty();
+		$("#nickpanel").html(result);
+		$("#nickpanel").show();
+	}//responseProc() end
 	
 </script>
 
