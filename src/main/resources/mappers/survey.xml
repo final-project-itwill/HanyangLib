@@ -34,7 +34,7 @@
 	
 	<delete id="ansdelete">
 		DELETE FROM answer
-		WHERE ans_code = #{dsv_code} ANS ans_id = #{s_id}
+		WHERE ans_code = #{dsv_code} AND ans_id = #{s_id}
 	</delete>
 	
 	<insert id="insert" parameterType="kr.co.itwill.survey.AnswerDTO">

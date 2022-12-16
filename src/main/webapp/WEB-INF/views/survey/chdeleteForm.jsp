@@ -10,7 +10,7 @@
 <!-- 본문작성 시작 -->	
 	<div class="container" style="margin-top :70px;">
 	<div class="title">설문지 삭제</div>
-	<form name='frm' method='POST' action='delete.do'>
+	<form name='frm' method='POST' action='chdelete.do/${dsv_code}/${s_id}'>
 		<input type="hidden" name="dsv_code" value="${dsv_code}">
 		<input type="hidden" name="s_id" value="${s_id}">
 		<div class="content">

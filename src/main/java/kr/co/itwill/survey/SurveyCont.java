@@ -169,7 +169,7 @@ public class SurveyCont {
 	}	
   
   //	choice delete	
-	@RequestMapping(value = "/answer/{dsv_code}/delete.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/answer/chdelete.do", method = RequestMethod.GET)
 	public ModelAndView chdeleteForm(String dsv_code) {
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("survey/chdeleteForm");
@@ -177,7 +177,7 @@ public class SurveyCont {
 		return mav;
 	} // deleteForm() end
 	
-	@RequestMapping(value = "/answer/{dsv_code}/{s_id}/delete.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/answer/chdelete.do/{dsv_code}/{s_id}", method = RequestMethod.POST)
 	public ModelAndView chdeleteProc(@PathVariable("dsv_code") String dsv_code
 									,@PathVariable("s_id") String s_id) throws Exception {
 		ModelAndView mav = new ModelAndView();

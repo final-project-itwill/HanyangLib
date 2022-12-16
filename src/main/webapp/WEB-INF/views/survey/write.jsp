@@ -252,7 +252,8 @@
 			
 			//alert(document.querySelector('input[name="od01"]:checked'));
 		} // end
-	alert("성공");
+	alert("성공되었습니다.");
+	window.location.href = "http://localhost:9090/survey/survey";
 	}// function() end
 </script>
    
