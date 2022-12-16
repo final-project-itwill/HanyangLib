@@ -22,21 +22,35 @@
 	
 	
 <!-- 설문 소개. -->
+	<!-- ** 경환 : 설문지코드 자동생성 : s + 날짜(yyyymmdd) + 커뮤니티코드 -->
+	<c:set var="now" value="<%=new java.util.Date()%>" />
+	<c:set var="date"><fmt:formatDate value="${now}" pattern="yyyymmdd" /></c:set> 
+	<c:set var="sv_code" value="s${date}-com001"></c:set>
+	<!-- count 생성 -->
+	<c:set var="c" value='${c+1}'></c:set>
+	<c:if test="${c<10}">
+		<c:set var="anscodeno" value="od0${j}"></c:set>
+	</c:if>
+	<c:if test="${c>=10}">
+		<c:set var="anscodeno" value="od${j}"></c:set>
+	</c:if>
+	
 <div class="site-section bg-light" id="blog-section">
   <div class="container">
-	<h1>설문조사 ${dsv_code} ${s_id}</h1><br>
+	<h1>설문조사 ${sv_code} ${s_id}</h1><br>
 	<!-- <form name="frm1" method="post" action="/survey/create/insert" enctype="multipart/form-dat"> -->
 	<div>
+	<c:set var="oderno" value="1"></c:set>
 		<p class="survey">
 			<input type="hidden" class="sv_id" name="sv_id" value="${s_id}">
 			<input type="hidden" class="sv_comcode" name="sv_comcode" value=""> <!-- 커뮤니티 코드 받아오기 -->
-			<input type="hidden" class="sv_code" name="sv_code" value="${dsv_code}">
+			<input type="hidden" class="sv_code" name="sv_code" value="${sv_code}">
 		제목 : <input type="text" class="sv_title" name="sv_title" placeholder="해당 설문지의 제목을 입력하세요.">
 		</p>
 	</div>
 	<div>
 		<p class="survey">
-		설명 : <input type="text" class="content" name="s_content" placeholder="해당 설문지의 설명을 입력하세요.">
+		설명 : <input type="text" class="sv_des" name="s_content" placeholder="해당 설문지의 설명을 입력하세요.">
 		</p>
 	</div><br><hr><br>
 	
@@ -113,15 +127,24 @@
   </div> <!-- contaioner end -->
 </div> <!-- site-section end -->
 
+
+
+
 	<script>
-    let q_tag = `
+
+		
+	var count = 2;
+	var rcount = 2;
+	var ccount = 2;
+
+	
+    let q_tag = count + `
     <div class="q_div">
 		<input type="text" name="q_title" placeholder="질문의 제목을 입력하세요."></input>
-
 		<select name="q_type" class="q_type">
 			<option value="0" selected>유형을 선택하여주세요</option>
 			<option value="gaek">객관식</option>
-			<option value="ju">주관식</option>
+			<option value="ju">주관식</option>x 
 			<option value="check">체크박스</option>
 			<option value="time">시간</option>
 			<option value="schedule">날짜</option>
@@ -160,51 +183,69 @@
 				<input type="date" name="i_content" readonly></input>	
 				</div>	
 		</div>
+		</div>
 		<button id="btn_Del">질문삭제</button>
-	</div>
 	<br>
 	`; // add end
     
 	//btn_add 클릭 질문 생성
     $(document).on('click', '#btn_add', function () {
-     	$(this).before(q_tag);
+    	$(this).before(q_tag);
+    	count=count+1;
+    	alert(count);
     }); // #btn_add end
 	
 	//btn-Del 클릭 질문 삭제
 	$(document).on('click', '#btn_Del', function (){
         $(this).prev().remove (); // remove the input date
         $(this).remove();		  // remove the button
+        count--;
+        alert(count);
 	}); // #btn_Del end
     
  
-	let a_tag =`
+	let a_tag =rcount+`
 	<div class = "i_div">
 		<input type='radio' name='radio' readonly>
 		<input type='text' name="i_content" placeholder="객관식 답변을 입력"></input>
-		<input type="button" class="Remove" value="답변삭제">
+		<input type="button" class="rRemove" value="답변삭제">
 	</div>
 	`; // radio end
 	
 	let c_tag =`
-	<div class = "i_div">
+	<div class = "i_div">`+ccount+`
 		<input type='checkbox' name='checkbox' readonly>
 		<input type='text' name="i_content" placeholder="체크박스 답변을 입력"></input>
-		<input type="button" class="Remove" value="답변삭제">
+		<input type="button" class="cRemove" value="답변삭제">
 	</div>
 	`; // checkbox end
 			
 	$(document).on('click', '.btn_answer', function(){
+		rcount++;
 		$(this).before(a_tag);
+		alert(rcount);
 	}); // btn_answer.click end
 	
 	$(document).on('click', '.btn_checkans', function(){
+		ccount++;
 		$(this).before(c_tag);
+		alert(ccount);
 	}); // btb_checkans.click end
 	
-	$(document).on('click', '.Remove', function(){
+	$(document).on('click', '.rRemove', function(){
         $(this).prev().remove (); // remove the textbox
         $(this).prev().remove (); // remove the textbox
         $(this).remove (); // remove the button
+        rcount--;
+        alert(rcount);
+	}); // radioRemove.click end
+	
+	$(document).on('click', '.cRemove', function(){
+        $(this).prev().remove (); // remove the textbox
+        $(this).prev().remove (); // remove the textbox
+        $(this).remove (); // remove the button
+		ccount--;
+		alert(ccount);
 	}); // radioRemove.click end
 	
 	$(document).on('change', '.q_type', function() {
@@ -293,7 +334,6 @@
 			questions : questions,
 			sv_id : sv_id
 		};
-		alert(questions);
     
 		console.log(survey);
 		$.ajax({
@@ -307,8 +347,6 @@
 		})
 		.done(function (data) {
 			alert("성공");
-			console.log('success');
-			location.href('/survey/survey');
 		});
 	});
 

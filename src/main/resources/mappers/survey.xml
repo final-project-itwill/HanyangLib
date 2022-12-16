@@ -20,15 +20,26 @@
 		WHERE dsv_code = #{dsv_code}
 	</select>
 	
+	<select id="answer" resultType="kr.co.itwill.survey.AnswerDTO">
+		SELECT ans_no, ans_code, ans_dsvno, ans_order, ans_anscode, ans_id, ans_content
+		FROM answer
+		WHERE ans_code = #{ans_code} AND ans_id = #{ans_id}
+	</select>
+	
 	<select id="choice" resultType="kr.co.itwill.survey.ChoiceDTO">
 		SELECT ch_no, ch_code, ch_dsvno, ch_order, ch_type, ch_anscode, ch_content
 		FROM	choice
 		WHERE ch_code = #{dsv_code}
 	</select>
 	
+	<delete id="ansdelete">
+		DELETE FROM answer
+		WHERE ans_code = #{dsv_code} ANS ans_id = #{s_id}
+	</delete>
+	
 	<insert id="insert" parameterType="kr.co.itwill.survey.AnswerDTO">
 	 	INSERT INTO answer(ans_code, ans_dsvno, ans_order, ans_anscode, ans_id, ans_content)
-		VALUES (#{ans_code}, '3', 'test1', 'test1', 'ksh134625', 'test'  )
+		VALUES (#{ans_code}, '3', #{ans_order}, #{ans_anscode}, 'ksh134625', #{ans_content}  )
 	 </insert>
 	
 	
