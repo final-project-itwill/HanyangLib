@@ -252,9 +252,10 @@ public class BookCon {
 		dto.setLib_id(s_id);
 		mav.addObject("haveBook", loginDao.haveBook(dto));
 		
-		System.out.println("아이디 : "+s_id);
-		System.out.println("책 보유 여부 : " + loginDao.haveBook(dto));
-		System.out.println("구독여부 : " + loginDao.subCheck(s_id));
+		// 정보가 잘 들어오는 지 확인
+		// System.out.println("아이디 : "+s_id);
+		// System.out.println("책 보유 여부 : " + loginDao.haveBook(dto));
+		// System.out.println("구독여부 : " + loginDao.subCheck(s_id));
 		return mav;
 		
 		

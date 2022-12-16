@@ -72,15 +72,18 @@
 	                <ul class="dropdown">
 	                  <li><a href="/notice/list?pageNum=1">공지사항</a></li>
 	                  <li><a href="#">문의</a></li>
+					  <li><a href="/admin/dashboard">관리자 페이지</a></li>
 	                </ul>
 	              </li>
 	        </ul>
 		<ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right menu-absolute">
-            	<li>
-			<a class="font2" href="/login/index" style="font-weight: bold;">
-			<i class="fas fa-user"></i> ${s_id}님
-			</a>
+           	<li>
+				<a class="font2" href="/login/index" style="font-weight: bold;">
+					<i class="fas fa-user"></i> ${s_id}님
+				</a>
         	</li>
+        	<!-- 장바구니 목록 추가 -->
+            <li><a href="/cart/cartList" style="font-weight: bold;"><i class="fas fa-shopping-cart"></i></a></li>
         	</ul>
         	<a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
 	          <span></span>
@@ -119,6 +122,8 @@
         			</a>
         		</li>
             </ul>
+            <!-- 장바구니 목록 추가 -->
+            <li><a href="/cart/cartList" style="font-weight: bold;"><i class="fas fa-shopping-cart"></i></a></li>
        		<a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
 	          <span></span>
 	        </a>

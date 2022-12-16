@@ -46,7 +46,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/comm/index">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="/static/images/hanyanglogo_w.png"></i>
             </div>
@@ -97,12 +97,13 @@
                     <h6 class="collapse-header">구독</h6>
                     <a class="collapse-item" href="#">구독자 현황</a>
                     <a class="collapse-item" href="#">구독서비스 수정</a>
-                    <a class="collapse-item" href="#">신청서 삭제</a>
-                    <a class="collapse-item" href="#">신청서 결과 확인</a>
+                    <a class="collapse-item" href="#"></a>
+                    <a class="collapse-item" href="#"></a>
                     <h6 class="collapse-header">도서</h6>
-                    <a class="collapse-item" href="#">상품 현황</a>
-                    <a class="collapse-item" href="#">도서 insert</a>
-                    <a class="collapse-item" href="#">도서 수정/삭제</a>
+                    <a class="collapse-item" href="/admin/productmain">Dashboard</a>
+                    <a class="collapse-item" href="/admin/productinsert">신규도서 등록</a>
+                    <a class="collapse-item" href="/admin/productlist">도서 관리</a>
+                    <a class="collapse-item" href="/admin/productinquiry">도서 문의</a>
                 </div>
             </div>
         </li><!-- Nav 상품 관리 끝 -->
@@ -113,13 +114,16 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                aria-expanded="true" aria-controls="collapsePages">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>3. 문의 관리</span>
+                <span>3. 고객센터 관리</span>
             </a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">공지사항과 문의관리는 여기서!</h6>
-                    <a class="collapse-item" href="#">공지사항 쓰기</a>
-                    <a class="collapse-item" href="#">공지사항 삭제</a>
+                    <a class="collapse-item" href="#">공지사항 목록</a>
+                    <a class="collapse-item" href="#">공지사항 등록</a>
+                    <h6 class="collapse-header">1:1문의</h6>
+                    <a class="collapse-item" href="#">문의 접수 및 답변</a>
+                    <a class="collapse-item" href="#"></a>
                 </div>
             </div>
         </li><!-- Nav 문의 관리 끝 -->
