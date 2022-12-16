@@ -4,53 +4,47 @@
 <%@ include file="../header.jsp"%>
 <!-- 본문작성 시작 -->
 <div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/libbg.jpg'); height: 40vh;"></div>
+<div class="section-latest">
 <div class="container">
-   
-   <h3>장바구니 목록</h3>
-     <div class="container">
-      <form method="post" action="search" class="form-group">
-          상품명 : <input type="text" name="" value="">
-                  <input type="submit" class="" value="검색">
-      </form>
-   </div>
-    <form name="cartview" method="post">
-    <table border="1" class="table table-hover">
-        <tr>
-            <td class="info">구매한 정보</td>
-            <td><input type="text" name="" id=""></td>
-        </tr>
-         <tr>
-            <td class="info">상품가격</td>
-            <td><input type="number" name="" id=""></td>
-        </tr>
-        <tr>
-            <td class="info">상품설명</td>
-            <td><input type="text" name="" id=""></td>
-        </tr>
-        <tr>
-            <td class="info">출판사</td>
-            <td><input type="text" name="" id=""></td>
-        </tr>
-        <tr>
-            <td class="info">출판일</td>
-            <td><input type="text" name="" id=""></td>
-        </tr>
-        <tr>
-            <td colspan="2" align="center">
-                <input type="hidden" name="">
-                <input type="button" class="btn btn-success" value="결제하러가기" onclick="location.href='/payment/paymentview'">
-                <input type="button" class="btn btn-danger" value="eBook구경하기">
-                <button type="button" class="btn btn-danger" onclick="javascript.history.back()">뒤로가기</button>
-            </td>
-        </tr>
-      </table>
-    </form>
-   
-   </div>
+        <div class="row gutter-v1 align-items-stretch mb-5">
+          <div class="col-12">
+            <h2 class="section-title">장바구니</h2>
+          </div>
+          <div class="col-md-9 pr-md-5">
+            <div class="row">
+              <div class="col-12">
+                <div class="post-entry horizontal d-md-flex">
+                  <div class="media">
+                    <a href="#"><img src="images/img_h_3.jpg" alt="Image" class="img-fluid"></a>
+                  </div>
+                  <div class="text">
+                    <div class="meta">
+                      <span>May 10, 2020</span>
+                      <span>&bullet;</span>
+                      <span>5 mins read</span>
+                    </div>
+                    <h2><a href="#">Far far away behind the Word Mountains far from Away</a></h2>
+                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-
-
-
+          <div class="col-md-3">
+            <div class="floating-block sticky text-center" style="position: sticky; top: 0px;">
+              <h2 class="mb-3 text-black">결제</h2>
+              <p>금액을 확인해주세요</p>
+              <form action="#">
+                <input type="email" class="form-control mb-2" placeholder="Enter email">
+                <input type="submit" value="Subscribe" class="btn btn-primary btn-block">
+              </form>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
 
 
 <!-- 본문작성 끝 -->

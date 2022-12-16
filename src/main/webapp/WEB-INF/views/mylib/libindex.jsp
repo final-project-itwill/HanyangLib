@@ -86,9 +86,9 @@
 					</td>
 				</tr>
 				<tr class="col-12 col-xs-12 col-sm-4 col-lg-4">
-				<c:forEach items="${libRead}" var="read" varStatus="vs">
+				<c:forEach items="${libThree}" var="read" varStatus="vs">
 					<c:choose>
-					<c:when test="${fn:length(libRead)==1}">
+					<c:when test="${fn:length(libThree)==1}">
 					<td colspan="4">
 						<div style="text-align: center;">
 						<c:choose>

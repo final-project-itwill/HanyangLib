@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import kr.co.itwill.member.LoginDAO;
+import kr.co.itwill.member.LoginDTO;
+import kr.co.itwill.mylib.MylibDTO;
 
 
 @Controller
@@ -31,6 +36,11 @@ public class BookCon {
 
 	@Autowired
 	BookDAO bookDao;
+	
+	// *****경환 수정*****
+	// 회원 정보 확인을 위한 DAO 객체 생성
+	@Autowired
+	LoginDAO loginDao;
 	
 
 	@RequestMapping("/booklist")
@@ -221,15 +231,33 @@ public class BookCon {
 		return mav;		
     }//bookcate_h() end
 	
-	
-	
+	// ***경환수정***
+	// 로그인 했을 때도 페이지를 불러오기 위한 명령어	
 	@RequestMapping("/bookdetail/{b_code}")
-	public ModelAndView bookdetail(@PathVariable String b_code) throws Exception {
+	public ModelAndView bookdetail(@PathVariable String b_code, HttpSession session) throws Exception {
+		String s_id = (String)session.getAttribute("s_id");
+		
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("book/bookdetail");
 		mav.addObject("book", bookDao.bookdetail(b_code));
 		
+		// *****경환수정*****
+		// 구독 여부를 확인하기(1이면 구독, 0이면 구독 안함)
+		mav.addObject("subs", loginDao.subCheck(s_id));
+		
+		// 선택한 책을 보유하고 있는지 확인하기
+		// DTO에 저장한 뒤 haveBook의 결과가 1이면 보유, 0이면 미보유
+		MylibDTO dto = new MylibDTO();
+		dto.setLib_bcode(b_code);
+		dto.setLib_id(s_id);
+		mav.addObject("haveBook", loginDao.haveBook(dto));
+		
+		System.out.println("아이디 : "+s_id);
+		System.out.println("책 보유 여부 : " + loginDao.haveBook(dto));
+		System.out.println("구독여부 : " + loginDao.subCheck(s_id));
 		return mav;
+		
+		
 	}
 	
 	

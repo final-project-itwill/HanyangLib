@@ -136,7 +136,22 @@ public class SurveyCont {
 		return mav;
 	} // updateProc() end
 	
+	// 경환 작업 따로 기록
+	// 설문지 생성페이지로 연결하는 컨트롤러
+	@RequestMapping("/formCreate/{sv_code}")
+	public ModelAndView formCreate(@PathVariable String sv_code) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("survey/createForm");
+		mav.addObject("sv_code",sv_code);
+	return mav;
+	} // formCreate() end
 	
+	// 설문지를 생성시키는 컨트롤러
+	@RequestMapping("/createProc")
+	public ModelAndView createProc() {
+		ModelAndView mav = new ModelAndView();
+		return mav;
+	}	
 	
 	
 }// class end

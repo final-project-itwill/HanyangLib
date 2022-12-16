@@ -38,6 +38,7 @@ public class MylibCont {
 		mav.addObject("book80Count", mylibDao.get80Count(lib_id));
 		mav.addObject("libInfo", mylibDao.getLibInfo(lib_id));
 		mav.addObject("libRead", mylibDao.getLibRead(lib_id));
+		mav.addObject("libThree", mylibDao.getLibThree(lib_id));
 		mav.addObject("commuRead", mylibDao.getCommuRead(lib_id));
 		mav.addObject("review", mylibDao.getReviewList(lib_id));
 		mav.addObject("vsCount", visitorDao.getVsCount(lib_id));
@@ -186,6 +187,19 @@ public class MylibCont {
 
         return "redirect:/mylib/reviewRead?br_no="+br_no;     //행 수정 후 목록으로 이동
     }//update() end
+    
+	// 나만의 서재에 책 insert
+	@RequestMapping({"/libInsert/{b_code}/{s_id}"})
+	public ModelAndView list(@PathVariable("b_code") String b_code, @PathVariable("s_id") String s_id) throws Exception {
+		MylibDTO lib = new MylibDTO();
+		lib.setLib_bcode(b_code);
+		lib.setLib_id(s_id);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("insert", mylibDao.getBook(lib));
+		mav.setViewName("redirect:/mylib/libindex/"+s_id);
+		return mav;
+	}
 	
 	
 } // class end

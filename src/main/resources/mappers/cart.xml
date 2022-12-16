@@ -3,6 +3,12 @@
 
 <mapper namespace="cart">
 		
-		
+	<select id="gdCheck" parameterType="kr.co.itwill.member.MemberDTO" resultType="String">
+		<![CDATA[
+			SELECT m_gudok
+			FROM member
+			WHERE m_id = #{s_id} 
+		]]>
+	</select>	
 	
 </mapper>
