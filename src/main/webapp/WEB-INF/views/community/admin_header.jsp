@@ -59,7 +59,7 @@
 
     <c:choose>
     <%-- 로그인 ID가 해당 커뮤니티 생성자일 때 --%>
-    <c:when test="${checkOwner == s_id}">
+    <c:when test="${checkOwner == s_id  || grade == 'A'}">
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
             <a class="nav-link" href="/comm/admin/${read.c_code}">

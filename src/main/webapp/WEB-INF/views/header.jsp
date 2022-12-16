@@ -72,6 +72,7 @@
 	                <ul class="dropdown">
 	                  <li><a href="/notice/list?pageNum=1">공지사항</a></li>
 	                  <li><a href="#">문의</a></li>
+					  <li><a href="/admin/dashboard">관리자 페이지</a></li>
 	                </ul>
 	              </li>
 	        </ul>
