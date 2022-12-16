@@ -340,8 +340,6 @@ public class CommunityCont {
         mav.addObject("approvedMember", commDao.approvedMember(c_code));
         mav.addObject("waitingMember", commDao.waitingMember(c_code));
         mav.addObject("checkOwner", commDao.checkOwner(c_code));
-        mav.addObject("approvedMemberCnt", commDao.approvedMemberCnt(c_code));
-        mav.addObject("waitingMemberCnt", commDao.waitingMemberCnt(c_code));
         return mav;
     }//adminMember() end
 

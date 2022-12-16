@@ -128,22 +128,11 @@ public class CommunityDAO {
         return sqlSession.selectList("community.approvedMember", c_code);
     }//approvedMember() end
 
-    public int approvedMemberCnt(String c_code){
-        int cnt = 0;
-        cnt = sqlSession.selectOne("community.approvedMemberCnt", c_code);
-        return cnt;
-    }//approvedMemberCnt() end
 
     //기다리는 멤버
     public List<AdminMemberDTO> waitingMember(String c_code){
         return sqlSession.selectList("community.waitingMember", c_code);
     }//approvedMember() end
-
-    public int waitingMemberCnt(String c_code){
-        int cnt = 0;
-        cnt = sqlSession.selectOne("community.waitingMemberCnt", c_code);
-        return cnt;
-    }//waitingMemberCnt() end
 
 
     //회원 업데이트 한 번에 하기

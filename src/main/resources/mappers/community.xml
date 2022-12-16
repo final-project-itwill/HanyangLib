@@ -187,12 +187,6 @@
         ORDER BY s_rdate DESC
     </select>
 
-    <!-- 인원수 -->
-    <select id="approvedMemberCnt" resultType="int">
-        SELECT count(*)
-        FROM community_signup
-        WHERE s_code = #{c_code} AND s_state = 's'
-    </select>
 
     <!-- 가입 대기/거절 목록 -->
     <select id="waitingMember" resultType="kr.co.itwill.community.AdminMemberDTO">
@@ -208,13 +202,6 @@
                           ON AA.c_bcode = M.lib_bcode
                           AND AA.s_id = M.lib_id
         ORDER BY s_state
-    </select>
-
-    <!-- 인원수 -->
-    <select id="waitingMemberCnt" resultType="int">
-        SELECT COUNT(*)
-        FROM community_signup
-        WHERE s_code = #{c_code} AND s_state not in('s')
     </select>
 
 

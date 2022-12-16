@@ -27,7 +27,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:if test="${approvedMemberCnt == 0}">
+                            <c:if test="${fn:length(approvedMember) == 0}">
                                 <tr>
                                     <td colspan="4" style="text-align: center;">아직 활동하는 회원이 없습니다.</td>
                                 </tr>
@@ -110,7 +110,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:if test="${waitingMemberCnt == 0}">
+                            <c:if test="${fn:length(waitingMember) == 0}">
                                 <tr>
                                     <td colspan="7" style="text-align: center;">커뮤니티 가입 승인을 기다리고 있는 회원들이 없습니다</td>
                                 </tr>
