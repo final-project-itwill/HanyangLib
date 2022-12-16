@@ -33,6 +33,7 @@ public class CommunityCont {
     public ModelAndView index(HttpSession session){
         ModelAndView mav = new ModelAndView();
         mav.addObject("newComm", commDao.newComm());             //최신 커뮤니티 3개 출력
+        mav.addObject("mdPick", commDao.mdPick());               //MD Pick 3개 출력
 
         String loginID = (String) session.getAttribute("s_id");           //로그인id
         mav.addObject("listMylib", commDao.listMylib(loginID));  //커뮤니티 생성시 내서재 조회하기
@@ -339,6 +340,8 @@ public class CommunityCont {
         mav.addObject("approvedMember", commDao.approvedMember(c_code));
         mav.addObject("waitingMember", commDao.waitingMember(c_code));
         mav.addObject("checkOwner", commDao.checkOwner(c_code));
+        mav.addObject("approvedMemberCnt", commDao.approvedMemberCnt(c_code));
+        mav.addObject("waitingMemberCnt", commDao.waitingMemberCnt(c_code));
         return mav;
     }//adminMember() end
 

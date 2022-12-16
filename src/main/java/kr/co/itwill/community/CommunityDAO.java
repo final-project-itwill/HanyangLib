@@ -40,7 +40,13 @@ public class CommunityDAO {
     }//search() end
 
 
-    //index페이지 커뮤니티 최신순 3개 출력
+    //메인페이지 커뮤니티 3개씩 출력
+    //MD Pick
+    public List<BookReadDTO> mdPick(){
+        return sqlSession.selectList("community.mdPick");
+    }//mdPick() end
+
+    //최신순
     public List<BookReadDTO> newComm(){
         return sqlSession.selectList("community.newComm");
     }//newComm() end
@@ -118,14 +124,26 @@ public class CommunityDAO {
     }//star() end
 
     //승인된 멤버
-    public List<CommSignDTO> approvedMember(String c_code){
+    public List<AdminMemberDTO> approvedMember(String c_code){
         return sqlSession.selectList("community.approvedMember", c_code);
     }//approvedMember() end
 
+    public int approvedMemberCnt(String c_code){
+        int cnt = 0;
+        cnt = sqlSession.selectOne("community.approvedMemberCnt", c_code);
+        return cnt;
+    }//approvedMemberCnt() end
+
     //기다리는 멤버
-    public List<CommSignDTO> waitingMember(String c_code){
+    public List<AdminMemberDTO> waitingMember(String c_code){
         return sqlSession.selectList("community.waitingMember", c_code);
     }//approvedMember() end
+
+    public int waitingMemberCnt(String c_code){
+        int cnt = 0;
+        cnt = sqlSession.selectOne("community.waitingMemberCnt", c_code);
+        return cnt;
+    }//waitingMemberCnt() end
 
 
     //회원 업데이트 한 번에 하기
