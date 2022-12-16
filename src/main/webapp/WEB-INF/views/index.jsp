@@ -61,8 +61,6 @@
           	<li><a href="/gudok/detail" style="font-weight: bold;">구독</a></li>
 	          	<li><a href="/mylib/libindex/${s_id}" style="font-weight: bold;">나만의 서재</a></li>
 	          	<li><a href="/comm/index" style="font-weight: bold;">커뮤니티</a></li>
-	          	 <!-- 장바구니 목록 추가 -->
-	            <li><a href="/cart/cartview" style="font-weight: bold;">장바구니</a></li>
               	<li class="has-children">
               		<a href="#" style="font-weight: bold;">고객센터</a>
 	                <ul class="dropdown">
@@ -78,6 +76,8 @@
         			<i class="fas fa-user"></i> ${s_id}님
         			</a>
         		</li>
+        		<!-- 장바구니 목록 추가 -->
+	            <li><a href="/cart/cartList" style="font-weight: bold;"><i class="fas fa-shopping-cart"></i></a></li>
         	</ul>
         	<a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
 	          <span></span>
@@ -101,8 +101,6 @@
    	        <li><a href="/login/index" style="font-weight: bold;">구독</a></li>
 	          	<li><a href="/login/index" style="font-weight: bold;">나만의 서재</a></li>
 	          	<li><a href="/login/index" style="font-weight: bold;">커뮤니티</a></li>
-	          	<!-- 장바구니 목록 추가 -->
-	            <li><a href="/cart/cartview" style="font-weight: bold;">장바구니</a></li>
               	<li class="has-children">
               		<a href="#" style="font-weight: bold;">고객센터</a>
 	                <ul class="dropdown">
@@ -117,6 +115,8 @@
         				<i class="fas fa-sign-in-alt"></i> 로그인
         			</a>
         		</li>
+        		<!-- 장바구니 목록 추가 -->
+	            <li><a href="/cart/cartList" style="font-weight: bold;"><i class="fas fa-shopping-cart"></i></a></li>
             </ul>
        		<a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
 	          <span></span>
