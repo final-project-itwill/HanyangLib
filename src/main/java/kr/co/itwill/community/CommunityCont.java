@@ -338,7 +338,7 @@ public class CommunityCont {
         mav.addObject("read", commDao.read(c_code));
         mav.addObject("approvedMember", commDao.approvedMember(c_code));
         mav.addObject("waitingMember", commDao.waitingMember(c_code));
-
+        mav.addObject("checkOwner", commDao.checkOwner(c_code));
         return mav;
     }//adminMember() end
 
@@ -349,7 +349,7 @@ public class CommunityCont {
         mav.setViewName("community/surveyChart");
 
         mav.addObject("read", commDao.read(c_code));
-
+        mav.addObject("checkOwner", commDao.checkOwner(c_code));
         return mav;
     }//surveyChart() end
 
