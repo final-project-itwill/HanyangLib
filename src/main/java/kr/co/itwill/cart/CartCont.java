@@ -16,11 +16,10 @@ public class CartCont {
 	@Autowired
 	CartDAO cartDao;
 	
-	@RequestMapping("/cartview")
+	@RequestMapping("/cartList")
 	public ModelAndView cartview() {
 		ModelAndView mav=new ModelAndView();
-		
-		mav.setViewName("cart/cart");
+		mav.setViewName("cart/list");
 		return mav;
 	}//list() end
 	
