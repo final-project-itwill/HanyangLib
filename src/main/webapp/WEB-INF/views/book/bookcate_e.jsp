@@ -54,7 +54,7 @@
 								<span>출판사 ${dto.b_publish}</span> <span>&bullet;</span> <span>작가 ${dto.b_author}</span>
 							</div>
 							<h2>
-								<a href="#" style="color: #906D3B">${dto.b_name}</a>
+								<a href="/book/bookdetail/${dto.b_code}" style="color: #906D3B">${dto.b_name}</a>
 							</h2>
 							<p>출판일 ${dto.b_rdate}</p>
 							<p>${dto.b_des}</p>

@@ -45,26 +45,41 @@
 		]]>	
 	</select>
 
-	<select id="libRead" resultType="kr.co.itwill.mylib.LibReadDTO">
+	<select id="libThree" resultType="kr.co.itwill.mylib.LibReadDTO">
 		<![CDATA[
-		SELECT b_code, b_bookcover, b_name, lib_proc
+		SELECT lib_no, b_code, b_bookcover, b_name, lib_proc
 		FROM (
-			SELECT lib_bcode, lib_proc
+			SELECT lib_no, lib_bcode, lib_proc
 			FROM mylib
 			WHERE lib_id = #{lib_id}
-			) AA RIGHT OUTER JOIN (
+			) AA LEFT OUTER JOIN (
 			SELECT b_code, b_bookcover, b_name
 			FROM book
 			) BB
 		ON AA.lib_bcode = BB.b_code
-		WHERE AA.lib_proc IS NOT NULL LIMIT 3
+		ORDER BY lib_no DESC LIMIT 3
+		]]>	
+	</select>
+
+	<select id="libRead" resultType="kr.co.itwill.mylib.LibReadDTO">
+		<![CDATA[
+		SELECT lib_no, b_code, b_bookcover, b_name, lib_proc
+		FROM (
+			SELECT lib_no, lib_bcode, lib_proc
+			FROM mylib
+			WHERE lib_id = #{lib_id}
+			) AA LEFT OUTER JOIN (
+			SELECT b_code, b_bookcover, b_name
+			FROM book
+			) BB
+		ON AA.lib_bcode = BB.b_code
 		]]>	
 	</select>
 	
 	<insert id="getBook">
 		<![CDATA[
-		INSERT INTO mylib(lib_id, lib_bcode, lib_proc)
-		VALUES (#{lib_id}, #{lib_bcode}, 0);
+		INSERT INTO mylib(lib_id, lib_bcode)
+		VALUES (#{lib_id}, #{lib_bcode});
 		]]>
 	</insert>
 	

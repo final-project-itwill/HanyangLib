@@ -11,4 +11,20 @@
 		]]>
 	</select>
 
+	<select id="subCheck" parameterType="kr.co.itwill.member.LoginDTO" resultType="int">
+		<![CDATA[
+			SELECT COUNT(m_gudok)
+			FROM member
+			WHERE m_id = #{s_id}		
+		]]>
+	</select>
+	
+	<select id="haveBook" parameterType="kr.co.itwill.member.LoginDTO" resultType="int">
+		<![CDATA[
+			SELECT COUNT(lib_bcode)
+			FROM mylib
+			WHERE lib_id = #{lib_id} AND lib_bcode = #{lib_bcode}		
+		]]>
+	</select>
+	
 </mapper>

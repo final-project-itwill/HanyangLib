@@ -7,8 +7,7 @@
 * Twitter: https://twitter.com/Untree_co
 * Facebook: https://web.facebook.com/Untree.co/
 */
-html {
-  overflow-x: hidden; }
+html { }
 
 body {
   font-family: "Montserrat", sans-serif;
@@ -2055,4 +2054,12 @@ div, ul, li {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizi
 .lib-info {
 	margin: 0px;
 	text-align: center;
+}
+
+/* 결재창 sticky-top*/
+.sticky {
+	position: -webkit-sticky;
+	position: sticky;
+    top: 0;
+    z-index: 1020;
 }

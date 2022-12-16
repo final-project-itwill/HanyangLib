@@ -37,16 +37,19 @@ public class MylibDAO {
 		return sqlSession.selectList("mylib.libInfoRead", lib_id);
 	} // getLibInfo() end
 	
-	// 도서 정보 가져오기(도서 이름, 도서 커버 이름, 진행률)
+	// 도서 정보 3권 가져오기(도서 이름, 도서 커버 이름, 진행률)
+	public List<LibReadDTO> getLibThree(String lib_id) throws Exception {
+		return sqlSession.selectList("mylib.libThree", lib_id);
+	} // getLibRead() end
+	
+	// 도서 정보 전체 가져오기(도서 이름, 도서 커버 이름, 진행률)
 	public List<LibReadDTO> getLibRead(String lib_id) throws Exception {
 		return sqlSession.selectList("mylib.libRead", lib_id);
 	} // getLibRead() end
 	
 	// 나만의 서재에 책 추가하기
-	public int getBook() throws Exception {
-		int cnt = 0;
-		cnt = sqlSession.insert("mylib.getBook");
-		return cnt;
+	public int getBook(MylibDTO dto) throws Exception {
+		return sqlSession.insert("mylib.getBook", dto);
 	} // getBook() end
 	
 	// 나만의 서재의 커뮤니티 목록 조회

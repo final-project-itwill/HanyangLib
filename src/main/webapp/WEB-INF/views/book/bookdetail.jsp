@@ -12,7 +12,6 @@
     <meta name="robots" content="noindex">
     <!-- 구글 검색엔진 웹 크롤러만 차단 -->
     <meta name="googlebot" content="noindex">
-    <link rel="shortcut icon" href="favicon.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -150,8 +149,49 @@
 	            <tr>
 		            <td colspan="2" align="center">
 			            <input type="hidden" name="product_code" value="${book.b_code}">
+			            
+			<!-- 구매 관련 버튼 로직 시작 -->
+			<!-- 로그인 한 아이디가 없다면 -->
+			<c:if test="${s_id eq null}">
 			            <input type="button" value="장바구니" onclick="#"> 
-			            <input type="button" value="바로결제" onclick="#"> 
+			            <input type="button" value="바로결제" onclick="#">
+			</c:if>
+			<!-- 로그인 상태라면 -->
+			<c:if test="${s_id ne null}">
+				<%-- 이 책이 구독 가능이라면 --%>
+				<c:if test="${book.b_gudok eq 'Y'}">
+					<%-- 구독을 한 상태라면 --%>
+					<c:if test="${subs eq 1}">
+						<%-- 이 책을 보유하지 않았다면 --%>
+						<c:if test="${haveBook eq 0}">
+							<input type="button" value="나만의 서재에 담기" onClick="location.href='/mylib/libInsert/${book.b_code}/${s_id}'">
+						</c:if>
+						<%-- 이 책을 보유했다면 --%>
+						<c:if test="${haveBook eq 1}">
+							<input type="button" disabled value="이미 책을 보유하고 계십니다">
+						</c:if>
+					</c:if>
+					<%-- 구독을 하지 않은 상태라면 --%>
+					<c:if test="${subs eq 0}">
+				    		<input type="button" value="장바구니" onclick="#"> 
+				            <input type="button" value="바로결제" onclick="#">
+				    </c:if>
+				</c:if>
+				<%-- 이 책이 구독 불가능이라면 --%>
+				<c:if test="${book.b_gudok eq 'N'}">
+					<%-- 이 책을 보유하지 않았다면 --%>
+					<c:if test="${haveBook eq 0}">
+						<input type="button" value="장바구니" onclick="#"> 
+				            <input type="button" value="바로결제" onclick="#">
+					</c:if>
+					<%-- 이 책을 보유했다면 --%>
+					<c:if test="${haveBook eq 1}">
+						<input type="button" disabled value="이미 책을 보유하고 계십니다">
+					</c:if>
+				</c:if>
+			</c:if> 
+			<!-- 구매 관련 버튼 로직 끝 -->
+			
 		            </td>
 	            </tr>   
             </table>
