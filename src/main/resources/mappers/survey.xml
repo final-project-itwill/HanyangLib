@@ -14,12 +14,6 @@
 		WHERE dsv_code = #{dsv_code}
 	</select>
 	
-	<select id="count" resultType="int">
-		SELECT COUNT(*)
-		FROM dsurvey
-		WHERE dsv_code = #{dsv_code}
-	</select>
-	
 	<select id="choice" resultType="kr.co.itwill.survey.ChoiceDTO">
 		SELECT ch_no, ch_code, ch_dsvno, ch_order, ch_type, ch_anscode, ch_content
 		FROM	choice
@@ -28,14 +22,14 @@
 	
 	<insert id="insert" parameterType="kr.co.itwill.survey.AnswerDTO">
 	 	INSERT INTO answer(ans_code, ans_dsvno, ans_order, ans_anscode, ans_id, ans_content)
-		VALUES (#{ans_code}, '3', 'test1', 'test1', 'ksh134625', 'test'  )
+		VALUES (#{ch_code}, #{ch_dsvno}, #{ch_order}, #{ch_anscode}, "cloudd81", #{ch_content}  )
 	 </insert>
 	
 	
 	<!-- answer -->
 	<insert id="surveyWrite" parameterType="kr.co.itwill.survey.SurveyDTO">
 		INSERT INTO survey( sv_code, sv_comcode, sv_id, sv_title, sv_des, sv_edate, sv_max )
-		VALUES ( "s221121-003","com002", #{sv_id}, #{sv_title}, #{sv_des}, now(), 3 )
+		VALUES ( "s221121-003","com002", "mimimi05", #{sv_title}, #{sv_des}, now(), 3 )
 	</insert>
 	
 	<delete id="delete">

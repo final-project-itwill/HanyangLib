@@ -2,7 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="cart">
-		
+	
+	
+	<select id="read">
+		SELECT cart_code, cart_id
+		FROM cart  join book
+		ON cart.cart_code = book.b_code
+		WHERE cart_id=
+	
+	</select>
+	
+	<insert id="cartinsert">
+		INSERT INTO cart (cart_code, cart_id)
+		VALUES (cart_coe=#{b_code},car_id=#{m_id} )
+	
+	</insert>
+	
+	
+	
+	
+	
+	
+	
 		
 	
 </mapper>

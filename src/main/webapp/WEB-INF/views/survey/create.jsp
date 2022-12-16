@@ -21,14 +21,13 @@
 </style>
 	
 	
-<!-- 설문 소개. -->
+<!-- 설문 소개. -->	
 <div class="site-section bg-light" id="blog-section">
   <div class="container">
-	<h1>설문조사 ${dsv_code} ${s_id}</h1><br>
+	<h1>설문조사 ${dsv_code}</h1><br>
 	<!-- <form name="frm1" method="post" action="/survey/create/insert" enctype="multipart/form-dat"> -->
 	<div>
 		<p class="survey">
-			<input type="hidden" class="sv_id" name="sv_id" value="${s_id}">
 			<input type="hidden" class="sv_comcode" name="sv_comcode" value=""> <!-- 커뮤니티 코드 받아오기 -->
 			<input type="hidden" class="sv_code" name="sv_code" value="${dsv_code}">
 		제목 : <input type="text" class="sv_title" name="sv_title" placeholder="해당 설문지의 제목을 입력하세요.">
@@ -36,9 +35,10 @@
 	</div>
 	<div>
 		<p class="survey">
-		설명 : <input type="text" class="content" name="s_content" placeholder="해당 설문지의 설명을 입력하세요.">
+		설명 : <input type="text" class="sv_des" name="sv_des" placeholder="해당 설문지의 설명을 입력하세요.">
 		</p>
-	</div><br><hr><br>
+	</div>
+	<br><hr><br>
 	
 <!-- 설문지 작 -->	
 
@@ -110,6 +110,7 @@
 	<div>
 		<button type="button" id="btn_survey">작성완료</button>
 	</div>
+	<!-- </form> -->
   </div> <!-- contaioner end -->
 </div> <!-- site-section end -->
 
@@ -159,10 +160,9 @@
 				<div class="i_div">
 				<input type="date" name="i_content" readonly></input>	
 				</div>	
-		</div>
-		<button id="btn_Del">질문삭제</button>
+		</div>		
 	</div>
-	<br>
+	<button id="btn_Del">질문삭제</button><br>
 	`; // add end
     
 	//btn_add 클릭 질문 생성
@@ -256,7 +256,6 @@
 		let sv_code = $('p.survey').find('input.sv_code').val();
 		let sv_title = $('p.survey').find('input.sv_title').val();
 		let sv_des = $('p.survey').find('input.sv_des').val();
-		let sv_id = $('p.survey').find('input.sv_id').val();
 		
 		
 		let questions = [];
@@ -290,11 +289,10 @@
 			sv_code : sv_code,
 			sv_title : sv_title,
 			sv_des : sv_des,
-			questions : questions,
-			sv_id : sv_id
+			questions : questions
 		};
-		alert(questions);
-    
+
+		
 		console.log(survey);
 		$.ajax({
 			type: "post",
@@ -302,13 +300,11 @@
 			contentType: "application/json",
 			data: JSON.stringify(survey),
 			success:function(data){
-				alert(data);
 			}
 		})
 		.done(function (data) {
 			alert("성공");
 			console.log('success');
-			location.href('/survey/survey');
 		});
 	});
 

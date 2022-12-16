@@ -154,26 +154,5 @@
         ]]>
     </select>
 
-    <!-- 해당 커뮤니티 후기 평점 -->
-    <select id="star" resultType="int" parameterType="String">
-        <![CDATA[
-        SELECT round(avg(ac_manjok))
-        FROM community_ac
-        WHERE ac_ccode = #{c_code}
-        ]]>
-    </select>
-
-    <!-- 관리자 페이지 구성원 목록 -->
-    <select id="approvedMember" resultType="kr.co.itwill.community.CommSignDTO">
-        SELECT s_no, s_code , s_id, s_nick, s_state, s_surveycode, s_rdate
-        FROM community_signup
-        WHERE s_code = #{c_code} AND s_state = 's'
-    </select>
-
-    <select id="waitingMember" resultType="kr.co.itwill.community.CommSignDTO">
-        SELECT s_no, s_code , s_id, s_nick, s_state, s_surveycode, s_rdate
-        FROM community_signup
-        WHERE s_code = #{c_code} AND s_state not in('s')
-    </select>
 
 </mapper>

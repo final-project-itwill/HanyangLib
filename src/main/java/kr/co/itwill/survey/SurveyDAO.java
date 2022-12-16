@@ -28,10 +28,6 @@ public class SurveyDAO {
 	public List<DsurveyDTO> svTitle(String dsv_code) throws Exception {
 		return sqlSession.selectList("survey.title", dsv_code);
 	}// detail() end
-	// 커뮤니티 count 가져오기
-	public int svCount(String dsv_code) throws Exception {
-		return sqlSession.selectOne("survey.count", dsv_code);
-	}// svCount() end
 	
 	// 커뮤니티 가입 신청서의 문항별 세부 선택 사항 조회
 	public List<ChoiceDTO> svChoice(String dsv_code) throws Exception {
@@ -58,7 +54,7 @@ public class SurveyDAO {
 	} // update() end
 	
 	
-	public int surveyWrite(SurveyDTO survey) { 
+	public int surveyWrite(SurveyDTO survey) {
 		return sqlSession.insert("survey.surveyWrite", survey);
 	}// choiceinsert() end
 	

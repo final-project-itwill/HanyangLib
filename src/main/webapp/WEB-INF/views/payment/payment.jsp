@@ -35,7 +35,7 @@
             <td colspan="2" align="center">
                 <input type="hidden" name="">
                 <input type="button" class="btn btn-success" value="eBook구경하기">
-                <button type="button" class="btn btn-danger" onclick="javascript.history.back()">뒤로가기</button>
+                <button type="button" class="btn btn-danger" onclick="javascript:history.back()">뒤로가기</button>
             </td>
         </tr>
       </table>

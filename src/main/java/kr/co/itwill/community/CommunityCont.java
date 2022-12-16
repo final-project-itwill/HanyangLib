@@ -310,37 +310,4 @@ public class CommunityCont {
         return reviewDAO.updateReview(dto);
     }//updateReview() end
 
-
-
-    /*
-    * 관리자 페이지 관련 컨트롤러
-    *
-    * */
-
-    @RequestMapping("/admin/{c_code}")
-    public ModelAndView admin(@PathVariable String c_code){
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("community/admin");
-        mav.addObject("read", commDao.read(c_code));
-        mav.addObject("star", commDao.star(c_code));
-        mav.addObject("reviewCnt", commDao.reviewCnt(c_code));
-        return mav;
-    }//admin() end
-
-    // 1. 구성원 관리 페이지
-    @RequestMapping("/adminmember/{c_code}")
-    public ModelAndView adminMember(@PathVariable String c_code){
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("community/adminMember");
-
-        mav.addObject("read", commDao.read(c_code));
-        mav.addObject("approvedMember", commDao.approvedMember(c_code));
-        mav.addObject("waitingMember", commDao.waitingMember(c_code));
-
-        return mav;
-    }//adminMember() end
-
-
-
-
 }//class end

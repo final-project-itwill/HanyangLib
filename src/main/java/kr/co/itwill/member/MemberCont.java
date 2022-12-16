@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-@RequestMapping("/member")
+
 @Controller
+@RequestMapping("/member")
 public class MemberCont {
 	// 객체 생성 생성자 함수
 	public MemberCont() {
@@ -52,17 +53,11 @@ public class MemberCont {
 		return mav;
 	}// welcomform() end
 
-	// 아이디 중복확인 페이지 불러오기
-	@RequestMapping("idcheckform.do")
-	public String idCheckform() {
-		return "memer/idCheck";
-	}// idCheckForm()
-
 	// 아이디 중복확인 버튼을 눌렀을때 버튼옆에 출력하기
 	@RequestMapping("idcheckproc.do")
 	@ResponseBody
-	public String idCheckProc(HttpServletRequest req) {
-		String userid = req.getParameter("m_id").trim();
+	public String idCheckProc(HttpServletRequest req) throws Exception {
+		String userid = req.getParameter("m_id");
 		String message = "";
 
 		if (userid.length() < 5 || userid.length() > 15) {
@@ -95,7 +90,8 @@ public class MemberCont {
 		} // if end
 		return message;
 	}// idCheckProc() end
-
+	
+	/* 지울지 말지 고민중
 	@RequestMapping("idcheckcookieproc.do")
 	@ResponseBody
 	public String idCheckCookieProc(HttpServletRequest req) {
@@ -113,6 +109,27 @@ public class MemberCont {
 		return json.toString();
 
 	}// idCheckCookieProc() end
+	*/
+	
+	@RequestMapping("nicknamecheckproc.do")
+	@ResponseBody
+	public String nicknamecheckproc(HttpServletRequest req) {
+		String usernickname = req.getParameter("m_nick").trim();
+		String message = "";
+
+		if (usernickname.length() < 5 || usernickname.length() > 15) {
+			message = "<span style='color: red; font-weight: bold'>닉네임은 5~15글자 이내 입력해주세요</span>";
+		} else {
+			if (usernickname.equals("hanju1000@naver.com") || usernickname.equals("webmaster@naver.com")) {
+				message = "<span style='color: red; font-weight: bold'>중복된 닉네임 입니다!!</span>";
+			} else {
+				message = "<span style='color: green; font-weight: bold'>사용가능한 닉네임입니다~~~!</span>";
+			} // if end
+		} // if end
+		return message;
+	}// idCheckProc() end
+
+	
 
 	// 회원가입을 했을때 member테이블에 insert하기
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)

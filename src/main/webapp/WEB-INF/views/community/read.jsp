@@ -70,20 +70,11 @@
                 <!-- 커뮤니티 신청 버튼 -->
                 <!-- 조건문으로 커뮤니티 모집중/완료 분기 -->
                 <c:if test="${read.c_state == 'i'}">
-                    <button type="button" onclick="clickSignup()">이 커뮤니티 신청하기</button><br><br>
+                    <button type="button" onclick="clickSignup()">이 커뮤니티 신청하기</button>
                 </c:if>
                 <c:if test="${read.c_state == 'd' || read.c_state == 'e'}">
-                    <p style="font-weight: bold">"신청이 마감되었습니다"</p>
+                    <p style="font-weight: bold">신청이 마감되었습니다</p>
                 </c:if>
-                <br>
-
-                <%-- 커뮤니티 관리자 페이지 버튼 --%>
-                <c:if test="${checkOwner == s_id}">
-                    <button type="button" class="btn btn-outline-light btn-block text-dark" onclick="location.href='/comm/admin/${read.c_code}'" style="font-weight: bold; color: #3b5998; border-color: #2a96a5;">
-                        <i class="fas fa-fw fa-cog"></i> 커뮤니티 관리하기
-                    </button>
-                </c:if>
-
             </div>
         </div><!-- 우측 bar end-->
     </div><!-- row end-->

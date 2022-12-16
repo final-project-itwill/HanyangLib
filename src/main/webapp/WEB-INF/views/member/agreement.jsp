@@ -6,11 +6,6 @@
 <div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/libbg.jpg'); height: 40vh;"></div>
 <div style="text-align: center" class="jumbotron jumbotron-fluid"><h1>* 회/원/약/관 *</h1></div>
 <br>       
-<!--
-    onsubmit 이벤트는 form이 submit이 될 때 발생함.
-    실행된 함수가 false를 리턴하면 submit을 하지 않음.
--->
-
 <form onsubmit="return send()">
 <table border="0" cellspacing="0" cellpadding="2"  align="center">
     <tr align="center" height="10"> 
@@ -193,14 +188,14 @@
 부 칙
 
  
-본 약관은 2005. 7. 18. 부터 적용하고, 2004. 10. 11.부터 적용되던 종전의 약관은 본 약관으로 대체합니다. 
+본 약관은 2022. 12. 27. 부터 적용하고, 2023. 1. 4.부터 적용되던 종전의 약관은 본 약관으로 대체합니다. 
             </textarea>
         </td>
     </tr>
 </table>
 <br>
 <div style="text-align: center">
-  <label><input type="checkbox" name="agree" class="form-check-label" id="agree"/>약관에 동의합니다</label>
+  <label><input type="checkbox" name="agree" id="agree"/>약관에 동의합니다</label>
   <input type="button" value="회원가입" class="btn btn-primary" onclick="location.href='/member/memberform'"> 
   <input type="button" value="취소"    class="btn btn-primary" onclick="javascript:history.back()"/>
 </div>
