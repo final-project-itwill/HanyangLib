@@ -16,6 +16,7 @@
 	<p>
 		<button type="button" onclick="location.href='survey'">설문</button>
 		<a href="/survey/create/${s_id}">설문생성</a>
+		<a href="/survey/formCreate/${s_id}">설문생성2</a>
 	</p>
 	<br>
 		<div>

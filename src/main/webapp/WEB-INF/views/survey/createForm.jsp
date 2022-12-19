@@ -14,6 +14,11 @@
 	<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/libbg.jpg'); height: 40vh;"></div>
 <!-- 상단 배너 끝 -->
 <!-- 본문작성 시작 -->
+	<!-- ** 경환 : 설문지코드 자동생성 : s + 날짜(yyyymmdd) + 커뮤니티코드 -->
+	<c:set var="now" value="<%=new java.util.Date()%>" />
+	<c:set var="date"><fmt:formatDate value="${now}" pattern="yyyymmdd" /></c:set> 
+	<c:set var="sv_code" value="s${date}-com001"></c:set>
+
 <div class="container">
 	<form name="create" method="post">
 		<input type="hidden" name="sv_code" value="${sv_code}">
@@ -70,7 +75,7 @@
 				<input type="hidden" name="dsv_order1" id="dsv_order1" value="od0${cnt}">
 				${cnt}
 				<input type="text" name="dsv_subject1" placeholder="질문의 제목을 입력하세요."></input>
-				<input type="radio" name="dsv_check1" id="dsv_check1" value="">
+				<input type="checkbox" name="dsv_check1" id="dsv_check1" value="">
 			</div>		
 			<div>
 				<select class="selectbox" name="dsv_type1" id="dsv_type1" onchange="changeType(this)">
@@ -95,7 +100,7 @@
  let cnt = ${cnt};
 	
 	
- // 1) 질문의 유형이 선택되었을 때 기본적인 항목창 출력시키기
+ // 1) 질문의 유형이 선택되었을 때 기본적인 항목창 출력시키기 
  function changeType(e){
 	// 선택상자의 id값 저장 : dsv_typeN
 	let id = document.getElementById(e.getAttribute('id')).getAttribute('id');
@@ -144,7 +149,7 @@
 	 	a += cnt;
 	 	a += ' "> ';
 	 	a += ' <input type="text" name="dsv_subject" placeholder="질문의 제목을 입력하세요."></input> ';
- 		a += ' <input type="radio" name="dsv_check';
+ 		a += ' <input type="checkbox" name="dsv_check';
  		a += cnt;
  		a += ' " id="dsv_check';
  		a += cnt;

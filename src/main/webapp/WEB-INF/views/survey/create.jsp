@@ -14,11 +14,7 @@
 
    
 <!-- 본문작성 시작 -->	
-<style>
-	.survey {
-		
-	}
-</style>
+
 	
 	
 <!-- 설문 소개. -->
@@ -52,7 +48,18 @@
 		<p class="survey">
 		설명 : <input type="text" class="sv_des" name="s_content" placeholder="해당 설문지의 설명을 입력하세요.">
 		</p>
-	</div><br><hr><br>
+	</div>
+	<div>
+		<p class="survey">
+		인원제한 : <input type="number" class="sv_max" name="sv_max">
+		</p>
+	</div>
+	<div>
+		<p class="survey">
+		마감일 : <input type="date" class="sv_edate" name="sv_edate">
+		</p>
+	</div>
+	<br><hr><br>
 	
 <!-- 설문지 작 -->	
 
@@ -72,7 +79,7 @@
 		<div class="layer1" style="display: none">
 			<br>
 			<div>
-				<div class="i_div">
+				<div class="gaek">
 					<label><input type='radio' name='radio' readonly>
 					<input type='text' name="i_content" placeholder="객관식 답변을 입력"></input>
 					</label>
@@ -83,7 +90,7 @@
 		</div>
 		<div class="layer2" style="display: none">
 			<div>
-				<div class="i_div">
+				<div class="ju">
 				<input type="text" name="i_content" readonly></input>
 				</div>
 			</div>
@@ -91,7 +98,7 @@
 		</div>
 		<div class="layer3" style="display: none">
 			<div>
-				<div class="i_div">
+				<div class="check">
 					<label><input type="checkbox" name='checkbox' readonly>
 					<input type='text' name="i_content" placeholder="체크박스 답변을 입력"></input>
 					</label>
@@ -102,7 +109,7 @@
 		</div>
 		<div class="layer4" style="display: none">
 			<div>
-				<div class="i_div">
+				<div class="time">
 				<input type="time" name="i_content" readonly></input>
 				</div>
 			</div>
@@ -110,7 +117,7 @@
 		</div>
 		<div class="layer5" style="display: none">
 			<div>
-				<div class="i_div">
+				<div class="schedule">
 				<input type="date" name="i_content" readonly></input>
 				</div>	
 			</div>
@@ -121,6 +128,7 @@
 	<div>
 		<button id="btn_add">질문추가</button>
 	</div>
+	<br><hr><br>
 	<div>
 		<button type="button" id="btn_survey">작성완료</button>
 	</div>
@@ -132,13 +140,7 @@
 
 	<script>
 
-		
-	var count = 2;
-	var rcount = 2;
-	var ccount = 2;
-
-	
-    let q_tag = count + `
+    let q_tag = `
     <div class="q_div">
 		<input type="text" name="q_title" placeholder="질문의 제목을 입력하세요."></input>
 		<select name="q_type" class="q_type">
@@ -150,7 +152,7 @@
 			<option value="schedule">날짜</option>
 		</select>
 		<div class="layer1" style="display: none">
-				<div class="i_div">
+				<div class="gaek">
 					<label><input type='radio' name='radio' readonly>
 					<input type='text' name="i_content"placeholder="객관식 답변을 입력"></input>
 					</label>
@@ -159,13 +161,13 @@
 			<hr>
 		</div>
 		<div class="layer2" style="display: none">
-				<div class="i_div">
+				<div class="ju">
 				<input type="text" name="i_content" readonly></input>
 				</div>
 			<hr>
 		</div>
 		<div class="layer3" style="display: none">
-				<div class="i_div">
+				<div class="check">
 					<label><input type="checkbox" name='checkbox' readonly>
 					<input type='text' name="i_content" placeholder="체크박스 답변을 입력"></input>
 					</label>
@@ -174,38 +176,33 @@
 			<hr>
 		</div>
 		<div class="layer4" style="display: none">
-				<div class="i_div">
+				<div class="time">
 				<input type="time" name="i_content" readonly></input>	<hr>
 				</div>
 		</div>
 		<div class="layer5" style="display: none">
-				<div class="i_div">
+				<div class="schedule">
 				<input type="date" name="i_content" readonly></input>	
 				</div>	
 		</div>
 		</div>
 		<button id="btn_Del">질문삭제</button>
-	<br>
 	`; // add end
     
 	//btn_add 클릭 질문 생성
     $(document).on('click', '#btn_add', function () {
     	$(this).before(q_tag);
-    	count=count+1;
-    	alert(count);
     }); // #btn_add end
 	
 	//btn-Del 클릭 질문 삭제
 	$(document).on('click', '#btn_Del', function (){
         $(this).prev().remove (); // remove the input date
         $(this).remove();		  // remove the button
-        count--;
-        alert(count);
 	}); // #btn_Del end
     
  
-	let a_tag =rcount+`
-	<div class = "i_div">
+	let a_tag =`
+	<div class = "gaek">
 		<input type='radio' name='radio' readonly>
 		<input type='text' name="i_content" placeholder="객관식 답변을 입력"></input>
 		<input type="button" class="rRemove" value="답변삭제">
@@ -213,7 +210,7 @@
 	`; // radio end
 	
 	let c_tag =`
-	<div class = "i_div">`+ccount+`
+	<div class = "check">
 		<input type='checkbox' name='checkbox' readonly>
 		<input type='text' name="i_content" placeholder="체크박스 답변을 입력"></input>
 		<input type="button" class="cRemove" value="답변삭제">
@@ -221,31 +218,27 @@
 	`; // checkbox end
 			
 	$(document).on('click', '.btn_answer', function(){
-		rcount++;
 		$(this).before(a_tag);
-		alert(rcount);
+		//alert(rcount);
 	}); // btn_answer.click end
 	
 	$(document).on('click', '.btn_checkans', function(){
-		ccount++;
 		$(this).before(c_tag);
-		alert(ccount);
+		//alert(ccount);
 	}); // btb_checkans.click end
 	
 	$(document).on('click', '.rRemove', function(){
         $(this).prev().remove (); // remove the textbox
         $(this).prev().remove (); // remove the textbox
         $(this).remove (); // remove the button
-        rcount--;
-        alert(rcount);
+       // alert(rcount);
 	}); // radioRemove.click end
 	
 	$(document).on('click', '.cRemove', function(){
         $(this).prev().remove (); // remove the textbox
         $(this).prev().remove (); // remove the textbox
         $(this).remove (); // remove the button
-		ccount--;
-		alert(ccount);
+		// alert(ccount);
 	}); // radioRemove.click end
 	
 	$(document).on('change', '.q_type', function() {
@@ -293,62 +286,102 @@
 		}
 	}); // change q_type end
 	
+	
 	$(document).on('click','#btn_survey',function(){
 		let sv_code = $('p.survey').find('input.sv_code').val();
 		let sv_title = $('p.survey').find('input.sv_title').val();
 		let sv_des = $('p.survey').find('input.sv_des').val();
 		let sv_id = $('p.survey').find('input.sv_id').val();
-		
-		
-		let questions = [];
-		$(".q_div").each(function (i) {
-			let q_title = $(this).find('input[name="q_title"]').val();
-			//let q_content = $(this).find('input[name="q_content"]:eq(1)').val();
-			let q_type = $(this).find('option:selected').val();
-		
-			let items = [];
-			$(this).find(".i_div").each(function (i) {
-				//console.log($(this));
-				
-					let i_content = $(this).find('input[name="i_content"]').val();
-					let item = {
-						i_content: i_content
-						};
-					items.push(item);
-				
-			}); // i)div, functoin() end
-			
-			let question = {
-				q_title: q_title,
-				q_type: q_type,
-				items: items
-			}
-			questions.push(question);
-		
-		}); //q_div, function() end
+		let sv_max = $('p.survey').find('input.sv_max').val();
+		let sv_edate = $('p.survey').find('input.sv_edate').val();
 		
 		let survey = {
 			sv_code : sv_code,
 			sv_title : sv_title,
 			sv_des : sv_des,
-			questions : questions,
-			sv_id : sv_id
+			sv_id : sv_id,
+			sv_max : sv_max,
+			sv_edate : sv_edate
 		};
     
-		console.log(survey);
 		$.ajax({
 			type: "post",
 			url:"/survey/create/insert",
 			contentType: "application/json",
 			data: JSON.stringify(survey),
-			success:function(data){
-				alert(data);
-			}
 		})
 		.done(function (data) {
-			alert("성공");
+		//	alert("survey성공");
 		});
-	});
+		
+		
+		
+		
+			$(".q_div").each(function (i) {
+				let dsv_subject = $(this).find('input[name="q_title"]').val();
+				// let q_content = $(this).find('input[name="q_content"]:eq(1)').val();
+				let dsv_type = $(this).find('option:selected').val();
+				let dsv_order = "od0"+(i+1);
+				// alert(dsv_subject);
+				// alert(dsv_type);
+				// alert(dsv_order);
+				// alert(sv_code);
+			
+				
+				let question = {
+					dsv_code :sv_code,
+					dsv_subject: dsv_subject,
+					dsv_type: dsv_type,
+					dsv_order: dsv_order
+				};
+				
+ 				$.ajax({
+					type: "post",
+					url:"/survey/create/dinsert",
+					contentType: "application/json",
+					data: JSON.stringify(question)
+				}) 
+				.done(function (data) {
+					//alert("dsurvey성공");
+				});
+	
+			
+				$(this).find("."+dsv_type+"").find('input[name="i_content"]').each(function (i) {
+					//console.log($(this));
+					let i_content = $(this).val();
+					let ch_anscode = dsv_type.substring(0,1)+0+(i+1);
+					// alert(ch_anscode);
+					
+					let item = {
+						ch_code : sv_code,
+						ch_order : dsv_order,
+						ch_type : dsv_type,
+						ch_anscode : ch_anscode,
+						ch_content: i_content
+						};
+					
+						// alert(sv_code);
+						// alert(dsv_order);
+						// alert(dsv_type);
+						// alert(i_content);
+						
+				 	 $.ajax({
+						type: "post",
+						url:"/survey/create/cinsert",
+						contentType: "application/json",
+						data: JSON.stringify(item),
+						success:function(data){
+							alert(data);
+						} 
+					}) // q_div.i_div function() end
+				
+				
+				}); // i)div, functoin() end
+				
+			}); //q_div, function() end	
+	alert("생성 었습니다.");
+	window.location.href= "http://localhost:9090/survey/survey";			
+	}); // survey end
 
 
 

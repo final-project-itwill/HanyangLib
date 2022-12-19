@@ -210,7 +210,7 @@
 <!-- 설문 End -->
 		<tr>
 		    <td colspan="2" align="center">
-		    	<input type="button" value="삭제" onclick="location.href='delete.do?dsv_code=${dsv_code}'">
+		    	<input type="button" value="삭제" onclick="location.href='../chdelete.do?ans_code=${dsv_code}'">
 		    	<input type="reset" value="취소">
 		    </td>
 		</tr>    

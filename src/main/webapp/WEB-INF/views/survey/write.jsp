@@ -22,7 +22,7 @@
 		<form name="answer" id="answer" method="post">
 		<!-- 파일 첨부는 하지 않기 때문에 enctype="multipart/form-data"는 필요 없어유 -->
 		<input type="hidden" id="ans_code" name="ans_code" class="ans_code" value="${dsv_code}"> <!-- dsv_code -->
-		<input type="hidden" id="ans_id" name="ans_id" value="${s_id}"> <!-- dsv_code --> ㅁ
+		<input type="hidden" id="ans_id" name="ans_id" value="${s_id}"> <!-- dsv_code --> 
 		
 		<table class="table">
 		<!-- 주관식 반복 -->
@@ -35,15 +35,14 @@
 		<c:if test="${tvs.count>=10}">
 			<c:set var="orderno" value="od${tvs.count}"></c:set>
 		</c:if>
-		${orderno}
 		<tr>
 			<input type="hidden" id="ans_order" name="ans_order" value="${orderno}"> <!-- ans_order -->
 			<td style="font-weight: bold;">${title.dsv_subject}</td>
 		</tr>
 		<tr>
 			<c:choose>
-						<c:when test="${title.dsv_type eq 'ju'}">
-						<td>
+				<c:when test="${title.dsv_type eq 'ju'}">
+					<td>
 						<c:forEach items="${choice}" var="choice">
 						<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
@@ -60,11 +59,11 @@
 							</c:when>
 						</c:choose>
 						</c:forEach>
-						</td>
-						</c:when>
+					</td>
+				</c:when>
 						
-						<c:when test="${title.dsv_type eq 'gaek' or 'etc'}">
-						<td>
+				<c:when test="${title.dsv_type eq 'gaek' or 'etc'}">
+					<td>
 						<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
@@ -81,11 +80,11 @@
 							</c:when>
 							</c:choose>
 						</c:forEach>
-						</td>
-						</c:when>
+					</td>
+				</c:when>
 						
-						<c:when test="${title.dsv_type eq 'check' or 'etc' }">
-						<td>
+				<c:when test="${title.dsv_type eq 'check' or 'etc' }">
+					<td>
 						<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
@@ -102,12 +101,12 @@
 							</c:when>
 							</c:choose>
 						</c:forEach>
-						</td>						
-						</c:when>
+					</td>						
+				</c:when>
 				
-						<c:when test="${title.dsv_type eq 'schedule' }">
-						<td>
-							<c:forEach var="choice" items="${choice}" varStatus="vs">
+				<c:when test="${title.dsv_type eq 'schedule' }">
+					<td>
+						<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
 								<!-- 달력 답변 코드 만들기 -->
@@ -122,13 +121,13 @@
 									<input type="hidden" id="${orderno}" name="${orderno}" value="${anscodeno}">
 							</c:when>
 							</c:choose>
-							</c:forEach>
-						</td>
-						</c:when>
+						</c:forEach>
+					</td>
+				</c:when>
 						
-						<c:when test="${title.dsv_type eq 'time' }">
-						<td>
-							<c:forEach var="choice" items="${choice}" varStatus="vs">
+				<c:when test="${title.dsv_type eq 'time' }">
+					<td>
+						<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
 								<!-- 시간 답변 코드 만들기 -->
@@ -142,11 +141,11 @@
 									<input type="time" class="${anscodeno}" id="${choice.ch_no}" name="${anscodeno}">
 									<input type="hidden" id="${orderno}" name="${orderno}" value="${anscodeno}">
 							</c:when>
-							</c:choose>
-							</c:forEach>
-						</td>
-						</c:when>
-					</c:choose>	
+							</c:choose>	
+						</c:forEach>
+					</td>
+				</c:when>
+			</c:choose>					
 			</tr>
 
 		</c:forEach> 
@@ -252,7 +251,7 @@
 			
 			//alert(document.querySelector('input[name="od01"]:checked'));
 		} // end
-	alert("성공되었습니다.");
+	alert("신청 되었습니다.");
 	window.location.href = "http://localhost:9090/survey/survey";
 	}// function() end
 </script>
