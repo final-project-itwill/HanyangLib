@@ -153,8 +153,8 @@
 			<!-- 구매 관련 버튼 로직 시작 -->
 			<!-- 로그인 한 아이디가 없다면 -->
 			<c:if test="${s_id eq null}">
-			            <input type="button" value="장바구니" onclick="#"> 
-			            <input type="button" value="바로결제" onclick="#">
+			            <input type="button" value="장바구니" onclick="location.href='/login/index'"> 
+			            <input type="button" value="바로결제" onclick="location.href='/login/index'">
 			</c:if>
 			<!-- 로그인 상태라면 -->
 			<c:if test="${s_id ne null}">
@@ -173,7 +173,7 @@
 					</c:if>
 					<%-- 구독을 하지 않은 상태라면 --%>
 					<c:if test="${subs eq 0}">
-				    		<input type="button" value="장바구니" onclick="#"> 
+				    		<input type="button" value="장바구니" onclick="location.href='/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}'"> 
 				            <input type="button" value="바로결제" onclick="#">
 				    </c:if>
 				</c:if>
@@ -181,8 +181,8 @@
 				<c:if test="${book.b_gudok eq 'N'}">
 					<%-- 이 책을 보유하지 않았다면 --%>
 					<c:if test="${haveBook eq 0}">
-						<input type="button" value="장바구니" onclick="#"> 
-				            <input type="button" value="바로결제" onclick="#">
+						<input type="button" value="장바구니" onclick="location.href='/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}'">
+				        <input type="button" value="바로결제" onclick="#">
 					</c:if>
 					<%-- 이 책을 보유했다면 --%>
 					<c:if test="${haveBook eq 1}">

@@ -62,6 +62,7 @@
 	    
 		      <h2 class="title">로그인을 하여<br>한양서재를 이용해보세요</h2>   
 		      <form action="/login/loginproc" method="post">
+		      	<input type="hidden" id="prevPage" name="prevPage" value="${page}">
 				<div class="input-div one">
 				   <div class="i" id="user">
 				      <i class="fas fa-user"></i>
