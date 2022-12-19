@@ -3,6 +3,8 @@ package kr.co.itwill.cart;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -24,8 +26,7 @@ public class KakaoPay {
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
     
-    public String kakaoPayReady() {
- 
+    public String kakaoPayReady(String pay_total, String pay_no, String pay_id) {
         RestTemplate restTemplate = new RestTemplate();
  
         // 서버로 요청할 Header
@@ -41,11 +42,11 @@ public class KakaoPay {
         params.add("partner_user_id", "Seojae");
         params.add("item_name", "한양서재 E-Book 구매");
         params.add("quantity", "1");
-        params.add("total_amount", "100000");
+        params.add("total_amount", pay_total);
         params.add("tax_free_amount", "0");
-        params.add("approval_url", "http://localhost:9095/cart/kakaoPaySuccess");
-        params.add("cancel_url", "http://localhost:9095/cart/kakaoPayCancel");
-        params.add("fail_url", "http://localhost:9095/cart/kakaoPaySuccessFail");
+        params.add("approval_url", "http://localhost:9095/cart/kakaoPaySuccess?pay_no="+pay_no+"&pay_id="+pay_id+"&pay_total="+pay_total);
+        params.add("cancel_url", "http://localhost:9095/cart/kakaoPayCancel?pay_no="+pay_no+"&pay_id="+pay_id+"&pay_total="+pay_total);
+        params.add("fail_url", "http://localhost:9095/cart/kakaoPaySuccessFail?pay_no="+pay_no+"&pay_id="+pay_id+"&pay_total="+pay_total);
  
          HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
  
@@ -68,13 +69,15 @@ public class KakaoPay {
         
     } // KakaoPayReady() end
     
-    public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
-    	 
+    public KakaoPayApprovalVO kakaoPayInfo(String pg_token, String pay_total) {
+    	
+    	System.out.println("-------------"+pay_total);
+    	
         log.info("KakaoPayInfoVO............................................");
         log.info("-----------------------------");
-        
+                
         RestTemplate restTemplate = new RestTemplate();
- 
+        
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "a40bd9ee5b64e5d38b9a1e809b2f2dce");
@@ -88,7 +91,7 @@ public class KakaoPay {
         params.add("partner_order_id", "Hanyang");
         params.add("partner_user_id", "Seojae");
         params.add("pg_token", pg_token);
-        params.add("total_amount", "2100");
+        params.add("total_amount", pay_total);
         
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         
