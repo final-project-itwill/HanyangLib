@@ -10,6 +10,17 @@
     <form name="membupdate" method="post">
     	<input type="hidden" id="m_id" name="m_id" value="${s_id}">
 	    <table border="1" class="table table-hover">
+	    <tr>
+			<th>프로필 사진</th>
+			<td>
+			<c:if test="${detail.m_img != '-'}">
+				<img src="/storage/${detail.m_img}" width="100px">
+			</c:if>
+			<br>
+				<input type="file" name="file" id="file">
+			 	<input type="hidden" name="m_img" id="m_img" value="${detail.m_img}">		
+				</td>
+			</tr>
 	        <tr>
 	            <td>아이디</td>
 	            <td>${s_id}</td>
@@ -32,6 +43,14 @@
 	            	<input type="email" name="m_email" id="m_email" value="${detail.m_email}">
 	            </td>
 	        </tr>
+	        <tr>
+				<th>이번달 목표</th>
+				<td><input type="number" id="m_month" name="m_month" value="${detail.m_month}" min="1" max="100"></td>
+			</tr>
+			<tr>
+				<th>올해의 목표</th>
+				<td><input type="number" id="m_year" name="m_year" value="${detail.m_year}" min="1" max="100"></td>
+			</tr>
 	        <tr>
 	   			<th>우편번호</th>
 			    <td style="text-align: left">
