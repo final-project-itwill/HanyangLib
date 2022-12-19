@@ -22,7 +22,7 @@
 		<form name="answer" id="answer" method="post">
 		<!-- 파일 첨부는 하지 않기 때문에 enctype="multipart/form-data"는 필요 없어유 -->
 		<input type="hidden" id="ans_code" name="ans_code" class="ans_code" value="${dsv_code}"> <!-- dsv_code -->
-		<input type="hidden" id="ans_id" name="ans_id" value="${s_id}"> <!-- dsv_code --> 
+		<input type="hidden" id="ans_id" name="ans_id" class="ans_id" value="${s_id}"> <!-- dsv_code --> 
 		
 		<table class="table">
 		<!-- 주관식 반복 -->
@@ -226,7 +226,7 @@
 		        //	alert("ans_code : " + ans_code);
 		        //	alert("ans_order : " + ans_order);
 		        //	alert("ans_anscode : " + ans_anscode);
-			    	
+			    //	alert("ans_id : " + ans_id);
 		        	
 
 					let survey = {
@@ -251,8 +251,8 @@
 			
 			//alert(document.querySelector('input[name="od01"]:checked'));
 		} // end
-	alert("신청 되었습니다.");
-	window.location.href = "http://localhost:9090/survey/survey";
+	//alert("신청 되었습니다.");
+	window.location.href = "http://localhost:9090/comm/read/${c_code}";
 	}// function() end
 </script>
    

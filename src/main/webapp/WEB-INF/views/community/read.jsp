@@ -171,7 +171,7 @@
             alert("당신이 만든 커뮤니티입니다.");
         }else{
             if(signState == ''){                    //가입이력 없음
-                location.href = "/comm/signupForm";       //나중에 설문지페이지와 바로 연결하기
+                location.href = "/survey/write/${c_code}";       //나중에 설문지페이지와 바로 연결하기
             }else if(signState == 'i') {
                 alert("이미 가입을 신청한 커뮤니티입니다. \n 가입 승인을 기다려주세요.");
             }else if(signState == 's'){

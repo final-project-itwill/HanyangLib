@@ -14,22 +14,11 @@
 	
 	
 <!-- 설문 소개. -->
-	<!-- ** 경환 : 설문지코드 자동생성 : s + 날짜(yyyymmdd) + 커뮤니티코드 -->
-	<c:set var="now" value="<%=new java.util.Date()%>" />
-	<c:set var="date"><fmt:formatDate value="${now}" pattern="yyyyMMdd" /></c:set> 
-	<c:set var="sv_code" value="s${date}-${c_code}"></c:set>
-	<!-- count 생성 -->
-	<c:set var="c" value='${c+1}'></c:set>
-	<c:if test="${c<10}">
-		<c:set var="anscodeno" value="od0${j}"></c:set>
-	</c:if>
-	<c:if test="${c>=10}">
-		<c:set var="anscodeno" value="od${j}"></c:set>
-	</c:if>
+
 	
 <div class="site-section bg-light" id="blog-section">
   <div class="container">
-	<h1>설문조사 ${sv_code} ${s_id}</h1><br>
+	<h1>설문조사 ${dsv_code} ${s_id}</h1><br>
 	<!-- <form name="frm1" method="post" action="/survey/create/insert" enctype="multipart/form-dat"> -->
 	<div>
 	<c:set var="oderno" value="1"></c:set>
@@ -37,7 +26,7 @@
 			<input type="hidden" class="sv_id" name="sv_id" value="${s_id}">
 			<input type="hidden" class="sv_comcode" name="sv_comcode" value="${c_code}"> <!-- 커뮤니티 코드 받아오기 -->
 			<input type="hidden" class="sv_code" name="sv_code" value="${sv_code}">
-		제목 : <input type="text" class="sv_title" name="sv_title" placeholder="해당 설문지의 제목을 입력하세요.">
+		제목 : <input type="text" class="sv_title" name="sv_title" value="${read.sv_title}" placeholder="해당 설문지의 제목을 입력하세요.">
 		</p>
 	</div>
 	<div>
@@ -272,7 +261,7 @@
  
 	let a_tag =`
 	<div class = "gaek">
-		<input type='radio' name='radio' onclick="return(false);">
+		<input type='radio' name='radio' readonly>
 		<input type='text' name="i_content" placeholder="객관식 답변을 입력"></input>
 		<input type="button" class="rRemove" value="답변삭제">
 	</div>
@@ -280,7 +269,7 @@
 	
 	let c_tag =`
 	<div class = "check">
-		<input type='checkbox' name='checkbox' onclick="return(false);">
+		<input type='checkbox' name='checkbox' readonly>
 		<input type='text' name="i_content" placeholder="체크박스 답변을 입력"></input>
 		<input type="button" class="cRemove" value="답변삭제">
 	</div>

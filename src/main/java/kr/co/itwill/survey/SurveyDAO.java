@@ -25,7 +25,7 @@ public class SurveyDAO {
 	}// surveylist() end
 	
 	
-	public String scodeget(String c_code) throws Exception {
+	public String scodeget(String c_code) {
 		return sqlSession.selectOne("survey.svcode", c_code);
 	} // scodeget() end
 	
@@ -33,6 +33,7 @@ public class SurveyDAO {
 	public List<DsurveyDTO> svTitle(String dsv_code) throws Exception {
 		return sqlSession.selectList("survey.title", dsv_code);
 	}// detail() end
+	
 	// 커뮤니티 count 가져오기
 	public int svCount(String dsv_code) throws Exception {
 		return sqlSession.selectOne("survey.count", dsv_code);
@@ -46,6 +47,15 @@ public class SurveyDAO {
 	public List<AnswerDTO> svanswer(AnswerDTO ans) throws Exception {
 		return sqlSession.selectList("survey.answer", ans);
 	} // svanswer() end
+	
+	public List<tempDTO> tpl() throws Exception {
+		return sqlSession.selectList("survey.tpl");
+	}// tpl() end
+	
+	public List<templetDTO> tplread() throws Exception {
+		return sqlSession.selectList("survey.tplread");
+	} // tlpread() END
+	
 	
 	// Answer Delete문 실
 	public int ansdelete(AnswerDTO ans) {
@@ -71,6 +81,7 @@ public class SurveyDAO {
 		return sqlSession.update("survey.update", dto);
 	} // update() end
 	
+//	설문지작
 	
 	public int surveyWrite(SurveyDTO survey) { 
 		return sqlSession.insert("survey.surveyWrite", survey);

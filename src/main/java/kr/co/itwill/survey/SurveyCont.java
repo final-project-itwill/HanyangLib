@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
+import javax.websocket.server.PathParam;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,18 +44,20 @@ public class SurveyCont {
 	} // home () end
 	
 	
-	
-	@RequestMapping("/write/{dsv_code}")
-	public ModelAndView write(@PathVariable String dsv_code) throws Exception {
+// 설문지 작성 	
+	@RequestMapping("/write/{c_code}")
+	public ModelAndView write(@PathVariable String c_code) throws Exception {
 		
-//		String dsv_code = (String)surveyDAO.scodeget(c_code);
-//		System.out.println(dsv_code);
+		String dsv_code = surveyDAO.scodeget(c_code);
+		//System.out.println(dsv_code);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/survey/write");
 		mav.addObject("title", surveyDAO.svTitle(dsv_code));
 		mav.addObject("count", surveyDAO.svCount(dsv_code));
 		mav.addObject("choice", surveyDAO.svChoice(dsv_code));
 		mav.addObject("dsv_code", dsv_code);
+		mav.addObject("c_code", c_code);
+		
 		return mav;
 	}// write() end
 	
@@ -68,10 +72,13 @@ public class SurveyCont {
 		answer.setAns_id(dto.getAns_id());	// 지금은 임의 배정
 		answer.setAns_content(dto.getAns_content());
 		surveyDAO.insert(answer);
-		System.out.println(answer.toString());
-		return "redirect:/survey/answer/"+dto.getAns_code();
+		//System.out.println(answer.toString());
+		return "생성되었습니다.";
+			//	"redirect:/survey/answer/"+dto.getAns_code();
 	}// insert() end
 	
+	
+// 답변 학인하기	
 	@RequestMapping("/answer/{dsv_code}/{s_id}")
 	public ModelAndView answer(@PathVariable("dsv_code") String dsv_code,
 								@PathVariable("s_id") String s_id) throws Exception{
@@ -89,19 +96,28 @@ public class SurveyCont {
 	} // answer() end
 	
 	
-	@RequestMapping("/create/{s_id}")
-	public ModelAndView create(@PathVariable String s_id) {
+// 설문지 생성 	
+	@RequestMapping("/create/{c_code}/{s_id}")
+	public ModelAndView create(@PathVariable("s_id") String s_id,
+								@PathVariable("c_code") String c_code) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("survey/create");
+		// 템플릿 가져오기.
+		mav.addObject("tpl", surveyDAO.tpl());
+		mav.addObject("tplread", surveyDAO.tplread());
+		mav.addObject("s_id", s_id);
+		mav.addObject("c_code", c_code);
+//		System.out.println(surveyDAO.tplread());
+//		System.out.println(surveyDAO.tpl());
 	return mav;
 	} // create() end
 	
-//	설문지 survey 생성, dsurvey choice 생성해야함..
 	@RequestMapping(value = "/create/insert", method = RequestMethod.POST)
-	public String surveyinsert(@RequestBody SurveyDTO dto, HttpServletRequest req) throws Exception {
+	public String surveyinsert(@RequestBody SurveyDTO dto , HttpServletRequest req) throws Exception {
 		SurveyDTO survey = new SurveyDTO();
 		survey.setSv_code(dto.getSv_code());
-		survey.setSv_id(dto.getSv_id());	// 지금은 임의 배정
+		survey.setSv_comcode(dto.getSv_comcode());
+		survey.setSv_id(dto.getSv_id());	
 		survey.setSv_title(dto.getSv_title());
 		survey.setSv_des(dto.getSv_des());
 		survey.setSv_max(dto.getSv_max());
@@ -109,7 +125,7 @@ public class SurveyCont {
 		
 		surveyDAO.surveyWrite(survey); 
 		System.out.println(survey.toString());
-		return "redirect:/survey/survey";
+		return "survey";
 		
 	}// surveyinsert() end
 	
@@ -124,7 +140,7 @@ public class SurveyCont {
 		
 		surveyDAO.questionWrite(dsurvey);
 		System.out.println(dsurvey.toString());
-		return "redirect:/survey/survey";
+		return "dsurvey";
 		
 	}// dsurveyinsert() end
 	
@@ -140,40 +156,45 @@ public class SurveyCont {
 		
 		surveyDAO.items(choice);
 		System.out.println(choice.toString());
-		return "redirect:/survey/survey";
+		return "choice";
 		
 	}// dsurveyinsert() end
-	
-	
-		
-//		String[] question = req.getParameterValues("q_title");
-//		
-//		List<DsurveyDTO> dsy = new ArrayList<>();
-//		
-//		for(int i=0; i<question.length; i++) {
-//			DsurveyDTO dsurvey = new DsurveyDTO();
-//			System.out.println(question[i]);
-//		}
-//		 
-		
-		
 
+// survey Update	
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public ModelAndView update( String c_code) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		String dsv_code = surveyDAO.scodeget(c_code);
+		 System.out.println(dsv_code);
+		mav.setViewName("/survey/update");
+		// 안되는 이유가 뭙까??
+		//mav.addObject("read", surveyDAO.read(dsv_code));
+		mav.addObject("title", surveyDAO.svTitle(dsv_code));
+		mav.addObject("count", surveyDAO.svCount(dsv_code));
+		mav.addObject("choice", surveyDAO.svChoice(dsv_code));
+		mav.addObject("dsv_code", dsv_code);
+		mav.addObject("c_code", c_code);
+		
+		return mav;
+	}// write() end	
 	
 	
-// survey delete
+	
+// survey Delete
 	@RequestMapping(value = "/delete.do", method = RequestMethod.GET)
-	public ModelAndView deleteForm(String sv_code) {
+	public ModelAndView deleteForm(String c_code) {
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("survey/deleteForm");
-		mav.addObject("sv_code", sv_code);
+		mav.addObject("c_code", c_code);
 		return mav;
 	} // deleteForm() end
 	
 	@RequestMapping(value = "/delete.do", method = RequestMethod.POST)
-	public ModelAndView deleteProc(String sv_code) {
+	public ModelAndView deleteProc(String c_code) {
 		ModelAndView mav = new ModelAndView();
+		String sv_code = surveyDAO.scodeget(c_code);
 		surveyDAO.delete(sv_code);
-		mav.setViewName("redirect:/survey/survey");
+		mav.setViewName("redirect:/comm/admin/"+c_code);
 		return mav;		
 	} // deleteProc() end
 	
@@ -194,6 +215,7 @@ public class SurveyCont {
 		surveyDAO.update(dto);
 		return mav;
 	} // updateProc() end
+	
 	
 	// 경환 작업 따로 기록
 	// 설문지 생성페이지로 연결하는 컨트롤러
