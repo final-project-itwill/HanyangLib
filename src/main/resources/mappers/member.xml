@@ -13,7 +13,7 @@
 	</insert>
 	
 	<select id="detail" resultType="kr.co.itwill.member.MemberDTO">
-		SELECT m_img, m_id, m_nick, m_tel , m_pw, m_email,  m_month, m_year, m_zip, m_add1, m_add2, m_mailcheck, m_smscheck
+		SELECT m_img, m_id, m_nick, m_tel , m_pw, m_email, m_month, m_year, m_zip, m_add1, m_add2, m_mailcheck, m_smscheck
 		FROM member
 		WHERE m_id = #{s_id}
 	</select>
@@ -45,8 +45,13 @@
 	</update>
 
 
-
-
+	<select id="imagename" resultType="String">
+		SELECT m_img
+		FROM member
+		WHERE m_id=#{m_id}
+	</select>
+	
+	
 	
 	
 	

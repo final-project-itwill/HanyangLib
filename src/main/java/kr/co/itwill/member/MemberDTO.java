@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class MemberDTO {
 	
-	   private String m_img;			//프로필 사진		--sql멤버테이블 수정(추가)
+	   private String   m_img;			//프로필 사진		--sql멤버테이블 수정(추가)
 	   private String m_id;				//아이디
 	   private String m_pw;				//비밀번호
 	   private String m_name;			//이름

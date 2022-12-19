@@ -1,5 +1,7 @@
 package kr.co.itwill.member;
 
+import static org.junit.Assert.assertFalse;
+
 import java.io.File;
 import java.util.Map;
 
@@ -7,6 +9,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.filefilter.FalseFileFilter;
 import org.json.simple.JSONObject;
 import org.jsoup.select.Evaluator.IsEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -54,7 +58,7 @@ public class MemberCont {
 	public ModelAndView welcomform() {
 		ModelAndView mav = new ModelAndView();
 
-		mav.setViewName("member/welcomeform]");
+		mav.setViewName("member/welcomeform");
 
 		return mav;
 	}// welcomform() end
@@ -139,10 +143,10 @@ public class MemberCont {
 
 	// 회원가입을 했을때 member테이블에 insert하기
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	@ResponseBody
+	@ResponseBody	
 	public String insert(@ModelAttribute MemberDTO dto ,@RequestParam Map<String, Object> map
-						,@RequestParam MultipartFile img
-						,HttpServletRequest req) throws Exception {
+						, @RequestParam(value = "file", required = false)  MultipartFile img 
+						, HttpServletRequest req) throws Exception {
 
 		/*
 		  System.out.println("아이디:" + req.getParameter("m_id"));
@@ -158,6 +162,7 @@ public class MemberCont {
 		 * req.getParameter("job")); System.out.println("전화번호:" +
 		 * req.getParameter("tel"));
 		 */
+		
 		String imgname="-";
 		if(img != null && !img.isEmpty()) {
 			imgname=img.getOriginalFilename();
@@ -171,10 +176,8 @@ public class MemberCont {
 		}//if end
 		map.put("imgname", imgname);
 		
-		
-			
 		MemberDTO member = new MemberDTO();
-		member.setM_img(dto.getM_img());
+		member.setM_img(dto.getM_img());		//--sql멤버테이블 수정(추가)
 		member.setM_id(dto.getM_id());
 		member.setM_pw(dto.getM_pw());
 		member.setM_name(dto.getM_name());
@@ -185,8 +188,8 @@ public class MemberCont {
 		member.setM_add1(dto.getM_add1());
 		member.setM_add2(dto.getM_add2());
 		member.setM_tel(dto.getM_tel());
-		member.setM_month(dto.getM_month());
-		member.setM_year(dto.getM_year());
+		member.setM_month(dto.getM_month());	//--sql멤버테이블 수정(추가)
+		member.setM_year(dto.getM_year());		//--sql멤버테이블 수정(추가)
 		member.setM_email(dto.getM_email());
 		member.setM_mailcheck(dto.getM_mailcheck());
 		member.setM_smscheck(dto.getM_smscheck());
@@ -198,10 +201,6 @@ public class MemberCont {
 		return "redirect:/member/welcome";
   
 	}// insert() end
-
-
-	
-	
 	
 	// 수정 페이지를 불러오는 컨트롤러
 	@RequestMapping("/update")
@@ -214,15 +213,38 @@ public class MemberCont {
 		return mav;
 	}// memberdetail() end
 
-	
+	//수정
 	@RequestMapping(value = "/update" , method = RequestMethod.POST)
-	public String update(@RequestParam String m_id, @ModelAttribute MemberDTO dto) throws Exception {
+	public String update(@RequestParam String m_id, @ModelAttribute MemberDTO dto
+						,@RequestParam Map<String, Object> map
+						,@RequestParam(value = "file" , required = false) MultipartFile img
+						,HttpServletRequest req) throws Exception {
+		
+		String imgname="-";
+		if(img != null && !img.isEmpty()) {
+			imgname=img.getOriginalFilename();
+			try {
+				ServletContext appliaction=req.getSession().getServletContext();
+				String path= appliaction.getRealPath("/storage"); //실제 물리저긴 경로
+				img.transferTo(new File(path+"\\"+imgname)); 	//파일 저장
+			} catch (Exception e) {
+				e.printStackTrace();
+			}//try end
+		}else{
+			imgname=detail("m_img").toString();
+		}
+		
+		map.put("imgname", imgname);
+		
 		
 		MemberDTO member=new MemberDTO();
+		member.setM_img(dto.getM_img());
 		member.setM_id(m_id);
 		member.setM_pw(dto.getM_pw());
 		member.setM_tel(dto.getM_tel());
 		member.setM_email(dto.getM_email());
+		member.setM_month(dto.getM_month());
+		member.setM_year(dto.getM_year());
 		member.setM_zip(dto.getM_zip());
 		member.setM_add1(dto.getM_add1());
 		member.setM_add2(dto.getM_add2());
@@ -244,9 +266,19 @@ public class MemberCont {
 		return mav;
 	}//delete() end
 	
-	
+	//회원탈퇴 후 로그아웃후 로그인 폼
 	@RequestMapping(value = "/withdraw" , method = RequestMethod.POST)
-	public String Withdraw(@RequestParam String m_id, HttpSession session) throws Exception {
+	public String Withdraw(@RequestParam String m_id, HttpSession session, HttpServletRequest req) throws Exception {
+		
+		String imgname = memberDao.imgname(m_id); 
+		if(imgname!=null && !imgname.equals("-")) {
+			ServletContext appliaction=req.getSession().getServletContext();
+			String path= appliaction.getRealPath("/storage"); //실제 물리저긴 경로
+			File file=new File(path+"\\"+imgname);
+			if(file.exists()) {
+				file.delete();
+			}//if end
+		}//if end
 		memberDao.memberwithdraw(m_id);
 		session.removeAttribute("s_id");
 		session.removeAttribute("grade");

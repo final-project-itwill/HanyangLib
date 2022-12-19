@@ -12,7 +12,10 @@
 <table border="1" class="table table-hover">
 <tr>
 	<th>프로필 사진</th>
-	<td><input type="file" id="m_img" name="m_img"></td>
+	<td>
+		<input type="file" name="file" id="file">
+		<input type="hidden" name="m_img" id="m_img">
+ 	</td>
 </tr>
 <tr>
     <th>*아이디</th>
@@ -114,8 +117,9 @@
   </td>
 </tr>
 <tr>
-    <td colspan="2">
-        <input type="submit" value="회원가입"  class="btn btn-primary"  onsubmit="location.href='/member/welcome'" onclick="memupdate()">
+    <td colspan="2" style="text-align: center">
+        <input type="button" value="정보확인"  class="btn btn-primary" onclick="meminesrt()">
+        <input type="submit" value="회원가입" class="btn btn-success" onsubmit="location.href='/member/insert'">
         <input type="reset"  value="취소"     class="btn btn-primary"/>
     </td>
 </tr>
@@ -123,7 +127,7 @@
 </div>
 
    <script>
-    function memupdate(){
+    function meminesrt(){
     	alert($("input:checkbox[name='mailcheck']").is(":checked"));
     	if($("input:checkbox[name='mailcheck']").is(":checked") == true){
 			$("#m_mailcheck").val('Y');
@@ -140,7 +144,7 @@
 		}
     	
     	if(confirm("회원가입을 하시겠어요?")){
-    	document.membupdate.action="/member/update";		//수정 후 수정페이지로 이동
+    	document.membupdate.action="/member/insert";		//수정 후 수정페이지로 이동
     	document.membupdate.submit();    	
     	}//if end
     }//memupdate
