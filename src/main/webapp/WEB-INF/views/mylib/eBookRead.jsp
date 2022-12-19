@@ -91,9 +91,13 @@
                 alert(data);
                 if(data==1){
                     alert("성공적으로 업데이트 되었습니다.");
-                    window.close();
+                    //window.close();
                 }
             }//success end
+            ,complete : function(){
+                opener.parent.location.reload();
+                window.close();
+            }//complete end
         });//ajax() end
     }//updateProc() end
 
