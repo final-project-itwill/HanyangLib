@@ -49,13 +49,13 @@
         <h4 class="small font-weight-bold">나의 독서 진행률
             <span class="float-right" id="value"></span></h4>
         <div>
-            <form name="frm" method="get">
+            <form name="readFrm" id="readFrm" method="post">
                 ${readMylib.lib_no}
                 ${readMylib.lib_proc}
                 <input type="hidden" name="lib_no" value="${readMylib.lib_no}">
                 <input type="range" name="lib_proc" id="myRange" class="form-control-range" min="0" max="100" value="${readMylib.lib_proc}">
                 <div class="text-right" style="margin-top: 20px">
-                    <input type="button" onclick="javascript:updateProc()" class="btn btn-outline-primary" value="그만 읽기">
+                    <button type="button" id="finishBtn" class="btn btn-outline-primary">그만 읽기</button>
                 </div>
             </form>
         </div>
@@ -74,12 +74,27 @@
     }
 
 
-    function updateProc(){
-        let page = "/mylib/updateProc?lib_no=${readMylib.lib_no}&lib_proc="+$("#myRange").val();
-        alert(page);
-        document.frm.action = page;
-        document.frm.submit();
-        window.close();
+    //finishBtn 클릭했을 때
+    $("#finishBtn").click(function (){
+        let updateData = $("#readFrm").serialize();
+        updateProc(updateData);
+    });//click() end
+
+    //lib_proc 업데이트
+    function updateProc(updateData){
+        //alert("수정 함수 호출"+updateData);
+        $.ajax({
+             url    :"/mylib/updateProc"
+            ,type   :"post"
+            ,data   :updateData
+            ,success:function (data){
+                alert(data);
+                if(data==1){
+                    alert("성공적으로 업데이트 되었습니다.");
+                    window.close();
+                }
+            }//success end
+        });//ajax() end
     }//updateProc() end
 
 
