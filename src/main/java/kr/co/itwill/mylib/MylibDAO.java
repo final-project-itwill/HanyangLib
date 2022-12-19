@@ -81,5 +81,14 @@ public class MylibDAO {
     public int update(BookReviewDTO review){
         return sqlSession.update("mylib.rvUpdate", review);
     }//update() end
-	
+
+	//eBookRead에 진행률 가져오기
+	public MylibDTO readMylib(MylibDTO dto){
+		return sqlSession.selectOne("mylib.readMylib", dto);
+	}//ebookProc() end
+
+	public int updateProc(MylibDTO dto){
+		return sqlSession.update("mylib.updateProc", dto);
+	}//updateProc() end
+
 } // class end

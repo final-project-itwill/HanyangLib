@@ -37,7 +37,7 @@
                                     <td>${vs.count}</td>
                                     <td><a href="#">${dto.s_id}</a></td><%--신청서 답변이랑 연결--%>
                                     <td>${dto.s_nick}</td>
-                                    <td>${dto.lib_proc}</td>
+                                    <td>${dto.lib_proc}%</td>
                                     <td>${dto.s_rdate}</td>
                                 </tr>
                             </c:forEach>
@@ -126,7 +126,7 @@
                                         <c:when test="${dto.s_state == 'r'}">가입 거절</c:when>
                                     </c:choose>
                                     </td>
-                                    <td>${dto.lib_proc}</td>
+                                    <td>${dto.lib_proc}%</td>
                                     <td>${dto.s_rdate}</td>
                                     <td><input type="checkbox" name="chkList" id="chkList" value="${dto.s_id}"></td>
                                 </tr>
@@ -164,7 +164,8 @@
 
 
 
-/* AJAX 버리고 간다
+/*
+ AJAX 버리고 간다
 
         //가입 승인버튼 클릭했을 때
         $("#approvalBtn").click(function (){

@@ -3,7 +3,9 @@ package kr.co.itwill.mylib;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import kr.co.itwill.book.BookDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,6 +31,9 @@ public class MylibCont {
 	
 	@Autowired
 	VisitorDAO visitorDao;
+
+	@Autowired
+	BookDAO bookDao;
 	
 	@RequestMapping("/libindex/{lib_id}")
 	public ModelAndView read(@PathVariable String lib_id) throws Exception {
@@ -200,6 +205,34 @@ public class MylibCont {
 		mav.setViewName("redirect:/mylib/libindex/"+s_id);
 		return mav;
 	}
-	
-	
+
+	//나의 서재 책 클릭 > eBookRead에서 진행률 체크 가능
+	@RequestMapping("/eBookRead/{b_code}")
+	public ModelAndView eBookRead(@PathVariable String b_code, HttpSession session)throws Exception{
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("mylib/eBookRead");
+
+		mav.addObject("bookdetail", bookDao.bookdetail(b_code));
+
+		String lib_id = (String) session.getAttribute("s_id");
+		MylibDTO dto = new MylibDTO();
+		dto.setLib_id(lib_id);
+		dto.setLib_bcode(b_code);
+		mav.addObject("readMylib", mylibDao.readMylib(dto));
+
+		return mav;
+	}//eBookRead() end
+
+	@RequestMapping("/updateProc")
+	public ModelAndView updateProc(@RequestParam int lib_no, @RequestParam int lib_proc){
+		ModelAndView mav = new ModelAndView();
+
+		System.out.println("get proc!!!" + lib_proc);
+		MylibDTO dto = new MylibDTO();
+		dto.setLib_no(lib_no);
+		dto.setLib_proc(lib_proc);
+		mav.addObject("updateProc", mylibDao.updateProc(dto));
+		return mav;
+	}//updateProc() end
+
 } // class end
