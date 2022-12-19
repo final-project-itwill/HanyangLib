@@ -24,6 +24,11 @@ public class SurveyDAO {
 		return sqlSession.selectList("survey.list");
 	}// surveylist() end
 	
+	
+	public String scodeget(String c_code) throws Exception {
+		return sqlSession.selectOne("survey.svcode", c_code);
+	} // scodeget() end
+	
 	// 커뮤니티의 가입신청서 문항 제목 조회
 	public List<DsurveyDTO> svTitle(String dsv_code) throws Exception {
 		return sqlSession.selectList("survey.title", dsv_code);
@@ -71,12 +76,12 @@ public class SurveyDAO {
 		return sqlSession.insert("survey.surveyWrite", survey);
 	}// choiceinsert() end
 	
-	public int questionWrite(SurveyDTO survey) {
-		return sqlSession.insert("survey.questionWrite", survey);
+	public int questionWrite(DsurveyDTO dsurvey) {
+		return sqlSession.insert("survey.questionWrite", dsurvey);
 	}// choiceinsert() end
 	
-	public int items(DsurveyDTO question) {
-		return sqlSession.insert("survey.items", question);
+	public int items(ChoiceDTO choice) {
+		return sqlSession.insert("survey.items", choice);
 	} // items() end
 
 

@@ -8,6 +8,13 @@
 		ORDER BY sv_code
 	</select>
 	
+	<select id="svcode" resultType="kr.co.itwill.survey.SurveyDTO">
+			SELECT sv_code
+			FROM survey
+			WHERE sv_comcode = #{c_code}
+	</select>
+	
+	
 	<select id="title" resultType="kr.co.itwill.survey.DsurveyDTO">
 		SELECT dsv_subject, dsv_type, dsv_order
 		FROM dsurvey
@@ -21,37 +28,62 @@
 	</select>
 	
 	<select id="answer" resultType="kr.co.itwill.survey.AnswerDTO">
-		SELECT ans_no, ans_code, ans_dsvno, ans_order, ans_anscode, ans_id, ans_content
+		SELECT ans_no, ans_code, ans_order, ans_anscode, ans_id, ans_content
 		FROM answer
 		WHERE ans_code = #{ans_code} AND ans_id = #{ans_id}
 	</select>
 	
 	<select id="choice" resultType="kr.co.itwill.survey.ChoiceDTO">
-		SELECT ch_no, ch_code, ch_dsvno, ch_order, ch_type, ch_anscode, ch_content
+		SELECT ch_no, ch_code, ch_order, ch_type, ch_anscode, ch_content
 		FROM	choice
 		WHERE ch_code = #{dsv_code}
+		ORDER BY ch_anscode ASC
 	</select>
 	
 	<delete id="ansdelete">
 		DELETE FROM answer
-		WHERE ans_code = #{dsv_code} ANS ans_id = #{s_id}
+		WHERE ans_code = #{ans_code} AND ans_id = #{ans_id}
 	</delete>
 	
 	<insert id="insert" parameterType="kr.co.itwill.survey.AnswerDTO">
-	 	INSERT INTO answer(ans_code, ans_dsvno, ans_order, ans_anscode, ans_id, ans_content)
-		VALUES (#{ans_code}, '3', #{ans_order}, #{ans_anscode}, 'ksh134625', #{ans_content}  )
+	 	INSERT INTO answer(ans_code, ans_order, ans_anscode, ans_id, ans_content)
+		VALUES (#{ans_code},  #{ans_order}, #{ans_anscode}, 'ksh134625', #{ans_content}  )
 	 </insert>
 	
 	
-	<!-- answer -->
+	<!-- survey -->
 	<insert id="surveyWrite" parameterType="kr.co.itwill.survey.SurveyDTO">
 		INSERT INTO survey( sv_code, sv_comcode, sv_id, sv_title, sv_des, sv_edate, sv_max )
-		VALUES ( "s221121-003","com002", #{sv_id}, #{sv_title}, #{sv_des}, now(), 3 )
+		VALUES ( #{sv_code},"com002", #{sv_id}, #{sv_title}, #{sv_des}, #{sv_edate}, #{sv_max} )
 	</insert>
 	
-	<delete id="delete">
+	<!-- dsurvey -->
+	<insert id="questionWrite" parameterType="kr.co.itwill.survey.DsurveyDTO">
+		INSERT INTO dsurvey( dsv_code, dsv_type, dsv_order, dsv_subject )
+		VALUES ( #{dsv_code}, #{dsv_type}, #{dsv_order}, #{dsv_subject} )
+	</insert>	
+	
+	<!-- choice -->
+	<insert id="items" parameterType="kr.co.itwill.survey.ChoiceDTO">
+		INSERT INTO choice( ch_code, ch_order, ch_type, ch_anscode, ch_content)
+		VALUES ( #{ch_code}, #{ch_order}, #{ch_type}, #{ch_anscode}, #{ch_content} )
+	</insert>	
+		
+	
+	<delete id="delete" >
+		DELETE FROM dsurvey
+		WHERE dsv_code = #{sv_code};
+		
+        DELETE FROM choice
+        WHERE ch_code = #{sv_code};
+        
+        DELETE FROM answer
+        WHERE ans_code = #{sv_code};
+	
 		DELETE FROM survey
-        WHERE sv_code = #{sv_code}
+        WHERE sv_code = #{sv_code};
+        
+
 	</delete>
 	
 	<select id="read" resultType="kr.co.itwill.survey.SurveyDTO">
