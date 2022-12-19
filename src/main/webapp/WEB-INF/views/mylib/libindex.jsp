@@ -8,7 +8,20 @@
 <!-- 본문작성 시작 -->
 <!-- 배너와 커뮤니티장 사진이 들어가는 곳 -->
 	<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('/images/libbg.jpg'); height: 40vh;"></div>
-	
+
+
+	<!-- ebookRead 새창으로 열기 자바스크립트 -->
+	<script>
+		function readEbook(b_code){
+			let link = "http://localhost:9095/mylib/eBookRead/"+b_code;
+			let encodedURI = encodeURI(link);
+			window.open(encodedURI, '');
+		}//readEbook() end
+
+	</script>
+
+
+
 <!-- 커뮤니티 container -->
 	<img class="userphoto rounded-circle" alt="user" src="/images/user.png">
 	<div class="container-fluid">
@@ -122,7 +135,7 @@
 							</c:otherwise>
 						</c:choose>
 						<br>
-						책 제목 : <a class="text-black" href="detail/${read.b_code}">${read.b_name}</a>
+						책 제목 : <a class="text-black" href="javascript:readEbook(${read.b_code});">${read.b_name}</a>
 						<br>
 							진행도 : <fmt:formatNumber value="${read.lib_proc}" pattern="###"/>%
 						</div>

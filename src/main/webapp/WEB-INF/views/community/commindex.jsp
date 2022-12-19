@@ -55,7 +55,16 @@
                                 <c:forEach items="${listMylib}" var="dto">
                                     <tr>
                                         <td><img src="/storage/${dto.b_bookcover}"></td>
-                                        <td><a href="createForm/${dto.b_code}" onclick="checkProc()">${dto.b_name}</a></td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${dto.lib_proc >= 70}">
+                                                    <a href="createForm/${dto.b_code}">${dto.b_name}</a>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a href="" onclick="checkProc()">${dto.b_name}</a>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
                                         <td>${dto.lib_proc}%</td>
                                     </tr>
                                 </c:forEach>
@@ -74,8 +83,8 @@
             let readProc = '${dto.lib_proc}';
 
             function checkProc(){
-                if(readProc < 80) {
-                    alert("80% 이상 읽어야만 커뮤니티를 생성할 수 있습니다.");
+                if(readProc < 70) {
+                    alert("70% 이상 읽어야만 커뮤니티를 생성할 수 있습니다.");
                 }
             }//checkProc() end
         </script>
@@ -93,26 +102,16 @@
         <div class="col-lg-12">
             <div class="row" data-aos="fade-up" data-aos-delay="0">
 
-                <div class="col-lg-4">
-                    <a href="read/com002" class="gal-item"><img src="/storage/대표사진2.png" class="img-fluid"></a>
-                    <br>
-                    <h4 style="text-align: center; font-weight: bold">책췍check</h4>
-                    <p style="text-align: center; font-weight: bold">헝거게임</p>
-                </div>
-
-                <div class="col-lg-4">
-                    <a href="" class="gal-item"><img src="../images/img_h_2-min.jpg" class="img-fluid"></a>
-                    <br>
-                    <h4 style="text-align: center; font-weight: bold">커뮤니티명</h4>
-                    <p style="text-align: center; font-weight: bold">책 이름</p>
-                </div>
-
-                <div class="col-lg-4">
-                    <a href="" class="gal-item"><img src="../images/img_h_2-min.jpg" class="img-fluid"></a>
-                    <br>
-                    <h4 style="text-align: center; font-weight: bold">커뮤니티명</h4>
-                    <p style="text-align: center; font-weight: bold">책 이름</p>
-                </div>
+                <c:forEach items="${mdPick}" var="dto">
+                    <div class="col-lg-4">
+                        <a href="read/${dto.c_code}" class="gal-item">
+                            <img src="/storage/${dto.c_banner}" class="img-fluid">
+                        </a>
+                        <br>
+                        <h4 style="text-align: center; font-weight: bold">${dto.c_name}</h4>
+                        <p style="text-align: center; font-weight: bold">${dto.b_name}</p>
+                    </div>
+                </c:forEach>
 
             </div>
         </div>

@@ -164,5 +164,20 @@
 		]]>
 	</update>
 
+	<select id="readMylib" resultType="kr.co.itwill.mylib.MylibDTO">
+		<![CDATA[
+			SELECT lib_proc, lib_no, lib_bcode, lib_id
+			FROM mylib
+			WHERE lib_id = #{lib_id} AND lib_bcode = #{lib_bcode}
+		]]>
+	</select>
+
+	<update id="updateProc">
+		<![CDATA[
+		UPDATE mylib
+		SET lib_proc = #{lib_proc}
+		WHERE lib_no = #{lib_no}
+		]]>
+	</update>
 
 </mapper>

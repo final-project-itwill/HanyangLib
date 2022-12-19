@@ -42,8 +42,16 @@
         WHERE c_name LIKE CONCAT('%', #{keyword}, '%') || b_name LIKE CONCAT('%', #{keyword}, '%')
     </select>
 
+    <!-- MD Pick 커뮤니티 list -->
+    <select id="mdPick" resultType="kr.co.itwill.community.BookReadDTO">
+        SELECT c_code, c_name, c_des, c_bcode, c_local, c_id, c_chat, c_banner ,c_count, c_state, c_rdate, b_name, b_bookcover
+        FROM book JOIN community
+                       ON book.b_code = community.c_bcode
+        WHERE c_pick = 'Y'
+        ORDER BY c_rdate DESC LIMIT 3
+    </select>
 
-    <!-- list 최신순 정렬 -->
+    <!-- 최신 커뮤니티 3개 list -->
     <select id="newComm" resultType="kr.co.itwill.community.BookReadDTO">
         SELECT c_code, c_name, c_des, c_bcode, c_local, c_id, c_chat, c_banner ,c_count, c_state, c_rdate, b_name, b_bookcover
         FROM book JOIN community
@@ -163,17 +171,36 @@
         ]]>
     </select>
 
-    <!-- 관리자 페이지 구성원 목록 -->
-    <select id="approvedMember" resultType="kr.co.itwill.community.CommSignDTO">
-        SELECT s_no, s_code , s_id, s_nick, s_state, s_surveycode, s_rdate
-        FROM community_signup
-        WHERE s_code = #{c_code} AND s_state = 's'
+    <!-- 관리자 페이지 : 가입 승인된 구성원 목록 -->
+    <select id="approvedMember" resultType="kr.co.itwill.community.AdminMemberDTO">
+        SELECT s_no, s_code , s_id, s_nick, s_state, s_surveycode, s_rdate, c_bcode, lib_bcode, lib_proc
+        FROM (
+                 SELECT s_no, s_code , s_id, s_nick, s_state, s_surveycode, s_rdate, c_bcode
+                 FROM (	SELECT s_no, s_code , s_id, s_nick, s_state, s_surveycode, s_rdate
+                           FROM community_signup
+                           WHERE s_code = #{c_code} AND s_state = 's'
+                      ) S LEFT JOIN community C
+                                    ON S.s_code = C.c_code
+             )AA LEFT JOIN mylib M
+                           ON AA.c_bcode = M.lib_bcode
+                               AND AA.s_id = M.lib_id
+        ORDER BY s_rdate DESC
     </select>
 
-    <select id="waitingMember" resultType="kr.co.itwill.community.CommSignDTO">
-        SELECT s_no, s_code , s_id, s_nick, s_state, s_surveycode, s_rdate
-        FROM community_signup
-        WHERE s_code = #{c_code} AND s_state not in('s')
+
+    <!-- 가입 대기/거절 목록 -->
+    <select id="waitingMember" resultType="kr.co.itwill.community.AdminMemberDTO">
+        SELECT s_no, s_code , s_id, s_nick, s_state, s_surveycode, s_rdate, c_bcode, lib_bcode, lib_proc
+        FROM (
+                SELECT s_no, s_code , s_id, s_nick, s_state, s_surveycode, s_rdate, c_bcode
+                FROM (	SELECT s_no, s_code , s_id, s_nick, s_state, s_surveycode, s_rdate
+                        FROM community_signup
+                        WHERE s_code = #{c_code} AND s_state NOT IN ('s')
+                    ) S LEFT JOIN community C
+                                  ON S.s_code = C.c_code
+            )AA LEFT JOIN mylib M
+                          ON AA.c_bcode = M.lib_bcode
+                          AND AA.s_id = M.lib_id
         ORDER BY s_state
     </select>
 

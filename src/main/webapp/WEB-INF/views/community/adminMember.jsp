@@ -22,15 +22,22 @@
                                 <th>No.</th>
                                 <th>아이디</th>
                                 <th>닉네임</th>
+                                <th>독서 진행률</th>
                                 <th>신청날짜</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <c:if test="${fn:length(approvedMember) == 0}">
+                                <tr>
+                                    <td colspan="4" style="text-align: center;">아직 활동하는 회원이 없습니다.</td>
+                                </tr>
+                            </c:if>
                             <c:forEach var="dto" items="${approvedMember}" varStatus="vs">
                                 <tr>
                                     <td>${vs.count}</td>
                                     <td><a href="#">${dto.s_id}</a></td><%--신청서 답변이랑 연결--%>
                                     <td>${dto.s_nick}</td>
+                                    <td>${dto.lib_proc}%</td>
                                     <td>${dto.s_rdate}</td>
                                 </tr>
                             </c:forEach>
@@ -97,24 +104,29 @@
                                 <th>아이디</th>
                                 <th>닉네임</th>
                                 <th>신청상태</th>
-                                <th>독서진행률</th>
+                                <th>독서 진행률</th>
                                 <th>신청날짜</th>
                                 <th>체크</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <c:if test="${fn:length(waitingMember) == 0}">
+                                <tr>
+                                    <td colspan="7" style="text-align: center;">커뮤니티 가입 승인을 기다리고 있는 회원들이 없습니다</td>
+                                </tr>
+                            </c:if>
                             <c:forEach var="dto" items="${waitingMember}" varStatus="vs">
                                 <tr>
                                     <td>${vs.count}</td>
                                     <td><a href="#">${dto.s_id}</a></td><%--신청서 답변이랑 연결--%>
                                     <td>${dto.s_nick}</td>
                                     <td>
-                                        <c:choose>
-                                            <c:when test="${dto.s_state == 'i'}">승인 대기</c:when>
-                                            <c:when test="${dto.s_state == 'r'}">가입 거절</c:when>
-                                        </c:choose>
+                                    <c:choose>
+                                        <c:when test="${dto.s_state == 'i'}">승인 대기</c:when>
+                                        <c:when test="${dto.s_state == 'r'}">가입 거절</c:when>
+                                    </c:choose>
                                     </td>
-                                    <td>0</td>
+                                    <td>${dto.lib_proc}%</td>
                                     <td>${dto.s_rdate}</td>
                                     <td><input type="checkbox" name="chkList" id="chkList" value="${dto.s_id}"></td>
                                 </tr>
@@ -122,7 +134,7 @@
                         </tbody>
                     </table>
                 </div>
-                <a href="javascript:checkAll()"><p align="right" style="padding-right: 10px" class="text-primary">모두체크</p></a>
+                <p align="right" style="padding-right: 10px" class="text-primary"><input type="checkbox" id="checkAll"> 모두선택</p>
             </div>
 
         </form>
@@ -135,21 +147,25 @@
     <script>
 
         //체크박스 모두 체크
-        function checkAll(){
-            let flag = true;
-            if(flag){
-                $('input[name="chkList"]:checkbox').prop("checked", flag);
-                flag = false;
-            }else if (flag){
-                $('input[name="chkList"]:checkbox').prop("checked", flag);
-                flag = true;
-            }//if end
+        $(document).ready(function (){
+            $("#checkAll").click(function (){
 
-        }//checkAll() end
+                if($("#checkAll").prop("checked")){
+                    $("input[name=chkList]").prop("checked", true);
+                }else {
+                    $("input[name=chkList]").prop("checked", false);
+                }//if end
 
 
+            });//click() end
+        });//ready() end
 
-/* AJAX 버리고 간다
+
+
+
+
+/*
+ AJAX 버리고 간다
 
         //가입 승인버튼 클릭했을 때
         $("#approvalBtn").click(function (){
