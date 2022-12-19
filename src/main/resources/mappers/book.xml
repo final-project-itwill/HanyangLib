@@ -11,6 +11,18 @@
  	 -->
  	 
  	 <!-- 페이징이 있는 목록 -->
+ 	 <select id="list" resultType="kr.co.itwill.book.BookDTO">
+        SELECT AA.*
+        FROM(
+        SELECT @RNO := @RNO + 1 AS r, CC.*
+        FROM(
+        SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
+        FROM book
+        ) CC, (SELECT @RNO := 0) BB order by b_rdate DESC
+        ) AA
+        WHERE r BETWEEN #{startRow} AND #{startRow}+29
+    </select>
+    
  	 <select id="list_n" resultType="kr.co.itwill.book.BookDTO">
         SELECT AA.*
         FROM(
@@ -103,24 +115,6 @@
         FROM book
     </select>	
 	
-	
-
-	<!-- new book list -->
-	
-	<select id="booklist" resultType="kr.co.itwill.book.BookDTO">
-        SELECT AA.*
-        FROM(
-        SELECT @RNO := @RNO + 1 AS r, CC.*
-        FROM(
-        SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
-        FROM book
-        ) CC, (SELECT @RNO := 0) BB order by b_rdate DESC
-        ) AA
-        WHERE r BETWEEN #{startRow} AND #{endRow}
-    </select>
-	
-
-
 
 
 </mapper>
