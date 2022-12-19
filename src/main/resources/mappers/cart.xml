@@ -11,4 +11,57 @@
 		]]>
 	</select>	
 	
+	<insert id="add">
+		<![CDATA[
+			INSERT cart( cart_code, cart_id )
+			VALUES ( #{cart_code}, #{cart_id} )
+		]]>
+	</insert>
+	
+	<select id="checkCart" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*)
+			FROM cart
+			WHERE cart_id = #{cart_id}
+		]]>
+	</select>
+	
+	<select id="checkBook" resultType="int">
+		<![CDATA[
+			SELECT COUNT(cart_code)
+			FROM cart
+			WHERE cart_id = #{cart_id} AND cart_code = #{cart_code}
+		]]>
+	</select>
+	
+	<select id="list" resultType="kr.co.itwill.cart.CartDTO">
+		<![CDATA[
+			SELECT cart_code, cart_id, b_name, b_price, b_bookcover
+			FROM (
+				SELECT cart_code, cart_id
+				FROM cart
+				WHERE cart_id = #{cart_id}
+				) AA LEFT OUTER JOIN (
+				SELECT b_code, b_name, b_price, b_bookcover
+				FROM book
+				) BB
+			ON AA.cart_code = BB.b_code
+		]]>
+	</select>
+	
+	<delete id="deleteBook">
+		<foreach collection="list" item="item" index="index" separator=";">
+			DELETE FROM cart
+			WHERE cart_code = #{item.cart_code} AND cart_id = #{item.cart_id}		
+		</foreach>
+	</delete>
+	
+	<select id="count" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) AS cnt
+			FROM d_payment
+			WHERE dpay_pno LIKE #{date}
+		]]>
+	</select>
+	
 </mapper>

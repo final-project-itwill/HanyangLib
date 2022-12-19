@@ -81,7 +81,7 @@
         			</a>
         		</li>
         		<!-- 장바구니 목록 추가 -->
-	            <li><a href="/cart/cartList" style="font-weight: bold;"><i class="fas fa-shopping-cart"></i></a></li>
+	            <li><a href="/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}" style="font-weight: bold;"><i class="fas fa-shopping-cart"></i></a></li>
         	</ul>
         	<a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
 	          <span></span>
@@ -120,7 +120,7 @@
         			</a>
         		</li>
         		<!-- 장바구니 목록 추가 -->
-	            <li><a href="/cart/cartList" style="font-weight: bold;"><i class="fas fa-shopping-cart"></i></a></li>
+	            <li><a href="/login/index" style="font-weight: bold;"><i class="fas fa-shopping-cart"></i></a></li>
             </ul>
        		<a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
 	          <span></span>
