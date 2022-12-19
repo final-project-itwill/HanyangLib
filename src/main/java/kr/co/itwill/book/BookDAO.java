@@ -46,6 +46,13 @@ public class BookDAO {
 		return sqlSession.selectList("book.list_s", rows);		
 	}//list_s() end
 	
+	
+	public List<BookDTO> list(BookDTO rows){
+		System.out.println(rows.getStartRow() + "첫째줄 소환");
+		System.out.println(rows.getEndRow() + "막줄 소환");
+		return sqlSession.selectList("book.list", rows);		
+	}//list() end
+	
 	public BookDTO bookdetail(String b_code) throws Exception {
 		return sqlSession.selectOne("book.bookdetail",b_code);
 	}//bookdetail() end
@@ -77,7 +84,10 @@ public class BookDAO {
 		return sqlSession.selectOne("book.totalRowCount_s");
 	}// totalRowCount() end
 	
-	
+	//자연과학 총 행 갯수
+	public int totalRowCount() {
+		return sqlSession.selectOne("book.totalRowCount");
+	}// totalRowCount() end
 	
 	//상품등록
 	public int insert(BookDTO book) {
