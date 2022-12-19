@@ -5,12 +5,12 @@ import lombok.Data;
 @Data
 public class MemberDTO {
 	
-	   private String   m_img;			//프로필 사진		--sql멤버테이블 수정(추가)
+	   private String m_img;			//프로필 사진		--sql멤버테이블 수정(추가)
 	   private String m_id;				//아이디
 	   private String m_pw;				//비밀번호
 	   private String m_name;			//이름
 	   private String m_nick;			//닉네임
-	   private int 	  m_birth;			//생년월일
+	   private String m_birth;			//생년월일
 	   private String m_gender;			//성별
 	   private int 	  m_zip;			//우편번호
 	   private String m_add1;			//집주소1
