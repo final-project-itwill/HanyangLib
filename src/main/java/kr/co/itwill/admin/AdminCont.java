@@ -36,7 +36,7 @@ public class AdminCont {
     public ModelAndView listCommunity(){
         ModelAndView mav = new ModelAndView();
         mav.setViewName("admin/communityList");
-        mav.addObject("list", adminDao.listCommunity());
+        mav.addObject("communityList", adminDao.listCommunity());
         return mav;
     }//listCommunity() end
 
