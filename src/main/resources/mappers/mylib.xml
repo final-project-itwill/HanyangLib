@@ -79,7 +79,7 @@
 	<insert id="getBook">
 		<![CDATA[
 		INSERT INTO mylib(lib_id, lib_bcode)
-		VALUES (#{lib_id}, #{lib_bcode});
+		VALUES (#{lib_id}, #{lib_bcode})
 		]]>
 	</insert>
 	
