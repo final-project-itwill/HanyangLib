@@ -144,7 +144,7 @@ public class MemberCont {
 	// 회원가입을 했을때 member테이블에 insert하기
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	@ResponseBody	
-	public String insert(@ModelAttribute MemberDTO dto ,@RequestParam Map<String, Object> map
+	public ModelAndView insert(@ModelAttribute MemberDTO dto ,@RequestParam Map<String, Object> map
 						, @RequestParam(value = "file", required = false)  MultipartFile img 
 						, HttpServletRequest req) throws Exception {
 
@@ -162,6 +162,7 @@ public class MemberCont {
 		 * req.getParameter("job")); System.out.println("전화번호:" +
 		 * req.getParameter("tel"));
 		 */
+		ModelAndView mav=new ModelAndView();
 		
 		String imgname="-";
 		if(img != null && !img.isEmpty()) {
@@ -177,7 +178,7 @@ public class MemberCont {
 		map.put("imgname", imgname);
 		
 		MemberDTO member = new MemberDTO();
-		member.setM_img(dto.getM_img());		//--sql멤버테이블 수정(추가)
+		member.setM_img(imgname);		//--sql멤버테이블 수정(추가)
 		member.setM_id(dto.getM_id());
 		member.setM_pw(dto.getM_pw());
 		member.setM_name(dto.getM_name());
@@ -198,7 +199,9 @@ public class MemberCont {
 		
 		memberDao.memberinsert(member);
 		
-		return "redirect:/member/welcome";
+		mav.setViewName("member/welcomeform");
+		
+		return mav;
   
 	}// insert() end
 	
@@ -219,26 +222,39 @@ public class MemberCont {
 						,@RequestParam Map<String, Object> map
 						,@RequestParam(value = "file" , required = false) MultipartFile img
 						,HttpServletRequest req) throws Exception {
+		//기존 저장된 정보 가져오기
+		MemberDTO oldDTO = memberDao.detail(dto.getM_id());
 		
-		String imgname="-";
-		if(img != null && !img.isEmpty()) {
+		String imgname= "-";
+	
+		
+		if(img != null && !img.isEmpty()) { 
 			imgname=img.getOriginalFilename();
 			try {
 				ServletContext appliaction=req.getSession().getServletContext();
-				String path= appliaction.getRealPath("/storage"); //실제 물리저긴 경로
-				img.transferTo(new File(path+"\\"+imgname)); 	//파일 저장
+				String path= appliaction.getRealPath("/storage");
+				img.transferTo(new File(path+"/"+imgname));	//신규로 전송된 파일 저장
+				dto.setM_img(imgname);						//리네임된 파일명 dto에 담기
+				
+				String oldImgname = oldDTO.getM_img(); 		//old파일 /storage에서 삭제하기
+				File oldFile = new File(path + "/" + oldImgname);
+				if(oldFile.exists()) {
+					oldFile.delete();
+				}//if end
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}//try end
-		}else{
-			imgname=detail("m_img").toString();
-		}
+		}else{									//파일 수정 안 할 경우	
+			imgname = oldDTO.getM_img();		//oldDTO에서 파일이름 가져오기
+			dto.setM_img(oldDTO.getM_img());	//기존파일이름 dto에 담기	
+		}//if end
 		
 		map.put("imgname", imgname);
 		
-		
 		MemberDTO member=new MemberDTO();
-		member.setM_img(dto.getM_img());
+		
+		//member.setM_img(imgname);
 		member.setM_id(m_id);
 		member.setM_pw(dto.getM_pw());
 		member.setM_tel(dto.getM_tel());
@@ -250,10 +266,11 @@ public class MemberCont {
 		member.setM_add2(dto.getM_add2());
 		member.setM_mailcheck(dto.getM_mailcheck());
 		member.setM_smscheck(dto.getM_smscheck());
-		
+		System.out.println(imgname);
 		memberDao.memberupdate(member);
 		//System.out.println(member.toString());
 		return "redirect:/login/index";	//수정 후 로그인 인덱스폼으로 돌아기기
+		
 		
 	}//update() end
 
@@ -270,11 +287,11 @@ public class MemberCont {
 	@RequestMapping(value = "/withdraw" , method = RequestMethod.POST)
 	public String Withdraw(@RequestParam String m_id, HttpSession session, HttpServletRequest req) throws Exception {
 		
-		String imgname = memberDao.imgname(m_id); 
-		if(imgname!=null && !imgname.equals("-")) {
+		String imgname = memberDao.imgname(m_id);
+		if(!imgname.equals("-")) {
 			ServletContext appliaction=req.getSession().getServletContext();
-			String path= appliaction.getRealPath("/storage"); //실제 물리저긴 경로
-			File file=new File(path+"\\"+imgname);
+			String path= appliaction.getRealPath("/storage"); //실제 물리적인 경로
+			File file=new File(path+"/"+imgname);
 			if(file.exists()) {
 				file.delete();
 			}//if end

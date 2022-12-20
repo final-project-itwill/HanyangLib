@@ -8,7 +8,7 @@
 <div class="jumbotron">
 <h1>한양서재에 오신것을 환영합니다</h1>
 <p>회원가입 성공!</p>
-<input type="button" name="button" class="btn btn-outline-success" onclick="location.href='/login/loginForm'" value="로그인 창으로 돌아기기">
+<input type="button" name="button" class="btn btn-outline-success" onclick="location.href='/login/index'" value="로그인 창으로 돌아기기">
 <!--  <input type="button" name="button" class="btn btn-success btn-lg btn-block" onclick="location.href='/login/loginForm'" value="로그인"> -->
 </div>
 </div>

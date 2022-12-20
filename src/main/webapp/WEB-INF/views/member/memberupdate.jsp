@@ -19,10 +19,10 @@
 			<br>
 				<input type="file" name="file" id="file">
 			 	<input type="hidden" name="m_img" id="m_img" value="${detail.m_img}">		
-				</td>
+			</td>
 			</tr>
 	        <tr>
-	            <td>아이디</td>
+	            <th>아이디</th>
 	            <td>${s_id}</td>
 	        </tr>
 	        <tr>
@@ -30,12 +30,15 @@
 			    <td style="text-align: left"><input type="text" name="m_tel" id="m_tel" value="${detail.m_tel}" size="15"></td>
 			</tr>
 	         <tr>
-	            <td>비밀번호</td>
+	            <th>비밀번호</th>
 	            <td><input type="password" name="m_pw" id="m_pw" value="${detail.m_pw}"></td>
 	        </tr>
 	        <tr>
-			    <th>*비밀번호 확인</th>
-			    <td style="text-align: left"><input type="password" name="pw_check" id="pw_check" size="15" required></td>
+    			<th>*비밀번호 확인</th>
+			    <td style="text-align: left" colspan="2">
+			    	<input type="password" name="m_pw2" id="m_pw2" class="pwcheck" size="15" required>
+			    	<font id="chm_pw" size="2"></font>
+			    </td>
 			</tr>
 	        <tr>
 	        	<th>이메일</th>
@@ -91,6 +94,24 @@
 	      </table>
     </form>
    </div>
+   
+   <script>
+	$(".pwcheck").keyup(function(){
+    	let pass1 = $("#m_pw").val();
+    	let pass2 = $("#m_pw2").val();
+    if(pass1 != "" || pass != ""){
+    	if(pass1 == pass2){
+    		$("#chm_pw").html("비밀번호가 일치합니다!^^");
+    		$("#chm_pw").css("color", "green");
+    	}else{
+    		$("#chm_pw").html("비밀번호가 불일치합니다!");
+    		$("#chm_pw").css("color", "red");
+    	}//if end
+    }//if end
+  }); //keyup() end
+
+</script>
+   
    
    
     <script>
