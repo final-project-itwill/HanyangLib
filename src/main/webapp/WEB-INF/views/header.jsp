@@ -64,7 +64,7 @@
                   <li><a href="/book/bookcate_s?pageNum=1">자연과학</a></li>
                 </ul>
           	</li>
-          	<li><a href="/gudok/detail" style="font-weight: bold;">구독</a></li>
+          	<li><a href="/gudok/index" style="font-weight: bold;">구독</a></li>
 	          	<li><a href="/mylib/libindex/${s_id}" style="font-weight: bold;">나만의 서재</a></li>
 	          	<li><a href="/comm/index" style="font-weight: bold;">커뮤니티</a></li>
               	<li class="has-children">

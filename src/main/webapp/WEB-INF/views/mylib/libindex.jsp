@@ -56,21 +56,72 @@
 						80% 이상 읽은 책은 : ${book80Count}권
 					</td>
 				</tr>
+				<c:if test="${lib_id eq s_id}">
 				<tr>
 					<td>
-					<button class="btn btn-warning">이번 달 목표 설정하기</button>
-					</td>
+					<!-- 모달창 버튼 -->
+					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
+						목표 설정하기
+					</button>
+					<!-- 모달창 시작 -->	
+					<div class="modal fade" id="myModal">
+						<div class="modal-dialog modal-sm modal-dialog-centered">
+							<div class="modal-content">
+
+								<!-- Modal Header -->
+								<div class="modal-header">
+									<h4 class="modal-title">한 권이어도 좋으니<br>꾸준히 읽어보아요</h4>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+
+								<!-- Modal body -->
+								<form name="goalfrm" action="/mylib/setGoal">
+								<input type="hidden" name="m_id" id="m_id" value="${lib_id}">
+								<table class="modal-body table">
+								<tr>
+									<th>이번 달 목표</th>
+									<td>
+										<input type="text" name="m_month" id="m_month" value="${info.m_month}">
+									</td>
+								</tr>
+								<tr>
+									<th>올 해 목표</th>
+									<td>
+										<input type="text" name="m_year" id="m_year" value="${info.m_year}">
+									</td>
+								</tr>									
+								</table>								
+
+								<!-- Modal footer -->
+								<div class="modal-footer">
+									<input type="submit" class="btn btn-secondary" onclick="javascript:setGoal()" value="결정하기">
+								</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					
+					<script>
+						function setGoal(){
+							$("#myModal")
+						}					
+					</script>
+					
+					
+					<!-- 모달창 끝 -->
+						</td>
 				</tr>
+				</c:if>
 				<tr>
 					<td>
 						이번 달은<br>
-						<span style="font-weight: bold; font-size: 35px;">4</span> 권 읽기
+						<span style="font-weight: bold; font-size: 35px;">${info.m_month}</span> 권 읽기
 					</td>
 				</tr>
 				<tr>
 					<td>
 						이번 해는<br>
-						<span style="font-weight: bold; font-size: 35px;">12</span> 권 읽기
+						<span style="font-weight: bold; font-size: 35px;">${info.m_year}</span> 권 읽기
 					</td>
 				</tr>
 				</table>
@@ -219,11 +270,15 @@
 					<td>별점</td>
 					<td>조회수</td>
 				</tr>
-				<c:forEach items="${review}" var="rv">
+				<c:forEach items="${review5}" var="rv">
 				<tr style="text-align: center;">
-					<td><a href="/mylib/reviewRead?br_no=${rv.br_no}">${rv.br_title}</a></td>
+					<td><a href="/mylib/reviewRead?br_no=${rv.br_no}&loginId=${s_id}">${rv.br_title}</a></td>
 					<td>${rv.b_name}</td>
-					<td>${rv.br_star}</td>
+					<td>
+						<c:forEach var="cnt" begin="1" end="${rv.br_star}" step="1">
+							<img src="/images/star.png" width="15px">
+						</c:forEach>	
+					</td>
 					<td>${rv.br_count}</td>
 				</tr>
 				</c:forEach>

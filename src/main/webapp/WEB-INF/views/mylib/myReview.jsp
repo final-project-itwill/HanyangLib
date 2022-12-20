@@ -118,7 +118,11 @@
 	<tr style="text-align: center;">
 		<td><a href="/mylib/reviewRead?br_no=${rv.br_no}">${rv.br_title}</a></td>
 		<td>${rv.b_name}</td>
-		<td>${rv.br_star}</td>
+		<td>
+		<c:forEach var="cnt" begin="1" end="${rv.br_star}" step="1">
+			<img src="/images/star.png" width="15px">
+		</c:forEach>	
+		</td>
 		<td>${rv.br_count}</td>
 	</tr>
 	</c:forEach>

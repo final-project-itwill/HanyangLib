@@ -2,10 +2,14 @@ package kr.co.itwill.mylib;
 
 import java.util.List;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.co.itwill.book.BookDAO;
+import kr.co.itwill.member.MemberDTO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -46,6 +50,7 @@ public class MylibCont {
 		mav.addObject("libThree", mylibDao.getLibThree(lib_id));
 		mav.addObject("commuRead", mylibDao.getCommuRead(lib_id));
 		mav.addObject("review", mylibDao.getReviewList(lib_id));
+		mav.addObject("review5", mylibDao.getReviewList5(lib_id));
 		mav.addObject("vsCount", visitorDao.getVsCount(lib_id));
 		mav.addObject("lib_id", lib_id);
 		return mav;
@@ -118,8 +123,10 @@ public class MylibCont {
 		mav.addObject("bookCount", mylibDao.getCount(lib_id));
 		mav.addObject("book80Count", mylibDao.get80Count(lib_id));
 		mav.addObject("libInfo", mylibDao.getLibInfo(lib_id));
-		mav.addObject("review", mylibDao.getReviewList(lib_id));
+		mav.addObject("review", mylibDao.getReviewList(lib_id));		
 		mav.addObject("lib_id", lib_id);
+		// 서평 조회수 1씩 늘리기
+		mylibDao.rvCount(lib_id);
 		return mav;
 	}
 	
@@ -150,10 +157,12 @@ public class MylibCont {
 	
 	// 서평 상세 읽기
 	@RequestMapping("/reviewRead")
-	public ModelAndView reviewRead(@RequestParam int br_no) throws Exception {
+	public ModelAndView reviewRead(@RequestParam int br_no, String loginId, HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("mylib/reviewRead");
 		mav.addObject("rvRead", mylibDao.getReviewRead(br_no));
+		// 서평 조회수 1씩 늘리기
+		mylibDao.rvCount(loginId);
 		return mav;
 	} // reviewRead() end
 	
@@ -239,5 +248,17 @@ public class MylibCont {
 
 		return mav;
 	}//updateProc() end
+	
+	// 나만의 서재 달, 연별 목표 설정
+	@RequestMapping("/setGoal")
+	public String setGoal(@RequestParam int m_month, @RequestParam int m_year, @RequestParam String m_id) {
+		MemberDTO dto = new MemberDTO();
+		dto.setM_month(m_month);
+		dto.setM_year(m_year);
+		dto.setM_id(m_id);
+		mylibDao.setGoal(dto);
+		return "redirect:/mylib/libindex/"+m_id;
+	}
+	
 
 } // class end

@@ -15,17 +15,29 @@ public class GudokCont {
 		System.out.println("-----GudokCont() 객체 생성됨");
 	} // end
 	
-	// 구독한 사람의 경우 나만의 서재에 책 insert
-	@RequestMapping({"/libInsert/{b_code}/{s_id}"})
-	public ModelAndView list(@PathVariable("b_code") String b_code, @PathVariable("s_id") String s_id) {
-		MylibDTO lib = new MylibDTO();
-		lib.setLib_bcode(b_code);
-		lib.setLib_id(s_id);
-		
+	// 구독 페이지 불러오기
+	@RequestMapping("/index")
+	public ModelAndView index() {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("insert", "");
-		mav.setViewName("redirect:/mylib/libindex/"+s_id);
+		mav.setViewName("gudok/index");
 		return mav;
-	}
+	} // index() end
+	
+	// 구독이 성공하면 맴버테이블의 구독 상태를 Y로 변경하기
+	@RequestMapping("/success")
+	public ModelAndView success() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("gudok/success");
+		return mav;
+	} // index() end
+	
+	@RequestMapping("/fail")
+	public ModelAndView fail() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("gudok/fail");
+		return mav;
+	} // index() end
+	
+	
 	
 } // class end

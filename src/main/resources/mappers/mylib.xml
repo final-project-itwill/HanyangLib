@@ -21,13 +21,13 @@
 	
 	<select id="libInfoRead" resultType="kr.co.itwill.mylib.LibinfoDTO">
 		<![CDATA[
-		SELECT lib_id, m_id, m_nick, m_heat
+		SELECT lib_id, m_id, m_nick, m_heat, m_month, m_year
 		FROM (
 			SELECT lib_id
 			FROM mylib
 			WHERE lib_id = #{lib_id}
 			) AS AA LEFT OUTER JOIN (
-			SELECT m_id, m_nick, m_heat
+			SELECT m_id, m_nick, m_heat, m_month, m_year
 			FROM member
 			) AS BB
 		ON AA.lib_id = BB.m_id
@@ -37,7 +37,7 @@
 			SELECT lib_id
 			FROM mylib
 			) AS AA RIGHT OUTER JOIN (
-			SELECT m_id, m_nick, m_heat
+			SELECT m_id, m_nick, m_heat, m_month, m_year
 			FROM member
 			WHERE m_id = #{lib_id}
 			) AS BB
@@ -121,6 +121,23 @@
 			FROM book
 			) BB
 		ON AA.br_bcode = BB.b_code
+		ORDER BY br_no DESC
+		]]>	
+	</select>
+	
+	<select id="rvList5" resultType="kr.co.itwill.mylib.BookReviewDTO">
+		<![CDATA[
+		SELECT br_no, br_title, br_bcode, br_id, br_star, br_count, br_rdate, br_content, b_code, b_name
+		FROM (
+			SELECT br_no, br_title, br_bcode, br_id, br_star, br_count, br_rdate, br_content
+			FROM bookreview
+			WHERE br_id = #{lib_id}
+			) AA LEFT OUTER JOIN (
+			SELECT b_code, b_name
+			FROM book
+			) BB
+		ON AA.br_bcode = BB.b_code
+		ORDER BY br_no DESC LIMIT 5
 		]]>	
 	</select>
 	
@@ -178,6 +195,22 @@
 		SET lib_proc = #{lib_proc}
 		WHERE lib_no = #{lib_no}
 		]]>
+	</update>
+	
+	<update id="rvCount">
+		<![CDATA[
+	    UPDATE bookreview
+	    SET br_count = br_count + 1
+	    WHERE br_id = #{br_id}
+	    ]]>
+	</update>
+	
+	<update id="setGoal">
+		<![CDATA[
+	    UPDATE member
+	    SET m_month = #{m_month}, m_year = #{m_year}
+	    WHERE m_id = #{m_id}
+	    ]]>
 	</update>
 
 </mapper>
