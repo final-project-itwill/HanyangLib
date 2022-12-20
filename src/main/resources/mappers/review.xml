@@ -30,4 +30,12 @@
         WHERE ac_no = #{ac_no}
     </update>
 
+    <!-- id당 후기 갯수 출력 (insert 한 번만 제약 조건) -->
+    <select id="reviewByID" resultType="int">
+        SELECT count(*)
+        FROM community_ac
+        WHERE ac_ccode = #{ac_ccode} AND ac_id = #{ac_id}
+    </select>
+
+
 </mapper>

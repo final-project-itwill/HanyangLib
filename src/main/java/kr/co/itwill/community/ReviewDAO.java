@@ -35,4 +35,9 @@ public class ReviewDAO {
         return sqlSession.update("review.update", dto);
     }//openActivityUpdatePanel() end
 
+    public int countReviewByID(ReviewDTO review){
+        int cnt = sqlSession.selectOne("review.reviewByID", review);
+        return cnt;
+    }//countReviewByID() end
+
 }//class end

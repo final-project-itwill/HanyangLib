@@ -133,6 +133,11 @@ public class CommunityCont {
         mav.addObject("memberCnt", commDao.memberCnt(c_code));
 
         mav.addObject("reviewCnt", commDao.reviewCnt(c_code));
+
+        ReviewDTO review = new ReviewDTO();
+        review.setAc_ccode(c_code);
+        review.setAc_id(loginID);
+        mav.addObject("reviewByID", reviewDAO.countReviewByID(review));
         return mav;
     }//read() end
 

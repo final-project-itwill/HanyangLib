@@ -185,10 +185,20 @@
 
     //후기 남기기 버튼 클릭했을 때
     $("#reviewInsertBtn").click(function (){
-        //id="reviewForm"의 내용을 전부 가져온다
+
         let insertData=$("#reviewForm").serialize();
-        //alert(insertData);
-        insertReview(insertData);   //후기등록 함수호출
+        let reviewCnt = ${reviewByID};
+        if(reviewCnt >= 1){
+            alert("이미 후기를 작성한 커뮤니티입니다. \n기존 후기를 수정하거나 삭제해주세요.");
+            $('#review').val('');   //기존 후기내용 빈값으로
+            $('#manjok').val(3);    //기본별점 3
+        }else{
+            //alert(insertData);
+            insertReview(insertData);   //후기등록 함수호출
+        }//if end
+
+
+
     });//click() end
 
     //후기 등록
