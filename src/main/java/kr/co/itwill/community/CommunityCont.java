@@ -219,7 +219,7 @@ public class CommunityCont {
 
         ModelAndView mav = new ModelAndView();
 
-
+        
         //기존 저장된 정보 가져오기
         BookReadDTO oldDTO = commDao.read(dto.getC_code());
 

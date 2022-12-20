@@ -36,7 +36,7 @@ public class MemberDAO {
 	 }//memberupdate() end
 	
 	 public String imgname (String m_id) {
-		 return sqlSession.selectOne("member.imgname", m_id);
+		 return sqlSession.selectOne("member.imagename", m_id);
 	 }//imgname end
 	 
 	 //회원 탈퇴 (회원등급(m_grade)을 탈퇴('F')로  m_grade='F')
