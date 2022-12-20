@@ -8,10 +8,10 @@
 		ORDER BY sv_code
 	</select>
 	
-	<select id="svcode" resultType="kr.co.itwill.survey.SurveyDTO">
-			SELECT sv_code
-			FROM survey
-			WHERE sv_comcode = #{c_code}
+	<select id="svcode" resultType="String">
+		SELECT sv_code
+		FROM survey
+		WHERE sv_comcode = #{c_code}
 	</select>
 	
 	
@@ -33,6 +33,24 @@
 		WHERE ans_code = #{ans_code} AND ans_id = #{ans_id}
 	</select>
 	
+	<select id="tpl" resultType="kr.co.itwill.survey.tempDTO">
+		SELECT tem_no, tem_title, tem_code
+		FROM temp
+	</select>
+	
+	<select id="tplread" resultType="kr.co.itwill.survey.templetDTO">
+		SELECT *
+		FROM 
+		(
+		SELECT tem_no, tem_title, tem_code
+		FROM temp
+		) AS AA RIGHT OUTER JOIN (
+		SELECT tefo_no, tefo_code, tefo_type, tefo_order, tefo_subject, tefo_check
+		FROM temp_info
+		) AS BB
+		ON AA.tem_code = BB.tefo_code ;
+	</select>
+	
 	<select id="choice" resultType="kr.co.itwill.survey.ChoiceDTO">
 		SELECT ch_no, ch_code, ch_order, ch_type, ch_anscode, ch_content
 		FROM	choice
@@ -47,14 +65,14 @@
 	
 	<insert id="insert" parameterType="kr.co.itwill.survey.AnswerDTO">
 	 	INSERT INTO answer(ans_code, ans_order, ans_anscode, ans_id, ans_content)
-		VALUES (#{ans_code},  #{ans_order}, #{ans_anscode}, 'ksh134625', #{ans_content}  )
+		VALUES (#{ans_code},  #{ans_order}, #{ans_anscode}, #{ans_id}, #{ans_content}  )
 	 </insert>
 	
 	
 	<!-- survey -->
 	<insert id="surveyWrite" parameterType="kr.co.itwill.survey.SurveyDTO">
 		INSERT INTO survey( sv_code, sv_comcode, sv_id, sv_title, sv_des, sv_edate, sv_max )
-		VALUES ( #{sv_code},"com002", #{sv_id}, #{sv_title}, #{sv_des}, #{sv_edate}, #{sv_max} )
+		VALUES ( #{sv_code}, #{sv_comcode}, #{sv_id}, #{sv_title}, #{sv_des}, #{sv_edate}, #{sv_max} )
 	</insert>
 	
 	<!-- dsurvey -->

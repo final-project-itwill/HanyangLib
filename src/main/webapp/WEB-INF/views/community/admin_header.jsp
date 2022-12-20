@@ -95,11 +95,17 @@
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">가입 신청서를 확인하세요</h6>
-                    <a class="collapse-item" href="#">신청서 생성</a>
-                    <a class="collapse-item" href="#">신청서 수정</a>
-                    <a class="collapse-item" href="#">신청서 삭제</a>
-                    <a class="collapse-item" href="/comm/chart/${read.c_code}">신청서 결과 확인</a>
+                    <h6 class="collapse-header">가입 신청서를 확인하세요 ${sv_code}</h6>
+                    <c:choose>
+	                    <c:when test="${empty sv_code}">
+	                    <a class="collapse-item" href="/survey/create/${read.c_code}/${s_id}">신청서 생성</a>
+	                    </c:when>
+	                    <c:otherwise>
+	                    <a class="collapse-item" href="/survey/update?c_code=${read.c_code}">신청서 수정</a>
+	                    <a class="collapse-item" href="/survey/delete.do?c_code=${read.c_code}">신청서 삭제</a>
+	                    <a class="collapse-item" href="/comm/chart/${read.c_code}">신청서 결과 확인</a>
+	                    </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </li>

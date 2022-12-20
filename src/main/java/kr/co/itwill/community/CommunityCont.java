@@ -1,6 +1,8 @@
 package kr.co.itwill.community;
 
 import kr.co.itwill.notice.NoticeDTO;
+import kr.co.itwill.survey.SurveyDAO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +29,9 @@ public class CommunityCont {
 
     @Autowired
     ReviewDAO reviewDAO;
+    
+    @Autowired
+    SurveyDAO surveyDAO;
 
 
     @RequestMapping("/index")
@@ -327,6 +332,9 @@ public class CommunityCont {
         mav.addObject("star", commDao.star(c_code));
         mav.addObject("reviewCnt", commDao.reviewCnt(c_code));
         mav.addObject("checkOwner", commDao.checkOwner(c_code));
+        
+        // 설문지 코드 생성
+        mav.addObject("sv_code", surveyDAO.scodeget(c_code));
         return mav;
     }//admin() end
 
@@ -351,6 +359,9 @@ public class CommunityCont {
 
         mav.addObject("read", commDao.read(c_code));
         mav.addObject("checkOwner", commDao.checkOwner(c_code));
+        
+        // 설문지 코드 생성
+        mav.addObject("sv_code", surveyDAO.scodeget(c_code));
         return mav;
     }//surveyChart() end
 
