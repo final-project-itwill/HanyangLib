@@ -42,8 +42,8 @@
                                 <th>모집상태</th>
                             </tr>
                             </thead>
-                            <tbody class="communityList">
-
+                            <tbody>
+                            <div class="communityList"></div><!--목록 출력될 div -->
                             </tbody>
                         </table>
                     </div>
@@ -60,15 +60,37 @@
 
         $("input:button[name='filterBtn']").on('click', function (){
             let filter = $(this).val();     //클릭한 버튼의 value값 변수
+            alert(filter);
+
             $.ajax({
                  url    :"admin/communityList"
                 ,type   :"post"
-                ,cache  :false
-                ,data   :{'c_state':$(this).val(), 'filter':filter}
+                ,data   :{'filter':filter}
                 ,success:function (data){
-                     console.log(data);
-                     $('body').html(data);
+                     //console.log(data);
+                     //alert(data);
+
+                    //each반복문으로 출력 시작
+                    let a = "";
+                    $.each(data, function (key, value){
+                        alert(key);
+                        alert(value);
+
+                        a += "<tr>";
+                        a += "  <td>1</td>";
+                        a += "  <td>"+value.c_name+"</td>";
+                        a += "  <td>"+value.b_name+"</td>";
+                        a += "  <td>"+value.c_local+"</td>";
+                        a += "  <td>"+value.c_id+"</td>";
+                        a += "  <td>"+value.cnt+"</td>";
+                        a += "  <td>"+value.c_state+"</td>";
+                        a += "</tr>";
+
+                    });//each() end
+                    $(".communityList").html(a);
+
                 }//success end
+            ,error  :function (){alert("실패쓰")}
             });//ajax() end
         });//click() end
     });//function() end

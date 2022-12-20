@@ -37,8 +37,8 @@ public class AdminDAO {
     }//listMember() end
 
 
-    public List<CommunityUnionDTO> listCommunity(){
-        return sqlSession.selectList("admin.communityList");
+    public List<CommunityUnionDTO> listCommunity(String c_state){
+        return sqlSession.selectList("admin.communityList", c_state);
     }//end
 
 }//class end
