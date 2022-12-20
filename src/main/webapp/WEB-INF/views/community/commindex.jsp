@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
 
+
 <!-- 본문작성 시작 commindex.jsp -->
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -103,9 +104,9 @@
             <div class="row" data-aos="fade-up" data-aos-delay="0">
 
                 <c:forEach items="${mdPick}" var="dto">
-                    <div class="col-lg-4">
+                    <div class="col-lg-4 text-center">
                         <a href="read/${dto.c_code}" class="gal-item">
-                            <img src="/storage/${dto.c_banner}" class="img-fluid">
+                            <img src="/storage/${dto.c_banner}" class="img-fluid row" style="height: 30vh; width: 40vw; text-align: center">
                         </a>
                         <br>
                         <h4 style="text-align: center; font-weight: bold">${dto.c_name}</h4>
@@ -132,7 +133,7 @@
             <div class="row" data-aos="fade-up" data-aos-delay="0">
 
                 <c:forEach items="${newComm}" var="dto">
-                <div class="col-lg-4">
+                <div class="col-lg-4" style="center">
                     <a href="read/${dto.c_code}" class="gal-item">
                                 <img src="/storage/${dto.c_banner}" class="img-fluid">
                     </a>

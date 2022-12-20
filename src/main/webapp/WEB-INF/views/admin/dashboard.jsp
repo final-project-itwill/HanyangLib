@@ -2,6 +2,7 @@
          pageEncoding="UTF-8"%>
 
 <%@ include file="admin_header.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 본문작성 시작 -->
 
 <!-- Page Heading -->
@@ -25,7 +26,7 @@
                         <div class="h5 mb-0 font-weight-bold text-gray-800">100명</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        <i class="fas fa-thumbs-up fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -41,11 +42,11 @@
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                             한양서재 회원수</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            1000명
+                            ${memberCnt}명
                         </div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                        <i class="fas fa-child fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -59,23 +60,27 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                            지금까지 매출액
+                            매출액/목표
                         </div>
                         <div class="row no-gutters align-items-center">
+                            <c:set var="aim" value="1000000"></c:set>
+                            <c:set var="rate" value="${totalSales/aim*100}"></c:set>
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">1억ㅋㅋ</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                    <fmt:formatNumber value="${totalSales}" type="currency"/>
+                                </div>
                             </div>
                             <div class="col">
                                 <div class="progress progress-sm mr-2">
                                     <div class="progress-bar bg-info" role="progressbar"
-                                         style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                         style="width: ${rate}%" aria-valuenow="50" aria-valuemin="0"
                                          aria-valuemax="100"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-child fa-2x text-gray-300"></i>
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
@@ -89,22 +94,13 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                            구성원이 준 평점은 몇점일까?</div>
+                            보유 책 수</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            <c:choose>
-                                <c:when test="${reviewCnt > 0}">
-                                    <c:forEach var="i" begin="1" end="${star}">
-                                        ★
-                                    </c:forEach>
-                                </c:when>
-                                <c:otherwise>
-                                    <p style="font-size: 15px">등록된 후기가 아직 없어요!</p>
-                                </c:otherwise>
-                            </c:choose>
+                            ${bookCnt} 권
                         </div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        <i class="fas fa-book-open fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>

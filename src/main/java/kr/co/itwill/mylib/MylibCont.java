@@ -224,14 +224,19 @@ public class MylibCont {
 	}//eBookRead() end
 
 	@RequestMapping("/updateProc")
-	public ModelAndView updateProc(@RequestParam int lib_no, @RequestParam int lib_proc){
+	public ModelAndView updateProc(HttpServletRequest req){
 		ModelAndView mav = new ModelAndView();
+		System.out.println("GOOOOOD?");
+		int lib_no = Integer.parseInt(req.getParameter("lib_no"));
+		int lib_proc = Integer.parseInt(req.getParameter("lib_proc"));
+		System.out.println("!!!!!!!!!!!!!!!!!"+lib_no);
+		System.out.println("!!!!!!!!!!!!!!!!!"+lib_proc);
 
-		System.out.println("get proc!!!" + lib_proc);
 		MylibDTO dto = new MylibDTO();
 		dto.setLib_no(lib_no);
 		dto.setLib_proc(lib_proc);
 		mav.addObject("updateProc", mylibDao.updateProc(dto));
+
 		return mav;
 	}//updateProc() end
 
