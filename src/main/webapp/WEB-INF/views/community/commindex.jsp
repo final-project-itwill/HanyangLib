@@ -159,24 +159,14 @@
         </div>
         <div class="col-lg-12">
             <div class="row">
+                <c:forEach var="list" items="${dueCommunity}">
                 <div class="col-lg-4">
-                    <a href="" class="gal-item"><img src="../images/img_h_2-min.jpg" class="img-fluid"></a>
+                    <a href="read/${list.c_code}" class="gal-item"><img src="/storage/${list.c_banner}" class="img-fluid"></a>
                     <br>
-                    <h4 style="text-align: center; font-weight: bold">커뮤니티명</h4>
-                    <p style="text-align: center; font-weight: bold">책 이름</p>
+                    <h4 style="text-align: center; font-weight: bold">${list.c_name}</h4>
+                    <p style="text-align: center; font-weight: bold">${list.b_name}</p>
                 </div>
-                <div class="col-lg-4">
-                    <a href="" class="gal-item"><img src="../images/img_h_2-min.jpg" class="img-fluid"></a>
-                    <br>
-                    <h4 style="text-align: center; font-weight: bold">커뮤니티명</h4>
-                    <p style="text-align: center; font-weight: bold">책 이름</p>
-                </div>
-                <div class="col-lg-4">
-                    <a href="" class="gal-item"><img src="../images/img_h_2-min.jpg" class="img-fluid"></a>
-                    <br>
-                    <h4 style="text-align: center; font-weight: bold">커뮤니티명</h4>
-                    <p style="text-align: center; font-weight: bold">책 이름</p>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </div>

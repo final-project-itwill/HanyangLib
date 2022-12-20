@@ -37,8 +37,9 @@ public class CommunityCont {
     @RequestMapping("/index")
     public ModelAndView index(HttpSession session){
         ModelAndView mav = new ModelAndView();
-        mav.addObject("newComm", commDao.newComm());             //최신 커뮤니티 3개 출력
-        mav.addObject("mdPick", commDao.mdPick());               //MD Pick 3개 출력
+        mav.addObject("newComm", commDao.newComm());             //최신 커뮤니티 3개 조회
+        mav.addObject("mdPick", commDao.mdPick());               //MD Pick 3개 조회
+        mav.addObject("dueCommunity", commDao.dueCommunity());   //마감임박 커뮤니티 3개 조회
 
         String loginID = (String) session.getAttribute("s_id");           //로그인id
         mav.addObject("listMylib", commDao.listMylib(loginID));  //커뮤니티 생성시 내서재 조회하기

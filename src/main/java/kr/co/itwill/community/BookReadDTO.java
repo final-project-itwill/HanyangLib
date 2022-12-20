@@ -20,6 +20,10 @@ public class BookReadDTO {
     private String b_bookcover;
     private String m_nick;
 
+    private String sv_comcode;
+    private String sv_edate;
+    private int sv_max;
+
     private MultipartFile poster;
 
     private int startRow;

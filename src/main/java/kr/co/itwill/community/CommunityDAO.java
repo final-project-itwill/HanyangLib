@@ -51,6 +51,11 @@ public class CommunityDAO {
         return sqlSession.selectList("community.newComm");
     }//newComm() end
 
+    //마감순
+    public List<BookReadDTO> dueCommunity(){
+        return sqlSession.selectList("community.dueCommunity");
+    }//dueCommunity() end
+
 
     public BookReadDTO read(String c_code){
         return sqlSession.selectOne("community.read", c_code);
