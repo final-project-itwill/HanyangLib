@@ -1,6 +1,5 @@
 <%@page import="kr.co.itwill.book.BookDTO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -9,7 +8,7 @@
 <body>
 	<!-- 상단 시작과 검색창 -->
 	<div class="hero-slant overlay" data-stellar-background-ratio="0.5"
-		style="background-image: url('../images/science.jpg'); height: 80vh; margin-bottom: 20px;">
+		style="background-image: url('../images/booklist.jpg'); height: 80vh; margin-bottom: 20px;">
 		<div class="container">
 			<div class="row align-items-center justify-content-between"
 				style="display: flex; flex-direction: row-reverse;">
@@ -17,7 +16,7 @@
 					<h1 class="text-white text-left font-weight-bold mb-4"
 						data-aos="fade-up" data-aos-delay="0"
 						style="text-shadow: 3px 3px 3px black;">
-						자연과학
+						전체보기
 					</h1>
 					<form name="keyword" action="search" method="post" class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="100">
 						<input type="text" class="form-control" id="keyword" name="keyword" value="${keyword}" placeholder="책제목 또는 작가를 검색해보세요">
@@ -40,38 +39,42 @@
 	</div>
 <!-- 오늘 본 책 끝-->
 
-
 <div class="container border-bottom">
-<!-- 테이블 시작 -->
 
-	<table border="0" align = "center" width=70%>
+		<table border="0" align="center" width=70%>
+
+		<c:forEach var="dto" items="${list_a}">	
 		
-		<tr>
-			<td>
-			<c:forEach var="dto" items="${list_s}">
-				<div class="col-12">
-					<div class="post-entry horizontal d-md-flex">
-						<div class="media">
-							<a href="#">
-							<img src="${dto.b_bookcover}" style="width: 140px; margin-right: 20px;"></a>
-						</div>
-						<div class="text">
-							<div class="meta">
-								<span>출판사 ${dto.b_publish}</span> <span>&bullet;</span> <span>작가 ${dto.b_author}</span>
-							</div>
-							<h3>
-								<a href="/book/bookdetail/${dto.b_code}" style="color: #906D3B">${dto.b_name}</a>
-							</h3>
-							<p>출판일 ${dto.b_rdate}</p>
-							<p>${dto.b_des}</p>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-			</td>
-		</tr>
+			<tr>
+				<td>
+	
+						<div class="col-12">
+							<div class="post-entry horizontal d-md-flex">
+								<div class="media">
+									<a href="#"> 
+									<img src="${dto.b_bookcover}"
+										style="width: 140px; margin-right: 20px;"></a>
+								</div>
+								<div class="text">
+									<div class="meta">
+										<span>${dto.b_type}</span><br>
+										<span>출판사 ${dto.b_publish}</span> <span>&bullet;</span> 
+										<span>작가${dto.b_author}</span>
+									</div>
+									<h3>
+										<a href="/book/bookdetail/${dto.b_code}" style="color: #906D3B">${dto.b_name}</a>
+									</h3>
+									<p>출판일 ${dto.b_rdate}</p>
+									<p>${dto.b_des}</p>
 
-	</table>
+								</div>
+							</div>
+						</div>
+
+				</td>
+			</tr>
+		</c:forEach>
+		</table>
 
 
 <!-- 페이지 리스트 -->
@@ -88,25 +91,27 @@
 
         <!-- 이전 : startPage는 10, 20, 30.. 따라서 1보다 크면 이전 페이지 이동 가능 -->
         <c:if test="${startPage > 1}">
-            <a href="/book/bookcate_s?pageNum=${startPage-1}">[이전]</a>      <!-- pageNum값을 Controller에 보냄 -->
+            <a href="/book/bookcate_a?pageNum=${startPage-1}">[이전]</a>      <!-- pageNum값을 Controller에 보냄 -->
         </c:if>
 
         <!-- 현재페이지 볼드체 / 현재페이지 외 링크 걸기 -->
         <c:forEach var="i" begin="${startPage}" end="${endPage}">
             <c:choose>
                 <c:when test="${pageNum == i}"><span style="font-weight: bold">${i}</span></c:when>
-                <c:when test="${pageNum != i}"><a href="/book/bookcate_s?pageNum=${i}">[${i}]</a></c:when>
+                <c:when test="${pageNum != i}"><a href="/book/bookcate_a?pageNum=${i}">[${i}]</a></c:when>
             </c:choose>
         </c:forEach>
 
         <!-- 다음 이동 -->
         <c:if test="${endPage < pageCount}">
-            <a href="/book/bookcate_s?pageNum=${endPage+1}">[다음]</a>
+            <a href="/book/bookcate_a?pageNum=${endPage+1}">[다음]</a>
         </c:if>
 </div>
+
 </div>
 
-  <!-- 퀵메뉴 스크롤 따라 다니기 -->
+
+ <!-- 퀵메뉴 스크롤 따라 다니기 -->
   <script>
   	$(document).ready(function(){
 	  var currentPosition = parseInt($(".quickmenu").css("top"));

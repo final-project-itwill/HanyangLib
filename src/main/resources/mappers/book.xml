@@ -11,7 +11,7 @@
  	 -->
  	 
  	 <!-- 페이징이 있는 목록 -->
- 	 <select id="list" resultType="kr.co.itwill.book.BookDTO">
+ 	 <select id="list_a" resultType="kr.co.itwill.book.BookDTO">
         SELECT AA.*
         FROM(
         SELECT @RNO := @RNO + 1 AS r, CC.*
@@ -20,7 +20,7 @@
         FROM book
         ) CC, (SELECT @RNO := 0) BB order by b_rdate DESC
         ) AA
-        WHERE r BETWEEN #{startRow} AND #{startRow}+29
+        WHERE r BETWEEN #{startRow} AND #{endRow}
     </select>
     
  	 <select id="list_n" resultType="kr.co.itwill.book.BookDTO">
@@ -114,7 +114,61 @@
         SELECT COUNT(*)
         FROM book
     </select>	
+    
+    <!-- 검색 -->
+    <select id="search" resultType="kr.co.itwill.book.BookDTO">
+	    SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
+	    FROM  book
+	    WHERE b_name LIKE CONCAT('%', #{keyword}, '%') AND b_author LIKE CONCAT('%', #{keyword}, '%')
+	    ORDER BY b_code DESC
+    </select>
+   
+    
+        <!-- MD Pick 책 list -->
+    <select id="mdBpick" resultType="kr.co.itwill.book.BookDTO">
+        SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
+        FROM book
+        WHERE b_pick = 'Y'
+        ORDER BY b_rdate DESC
+    </select>
 	
 
+
+	<!-- 신간 소개 -->
+	
+	<select id="newbook" resultType="kr.co.itwill.book.BookDTO">
+        SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
+        FROM book
+        ORDER BY b_rdate DESC LIMIT 10
+    </select>
+
+
+
+	
+	<!-- 커뮤니티와 서평 -->
+		
+		
+		
+	<!-- 각 도서별 커뮤니티 리스트 -->	
+	 <select id="commu" resultType="kr.co.itwill.community.BookReadDTO">
+        SELECT c_code, c_name, c_des, c_bcode, c_local, c_id, c_chat, c_banner ,c_count, c_state, c_rdate, b_name, b_bookcover
+        FROM book JOIN community
+                       ON book.b_code = community.c_bcode
+        WHERE c_bcode = #{b_code}
+        ORDER BY c_rdate DESC
+     </select>	
+	
+	<!-- 각 도서별 서평 리스트 -->	
+	
+	<select id="review" resultType="kr.co.itwill.mylib.BookReviewDTO">
+		SELECT br_bcode, br_id, br_title, br_content, br_rdate, br_no
+		FROM book JOIN bookreview 
+					   ON book.b_code = bookreview.br_bcode
+		WHERE br_bcode = #{b_code}
+		ORDER BY br_rdate DESC
+	</select>
+	
+	
+	
 
 </mapper>

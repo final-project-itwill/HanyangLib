@@ -58,6 +58,7 @@
 	          <li class="has-children">
 	          <a href="/book/booklist" style="font-weight: bold;">도서목록</a>
 	          <ul class="dropdown">
+	          	  <li><a href="/book/bookcate_a?pageNum=1">전체보기</a></li>
                   <li><a href="/book/bookcate_n?pageNum=1">소설/시</a></li>
                   <li><a href="/book/bookcate_e?pageNum=1">에세이</a></li>
                   <li><a href="/book/bookcate_h?pageNum=1">인문</a></li>
@@ -102,6 +103,7 @@
 	          <li class="has-children">
 	          <a href="/book/booklist" style="font-weight: bold;">도서목록</a>
 	          <ul class="dropdown">
+                  <li><a href="/book/bookcate_a?pageNum=1">전체보기</a></li>
                   <li><a href="/book/bookcate_n?pageNum=1">소설/시</a></li>
                   <li><a href="/book/bookcate_e?pageNum=1">에세이</a></li>
                   <li><a href="/book/bookcate_h?pageNum=1">인문</a></li>
