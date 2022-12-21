@@ -1,5 +1,8 @@
 package kr.co.itwill.admin;
 
+import kr.co.itwill.community.CommSignDTO;
+import kr.co.itwill.community.CommunityDAO;
+import kr.co.itwill.community.CommunityDTO;
 import kr.co.itwill.community.CommunityUnionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -15,11 +20,15 @@ public class AdminCont {
     @Autowired
     AdminDAO adminDao;
 
+    @Autowired
+    CommunityDAO communityDao;
+
     @RequestMapping("/dashboard")
     public ModelAndView dashboard(){
         ModelAndView mav = new ModelAndView();
         mav.setViewName("admin/dashboard");
 
+        mav.addObject("communityCnt", communityDao.totalRowCount());    //커뮤니티 총 갯수
         mav.addObject("memberCnt", adminDao.countMemeber());    //한양서재 이용자 수
         mav.addObject("bookCnt", adminDao.countBook());         //총 책 권수
         mav.addObject("totalSales", adminDao.totalSales());     //총매출
@@ -35,32 +44,46 @@ public class AdminCont {
         return mav;
     }//listMember() end
 
+
     @RequestMapping("/communityList")
-    @ResponseBody
-    public ModelAndView listCommunity(@RequestParam(defaultValue = "전체보기") String filter) {
-
+    public ModelAndView listCommunity(){
         ModelAndView mav = new ModelAndView();
+        mav.addObject("mdPick", communityDao.mdPick());
         mav.setViewName("admin/communityList");
-
-        System.out.println("filter>>"+filter);
-
-        String c_state = "i, d, e";
-        if(filter.equals("전체보기")){
-            c_state = "i, d, e";
-        }else if(filter.equals("모집중")){
-            c_state = "i";
-        }else if(filter.equals("모집완료")){
-            c_state = "d";
-        }else if(filter.equals("활동완료")){
-            c_state = "e";
-        }//if end
-
-        System.out.println("c_state>>"+c_state);
-
-        mav.addObject("communityList", adminDao.listCommunity(c_state));
         return mav;
     }//listCommunity() end
 
+
+    @RequestMapping("/ajaxlist")
+    @ResponseBody
+    public List<CommunityUnionDTO> listCommunity(@RequestParam(defaultValue = "all") String c_state) {
+        //System.out.println("c_state>>>>>" + c_state);
+        return adminDao.listCommunity(c_state);
+    }//listCommunity() end
+
+
+    //MD Pick 칼럼 update
+    @RequestMapping(value = "/pickUpdate", method = RequestMethod.POST)
+    public String updatePick(HttpServletRequest req){
+
+        adminDao.allNull();
+
+        String[] chkArray = req.getParameterValues("mdList");
+
+        List<CommunityDTO> mdList = new ArrayList<>();
+
+        for(int i=0; i<chkArray.length; i++){
+            String c_code = chkArray[i];
+            System.out.println(c_code);
+
+            CommunityDTO dto = new CommunityDTO();
+            dto.setC_code(chkArray[i]);
+
+            mdList.add(dto);
+        }//for end
+        adminDao.updatePick(mdList);
+        return "admin/communityList";
+    }//updatePick() end
 
 
 }//class end

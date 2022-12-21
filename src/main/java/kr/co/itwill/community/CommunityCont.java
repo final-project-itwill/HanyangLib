@@ -131,7 +131,6 @@ public class CommunityCont {
 
         mav.addObject("checkOwner", commDao.checkOwner(c_code));    //커뮤니티장 확인하기
         mav.addObject("checkMember", commDao.checkMember(c_code));  //커뮤니티 구성원 확인
-        mav.addObject("memberCnt", commDao.memberCnt(c_code));
 
         mav.addObject("reviewCnt", commDao.reviewCnt(c_code));
 
@@ -179,7 +178,7 @@ public class CommunityCont {
         MultipartFile poster = dto.getPoster();                         //파일 가져오기
         String filename = poster.getOriginalFilename();                 //파일 이름 가져오기
         if(poster == null || poster.isEmpty()){                         //파일 없을 경우 기본 이미지
-            filename = "none.jpg";
+            filename = "none.png";
         }//if end
         poster.transferTo(new File(path + "/" + filename));    // /storage 폴더에 파일 저장
 
@@ -204,7 +203,7 @@ public class CommunityCont {
     public String delete(@PathVariable String c_code, HttpServletRequest request){
 
         String filename = commDao.filename(c_code); //삭제할 파일이름 조회
-        if(!filename.equals("none.jpg")){
+        if(!filename.equals("none.png")){
             ServletContext application = request.getSession().getServletContext();
             String path = application.getRealPath("/storage");
             File file = new File(path + "/" + filename);

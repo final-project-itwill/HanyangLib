@@ -36,9 +36,19 @@ public class AdminDAO {
         return sqlSession.selectList("admin.memberList");
     }//listMember() end
 
-
     public List<CommunityUnionDTO> listCommunity(String c_state){
         return sqlSession.selectList("admin.communityList", c_state);
     }//end
+
+    //mdPick 업데이트
+    public int allNull(){
+        return sqlSession.update("admin.allNull");
+    }//allNull() end
+
+    public int updatePick(List<CommunityDTO> mdList){
+        return sqlSession.update("admin.updatePick", mdList);
+    }//updatePick() end
+
+
 
 }//class end

@@ -7,7 +7,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!-- 헤더용 div -->
-<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-color: gray; height: 40vh;"></div>
+<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-color: #0E2A47; height: 13vh;"></div>
 
 <div class="container" style="padding-top: 100px;">
     <h4 style="font-weight: bold; text-align: center">공지사항</h4>
@@ -79,7 +79,7 @@
 
 
 <!-- 푸터용 div -->
-<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-color: gray; height: 5vh; padding-top: 20px"></div>
+<hr>
 
 <!-- 본문작성 끝 -->
 <%@ include file="../footer.jsp"%>

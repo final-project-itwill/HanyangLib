@@ -53,9 +53,29 @@
 				ON AA.s_code = BB.c_code
 			) CC JOIN book DD
 		ON CC.c_bcode = DD.b_code
-		WHERE c_state in(#{c_state})
 		]]>
+		<where>
+			<if test="c_state != 'all'">
+				c_state = #{c_state}
+			</if>
+		</where>
+		ORDER BY c_pick DESC, c_rdate DESC
 	</select>
+
+	<!--mdPick 체크박스로 업데이트 한 번에 하기-->
+	<update id="allNull">
+		UPDATE community
+		SET c_pick = NULL
+	</update>
+
+	<update id="updatePick">
+		<foreach collection="list" item="item" index="index" separator=";">
+			UPDATE community
+			SET c_pick = 'Y'
+			WHERE c_code = #{item.c_code}
+		</foreach>
+	</update>
+
 	<!-- 커뮤니티 끝 -->
 
 

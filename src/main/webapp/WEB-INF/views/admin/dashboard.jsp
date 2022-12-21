@@ -15,24 +15,6 @@
 <!-- Content Row -->
 <div class="row">
 
-    <!-- 방문자수 card 시작 -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            오늘 방문자 수</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">100명</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-thumbs-up fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div><!-- 방문자수 card 끝 -->
-
     <!-- 회원수 card 시작 -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-success shadow h-100 py-2">
@@ -53,6 +35,24 @@
         </div>
     </div><!-- 회원수 card 끝 -->
 
+    <!-- 커뮤니티 수 card 시작 -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            얼마나 많은 커뮤니티가 있을까?</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">${communityCnt}개</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-thumbs-up fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- 커뮤니티 수 card 끝 -->
+
     <!-- 매출 card 시작 -->
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-info shadow h-100 py-2">
@@ -63,7 +63,7 @@
                             매출액/목표
                         </div>
                         <div class="row no-gutters align-items-center">
-                            <c:set var="aim" value="1000000"></c:set>
+                            <c:set var="aim" value="1000000"></c:set><!-- 한이쓰가 임의로 정한 매출 목표액^_^ -->
                             <c:set var="rate" value="${totalSales/aim*100}"></c:set>
                             <div class="col-auto">
                                 <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">

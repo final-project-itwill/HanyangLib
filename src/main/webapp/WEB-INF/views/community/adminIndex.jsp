@@ -2,6 +2,7 @@
          pageEncoding="UTF-8"%>
 
 <%@ include file="admin_header.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 본문작성 시작 -->
 
 
@@ -23,7 +24,11 @@
                   <div class="col mr-2">
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                       커뮤니티 생일</div>
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">${read.c_rdate}</div>
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">
+                      <c:set var="regdate" value="${read.c_rdate}"></c:set>
+                      ${fn:substring(regdate, 0, 10)}
+
+                    </div>
                   </div>
                   <div class="col-auto">
                     <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -98,7 +103,7 @@
                       <c:choose>
                         <c:when test="${reviewCnt > 0}">
                           <c:forEach var="i" begin="1" end="${star}">
-                            ★
+                            <img src="/images/star.png" width="15px">
                           </c:forEach>
                         </c:when>
                         <c:otherwise>

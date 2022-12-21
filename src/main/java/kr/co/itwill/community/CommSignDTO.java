@@ -11,4 +11,10 @@ public class CommSignDTO {
     private String s_state;
     private String s_surveycode;
     private String s_rdate;
+
+    //member 테이블 join
+    private String m_id;
+    private String m_nick;
+    private String m_img;
+
 }//class end

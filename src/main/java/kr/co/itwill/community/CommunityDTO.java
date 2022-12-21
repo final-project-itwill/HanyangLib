@@ -16,6 +16,8 @@ public class CommunityDTO {
     private int c_count;
     private String c_state;
     private String c_rdate;
+    private String c_pick;
+    private String c_svcode;
 
     private MultipartFile poster;
 
