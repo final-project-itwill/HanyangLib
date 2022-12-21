@@ -1,5 +1,6 @@
 package kr.co.itwill.mylib;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -115,8 +116,10 @@ public class MylibCont {
 		return mav;
 	}
 	
-	@RequestMapping("/myReview/{lib_id}")
-	public ModelAndView myReview(@PathVariable String lib_id) throws Exception {
+	// 서평 목록
+	@SuppressWarnings("unchecked")
+	@RequestMapping("/myReview")
+	public ModelAndView myReview(@RequestParam String lib_id, @RequestParam String pageNum) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("mylib/myReview");
 		mav.addObject("libRead", mylibDao.getLibRead(lib_id));
@@ -125,8 +128,90 @@ public class MylibCont {
 		mav.addObject("libInfo", mylibDao.getLibInfo(lib_id));
 		mav.addObject("review", mylibDao.getReviewList(lib_id));		
 		mav.addObject("lib_id", lib_id);
-		// 서평 조회수 1씩 늘리기
-		mylibDao.rvCount(lib_id);
+		
+		// 페이징
+		int totalRowCount = mylibDao.rvTotal(lib_id); // 총 글개수
+		int numPerPage = 5; // 한 페이지당 레코드 개수를 계산하기 위한 변수
+		int pagePerBlock = 10; // 페이지 리스트를 출력하기 위한 변수
+
+		if(pageNum==null) {
+			pageNum="1"; // 받아온 페이지 번호가 없다면(목록에 처음 들어왔다면) 1페이지 저장
+		} // if end
+		
+		int currentPage = Integer.parseInt(pageNum); // 현재 페이지의 번호가 담긴 문자열을 정수형으로 변환
+		// 페이지에 담길 글의 수를 조정함
+		// 예) 내가 지금 1페이지라면 글번호가 1번부터 5번까지인 게시글을 가져와야함		2페이지의 경우 6~10까지
+		//		startRow	= ((1-0)*5)+1	= 1											= ((2-1)*5)+1	= 6
+		//		endRow		= 1*5			= 5											= 2*5			= 10
+		//	startRow 변수와 endRow변수를 활용하여 SQL문에서 rownum으로 접근
+		int startRow	= (currentPage-1)*numPerPage+1; // 시작 행번호
+		int endRow		= currentPage*numPerPage;		// 끝 행번호
+		
+		// 2. 페이지 목록
+		// 총 글 개수에 맞춰서 페이징으로 페이지를 어디까지 띄울 지 조정한다.(pagePerBlock 변수 활용)
+		//
+		// 1)
+		// 우선 총 글개수를 미리 정해둔 페이지당 출력되는 레코드 수로 나누어준다.
+		//	- 내 글은 총 6개이다. 한 페이지에는 5개의 글만 들어갈 수 있다. 내 글은 어디까지 들어갈까? 2페이지 일 것이다.
+		//	- 내 글 개수 / 한 페이지에 들어갈 수 있는 글 개수 -> 6/5 = 1.2 -> 올림을 통해 2페이지까지 담아짐을 변수화
+		//	- 만약 5/6의 결과값을 정수형으로 담으면 1만 출력된다. 그럼 내 글은 1페이지까지만 들어가기 때문에 double로 자료형을 선언해준다.
+		double totcnt = (double)totalRowCount/numPerPage;	// 게시판의 글이 들어갈 페이지 수 계산(올림을 위해 소수점을 담음)
+		int totalpage = (int)Math.ceil(totcnt);				// 소수점 올림을 통해 실제 게시판의 글들이 들어가있는 페이지 수를 변수로 담음 
+		
+		// 2)
+		// 이번에는 총 글 개수를 미리 정해둔 페이지의 목록 수로 나누어준다.
+		//	- 내 글은 총 6개이다. 페이지의 목록은 10페이지이다.
+		//	- 만약 내 글이 50개가 넘어가면 
+		//									내 글이 6개일 때			내 글이 12개일 때
+		//	- 내 글 개수 / 페이지의 목록 수 -> 6/10 = 0.6					12/10 = 1.2
+		//	- 올림을 한 후 1을 빼줌			-> 1-1 = 0						2-1 = 1
+		//	- 시작 페이지를 설정해줌		-> 0*10 = 0						1*10 = 10
+		//	- 페이지의 끝을 설정해줌		-> 0+10+1 = 11					10+10+1 = 21
+		double d_page = (double)totalRowCount/pagePerBlock;
+		int pages	  = (int)Math.ceil(d_page)-1;
+		
+		// 페이지의 시작 지점, 현재 페이지가 1일 때 0 | 2일 때 1 | 3일 때 2 이렇게 되어야 하지 않나?
+		int start = currentPage-1;
+		int startPage = 0;
+		if(start<5) {
+			startPage = 0;
+		} else {
+			startPage = currentPage-5;				
+		}
+		
+		// 페이지의 끝 지점, 현재 페이지가 5일 때까지는 11, 그 이후로 부터는 1씩 더해짐
+		int endPage = 0;
+		if(currentPage<6) {
+			endPage = 11;
+		} else {
+			endPage = currentPage+(pagePerBlock/2);
+		}
+		
+		List<BookReviewDTO> list = null;
+		if(totalRowCount>0) {
+			BookReviewDTO dto = new BookReviewDTO();
+			dto.setBr_id(lib_id);
+			dto.setStartRow(startRow);
+			dto.setEndRow(endRow);
+			list = mylibDao.getReviewList2(dto); // 시작 행번호와 끝 행번호 저장
+		} else {
+			list = Collections.EMPTY_LIST; // 넘어온 값이 없다면 list를 비워주기
+		} // if end
+		
+		int number = 0;
+		number = totalRowCount-(currentPage-1)*numPerPage; // 
+		
+		mav.addObject("number", number);
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("startRow", startRow);
+		mav.addObject("endRow", endRow);
+		mav.addObject("pages", pages);
+		mav.addObject("pagePerBlock", pagePerBlock);
+		mav.addObject("totalPage", totalpage);
+		mav.addObject("startPage", startPage);
+		mav.addObject("endPage", endPage);
+		mav.addObject("list", list);
+		mav.addObject("count", totalRowCount);			// 전체 글 개수
 		return mav;
 	}
 	
@@ -162,7 +247,7 @@ public class MylibCont {
 		mav.setViewName("mylib/reviewRead");
 		mav.addObject("rvRead", mylibDao.getReviewRead(br_no));
 		// 서평 조회수 1씩 늘리기
-		mylibDao.rvCount(loginId);
+		mylibDao.rvCount(br_no);
 		return mav;
 	} // reviewRead() end
 	

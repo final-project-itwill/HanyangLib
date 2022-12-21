@@ -21,13 +21,13 @@
 	
 	<select id="libInfoRead" resultType="kr.co.itwill.mylib.LibinfoDTO">
 		<![CDATA[
-		SELECT lib_id, m_id, m_nick, m_heat, m_month, m_year
+		SELECT lib_id, m_id, m_nick, m_heat, m_month, m_year, m_img
 		FROM (
 			SELECT lib_id
 			FROM mylib
 			WHERE lib_id = #{lib_id}
 			) AS AA LEFT OUTER JOIN (
-			SELECT m_id, m_nick, m_heat, m_month, m_year
+			SELECT m_id, m_nick, m_heat, m_month, m_year, m_img
 			FROM member
 			) AS BB
 		ON AA.lib_id = BB.m_id
@@ -37,7 +37,7 @@
 			SELECT lib_id
 			FROM mylib
 			) AS AA RIGHT OUTER JOIN (
-			SELECT m_id, m_nick, m_heat, m_month, m_year
+			SELECT m_id, m_nick, m_heat, m_month, m_year, m_img
 			FROM member
 			WHERE m_id = #{lib_id}
 			) AS BB
@@ -109,6 +109,7 @@
 		]]>	
 	</select>
 	
+	<!-- 일반 리스트 -->
 	<select id="rvList" resultType="kr.co.itwill.mylib.BookReviewDTO">
 		<![CDATA[
 		SELECT br_no, br_title, br_bcode, br_id, br_star, br_count, br_rdate, br_content, b_code, b_name
@@ -123,6 +124,62 @@
 		ON AA.br_bcode = BB.b_code
 		ORDER BY br_no DESC
 		]]>	
+	</select>
+	
+	<!-- 페이징 버전 -->
+	<select id="rvList2" resultType="kr.co.itwill.mylib.BookReviewDTO">
+		<![CDATA[
+		SELECT EE.*
+		FROM (
+			SELECT @RNO:= @RNO + 1 AS r, CC.*
+			FROM (
+				SELECT br_no, br_title, br_bcode, br_id, br_star, br_count, br_rdate, br_content, b_code, b_name
+				FROM (
+					SELECT br_no, br_title, br_bcode, br_id, br_star, br_count, br_rdate, br_content
+					FROM bookreview
+					WHERE br_id = #{br_id}
+					ORDER BY br_no DESC LIMIT 1000000
+					) AA LEFT OUTER JOIN (
+					SELECT b_code, b_name
+					FROM book
+					) BB
+				ON AA.br_bcode = BB.b_code
+				) CC, (SELECT @RNO:=0) DD
+		) EE
+		WHERE r >= #{startRow} AND r <= #{endRow}
+		]]>	
+	</select>
+	
+	<!-- 검색 -->
+    <select id="search" resultType="kr.co.itwill.mylib.BookReviewDTO">
+        <![CDATA[
+		SELECT EE.*
+		FROM (
+			SELECT @RNO:= @RNO + 1 AS r, CC.*
+			FROM (
+				SELECT br_no, br_title, br_bcode, br_id, br_star, br_count, br_rdate, br_content, b_code, b_name
+				FROM (
+					SELECT br_no, br_title, br_bcode, br_id, br_star, br_count, br_rdate, br_content
+					FROM bookreview
+					WHERE br_id = #{br_id}
+					ORDER BY br_no DESC LIMIT 1000000
+					) AA LEFT OUTER JOIN (
+					SELECT b_code, b_name
+					FROM book
+					) BB
+				ON AA.br_bcode = BB.b_code
+				) CC, (SELECT @RNO:=0) DD WHERE #{subject} LIKE CONCAT('%', #{keyword}, '%')
+		) EE
+		WHERE r >= #{startRow} AND r <= #{endRow}
+		]]>
+    </select>
+	
+	<select id="rvTotal" resultType="int" parameterType="String">
+		<![CDATA[
+			SELECT COUNT(*)
+			FROM bookreview
+			WHERE br_id = #{lib_id};
+		]]>
 	</select>
 	
 	<select id="rvList5" resultType="kr.co.itwill.mylib.BookReviewDTO">
@@ -201,7 +258,7 @@
 		<![CDATA[
 	    UPDATE bookreview
 	    SET br_count = br_count + 1
-	    WHERE br_id = #{br_id}
+	    WHERE br_no = #{br_no}
 	    ]]>
 	</update>
 	

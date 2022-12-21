@@ -14,4 +14,9 @@ public class BookReviewDTO {
 	private String br_rdate;
 	private String b_code;
 	private String b_name;
+	
+	//페이징
+	private int startRow;
+	private int endRow;
+	
 } // class end

@@ -63,6 +63,18 @@ public class MylibDAO {
 		return sqlSession.selectList("mylib.rvList", lib_id);
 	} // getReviewRead() end
 	
+	// 나만의 서재의 서평 목록 조회(페이징)
+	public List<BookReviewDTO> getReviewList2(BookReviewDTO dto) throws Exception {
+		return sqlSession.selectList("mylib.rvList2", dto);
+	} // getReviewRead() end
+	
+	// 서평 총 개수
+	public int rvTotal(String br_id) throws Exception {
+		int cnt = 0;
+		cnt = sqlSession.selectOne("mylib.rvTotal", br_id);
+		return cnt;
+	} // count() end
+	
 	// 나만의 서재의 서평 목록 5개만 조회
 	public List<BookReviewDTO> getReviewList5(String lib_id) throws Exception {
 		return sqlSession.selectList("mylib.rvList5", lib_id);
@@ -98,8 +110,8 @@ public class MylibDAO {
 	}//updateProc() end
 	
 	// 서평 조회수 증가
-	public int rvCount(String id) {
-		return sqlSession.update("mylib.rvCount", id);
+	public int rvCount(int br_no) {
+		return sqlSession.update("mylib.rvCount", br_no);
 	}
 	
 	// 월간, 연간 목표 정하기
