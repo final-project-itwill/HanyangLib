@@ -59,7 +59,7 @@
                   <li><a href="/book/bookcate_s?pageNum=1">자연과학</a></li>
                 </ul>
           	</li>
-          	<li><a href="/gudok/detail" style="font-weight: bold;">구독</a></li>
+          	<li><a href="/gudok/index" style="font-weight: bold;">구독</a></li>
 	          	<li><a href="/mylib/libindex/${s_id}" style="font-weight: bold;">나만의 서재</a></li>
 	          	<li><a href="/comm/index" style="font-weight: bold;">커뮤니티</a></li>
               	<li class="has-children">
@@ -419,7 +419,7 @@
           <div class="col-12">
             <div class="widget">
               <ul class="links list-unstyled">
-                <li>&#127744 김경환 / 조장 / <a href="/">메인페이지</a>, <a href="/gudok/detail">구독페이지</a>, <a href="/mylib/libindex">나만의 서재</a>, <a href="/login/index">로그인</a></li>
+                <li>&#127744 김경환 / 조장 / <a href="/">메인페이지</a>, <a href="/gudok/index">구독페이지</a>, <a href="/mylib/libindex">나만의 서재</a>, <a href="/login/index">로그인</a></li>
                 <li>&#127744 강한이 / 기술자문 / <a href="/comm/index">커뮤니티페이지</a>, <a href="/notice/list?pageNum=1">공지사항페이지</a></li>
                 <li>&#127744 김성훈 / 기술자문 / <a href="/survey/survey">설문지페이지</a>, <a href="/survey/survey">설문지탬플릿페이지</a></li>
                 <li>&#127744 김한주 / 자료조사 / <a href="/member/memberform">회원가입</a>, <a href="/gudok/detail">결제페이지</a></li>

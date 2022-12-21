@@ -50,7 +50,7 @@ public class LoginCont {
 		ModelAndView mav=new ModelAndView();
 		// 회원등급이 A,B,C인 사람들만 회원등급 불러오기
 		String grade = loginDao.loginProc(dto);
-		/* System.out.println("---------------"+grade); */
+		// System.out.println("---------------"+grade);
 		
 		//System.out.println(prevPage); // 이전 페이지 확인
 		// 로그아웃 하고 또 다시 로그인을 시도할 땐 전전 페이지가 빈 문자열로 들어온다

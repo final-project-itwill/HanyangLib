@@ -21,9 +21,11 @@
 		</table>
 		<div class="align-content-sm-center" style="text-align: center">
 	            <input type="hidden" id="br_no" name="br_no" value="${rvRead.br_no}">
-	            <input type="hidden" id="br_id" name="br_id" value="${rvRead.br_id}">	            
+	            <input type="hidden" id="br_id" name="br_id" value="${rvRead.br_id}">
+			<c:if test="${rvRead.br_id eq s_id}">
 	            <input type="button" value="수정" onclick="update()">
 	            <input type="button" value="삭제" onclick="del()">
+            </c:if>
 		</div>
 	</form>
 	<!-- 서평 목록 끝 -->

@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.itwill.member.MemberDTO;
 import kr.co.itwill.notice.NoticeDTO;
 
 @Repository
@@ -62,6 +63,11 @@ public class MylibDAO {
 		return sqlSession.selectList("mylib.rvList", lib_id);
 	} // getReviewRead() end
 	
+	// 나만의 서재의 서평 목록 5개만 조회
+	public List<BookReviewDTO> getReviewList5(String lib_id) throws Exception {
+		return sqlSession.selectList("mylib.rvList5", lib_id);
+	} // getReviewRead() end
+	
 	// 서평 상세보기
 	public BookReviewDTO getReviewRead(int br_no) throws Exception {
 		return sqlSession.selectOne("mylib.rvRead", br_no);
@@ -90,5 +96,15 @@ public class MylibDAO {
 	public int updateProc(MylibDTO dto){
 		return sqlSession.update("mylib.updateProc", dto);
 	}//updateProc() end
+	
+	// 서평 조회수 증가
+	public int rvCount(String id) {
+		return sqlSession.update("mylib.rvCount", id);
+	}
+	
+	// 월간, 연간 목표 정하기
+	public int setGoal(MemberDTO dto) {
+		return sqlSession.update("mylib.setGoal", dto);
+	}
 
 } // class end
