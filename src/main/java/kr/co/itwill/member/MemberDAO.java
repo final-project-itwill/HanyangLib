@@ -45,6 +45,21 @@ public class MemberDAO {
 	 }//memberWithdraw() end
 	 
 	 
+	 
+	 	//회원있는지 여부 확인
+		public Integer pwFind_Lookup(MemberDTO member ) {
+			return sqlSession.selectOne("pwFind_lookup", member);
+		}//pwFind_Lookup() end
+		
+		//회원 메일 있는지 확인
+		public int pwFind_ok(MemberDTO member ) {
+			return sqlSession.selectOne("pwFind_ok", member );
+		}//pwFind_ok() end
+		
+		//회원 비밀번호 가져오기
+		public MemberDTO pwFind_select(MemberDTO member) {
+			return sqlSession.selectOne("pwFind_select", member);
+		}//pwFind_select() end
 	
 	
 }//class end

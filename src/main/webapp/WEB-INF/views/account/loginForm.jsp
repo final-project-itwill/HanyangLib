@@ -82,7 +82,7 @@
 					</label>
 				</div>
 		
-				<a href="#" id="a">Forgot Password?</a>
+				<a href="/member/pwfind" id="a">Forgot Password?</a>
 				<input type="submit" class="btn" id="btn" value="Login">
 				<input type="button" class="btn" id="btn" value="signup" onclick="location.href='/member/agreement'">
 			</form>

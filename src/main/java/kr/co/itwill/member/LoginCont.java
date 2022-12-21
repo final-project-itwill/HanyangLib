@@ -52,11 +52,13 @@ public class LoginCont {
 		String grade = loginDao.loginProc(dto);
 		/* System.out.println("---------------"+grade); */
 		
-		// System.out.println(prevPage); // 이전 페이지 확인
+		//System.out.println(prevPage); // 이전 페이지 확인
 		// 로그아웃 하고 또 다시 로그인을 시도할 땐 전전 페이지가 빈 문자열로 들어온다
 		if(prevPage=="") {
 			prevPage="redirect:/";
-		} // if end
+		} else if(prevPage=="redirect:http://localhost:9095/member/insert"){
+			prevPage="redirect:/";
+		}// if end
 		
 		// 회원등급이 비어있다면(가입을 안했거나, F등급-탈퇴 회원이라면) 로그인 실패 처리
 		if(grade!=null) {

@@ -5,12 +5,12 @@
 <div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('/images/libbg.jpg'); height: 40vh;"></div>
 <div class="container">
 	<h3>* 회원탈퇴 *</h3>
-	<form method="post" name="Withdrawform">
+	<form method="post" name="Withdrawform" enctype="multipart/form-data">
 	  <input type="hidden" name="m_id" value="${s_id}">
 	  <table class="table" class="table table-hover">
 	    <tr>
 	      <th class="success">비밀번호</th>
-	      <td><input type="password" name="m_pw" id="m_pw" value="" placeholder="비밀번호를 입력하세요"  required></td>
+	      <td><input type="password" name="m_pw" id="m_pw" placeholder="비밀번호를 입력하세요"  required></td>
 	    </tr>
 	    <tr>
 	      <td colspan="2" align="center">

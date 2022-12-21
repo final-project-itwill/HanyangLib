@@ -6,7 +6,7 @@
 <div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/libbg.jpg'); height: 40vh;"></div>
 <br>
 <form name="memberform" method="post" action="insert" enctype="multipart/form-data">
-<span style="color:red; font-weight: bold">필수입력</span>
+<span style="color:red; font-weight: bold; align: center;"> * 필수입력 </span>
 <br>
 <div class= container">
 <table border="1" class="table table-hover">
@@ -61,30 +61,22 @@
       <span id="emailpanel" style="display:none"></span>
     </td>
 </tr>
-<tr>
-	<th>이번달 목표</th>
-	<td><input type="number" id="m_month" name="m_month" min="1" max="100"></td>
-</tr>
-<tr>
-	<th>올해의 목표</th>
-	<td><input type="number" id="m_year" name="m_year" min="1" max="100"></td>
-</tr>
  <tr>
-    <th>이메일 수신여부</th>
+    <th>*이메일 수신여부</th>
     <td>
         <input type="checkbox" name="mailcheck" id="mailcheck">
         <input type="hidden" name="m_mailcheck" id="m_mailcheck">
     </td>
 </tr>
 <tr>
-    <th>sms 수신여부</th>
+    <th>*sms 수신여부</th>
     <td>
         <input type="checkbox" name="smscheck" id="smscheck">
         <input type="hidden" name="m_smscheck" id="m_smscheck">
     </td>
 </tr>
 <tr>
-    <th>구독 여부</th>
+    <th>*구독 여부</th>
     <td>
         <input type="checkbox" name="m_gudok" id="m_gudok" value="Y">
     </td>
@@ -183,7 +175,7 @@
 	$("#btn_userid").click(function() {
 		$.post(
 				"idcheckproc.do"
-				,"m_id" + $("#m_id").val()
+				,"m_id=" + $("#m_id").val()
 				,idresponseProc		
 		);
 	}); //click() end

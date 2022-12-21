@@ -7,11 +7,12 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.filefilter.FalseFileFilter;
+
 import org.json.simple.JSONObject;
-import org.jsoup.select.Evaluator.IsEmpty;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
+
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -141,7 +142,7 @@ public class MemberCont {
 
 	
 
-	// 회원가입을 했을때 member테이블에 insert하기
+	// 회원가입을 했을때 member테이블에 insert하기 + 파일 저장
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	@ResponseBody	
 	public ModelAndView insert(@ModelAttribute MemberDTO dto ,@RequestParam Map<String, Object> map
@@ -218,16 +219,15 @@ public class MemberCont {
 
 	//수정
 	@RequestMapping(value = "/update" , method = RequestMethod.POST)
-	public String update(@RequestParam String m_id, @ModelAttribute MemberDTO dto
-						,@RequestParam Map<String, Object> map
-						,@RequestParam(value = "file" , required = false) MultipartFile img
+	@ResponseBody
+	public ModelAndView update(@RequestParam String m_id, @ModelAttribute MemberDTO dto			
 						,HttpServletRequest req) throws Exception {
+		ModelAndView mav=new ModelAndView();
+		
 		//기존 저장된 정보 가져오기
 		MemberDTO oldDTO = memberDao.detail(dto.getM_id());
-		
+		MultipartFile img=dto.getImg();
 		String imgname= "-";
-	
-		
 		if(img != null && !img.isEmpty()) { 
 			imgname=img.getOriginalFilename();
 			try {
@@ -250,26 +250,26 @@ public class MemberCont {
 			dto.setM_img(oldDTO.getM_img());	//기존파일이름 dto에 담기	
 		}//if end
 		
-		map.put("imgname", imgname);
-		
 		MemberDTO member=new MemberDTO();
 		
-		//member.setM_img(imgname);
+		member.setM_img(imgname);
 		member.setM_id(m_id);
 		member.setM_pw(dto.getM_pw());
 		member.setM_tel(dto.getM_tel());
 		member.setM_email(dto.getM_email());
-		member.setM_month(dto.getM_month());
-		member.setM_year(dto.getM_year());
 		member.setM_zip(dto.getM_zip());
 		member.setM_add1(dto.getM_add1());
 		member.setM_add2(dto.getM_add2());
 		member.setM_mailcheck(dto.getM_mailcheck());
 		member.setM_smscheck(dto.getM_smscheck());
-		System.out.println(imgname);
-		memberDao.memberupdate(member);
+		//System.out.println(imgname);
+		
+		
+		mav.setViewName("account/loginForm");
+		mav.addObject("update", memberDao.memberupdate(member));
+		mav.addObject("imgname", imgname);
 		//System.out.println(member.toString());
-		return "redirect:/login/index";	//수정 후 로그인 인덱스폼으로 돌아기기
+		return mav;	
 		
 		
 	}//update() end
@@ -303,6 +303,18 @@ public class MemberCont {
 		
 		return "redirect:/login/index";
 	}//Withdraw() end
+
+	//----------------------------------회원가입, 파일 첨부, 파일 수정, 파일 삭제 완료
+	
+	
+	//----------------------------------비밀번호 찾기 컨트롤러 시작
+	
+	@RequestMapping("/pwfind")
+	public ModelAndView forgotpw() {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("member/pwfind");
+		return mav;
+	}//forgotpw() end
 	
 	
 
