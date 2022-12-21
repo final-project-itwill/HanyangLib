@@ -23,10 +23,6 @@
 	            <td><input type="password" name="m_pw" id="m_pw" value="${detail.m_pw}"></td>
 	        </tr>
 	        <tr>
-			    <th>*비밀번호 확인</th>
-			    <td style="text-align: left"><input type="password" name="m_pw" id="m_pw" size="15" required></td>
-			</tr>
-	        <tr>
 	        	<th>이메일</th>
 	            <td>
 	            	<input type="email" name="m_email" id="m_email" value="${detail.m_email}">

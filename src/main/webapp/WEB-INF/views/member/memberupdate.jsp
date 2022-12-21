@@ -7,7 +7,7 @@
     
     <h3>회원상세보기</h3>
     
-    <form name="membupdate" method="post">
+    <form name="membupdate" method="post" onsubmit="memupdate()" enctype="multipart/form-data">
     	<input type="hidden" id="m_id" name="m_id" value="${s_id}">
 	    <table border="1" class="table table-hover">
 	    <tr>
@@ -17,7 +17,7 @@
 				<img src="/storage/${detail.m_img}" width="100px">
 			</c:if>
 			<br>
-				<input type="file" name="file" id="file">
+				<input type="file" name="img" id="img">
 			 	<input type="hidden" name="m_img" id="m_img" value="${detail.m_img}">		
 			</td>
 			</tr>
@@ -46,14 +46,6 @@
 	            	<input type="email" name="m_email" id="m_email" value="${detail.m_email}">
 	            </td>
 	        </tr>
-	        <tr>
-				<th>이번달 목표</th>
-				<td><input type="number" id="m_month" name="m_month" value="${detail.m_month}" min="1" max="100"></td>
-			</tr>
-			<tr>
-				<th>올해의 목표</th>
-				<td><input type="number" id="m_year" name="m_year" value="${detail.m_year}" min="1" max="100"></td>
-			</tr>
 	        <tr>
 	   			<th>우편번호</th>
 			    <td style="text-align: left">
@@ -88,7 +80,7 @@
 	        <tr>
 	            <td colspan="2" align="center">
 	               <!--  <input type="hidden" name="" value=""> -->
-	                <input type="button" class="btn btn-success" value="회원수정" onclick="memupdate()">
+	                <input type="submit" class="btn btn-success" value="회원수정" onclick="">
 	            </td>
 	        </tr>
 	      </table>
@@ -131,7 +123,7 @@
 			$("#m_smscheck").val('N');
 		}
     	
-    	if(confirm("정보가 입력됩니다\n가입할까요?")){
+    	if(confirm("정보가 입력됩니다\n수정할까요?")){
     	document.membupdate.action="/member/update";		//수정 후 수정페이지로 이동
     	document.membupdate.submit();    	
     	}//if end

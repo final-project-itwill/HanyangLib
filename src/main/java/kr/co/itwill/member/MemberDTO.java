@@ -1,5 +1,8 @@
 package kr.co.itwill.member;
 
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -26,5 +29,5 @@ public class MemberDTO {
 	   private int	  m_point;			//포인트
 	   private String m_heat;			//온도
 	   private String m_rdate;			//가입일
-	
+	   private MultipartFile img; 		//이미지수정 변수
 }//class end

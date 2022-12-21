@@ -200,7 +200,7 @@
 </table>
 <br>
 <div style="text-align: center">
-  <label><input type="checkbox" name="agree" class="form-check-label" id="agree"/>약관에 동의합니다</label>
+  <label><input type="checkbox" name="agree" id="agree" class="form-check-label"/>약관에 동의합니다</label>
   <input type="button" value="회원가입" class="btn btn-primary" onclick="location.href='/member/memberform'"> 
   <input type="button" value="취소"    class="btn btn-primary" onclick="javascript:history.back()"/>
 </div>

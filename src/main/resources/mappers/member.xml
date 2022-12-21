@@ -3,17 +3,17 @@
 <mapper namespace="member">
 	
 	<insert id="memberinsert">
-		INSERT INTO member(m_id,  m_img,m_pw, m_name, m_nick,m_birth,m_gender
-		,m_zip,m_add1,m_add2,m_tel, m_email,m_month, m_year, m_mailcheck, m_smscheck
-		,m_gudok,m_rdate)
+		INSERT INTO member(m_id, m_img, m_pw, m_name, m_nick, m_birth, m_gender
+		, m_zip, m_add1, m_add2, m_tel, m_email, m_mailcheck, m_smscheck
+		, m_gudok, m_rdate)
 		
-		VALUES (#{m_id}, #{m_img},#{m_pw}, #{m_name},#{m_nick}, #{m_birth}, #{m_gender}
-		,#{m_zip},#{m_add1},#{m_add2},#{m_tel},#{m_email},#{m_month},#{m_year} ,#{m_mailcheck}
+		VALUES (#{m_id}, #{m_img}, #{m_pw}, #{m_name}, #{m_nick}, #{m_birth}, #{m_gender}
+		,#{m_zip},#{m_add1},#{m_add2},#{m_tel}, #{m_email}, #{m_mailcheck}
 		,#{m_smscheck},#{m_gudok},now())
 	</insert>
 	
 	<select id="detail" resultType="kr.co.itwill.member.MemberDTO">
-		SELECT m_id, m_img, m_nick, m_tel , m_pw, m_email, m_month, m_year, m_zip, m_add1, m_add2, m_mailcheck, m_smscheck
+		SELECT m_id, m_img, m_nick, m_tel , m_pw, m_email, m_zip, m_add1, m_add2, m_mailcheck, m_smscheck
 		FROM member
 		WHERE m_id = #{s_id}
 	</select>
@@ -25,8 +25,6 @@
 		, m_tel	 	 =	#{m_tel}
 		, m_pw	 	 =	#{m_pw}
 		, m_email	 =	#{m_email}
-		, m_month	 =  #{m_month}
-		, m_year	 =	#{m_year}
 		, m_zip		 =	#{m_zip}
 		, m_add1	 =	#{m_add1}
 		, m_add2	 =	#{m_add2}
@@ -50,9 +48,6 @@
 		FROM member
 		WHERE m_id=#{m_id}
 	</select>
-	
-	
-	
 	
 	
 	
