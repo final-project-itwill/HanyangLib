@@ -14,6 +14,10 @@
     <meta name="robots" content="noindex">
     <!-- 구글 검색엔진 웹 크롤러만 차단 -->
     <meta name="googlebot" content="noindex">
+<!--     구글 로그인 : content에 자신의 OAuth2.0 클라이언트ID를 넣습니다.
+<meta name ="google-signin-client_id" content="79165199733-nhgebrkqrqdtqf389rm3963hrc81p223.apps.googleusercontent.com">
+카카오 로그인
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script> -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -26,7 +30,10 @@
     <link rel="stylesheet" href="/css/aos.css">
     <link rel="stylesheet" href="/css/style.css">
     <script src="/js/jquery-3.5.1.min.js"></script>
-    <script src="/js/jquery.cookie.js"></script>
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <script src="/js/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
     <title>&#128218 한양서재</title>
 </head>
 <!-- 본문작성 시작 -->
@@ -60,14 +67,6 @@
           <div class="col-9 col-md-6 col-lg-3 text-right top-menu">
 
             <div class="d-inline-flex align-items-center">
-              <div class="search-wrap">
-              <a href="#" class="d-inline-flex align-items-center js-search-toggle"><span class="icon-search2 mr-2"></span><span>Search</span></a>
-
-              <form action="#" class="d-flex">
-                <input type="search" id="s" class="form-control" placeholder="Enter keyword and hit enter...">                  
-              </form>
-
-              </div>
 
               <span class="mx-2 d-inline-block d-lg-none"></span>
               
@@ -89,23 +88,38 @@
 	          <li class="has-children">
 	          <a href="/book/booklist" style="font-weight: bold;color:black;">도서목록</a>
 	          <ul class="dropdown">
-                  <li><a href="/book/bookcate_n">소설/시</a></li>
-                  <li><a href="/book/bookcate_e">에세이</a></li>
-                  <li><a href="/book/bookcate_h">인문</a></li>
-                  <li><a href="/book/bookcate_s">자연과학</a></li>
+                  <li><a href="/book/bookcate_a?pageNum=1">전체보기</a></li>
+                  <li><a href="/book/bookcate_n?pageNum=1">소설/시</a></li>
+                  <li><a href="/book/bookcate_e?pageNum=1">에세이</a></li>
+                  <li><a href="/book/bookcate_h?pageNum=1">인문</a></li>
+                  <li><a href="/book/bookcate_s?pageNum=1">자연과학</a></li>
                 </ul>
 	          </li>
 	          <li><a href="/gudok/detail" style="font-weight: bold; color:black;">구독</a></li>
-	          <li><a href="/mylib/libindex/ksh134625" style="font-weight: bold; color:black;">나만의 서재</a></li>
+	          <li><a href="/mylib/libindex/${s_id}" style="font-weight: bold; color:black;">나만의 서재</a></li>
 	          <li><a href="/comm/index" style="font-weight: bold; color:black;">커뮤니티</a></li>
               <li class="has-children">
               	<a href="#" style="color:gray;">고객센터</a>
                 <ul class="dropdown">
-                  <li><a href="/notice/list">공지사항</a></li>
+                  <li><a href="/notice/list?pageNum=1">공지사항</a></li>
                   <li><a href="#">문의</a></li>
+                  <c:choose>
+					  <c:when test="${grade == 'A'}">
+						  <li><a href="/admin/dashboard">관리자 페이지</a></li>
+					  </c:when>
+				  </c:choose>
                 </ul>
               </li>
 	        </ul>
+		<ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right menu-absolute">
+           	<li>
+				<a class="font2" href="/login/index" style="font-weight: bold; color: gray;">
+					<i class="fas fa-user"></i> ${s_id}님
+				</a>
+        	</li>
+        	<!-- 장바구니 목록 추가 -->
+            <li><a href="/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}" style="font-weight: bold; color: gray;"><i class="fas fa-shopping-cart"></i></a></li>
+        	</ul>	        
 	        <a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
 	          <span></span>
 	        </a>
@@ -117,7 +131,7 @@
 <!--  메뉴 끝 -->
 
 <!-- 본문 시작 -->
-     <div class="site-hero py-5 bg-light mb-5">
+     <div class="site-hero py-5 bg-light mb-5" style="background:url(/images/detailback.jpg); background-size: 100% 100%;">
 
       <div class="container">
         <div class="row align-items-center justify-content-between">
@@ -166,29 +180,29 @@
 					<c:if test="${subs eq 1}">
 						<%-- 이 책을 보유하지 않았다면 --%>
 						<c:if test="${haveBook eq 0}">
-							<input type="button" value="나만의 서재에 담기" onClick="location.href='/mylib/libInsert/${book.b_code}/${s_id}'">
+							<input type="button" class="btn btn-outline-light btn-block col-md-6 text-dark" style="font-weight: bold; margin-bottom: 20px; border-color: #2a96a5; text-align: center;" value="나만의 서재에 담기" onClick="location.href='/mylib/libInsert/${book.b_code}/${s_id}'">
 						</c:if>
 						<%-- 이 책을 보유했다면 --%>
 						<c:if test="${haveBook eq 1}">
-							<input type="button" disabled value="이미 책을 보유하고 계십니다">
+							<input type="button" class="btn btn-outline-light btn-block col-md-12 text-dark" style="font-weight: bold; margin-bottom: 20px; border-color: #2a96a5; text-align: center;" disabled value="이미 책을 보유하고 계십니다">
 						</c:if>
 					</c:if>
 					<%-- 구독을 하지 않은 상태라면 --%>
 					<c:if test="${subs eq 0}">
-				    		<input type="button" value="장바구니" onclick="location.href='/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}'"> 
-				            <input type="button" value="바로결제" onclick="#">
+				    		<input type="button" class="btn btn-outline-light btn-block col-md-4 text-dark" style="font-weight: bold; margin-bottom: 20px; border-color: #2a96a5; text-align: center;" value="장바구니" onclick="location.href='/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}'"> 
+				            <input type="button" class="btn btn-outline-light btn-block col-md-4 text-dark" style="font-weight: bold; margin-bottom: 20px; border-color: #2a96a5; text-align: center;" value="바로결제" onclick="#">
 				    </c:if>
 				</c:if>
 				<%-- 이 책이 구독 불가능이라면 --%>
 				<c:if test="${book.b_gudok eq 'N'}">
 					<%-- 이 책을 보유하지 않았다면 --%>
 					<c:if test="${haveBook eq 0}">
-						<input type="button" value="장바구니" onclick="location.href='/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}'">
-				        <input type="button" value="바로결제" onclick="#">
+						<input type="button" class="btn btn-outline-light btn-block col-md-4 text-dark" style="font-weight: bold; margin-bottom: 20px; border-color: #2a96a5; text-align: center;" value="장바구니" onclick="location.href='/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}'">
+				        <input type="button" class="btn btn-outline-light btn-block col-md-4 text-dark" style="font-weight: bold; margin-bottom: 20px; border-color: #2a96a5; text-align: center;" value="바로결제" onclick="#">
 					</c:if>
 					<%-- 이 책을 보유했다면 --%>
 					<c:if test="${haveBook eq 1}">
-						<input type="button" disabled value="이미 책을 보유하고 계십니다">
+						<input type="button" class="btn btn-outline-light btn-block col-md-12 text-dark" style="font-weight: bold; margin-bottom: 20px; border-color: #2a96a5; text-align: center;" disabled value="이미 책을 보유하고 계십니다">
 					</c:if>
 				</c:if>
 			</c:if> 
@@ -198,7 +212,7 @@
 	        <tr>
 		        <!-- 구독 유도 버튼 시작-->
 				<td>
-					<a href="/gudok/detail"><img src="/images/gudok.png" style="width:350px; margin-top:10px"></a>
+					<a href="/gudok/detail"><img src="/images/gudok.png" style="width:400px; margin-top:10px"></a>
 				</td>
 				<!-- 구독 유도 버튼 끝-->		
 	        </tr>   
@@ -216,11 +230,13 @@
           <div class="col-md-6">
             <span class="section-subtitle">책을 즐기는 또다른 방법</span>
             <h2 class="section-title">커뮤니티</h2>
+			<input type="button" class="btn btn-outline-light btn-block col-sm-3 text-dark" style="font-weight: bold; border-color: #2a96a5; float:left; display: flex; justify-content: center; align-items:center;" value="커뮤니티 만들기" onclick="location.href='/comm/index'">
           </div>
           <div class="col-md-6 text-left text-md-right">
             <div class="slider-nav">
               <a href="#" class="js-prev js-custom-prev-v2" style="background-color:#147814"><span class="icon-arrow_back"></span></a>
               <a href="#" class="js-next js-custom-next-v2" style="background-color:#147814"><span class="icon-arrow_forward"></span></a>
+              
 
             </div> <!-- /.slider-nav -->
           </div>
@@ -264,8 +280,8 @@
       <div class="container">
         <div class="row">
           <div class="col-12 text-center">
-            <span class="section-subtitle">서평</span>
-            <h4 class="section-title">${book.b_name}</h4>
+            <span class="section-subtitle">${book.b_name}</span>
+            <h4 class="section-title">서평</h4>
           </div>
         </div>
         <div class="row justify-content-center">
@@ -285,6 +301,7 @@
                 <blockquote>
                   <p>&ldquo;당신의 생각을 나누어 주세요&rdquo;</p>
                 </blockquote>
+                <input type="button" class="btn btn-outline-light btn-block col-sm-3 text-dark" style="font-weight: bold; border-color: #2a96a5; margin-left:190px; float:center; display: flex; justify-content: center; align-items:center;" value="서평 쓰기" onclick="location.href='/mylib/libindex/${s_id}'">
               </div>
               
             </div>
