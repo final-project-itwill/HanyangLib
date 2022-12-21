@@ -3,6 +3,8 @@ package kr.co.itwill.book;
 
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.itwill.community.BookReadDTO;
 import kr.co.itwill.member.LoginDAO;
 import kr.co.itwill.member.LoginDTO;
 import kr.co.itwill.mylib.MylibDTO;
@@ -46,12 +49,57 @@ public class BookCon {
 	@RequestMapping("/booklist")
 		public ModelAndView booklist() {
 			ModelAndView mav = new ModelAndView();
+			mav.addObject("newbook", bookDao.newbook());		//newBook 출력
+			mav.addObject("mdBpick", bookDao.mdBpick());		//md pick 출력
 			mav.setViewName("book/booklist");
+
 			
 			return mav;	
 
 	}//list() end
 	
+	
+	@RequestMapping("/bookcate_a")
+	public ModelAndView bookcate_a(@RequestParam String pageNum) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("book/bookcate_a");
+		int totalRowCount = bookDao.totalRowCount();	//총 행 갯수
+		
+		//페이징
+		int numPerPage   = 15;   //한 페이지당 행 갯수
+        int pagePerBlock = 10;  //페이지 리스트(1~10페이지 : 1세트에 10페이지)
+
+        if(pageNum == null){    //페이징 번호의 a태그 명령어 ? 뒤에서 받아옴
+            pageNum = "1";      //자료가 없으면 무조건 1페이지
+        }
+
+        int currentPage = Integer.parseInt(pageNum);        //현재 2페이지라면,
+        int startRow    = (currentPage-1)*numPerPage+1;     //시작 rnum은 21
+        int endRow      = currentPage * numPerPage;         //끝 rnum은 30
+
+        //페이지 수
+        double totcnt = (double)totalRowCount/numPerPage;   //총 페이지수 = 글갯수/20
+        int totalPage = (int)Math.ceil(totcnt);             //올림해서 정수형으로 변환
+
+        //페이지가 10이 넘어가면 11~20 페이지가 나와야 함(2세트)
+        double d_page = (double)currentPage/pagePerBlock;   //22페이지라면, 1.2
+        int Pages     = (int)Math.ceil(d_page) - 1;         //1
+        int startPage = Pages * pagePerBlock + 1;           //11
+        int endPage   = startPage + pagePerBlock - 1;       //20
+
+        BookDTO rows = new BookDTO();
+        rows.setStartRow(startRow);
+        rows.setEndRow(endRow);
+
+        mav.addObject("pageNum", currentPage);
+        mav.addObject("count", totalRowCount);
+        mav.addObject("totalPage", totalPage);
+        mav.addObject("startPage", startPage);
+        mav.addObject("endPage", endPage);
+        mav.addObject("rows", rows);
+        mav.addObject("list_a", bookDao.list_a(rows));
+		return mav;
+    }//bookcate_a() end
 	
 	
 	@RequestMapping("/bookcate_n")
@@ -256,10 +304,35 @@ public class BookCon {
 		// System.out.println("아이디 : "+s_id);
 		// System.out.println("책 보유 여부 : " + loginDao.haveBook(dto));
 		// System.out.println("구독여부 : " + loginDao.subCheck(s_id));
-		return mav;
 		
 		
+		//커뮤니티 추가
+		mav.addObject("commu", bookDao.commu());
+		
+			//List<BookReadDTO> test = new ArrayList<>();
+			//for(int i=0; i<test.size(); i++) {
+			//	System.out.println(test.get(i));
+			//}
+		
+		
+		//서평 추가
+		mav.addObject("review", bookDao.review());
+		
+		
+		
+		return mav;		
 	}
 	
+	
+	@RequestMapping("/search")
+	public ModelAndView search(@RequestParam(defaultValue = "") String keyword) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("book/bookcate_a");
+		mav.addObject("keyword", keyword);
+		mav.addObject("list_a", bookDao.search(keyword));	//제발.. 변수명 확인하고 일치 좀,... 방미연.... 이건...list_a
+		return mav;
+	}//search() end
+
+
 	
 }//class end
