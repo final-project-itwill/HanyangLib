@@ -64,4 +64,61 @@
 		]]>
 	</select>
 	
+	<select id="price" resultType="int">
+		<![CDATA[
+			SELECT b_price
+			FROM book
+			WHERE b_code = #{dpay_code}
+		]]>
+	</select>
+	
+	<insert id="addPayment">
+		<foreach collection="list" item="item" index="index" separator=";">
+		<![CDATA[
+			INSERT d_payment( dpay_pno, dpay_code, dpay_price )
+			VALUES ( #{item.dpay_pno}, #{item.dpay_code}, #{item.dpay_price} )
+		]]>
+		</foreach>
+	</insert>
+	
+	<select id="payList" resultType="kr.co.itwill.cart.DpaymentDTO">
+		<![CDATA[
+			SELECT dpay_no, dpay_pno, dpay_code, dpay_price
+			FROM d_payment
+			WHERE dpay_pno = #{dpay_pno}
+		]]>
+	</select>
+	
+	<insert id="finalinsert" parameterType="kr.co.itwill.cart.PaymentDTO">
+		<![CDATA[
+			INSERT payment( pay_no, pay_id, pay_total )
+			VALUES ( #{pay_no}, #{pay_id}, #{pay_total} )
+		]]>
+	</insert>
+	
+	<delete id="cancel">
+		<![CDATA[
+			DELETE FROM d_payment
+			WHERE dpay_pno = #{dpay_pno}
+		]]>
+	</delete>
+	
+	<select id="findBook" resultType="kr.co.itwill.cart.DpaymentDTO">
+		<![CDATA[
+			SELECT dpay_code
+			FROM d_payment
+			WHERE dpay_pno = #{pay_no}
+		]]>
+	</select>
+		
+	<insert id="insertLib">
+		<foreach collection="list" item="item" index="index" separator=";">
+		<![CDATA[
+			INSERT INTO mylib( lib_id, lib_bcode )
+			VALUES ( #{item.lib_id}, #{item.lib_bcode} )
+		]]>
+		</foreach>
+	</insert>
+	
+	
 </mapper>

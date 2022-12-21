@@ -236,7 +236,7 @@
                     a += '  </td>';
                     a += '  </tr><tr>';
                     a += '  <td colspan="2" class="content' + value.ac_no +'">'
-                    a += '      <p>후기 내용 : ' + value.ac_review + ' / 만족도 :' + value.ac_manjok + '</p>';
+                    a += '      <p>후기 내용 : ' + value.ac_review + ' / 만족도 :' +  value.ac_manjok + '</p>';
                     a += '  </td>';
                     a += '</tr>';
                 });//each() end

@@ -75,12 +75,13 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>1. 회원 관리</span>
+                <span>1. 회원 </span>
             </a>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">한양서재 이용자를 관리해보세요</h6>
-                    <a class="collapse-item" href="#">회원 목록</a>
+                    <a class="collapse-item" href="#">관리자 계정 관리</a>
+                    <a class="collapse-item" href="/admin/memberList">이용자 관리</a>
                 </div>
             </div>
         </li><!-- Nav 회원 관리 끝 -->
@@ -114,12 +115,12 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                aria-expanded="true" aria-controls="collapsePages">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>3. 고객센터 관리</span>
+                <span>3. 고객센터 </span>
             </a>
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">공지사항과 문의관리는 여기서!</h6>
-                    <a class="collapse-item" href="#">공지사항 목록</a>
+                    <a class="collapse-item" href="#">공지사항 관리</a>
                     <a class="collapse-item" href="#">공지사항 등록</a>
                     <h6 class="collapse-header">1:1문의</h6>
                     <a class="collapse-item" href="#">문의 접수 및 답변</a>
@@ -127,68 +128,39 @@
                 </div>
             </div>
         </li><!-- Nav 문의 관리 끝 -->
+
+        <hr class="sidebar-divider">
+        <div class="sidebar-heading">커뮤니티</div>
+        <!-- Nav 커뮤니티 관리 시작 -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCommu"
+               aria-expanded="true" aria-controls="collapseCommu">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>커뮤니티 관리 </span>
+            </a>
+            <div id="collapseCommu" class="collapse" aria-labelledby="headingCommu" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">이용자들의 모임을 관리해요</h6>
+                    <a class="collapse-item" href="#">리스트</a>
+                    <a class="collapse-item" href="#">MD pick 설정하기</a>
+                </div>
+            </div>
+        </li><!-- Nav 커뮤니티 관리 끝 -->
+
+
+
     </c:when>
     <%--로그인 안했을 때--%>
     <c:otherwise>
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="/comm/admin/${read.c_code}">
+            <a class="nav-link" href="/admin/dashboard">
                 <i class="fas fa-fw fa-cog"></i>
-                <span style="font-size: 16px">커뮤니티 관리</span></a>
+                <span style="font-size: 16px">Dashboard</span></a>
         </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Nav 커뮤니티 구성원 관리 -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-               aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>1. 구성원</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">인원을 관리해보세요</h6>
-                    <a class="collapse-item" href="/login/index">가입 신청 승인</a>
-                </div>
-            </div>
-        </li>
-
-        <!-- Nav 커뮤니티 신청서(설문지) 관리 -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-               aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>2. 커뮤니티 신청서</span>
-            </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">가입 신청서를 확인하세요</h6>
-                    <a class="collapse-item" href="/login/index">신청서 생성</a>
-                    <a class="collapse-item" href="/login/index">신청서 수정</a>
-                    <a class="collapse-item" href="/login/index">신청서 삭제</a>
-                    <a class="collapse-item" href="/login/index">신청서 결과 확인</a>
-                </div>
-            </div>
-        </li>
-
-
-        <!-- Nav 커뮤니티 관리 (페이지/정보 수정) -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-               aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>3. 커뮤니티 관리</span>
-            </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">정보 수정이나 삭제는 여기서!</h6>
-                    <a class="collapse-item" href="/login/index">커뮤니티 정보 수정</a>
-                    <a class="collapse-item" href="/login/index">커뮤니티 삭제</a>
-                </div>
-            </div>
+        <li class="nav-item active">
+            <i class="fas fa-smile-wink"></i>
+            <a class="nav-link" href="/login/index">관리자 계정으로<br>로그인 바랍니다.</a>
         </li>
     </c:otherwise>
     </c:choose>

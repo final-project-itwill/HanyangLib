@@ -22,7 +22,7 @@
     <td style="text-align: left">
       <input type="text" name="m_id" id="m_id" size="15">
       <input type="button" value="ID중복확인" id="btn_userid"> 
-      <span id="idpanel" style="display:none"></span>
+      <span id="idpanel" style="display:none"></span> 
     </td>
 </tr>
 <tr>
@@ -31,7 +31,10 @@
 </tr>
 <tr>
     <th>*비밀번호 확인</th>
-    <td style="text-align: left"><input type="password" name="m_pw" id="m_pw" size="15" required></td>
+    <td style="text-align: left" colspan="2">
+    <input type="password" name="m_pw2" id="m_pw2" class="pwcheck" size="15" required>
+    <font id="chm_pw" size="2"></font>
+    </td>
 </tr>
 <tr>
     <th>*이름</th>
@@ -110,21 +113,41 @@
   <th>성별</th>
   <td style="text-align: left">
         <select name="m_gender"  id="m_gender">
-          <option value="0">선택하세요.</option>
-          <option value="m" selected>남자</option>
-          <option value="f">여자</option>
+          <option value="0" selected>선택하세요.</option>
+          <option value="M">남자</option>
+          <option value="F">여자</option>
         </select>
   </td>
 </tr>
 <tr>
     <td colspan="2" style="text-align: center">
-        <input type="button" value="정보확인"  class="btn btn-primary" onclick="meminesrt()">
-        <input type="submit" value="회원가입" class="btn btn-success" onsubmit="location.href='/member/insert'">
+        <input type="submit" value="회원가입" class="btn btn-success" onsubmit="location.href='/member/insert'" onclick="meminesrt()">
         <input type="reset"  value="취소"     class="btn btn-primary"/>
     </td>
 </tr>
 </table>
 </div>
+  
+<script>
+	$(".pwcheck").keyup(function(){
+    	let pass1 = $("#m_pw").val();
+    	let pass2 = $("#m_pw2").val();
+    if(pass1 != "" || pass != ""){
+    	if(pass1 == pass2){
+    		$("#chm_pw").html("비밀번호가 일치합니다!^^");
+    		$("#chm_pw").css("color", "green");
+    	}else{
+    		$("#chm_pw").html("비밀번호가 불일치합니다!");
+    		$("#chm_pw").css("color", "red");
+    	}//if end
+    }//if end
+    
+    	
+    	
+    });
+
+</script>
+
 
    <script>
     function meminesrt(){

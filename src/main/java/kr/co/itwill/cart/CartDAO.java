@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.itwill.community.CommSignDTO;
+import kr.co.itwill.mylib.MylibDTO;
 
 
 @Repository
@@ -49,10 +50,48 @@ public class CartDAO {
       return sqlSession.delete("cart.deleteBook", deleteList);
 	} // delete() end
 	
+	
+	/////////////////장바구니에서 결제 상세 테이블로////////////////////
+	
 	// 주문서 코드를 만들기 위해 오늘 날짜에 들어온 주문서가 또 있는지 확인하기
 	public int count(String date) {
 		return sqlSession.selectOne("cart.count", date);
 	}
 	
+	// 상품 번호로 가격 불러오기
+	public int price(String dpay_code) {
+		return sqlSession.selectOne("cart.price", dpay_code);
+	}
+	
+	// 결제 상세 테이블로 Insert
+	public int addPayment(List<DpaymentDTO> paymentList){
+		return sqlSession.insert("cart.addPayment", paymentList);
+	}
+	
+	// 결제 상세 테이블 READ
+	public List<DpaymentDTO> payList(String dpay_pno){
+		return sqlSession.selectList("cart.payList", dpay_pno);
+	}
+	
+	// 결제 상세 테이블 삭제
+	public int cancel(String dpay_pno) {
+		return sqlSession.delete("cart.cancel", dpay_pno);
+	}
+	
+	////////////////////결제 상세 테이블에서 결제 테이블로//////////////////////
+	// 결제 상세 테이블로 insert
+	public int finalinsert(PaymentDTO dto) {
+		return sqlSession.insert("cart.finalinsert", dto);
+	}
+	
+	// 주문서 번호 안에 들어있는 도서 코드 다 담기
+	public List<DpaymentDTO> findBookCode(String pay_no) {
+		return sqlSession.selectList("cart.findBook", pay_no);
+	}
+	
+	// 나만의 서제 insert 반복처리
+	public int insertLib(List<MylibDTO> BookList) {
+		return sqlSession.insert("cart.insertLib", BookList);
+	}
 	
 }//class end
