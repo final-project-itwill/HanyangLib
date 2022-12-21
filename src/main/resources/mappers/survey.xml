@@ -14,6 +14,12 @@
 		WHERE sv_comcode = #{c_code}
 	</select>
 	
+	<select id="getnick" resultType="String">
+		SELECT m_nick
+		FROM member
+		WHERE m_id = #{m_id}
+	</select>
+	
 	
 	<select id="title" resultType="kr.co.itwill.survey.DsurveyDTO">
 		SELECT dsv_subject, dsv_type, dsv_order
@@ -40,16 +46,9 @@
 	</select>
 	
 	<select id="tplread" resultType="kr.co.itwill.survey.templetDTO">
-		SELECT *
-		FROM 
-		(
-		SELECT tem_no, tem_title, tem_code
-		FROM temp
-		) AS AA RIGHT OUTER JOIN (
 		SELECT tefo_no, tefo_code, tefo_type, tefo_order, tefo_subject, tefo_check
 		FROM temp_info
-		) AS BB
-		ON AA.tem_code = BB.tefo_code ;
+		WHERE tefo_code = #{tem_code}
 	</select>
 	
 	<select id="choice" resultType="kr.co.itwill.survey.ChoiceDTO">
@@ -69,6 +68,10 @@
 		VALUES (#{ans_code},  #{ans_order}, #{ans_anscode}, #{ans_id}, #{ans_content}  )
 	 </insert>
 	
+	<insert id="comsign" parameterType="kr.co.itwill.community.CommSignDTO">
+		INSERT INTO community_signup( s_code, s_id, s_nick, s_surveycode )
+		VALUES ( #{s_code}, #{s_id}, #{s_nick}, #{s_surveycode} )
+	</insert>
 	
 	<!-- survey -->
 	<insert id="surveyWrite" parameterType="kr.co.itwill.survey.SurveyDTO">

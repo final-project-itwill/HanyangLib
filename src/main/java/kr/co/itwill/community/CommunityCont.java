@@ -219,13 +219,15 @@ public class CommunityCont {
 
 
     @RequestMapping("/update/{c_code}")
-    public ModelAndView update(@PathVariable String c_code){
+    public ModelAndView update(@PathVariable String c_code) throws Exception{
         ModelAndView mav = new ModelAndView();
         mav.addObject("read", commDao.read(c_code));
         mav.setViewName("community/update");
 
         // 설문지 코드 생성
+        mav.addObject("c_code", c_code);
         mav.addObject("sv_code", surveyDAO.scodeget(c_code));
+        mav.addObject("tpl", surveyDAO.tpl());
         return mav;
     }//update() end
 
@@ -334,22 +336,23 @@ public class CommunityCont {
     * */
 
     @RequestMapping("/admin/{c_code}")
-    public ModelAndView admin(@PathVariable String c_code){
+    public ModelAndView admin(@PathVariable String c_code) throws Exception{
         ModelAndView mav = new ModelAndView();
         mav.setViewName("community/adminIndex");
         mav.addObject("read", commDao.read(c_code));
-        mav.addObject("star", commDao.star(c_code));
+        // mav.addObject("star", commDao.star(c_code));
         mav.addObject("reviewCnt", commDao.reviewCnt(c_code));
         mav.addObject("checkOwner", commDao.checkOwner(c_code));
         
         // 설문지 코드 생성
         mav.addObject("sv_code", surveyDAO.scodeget(c_code));
+        mav.addObject("tpl", surveyDAO.tpl());
         return mav;
     }//admin() end
 
     // 1. 구성원 관리 페이지
     @RequestMapping("/adminmember/{c_code}")
-    public ModelAndView adminMember(@PathVariable String c_code){
+    public ModelAndView adminMember(@PathVariable String c_code) throws Exception{
         ModelAndView mav = new ModelAndView();
         mav.setViewName("community/adminMember");
 
@@ -361,12 +364,13 @@ public class CommunityCont {
         // 설문지 코드 생성
         mav.addObject("c_code", c_code);
         mav.addObject("sv_code", surveyDAO.scodeget(c_code));
+        mav.addObject("tpl", surveyDAO.tpl());
         return mav;
     }//adminMember() end
 
     // 2. 설문지 관련 페이지
     @RequestMapping("/chart/{c_code}")
-    public ModelAndView surveyChart(@PathVariable String c_code){
+    public ModelAndView surveyChart(@PathVariable String c_code) throws Exception{
         ModelAndView mav = new ModelAndView();
         mav.setViewName("community/surveyChart");
 
@@ -375,6 +379,7 @@ public class CommunityCont {
         
         // 설문지 코드 생성
         mav.addObject("sv_code", surveyDAO.scodeget(c_code));
+        mav.addObject("tpl", surveyDAO.tpl());
         return mav;
     }//surveyChart() end
 
