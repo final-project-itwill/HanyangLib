@@ -8,12 +8,14 @@
 
 
 
-<div class="hero-slant overlay" style="background-image: url('/images/galaxy.jpeg'); height: 13vh;">
+<!-- 상단 헤더 배경 및 커뮤니티 이름 -->
+<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('/images/galaxy.jpeg'); height: 15vh;">
 </div>
 
-<div class="text-center">
-    <h1 style="text-align: center; font-weight: bold; font-size: 45px; margin-top: 25px">${read.c_name}</h1>
-</div>
+<h1 class="text-dark text-left font-weight-bold" data-aos="fade-up" data-aos-delay="0" style="padding: 30px 0 0 10vw">
+    ${read.c_name}
+</h1>
+<p class="text-dark text-left font-weight-bold" data-aos="fade-up" data-aos-delay="0" style="font-size: 20px;padding: 10px 0 0 10vw">&nbsp; 커뮤니티에 방문하신 것을 환영합니다</p>
 
 <div class="container-fluid border-bottom">
     <div class="row">
@@ -91,7 +93,21 @@
 
     <!-- 커뮤니티 구성원 시작-->
     <div class="container">
-        <h3>같이 하는 사람들</h3>
+        <h3 style="text-align: center; font-weight: bold; padding-bottom: 1vh">같이 하는 사람들</h3>
+        <table>
+            <tr>
+                <c:forEach var="list" items="${checkMember}" varStatus="vs">
+                    <td>
+                        <img src="/storage/${list.m_img}" class="img-fluid rounded-circle">
+                        <p style="text-align: center">${list.m_nick}</p>
+                    </td>
+                    <!-- 테이블 한 줄에 5행씩 -->
+                    <c:if test="${vs.count mod 5 == 0}">
+                        <tr></tr>
+                    </c:if>
+                </c:forEach>
+            </tr>
+        </table>
     </div><!-- 커뮤니티 구성원 end-->
 
     <br><br>
@@ -216,8 +232,8 @@
                     //alert(value);
                     a += '<tr class="reviewArea" style="border: 1px solid darkgray; margin-bottom: 15px">';
                     a += '  <td class="reviewInfo' + value.ac_no +'">';
-                    a += '      번호 : ' + value.ac_no + ' / 작성자 : ' + value.ac_id + "  " + value.ac_rdate;
-                    a += '  </td><td class="text-right">';
+                    a += '      <p>작성자 : ' + value.ac_id + "</p>  <p>" + value.ac_rdate;
+                    a += '  </p></td><td class="text-right">';
 
                     if(value.ac_id == loginID || value.ac_id =='webmaster'){    //작성자||관리자만 수정/삭제 버튼 접근 가능
                         a += '      <a href="javascript:openReviewUpdatePanel(' + value.ac_no + ',\'' + value.ac_review + '\',' + value.ac_manjok + ');">수정</a>';

@@ -152,8 +152,12 @@
 
     <!-- 커뮤니티 구성원 조회-->
     <select id="checkMember" resultType="kr.co.itwill.community.CommSignDTO">
-        SELECT s_no, s_code , s_id, s_nick, s_state, s_surveycode, s_rdate
-        FROM community_signup
+        SELECT s_no, s_code , s_id, s_nick, s_state, s_surveycode, s_rdate, m_id, m_nick, m_img
+        FROM (
+                 SELECT m_id, m_nick, m_img
+                 FROM member
+             )AA JOIN community_signup BB
+                      ON AA.m_id = BB.s_id
         WHERE s_code = #{c_code}
     </select>
 
