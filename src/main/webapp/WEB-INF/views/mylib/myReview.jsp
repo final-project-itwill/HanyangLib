@@ -109,14 +109,14 @@
 
 	<table class="table">
 	<tr class="col-12 col-xs-12 col-sm-4 col-lg-4" style="text-align: center;">
-		<td>제목</td>
+		<td colspan="2">제목</td>
 		<td>책 이름</td>
 		<td>별점</td>
 		<td>조회수</td>
 	</tr>
-	<c:forEach items="${review}" var="rv">
+	<c:forEach items="${list}" var="rv">
 	<tr style="text-align: center;">
-		<td><a href="/mylib/reviewRead?br_no=${rv.br_no}">${rv.br_title}</a></td>
+		<td colspan="2"><a href="/mylib/reviewRead?br_no=${rv.br_no}">${rv.br_title}</a></td>
 		<td>${rv.b_name}</td>
 		<td>
 		<c:forEach var="cnt" begin="1" end="${rv.br_star}" step="1">
@@ -126,8 +126,59 @@
 		<td>${rv.br_count}</td>
 	</tr>
 	</c:forEach>
+	<tr><td colspan="4"><div class="col-lg-12" style="margin-right: 0">
+	</div></td></tr>
+	<tr><td colspan="4" class="text-center">
+	<!-- 페이지 리스트 시작 -->
+	<!-- 1-10 / 2-11 / 이런 식으로 출력하게 하고 싶어서 구현 -->
+	<c:if test="${count>0}"> <!-- 글이 1개 이상 있다면 페이징 출력 -->
+		<!-- 변수 지정 -->
+		<!-- 내 글이 45개가 있다고 생각하고 변수값 예시를 들었다 -->
+		<c:set var="pageCount" value="${totalPage}"/> <!-- 9, 글이 들어있는 총 페이지(글은 45개, 9페이지까지 글이 있음) -->
+		<c:set var="startpage" value="${startPage}"/> <!-- 0, 페이지의 시작 지점 -->
+		<c:set var="endPage" value="${endPage}"/> <!-- 11, 페이지의 끝 지점 -->
+		
+		<div class="content">
+			<!-- 글이 있는 페이지의 끝지점보다 글이 들어있는 총 페이지가 작다면, 즉 10개의 페이지 안에 글이 다 들어갔다면 -->
+			<c:if test="${endPage>pageCount}">
+				<!-- 끝페이지 변수에 담긴 값을 글이 들어있는 총 페이지에서 1을 더해준 값으로 바꿔줌 -->
+				<!-- 글이 있는 페이지까지만 출력을 시켜준다. 예를 들어 글이 9페이지 까지 있다면, endPage 변수는 10이 담기고 아래 반복문에서 출력에 쓰인다. -->
+				<!-- 글이 들어있는 페이지가 10페이지 이상이라면 10페이지까지만 출력됨 -->
+				<c:set var="endPage" value="${pageCount+1}"/>
+			</c:if>
+
+			<!-- 이전 버튼 띄우기 -->
+			<!-- 내가 현재 1페이지라면 startPage는 0이다, 이전 버튼이 출력되지 않는다 -->
+			<!-- 내가 현재 2페이지라면 startPage는 1이다, 이전 버튼이 출력된다 -->
+			<c:if test="${pageNum>1}">
+				<a href = "/mylib/myReview?lib_id=${s_id}&pageNum=${pageNum-1}">[이전]</a>
+			</c:if>
+			
+			<!-- 반복문 -->
+			<!-- i라는 변수에 값을 담음 -->
+			<!-- 페이지의 시작 지점부터 끝지점까지, 내가 1페이지라면 1부터 10까지 -->
+			<c:forEach var="i" begin="${startpage+1}" end="${endPage-1}">
+				<c:choose>
+					<%-- i가 현재 페이지와 일치한다면 현재 페이지를 굵게 출력 --%>
+					<c:when test="${pageNum==i}"><span style="font-weight: bold;">${i}</span></c:when>
+					<%-- i가 현재 페이지와 일치하지 않는다면 해당 번호의 페이지로 이동하는 버튼을 출력 --%>
+					<c:when test="${pageNum!=i}"><a href="/mylib/myReview?lib_id=${s_id}&pageNum=${i}">${i}</a></c:when>
+				</c:choose>
+			</c:forEach>
+			
+			<!-- 다음 버튼 띄우기 -->
+			<!-- 내가 있는 곳이 마지막 페이지라면 다음 페이지를 띄우지 말아야 한다 -->
+			<!-- 글이 있는 마지막 페이지보다 현재 페이지가 작아야지 다음을 띄움 -->
+			<c:if test="${endPage>pageNum}">
+				<a href = "/mylib/myReview?lib_id=${s_id}&pageNum=${pageNum+1}">[다음]</a>
+			</c:if>			
+		</div>
+	</c:if>
+	<!-- 페이지 리스트 끝 -->
+	</td></tr>
 	</table>
 	</div>
+	<!-- 서평 목록 끝 -->
 </div>
 </div>
 <!-- 본문작성 끝 -->

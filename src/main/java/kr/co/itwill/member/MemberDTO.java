@@ -27,7 +27,7 @@ public class MemberDTO {
 	   private String m_grade;			//등급
 	   private String m_gudok;			//구독
 	   private int	  m_point;			//포인트
-	   private String m_heat;			//온도
+	   private double m_heat;			//온도
 	   private String m_rdate;			//가입일
 	   private MultipartFile img; 		//이미지수정 변수
 }//class end

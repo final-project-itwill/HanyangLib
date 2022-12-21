@@ -2039,21 +2039,17 @@ div, ul, li {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizi
       background: #ebedee; }
       
 /* 나만의 서재 */
-.userphoto {
-	width:10vw;
-	position: absolute;
-	margin-left: 7.5vw;
-	background-color: white;
-	top:30vh;
-	z-index: 2;
-}
 .lib-info, .lib-cont {
-	padding-top: 20vh;
+	padding-top: 5vh;
 }
 
 .lib-info {
 	margin: 0px;
 	text-align: center;
+}
+.custom-table {
+	border-collapse: separate;
+	border-spacing: 0 10px;
 }
 
 /* 결재창 sticky-top*/

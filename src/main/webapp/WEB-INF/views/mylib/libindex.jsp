@@ -5,9 +5,26 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../header.jsp"%>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="/css/libtable.css">
+
+    <!-- Custom fonts for this template-->
+    <link href="/adminBootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="/adminBootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+<style>
+.site-nav .site-navigation .site-menu > li > a {
+	color : black;
+}
+.site-nav .site-navigation .site-menu > li.active > a {
+	color : black;
+}
+</style>
 <!-- 본문작성 시작 -->
 <!-- 배너와 커뮤니티장 사진이 들어가는 곳 -->
-	<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('/images/libbg.jpg'); height: 40vh;"></div>
+	<div class="hero-slant" data-stellar-background-ratio="0.5" style="background-image: url('../../images/topbg.jpg'); height: 60vh;">
+	</div>
 
 
 	<!-- ebookRead 새창으로 열기 자바스크립트 -->
@@ -22,43 +39,38 @@
 
 
 
-<!-- 커뮤니티 container -->
-	<img class="userphoto rounded-circle" alt="user" src="/images/user.png">
-	<div class="container-fluid">
+<!-- container -->
+	<div class="container-fluid" style="padding:0px;">
 		<div class="row lib-row">
 			<!-- 개인정보창 -->
-			<div class="lib-info col-12 col-sm-3 col-lg-3">
+			<div class="container-fluid lib-info col-12 col-sm-3 col-lg-3" style="background-color: #ddc5b2;">
 			<c:forEach items="${libInfo}" var="info">
-				<table class="table">
+				<table class="table custom-table">
+				<tr>
+					<td>
+						<img src="/storage/${info.m_img}" alt="userPhoto" width="200vh">
+					</td>
+				</tr>
 				<tr align="center">
 					<td valign="middle" style="line-height: 180%;">
 						<span style="font-weight: bold; font-size: 35px;">
 							<a class="text-black" href="/mylib/libindex/${lib_id}">${info.m_nick}</a>
-						</span><br>
-						${lib_id}<br>
+						</span><br>						
+						<p style="font-weight: bold; text-align: center; margin: 0px;">
+							${lib_id}
+						</p>
+						<span style="line-height: 1em; margin: 0px; padding: 0px;">
+							<img alt="heart" src="/images/hearts.png" width="20vh">
+							${info.m_heat}
+						</span>
+						<p style="font-size: xx-small; line-height: 1.5em; margin-bottom: 0px;">한양서재에서 열심히 활동해서<br>하트를 늘려보세요</p>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<div style="background-image: url('/images/heart.png');
-									background-position: center;
-									background-repeat: no-repeat;
-									background-size: 10vh;
-									position: relative;
-									height: 10vh;">
-						<p style="color: white; font-weight: bold; text-align: center; padding-top: 2vh;">${info.m_heat}</p>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						서재에 있는 책은 모두 : ${bookCount}권<br>
-						80% 이상 읽은 책은 : ${book80Count}권
-					</td>
-				</tr>
-				<c:if test="${lib_id eq s_id}">
-				<tr>
-					<td>
+						서재에 있는 책은 모두 : <span style="font-weight: bold;">${bookCount}</span>권<br>
+						80% 이상 읽은 책은 : <span style="font-weight: bold;">${book80Count}</span>권<br>
+					<c:if test="${lib_id eq s_id}">
 					<!-- 모달창 버튼 -->
 					<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#myModal">
 						목표 설정하기
@@ -107,11 +119,10 @@
 						}					
 					</script>
 					
-					
+					</c:if>
 					<!-- 모달창 끝 -->
 						</td>
 				</tr>
-				</c:if>
 				<tr>
 					<td>
 						이번 달은<br>
@@ -128,27 +139,22 @@
 			</c:forEach>
 			</div>
 			<!-- 상세페이지 -->
-			<div class="lib-cont col-12 col-sm-9 col-lg-9">
-				<table class="table">
+			<div class="lib-cont col-12 col-sm-9 col-lg-9"> <!-- style="background-image: url('../../images/libbg2.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover;" -->
+				<table class="lib_cont table custom-table">
+<!-- 					   style="background-image: url('../../images/lib_cont_bg1.png');
+					   			background-position:center;
+					   			background-repeat: no-repeat;
+					   			background-size: 100vw;
+					   			background-position: center top;" -->
 				<!-- 서재 목록 시작 -->
 				<!-- 나의 서재에 책이 없을 경우 -->
 				<c:if test="${bookCount==0}">
-				<tr>
-					<td colspan="4">
-						<span style="font-weight: bold; font-size: 35px;">나의 서재 > </span>요즘 읽고 있는 책들이에요
-					</td>
-				</tr>
+				<tr></tr>
 				<tr><td colspan="4">서재에 책 없음</td></tr>
 				</c:if>
 				<!-- 나의 서재에 책이 있을 경우 -->
 				<c:if test="${bookCount!=0}">
-				<tr>
-					<td colspan="4">
-						<span style="font-weight: bold; font-size: 35px;">
-							<a class="text-black" href="/mylib/myBooks/${lib_id}">나의 서재 > </a>
-						</span>요즘 읽고 있는 책들이에요
-					</td>
-				</tr>
+				<tr><td colspan="4" class="text-center"><h1>나의 서재</h1><h4 style="font-size: medium;">내가 세계를 알게 된 것은 책에 의해서였다 - Jean Paul C. A. Sartre</h4></td></tr>
 				<tr class="col-12 col-xs-12 col-sm-4 col-lg-4">
 				<c:forEach items="${libThree}" var="read" varStatus="vs">
 					<c:choose>
@@ -166,7 +172,7 @@
 							</c:otherwise>
 						</c:choose>
 						<br>
-						책 제목 : <a class="text-black" href="detail/${read.b_code}">${read.b_name}</a>
+						<a class="text-black" href="detail/${read.b_code}">${read.b_name}</a>
 						<br>
 							진행도 : <fmt:formatNumber value="${read.lib_proc}" pattern="###"/>%
 						</div>
@@ -186,7 +192,7 @@
 							</c:otherwise>
 						</c:choose>
 						<br>
-						책 제목 : <a class="text-black" href="javascript:readEbook(${read.b_code});">${read.b_name}</a>
+						<a class="text-black" href="javascript:readEbook(${read.b_code});">${read.b_name}</a>
 						<br>
 							진행도 : <fmt:formatNumber value="${read.lib_proc}" pattern="###"/>%
 						</div>
@@ -196,7 +202,6 @@
 				</c:forEach>
 				</tr>
 				</c:if>
-				<tr><td colspan="4"><br><br></td></tr>
 				<!-- 서재 목록 끝 -->
 				<!-- 커뮤니티 목록 시작 -->
 				<!-- 가입한 커뮤니티가 없을 때 -->
@@ -257,7 +262,7 @@
 				<tr>
 					<td colspan="4">
 						<span style="font-weight: bold; font-size: 35px;">
-							<a class="text-black" href="/mylib/myReview/${lib_id}">나의 서평 ></a> 
+							<a class="text-black" href="/mylib/myReview?lib_id=${lib_id}&pageNum=1">나의 서평 ></a> 
 						</span>읽기만 하지 않고 쓰기도 하는 당신
 					</td>
 				</tr>
@@ -283,6 +288,14 @@
 				</tr>
 				</c:forEach>
 				</c:if>
+				</table>
+				</div>
+		</div>
+	</div>
+	<!-- container 2 시작 -->
+	<div class="container-fluid">
+	<table class="table custom-table">
+	
 				<tr><td colspan="4"><br><br></td></tr>
 				<!-- 방명록 -->
 				<tr class="col-12 col-xs-12 col-sm-4 col-lg-4">
@@ -357,7 +370,7 @@
 				            ,success:function(data){
 				                // alert(size);
 				                // alert(limit);
-				                
+				               	// alert(data);
 				                let a = "";
 				                $.each(data, function(key, value){
 				                    a += "<tr class='visitorArea' style='border-bottm:1px solid darkgray; margin-bottom:15px;'>";
@@ -447,9 +460,8 @@
 
 					
 				</script>
-
-			</div>
-		</div>
 	</div>
+
+
 <!-- 본문작성 끝 -->
 <%@ include file="../footer.jsp"%>

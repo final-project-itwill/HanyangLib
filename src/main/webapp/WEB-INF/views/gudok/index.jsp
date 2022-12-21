@@ -4,9 +4,11 @@
 <!-- 정기결제 iamport.payment.js -->
 <script src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <!-- 상단 배너 시작 -->
-<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/login1.jpg'); height: 100vh;"></div>
+<div class="hero-slant" data-stellar-background-ratio="0.5" style="background-color: black; height: 15vh;"></div>
 <!-- 본문작성 시작 -->
-<div class="container text-center" style="background-color: white; background-color: rgba( 255, 255, 255, 0.8 ); width: 400px; position: absolute; top:50%; left:50%; transform: translate(-50%, -50%);"></div>
+<div class="container text-center col-lg-12" style="width: 100vmin;">
+	<img alt="gudokbanner" src="/images/gudokbanner.png" width="100%">
+</div>
     <div class="pricing-section">
       <div class="container">
         <div class="section-title text-center mb-5" data-aos="fade-up" data-aos-delay="0">

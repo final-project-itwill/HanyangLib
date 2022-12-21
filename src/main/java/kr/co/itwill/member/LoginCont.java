@@ -57,6 +57,7 @@ public class LoginCont {
 		if(prevPage=="") {
 			prevPage="redirect:/";
 		} else if(prevPage=="redirect:http://localhost:9095/member/insert"){
+			// 회원가입이 완료된 후 다시 로그인창으로 넘어가서 로그인을 시도할 때
 			prevPage="redirect:/";
 		}// if end
 		
