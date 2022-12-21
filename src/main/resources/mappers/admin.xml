@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="admin">
 
-	<!-- DashBorad 카드에 출력할 쿼리 시작 -->
+	<!-- DashBorad 카드 쿼리 시작 -->
 	<select id="countMember" resultType="int">
 		SELECT COUNT(*)
 		FROM member
@@ -18,19 +18,45 @@
 		SELECT SUM(pay_total)
 		FROM payment
 	</select>
+	<!-- DashBorad 카드 끝 -->
 
-	<!-- DashBorad 카드에 출력할 쿼리 끝 -->
 
-
-	<!-- 회원관리 -->
+	<!-- 회원 시작 -->
 	<select id="memberList" resultType="kr.co.itwill.member.MemberDTO">
 		SELECT m_id, m_pw, m_name, m_nick, m_birth, m_gender, m_zip, m_add1, m_add2, m_tel, m_email, m_mailcheck, m_smscheck, m_grade, m_gudok, m_heat, m_rdate, m_img, m_month, m_year
 		FROM member
 		WHERE m_grade not in ('A')
 	</select>
+	<!-- 회원 끝-->
 
 
 
+	<!-- 커뮤니티 시작 -->
+	<select id="communityList" resultType="kr.co.itwill.community.CommunityUnionDTO" parameterType="String">
+		<![CDATA[
+		SELECT CC.*, b_code, b_name, b_type, b_bookcover
+		FROM (
+				SELECT BB.*, AA.*
+				FROM (
+						 SELECT s_code, COUNT(*)+1 AS cnt
+						 FROM community_signup
+						 GROUP BY s_code
+					 )AA LEFT OUTER JOIN community BB
+				ON AA.s_code = BB.c_code
+				UNION
+				SELECT BB.*, AA.*
+				FROM (
+						 SELECT s_code, COUNT(*)+1 AS cnt
+						 FROM community_signup
+						 GROUP BY s_code
+					 )AA RIGHT OUTER JOIN community BB
+				ON AA.s_code = BB.c_code
+			) CC JOIN book DD
+		ON CC.c_bcode = DD.b_code
+		WHERE c_state in(#{c_state})
+		]]>
+	</select>
+	<!-- 커뮤니티 끝 -->
 
 
 

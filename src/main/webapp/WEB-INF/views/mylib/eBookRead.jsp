@@ -50,8 +50,6 @@
             <span class="float-right" id="value"></span></h4>
         <div>
             <form name="readFrm" id="readFrm" method="post">
-                ${readMylib.lib_no}
-                ${readMylib.lib_proc}
                 <input type="hidden" name="lib_no" value="${readMylib.lib_no}">
                 <input type="range" name="lib_proc" id="myRange" class="form-control-range" min="0" max="100" value="${readMylib.lib_proc}">
                 <div class="text-right" style="margin-top: 20px">

@@ -141,7 +141,8 @@
             <div id="collapseCommu" class="collapse" aria-labelledby="headingCommu" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">이용자들의 모임을 관리해요</h6>
-                    <a class="collapse-item" href="#">리스트</a>
+                    <a class="collapse-item" href="#">커뮤니티 이용 현황</a>
+                    <a class="collapse-item" href="/admin/communityList">리스트</a>
                     <a class="collapse-item" href="#">MD pick 설정하기</a>
                 </div>
             </div>
