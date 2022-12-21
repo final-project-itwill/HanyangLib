@@ -112,6 +112,39 @@
             </div>
         </li>
 
+	                               <!--  찾아보기 창 -->
+						<div class="modal fade" id="search">
+						  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+						    <div class="modal-content">
+						
+						      <!-- Modal Header -->
+						      <div class="modal-header">
+						        <h4 class="modal-title">설문예시</h4>
+						        <button type="button" class="close" data-dismiss="modal">&times;</button>
+						      </div>
+						
+						      <!-- Modal body -->
+						      <div class="modal-body">
+						        <table>
+						        <c:forEach items="${tpl}" var="reada" varStatus="vs">
+						        <tr>
+									<td>
+										<a href="/survey/create/${read.c_code}/${s_id}/${reada.tem_code}">${reada.tem_title}</a>
+									</td>
+								</tr>
+								</c:forEach>
+								<tr>
+									<td>
+										<a href="/survey/create/${read.c_code}/${s_id}">직접 만들기</a>
+									</td>
+								</tr>
+						        </table>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+	                    
+
 
         <!-- Nav 커뮤니티 관리 (페이지/정보 수정) -->
         <li class="nav-item">

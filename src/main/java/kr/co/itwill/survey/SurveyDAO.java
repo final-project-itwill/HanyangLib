@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.itwill.community.CommSignDTO;
+
 
 
 @Repository
@@ -52,8 +54,8 @@ public class SurveyDAO {
 		return sqlSession.selectList("survey.tpl");
 	}// tpl() end
 	
-	public List<templetDTO> tplread() throws Exception {
-		return sqlSession.selectList("survey.tplread");
+	public List<templetDTO> tplread(String tem_code) throws Exception {
+		return sqlSession.selectList("survey.tplread", tem_code);
 	} // tlpread() END
 	
 	
@@ -67,6 +69,16 @@ public class SurveyDAO {
 	public int insert(AnswerDTO answer) {
 		return sqlSession.insert("survey.insert", answer);
 	} // insert() end
+	
+	// 회원정보 nickname 가져오기
+	public String getnick(String m_id) throws Exception {
+		return sqlSession.selectOne("survey.getnick", m_id);
+	}// svCount() end
+	
+	public int comsign(CommSignDTO comsign) {
+		return sqlSession.insert("survey.comsign", comsign);
+	}
+	
 	// survey/Delete문 실행
 	public int delete(String sv_code) {
 		return sqlSession.delete("survey.delete",sv_code );

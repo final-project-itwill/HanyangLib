@@ -251,6 +251,24 @@
 			
 			//alert(document.querySelector('input[name="od01"]:checked'));
 		} // end
+		let s_code = '${c_code}';
+		let s_nick = '${s_nick}';
+		
+		let comsign = {
+				s_code : s_code,
+				s_id : ans_id,
+				s_nick : s_nick,
+				s_surveycode : ans_code
+			} // survey end
+			
+			alert(comsign);
+			$.ajax({
+				type: "post",
+				url:"/survey/write/comsign",
+				contentType: "application/json",
+				data: JSON.stringify(comsign)
+			}) // ajax end	
+		
 	//alert("신청 되었습니다.");
 	window.location.href = "http://localhost:9090/comm/read/${c_code}";
 	}// function() end

@@ -48,6 +48,7 @@
 								<div class="gaek">
 									<label><input type='radio' name='radio' onclick="return(false);">
 									<input type='text' name="i_content" placeholder="객관식 답변을 입력" required></input>
+									<input type="button" class="rRemove" value="답변삭제">
 									</label>
 								</div>
 							</div>
@@ -67,6 +68,7 @@
 								<div class="check">
 									<label><input type="checkbox" name='checkbox' onclick="return(false);">
 									<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
+									<input type="button" class="rRemove" value="답변삭제">
 									</label>
 								</div>
 							</div>
@@ -134,6 +136,7 @@
 								<div class="check">
 									<label><input type="checkbox" name='checkbox' onclick="return(false);">
 									<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
+									<input type="button" class="rRemove" value="답변삭제">
 									</label>
 								</div>
 							</div>
@@ -174,6 +177,7 @@
 								<div class="gaek">
 									<label><input type='radio' name='radio' onclick="return(false);">
 									<input type='text' name="i_content"  placeholder="객관식 답변을 입력" required></input></label>
+									<input type="button" class="rRemove" value="답변삭제">
 								</div>
 							</div>
 							<button class="btn_answer">답안 추가</button>	
@@ -240,6 +244,7 @@
 								<div class="gaek" style="display: none">
 									<label><input type='radio' name='radio' onclick="return(false);">
 									<input type='text' name="i_content" placeholder="객관식 답변을 입력" required></input>
+									<input type="button" class="rRemove" value="답변삭제">
 									</label>
 								</div>
 							</div>
@@ -259,6 +264,7 @@
 								<div class="check">
 									<label><input type="checkbox" name='checkbox' onclick="return(false);">
 									<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
+									<input type="button" class="rRemove" value="답변삭제">
 									</label>
 								</div>
 							</div>
@@ -306,6 +312,7 @@
 								<div class="gaek" style="display: none">
 									<label><input type='radio' name='radio' onclick="return(false);">
 									<input type='text' name="i_content" placeholder="객관식 답변을 입력" required></input>
+									<input type="button" class="rRemove" value="답변삭제">
 									</label>
 								</div>
 							</div>
@@ -325,6 +332,7 @@
 								<div class="check">
 									<label><input type="checkbox" name='checkbox' onclick="return(false);">
 									<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
+									<input type="button" class="rRemove" value="답변삭제">
 									</label>
 								</div>
 							</div>
@@ -393,6 +401,7 @@
 					<label><input type='radio' name='radio' onclick="return(false);">
 					<input type='text' name="i_content"placeholder="객관식 답변을 입력" required></input>
 					</label>
+					<input type="button" class="rRemove" value="답변삭제">
 				</div>
 			<button class="btn_answer">답안 추가</button>		
 			<hr>
@@ -408,6 +417,7 @@
 					<label><input type="checkbox" name='checkbox' onclick="return(false);">
 					<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
 					</label>
+					<input type="button" class="rRemove" value="답변삭제">
 				</div>
 			<button class="btn_checkans">답안 추가</button>
 			<hr>
@@ -583,9 +593,9 @@
 						};
 					
 					//	 alert(sv_code);
-						 alert(dsv_order);
-						 alert(dsv_type);
-						 alert(i_content);
+					//	 alert(dsv_order);
+					//	 alert(dsv_type);
+					//	 alert(i_content);
 						
 				  	 $.ajax({
 						type: "post",

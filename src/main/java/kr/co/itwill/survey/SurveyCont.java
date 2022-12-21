@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
 
 import org.apache.ibatis.session.SqlSession;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.itwill.community.CommSignDTO;
 import kr.co.itwill.community.CommunityDAO;
 
 @Controller
@@ -51,7 +53,7 @@ public class SurveyCont {
 	
 // 설문지 작성 	
 	@RequestMapping("/write/{c_code}")
-	public ModelAndView write(@PathVariable String c_code) throws Exception {
+	public ModelAndView write(@PathVariable String c_code, HttpSession session) throws Exception {
 		
 		String dsv_code = surveyDAO.scodeget(c_code);
 		//System.out.println(dsv_code);
@@ -63,6 +65,11 @@ public class SurveyCont {
 		mav.addObject("dsv_code", dsv_code);
 		mav.addObject("c_code", c_code);
 		
+		String m_id = (String)session.getAttribute("s_id");
+		// System.out.println(m_id);
+		mav.addObject("s_id", m_id);
+		mav.addObject("s_nick", surveyDAO.getnick(m_id));
+		System.out.println(surveyDAO.getnick(m_id));
 		return mav;
 	}// write() end
 	
@@ -77,7 +84,22 @@ public class SurveyCont {
 		answer.setAns_id(dto.getAns_id());	// 지금은 임의 배정
 		answer.setAns_content(dto.getAns_content());
 		surveyDAO.insert(answer);
-		//System.out.println(answer.toString());
+		// System.out.println(answer.toString());
+		return "생성되었습니다.";
+			//	"redirect:/survey/answer/"+dto.getAns_code();
+	}// insert() end
+	
+	// 커뮤니티 신청 테이블	
+	@RequestMapping(value = "/write/comsign", method = RequestMethod.POST)
+	@ResponseBody
+	private String insert(@RequestBody CommSignDTO comsign) throws Exception {
+		CommSignDTO dto = new CommSignDTO();
+		dto.setS_code(comsign.getS_code());
+		dto.setS_id(comsign.getS_id());
+		dto.setS_nick(comsign.getS_nick());
+		dto.setS_surveycode(comsign.getS_surveycode());
+		surveyDAO.comsign(dto);
+		System.out.println(dto);
 		return "생성되었습니다.";
 			//	"redirect:/survey/answer/"+dto.getAns_code();
 	}// insert() end
@@ -99,6 +121,13 @@ public class SurveyCont {
 		ans.setAns_id(s_id);
 		mav.addObject("answer", surveyDAO.svanswer(ans));
 		
+		// 경로설정
+		String c_code = dsv_code.substring(dsv_code.length()-6, dsv_code.length());
+		System.out.println(c_code);
+		mav.addObject("sv_code", dsv_code);
+		mav.addObject("c_code", c_code);
+		mav.addObject("read", commDao.read(c_code));
+		
 		return mav;
 	} // answer() end
 	
@@ -111,14 +140,39 @@ public class SurveyCont {
 		mav.setViewName("survey/create");
 		// 템플릿 가져오기.
 		mav.addObject("tpl", surveyDAO.tpl());
-		mav.addObject("tplread", surveyDAO.tplread());
+		// mav.addObject("tplread", surveyDAO.tplread(c_code));
 		mav.addObject("s_id", s_id);
 		mav.addObject("c_code", c_code);
 		mav.addObject("read", commDao.read(c_code));
-//		System.out.println(surveyDAO.tplread());
-//		System.out.println(surveyDAO.tpl());
+		// System.out.println(surveyDAO.tplread());
+		// System.out.println(surveyDAO.tpl());
 	return mav;
 	} // create() end
+	
+// templete 불러오기	
+	@RequestMapping("/create/{c_code}/{s_id}/{tem_code}")
+	public ModelAndView create(@PathVariable("s_id") String s_id,
+								@PathVariable("c_code") String c_code,
+								@PathVariable("tem_code") String tem_code) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("survey/create");
+		// 템플릿 가져오기.
+		mav.addObject("tpl", surveyDAO.tpl());
+		mav.addObject("tplread", surveyDAO.tplread(tem_code));
+		mav.addObject("s_id", s_id);
+		mav.addObject("c_code", c_code);
+		mav.addObject("read", commDao.read(c_code));
+		// System.out.println(surveyDAO.tplread());
+		// System.out.println(surveyDAO.tpl());
+	return mav;
+	} // create() end
+	
+	@RequestMapping("/create/tplread")
+	@ResponseBody
+	public List<templetDTO> tplread(@RequestParam String tem_code) throws Exception {
+		System.out.println(tem_code);
+		return surveyDAO.tplread(tem_code);
+	} // tplread() end
 	
 	@RequestMapping(value = "/create/insert", method = RequestMethod.POST)
 	public String surveyinsert(@RequestBody SurveyDTO dto , HttpServletRequest req) throws Exception {
@@ -175,12 +229,11 @@ public class SurveyCont {
 		String dsv_code = surveyDAO.scodeget(c_code);
 		// System.out.println(dsv_code);
 		mav.setViewName("/survey/update");
-		// 안되는 이유가 뭙까??
 		mav.addObject("sread", surveyDAO.sread(dsv_code));
 		mav.addObject("title", surveyDAO.svTitle(dsv_code));
 		mav.addObject("count", surveyDAO.svCount(dsv_code));
 		mav.addObject("choice", surveyDAO.svChoice(dsv_code));
-		mav.addObject("dsv_code", dsv_code);
+		mav.addObject("sv_code", dsv_code);
 		mav.addObject("c_code", c_code);
 		mav.addObject("read", commDao.read(c_code));
 		
@@ -192,7 +245,7 @@ public class SurveyCont {
 		SurveyDTO survey = new SurveyDTO();
 		survey.setSv_code(dto.getSv_code());
 		surveyDAO.updelete(survey);
-//		System.out.println(survey);
+		// System.out.println(survey);
 		return "updelete";		
 	} // deleteProc() end		
 	
@@ -201,7 +254,7 @@ public class SurveyCont {
 	
 // survey Delete
 	@RequestMapping(value = "/delete.do", method = RequestMethod.GET)
-	public ModelAndView deleteForm(String c_code) {
+	public ModelAndView deleteForm(String c_code) throws Exception {
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("survey/deleteForm");
 		mav.addObject("c_code", c_code);
@@ -210,6 +263,7 @@ public class SurveyCont {
         // 설문지 코드 생성, ahead 경로
         mav.addObject("sv_code", surveyDAO.scodeget(c_code));
         mav.addObject("read", commDao.read(c_code));
+        mav.addObject("tpl", surveyDAO.tpl());
 		return mav;
 	} // deleteForm() end
 	
@@ -230,7 +284,7 @@ public class SurveyCont {
 		// 설문지 코드 생성, ahead 경
 		String sv_code = surveyDAO.scodeget(c_code);
 		mav.addObject("read", commDao.read(c_code));
-		
+		mav.addObject("sv_code", sv_code);
 		mav.setViewName("survey/updateForm");
 		mav.addObject("sread", surveyDAO.sread(sv_code));
 		return mav;		
