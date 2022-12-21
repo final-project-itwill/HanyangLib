@@ -1,9 +1,10 @@
 package kr.co.itwill.member;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertFalse; 
 
 import java.io.File;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +15,15 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,6 +71,14 @@ public class MemberCont {
 		return mav;
 	}// welcomform() end
 
+	@RequestMapping("/detailform")
+	public ModelAndView Memberdetailform() {
+		ModelAndView mav=new ModelAndView();
+		
+		mav.setViewName("member/memberdetail");
+		return mav;
+	}
+	
 	// 아이디 중복확인 버튼을 눌렀을때 버튼옆에 출력하기
 	@RequestMapping("idcheckproc.do")
 	@ResponseBody
@@ -102,25 +117,6 @@ public class MemberCont {
 		return message;
 	}// idCheckProc() end
 	
-	/* 지울지 말지 고민중
-	@RequestMapping("idcheckcookieproc.do")
-	@ResponseBody
-	public String idCheckCookieProc(HttpServletRequest req) {
-		String userid = req.getParameter("m_id").trim();
-
-		String cnt = "0";
-
-		if (userid.equals("hanju1004") || userid.equals("webmaster")) {
-			cnt = "1";
-		} // if end
-
-		JSONObject json = new JSONObject();
-		json.put("count", cnt);
-
-		return json.toString();
-
-	}// idCheckCookieProc() end
-	*/
 	
 	@RequestMapping("nicknamecheckproc.do")
 	@ResponseBody
@@ -309,13 +305,40 @@ public class MemberCont {
 	
 	//----------------------------------비밀번호 찾기 컨트롤러 시작
 	
+	
 	@RequestMapping("/pwfind")
-	public ModelAndView forgotpw() {
+	public ModelAndView forgotpw() throws Exception {
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("member/pwfind");
 		return mav;
 	}//forgotpw() end
 	
+		
+		@RequestMapping(value = "findpw" , method = RequestMethod.POST)
+		  public ModelAndView findPassword(@RequestParam String m_id, @RequestParam int m_pw, @RequestParam MemberDTO dto) {
+			//ModelAndView 객체 생성
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("member/find-password-result");
+			try {
+				
+				String password="";
+				
+				 // 비밀번호가 조회된 경우
+				if (password == dto.getM_pw()) {
+					  // 아이디 정보를 Model에 추가
+					  mav.addObject("id", m_id);
+					  //비밀번호 정보를 Model에 추가
+					  mav.addObject("password", m_pw);
+					} else{ 
+					  mav.addObject("message", "입력한 아이디에 해당하는 비밀번호가 존재하지 않습니다.");
+					}//if end
+			
+			} catch (Exception e) {
+				System.out.println("비밀번호 찾기 실패:" + e);
+			}//try end
+			mav.addObject("findpw", memberDao.memberfindpw(m_id));
+		    return mav;
+		}
 	
 
 }// class end

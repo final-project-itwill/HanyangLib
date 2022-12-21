@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Repository
@@ -44,22 +45,10 @@ public class MemberDAO {
 		 return sqlSession.update("member.withdraw", m_id);
 	 }//memberWithdraw() end
 	 
-	 
-	 
-	 	//회원있는지 여부 확인
-		public Integer pwFind_Lookup(MemberDTO member ) {
-			return sqlSession.selectOne("pwFind_lookup", member);
-		}//pwFind_Lookup() end
-		
-		//회원 메일 있는지 확인
-		public int pwFind_ok(MemberDTO member ) {
-			return sqlSession.selectOne("pwFind_ok", member );
-		}//pwFind_ok() end
-		
-		//회원 비밀번호 가져오기
-		public MemberDTO pwFind_select(MemberDTO member) {
-			return sqlSession.selectOne("pwFind_select", member);
-		}//pwFind_select() end
+	 public int memberfindpw(String m_id) {
+		 return sqlSession.selectOne("member.findpw",m_id);
+	 }//memberfindpw() end
 	
-	
+		
+	 
 }//class end
