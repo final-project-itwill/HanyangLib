@@ -73,15 +73,15 @@ public class SurveyDAO {
 	} // delete() end
 	
 	// survey/update/read
-	public SurveyDTO read(String sv_code) {
-		return sqlSession.selectOne("survey.read", sv_code);
+	public SurveyDTO sread(String sv_code) {
+		return sqlSession.selectOne("survey.sread", sv_code);
 	} // read() end
 	// survey/update
 	public int update(SurveyDTO dto) {
 		return sqlSession.update("survey.update", dto);
 	} // update() end
 	
-//	설문지작
+//	설문지작성 
 	
 	public int surveyWrite(SurveyDTO survey) { 
 		return sqlSession.insert("survey.surveyWrite", survey);
@@ -95,6 +95,11 @@ public class SurveyDAO {
 		return sqlSession.insert("survey.items", choice);
 	} // items() end
 
+//	설문지 수정
+
+	public int updelete(SurveyDTO survey) {
+		return sqlSession.delete("survey.updelete",survey);
+	} // updelete() end 
 
 	
 }// class end

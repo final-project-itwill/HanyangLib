@@ -92,6 +92,7 @@
                 <i class="fas fa-fw fa-folder"></i>
                 <span>2. 커뮤니티 신청서</span>
             </a>
+            <!-- sh 추가 12.19 -->
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
@@ -101,7 +102,8 @@
 	                    <a class="collapse-item" href="/survey/create/${read.c_code}/${s_id}">신청서 생성</a>
 	                    </c:when>
 	                    <c:otherwise>
-	                    <a class="collapse-item" href="/survey/update?c_code=${read.c_code}">신청서 수정</a>
+	                    <a class="collapse-item" href="/survey/update.do?c_code=${read.c_code}">신청서 수정</a>
+	                    <a class="collapse-item" href="/survey/update?c_code=${read.c_code}">신청서 상세 수정</a>
 	                    <a class="collapse-item" href="/survey/delete.do?c_code=${read.c_code}">신청서 삭제</a>
 	                    <a class="collapse-item" href="/comm/chart/${read.c_code}">신청서 결과 확인</a>
 	                    </c:otherwise>

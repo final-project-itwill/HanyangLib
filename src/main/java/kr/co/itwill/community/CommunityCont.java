@@ -143,11 +143,11 @@ public class CommunityCont {
     }//read() end
 
 
-    //커뮤니티 가입 신청 (설문지랑 연결해야 함)
-    @RequestMapping("/signupForm")
-    public String signupForm(){
-        return "community/signupForm";
-    }//signupForm() end
+//    //커뮤니티 가입 신청 (설문지랑 연결해야 함)
+//    @RequestMapping("/signupForm")
+//    public String signupForm(){
+//        return "community/signupForm";
+//    }//signupForm() end
 
     //커뮤니티 생성하기
     @RequestMapping("/createForm/{b_code}")
@@ -223,6 +223,9 @@ public class CommunityCont {
         ModelAndView mav = new ModelAndView();
         mav.addObject("read", commDao.read(c_code));
         mav.setViewName("community/update");
+
+        // 설문지 코드 생성
+        mav.addObject("sv_code", surveyDAO.scodeget(c_code));
         return mav;
     }//update() end
 
@@ -354,6 +357,10 @@ public class CommunityCont {
         mav.addObject("approvedMember", commDao.approvedMember(c_code));
         mav.addObject("waitingMember", commDao.waitingMember(c_code));
         mav.addObject("checkOwner", commDao.checkOwner(c_code));
+        
+        // 설문지 코드 생성
+        mav.addObject("c_code", c_code);
+        mav.addObject("sv_code", surveyDAO.scodeget(c_code));
         return mav;
     }//adminMember() end
 

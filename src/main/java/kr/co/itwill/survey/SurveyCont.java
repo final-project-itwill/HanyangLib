@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.itwill.community.CommunityDAO;
+
 @Controller
 @RequestMapping("/survey")
 public class SurveyCont {
@@ -32,6 +34,9 @@ public class SurveyCont {
 		System.out.println("----SurveyCont() 객체 생성");
 	}// end
 	
+    @Autowired
+    CommunityDAO commDao;
+    
 	@Autowired
 	SurveyDAO surveyDAO;
 	
@@ -78,6 +83,8 @@ public class SurveyCont {
 	}// insert() end
 	
 	
+//// 관리자 페이	
+	
 // 답변 학인하기	
 	@RequestMapping("/answer/{dsv_code}/{s_id}")
 	public ModelAndView answer(@PathVariable("dsv_code") String dsv_code,
@@ -107,6 +114,7 @@ public class SurveyCont {
 		mav.addObject("tplread", surveyDAO.tplread());
 		mav.addObject("s_id", s_id);
 		mav.addObject("c_code", c_code);
+		mav.addObject("read", commDao.read(c_code));
 //		System.out.println(surveyDAO.tplread());
 //		System.out.println(surveyDAO.tpl());
 	return mav;
@@ -165,18 +173,29 @@ public class SurveyCont {
 	public ModelAndView update( String c_code) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		String dsv_code = surveyDAO.scodeget(c_code);
-		 System.out.println(dsv_code);
+		// System.out.println(dsv_code);
 		mav.setViewName("/survey/update");
 		// 안되는 이유가 뭙까??
-		//mav.addObject("read", surveyDAO.read(dsv_code));
+		mav.addObject("sread", surveyDAO.sread(dsv_code));
 		mav.addObject("title", surveyDAO.svTitle(dsv_code));
 		mav.addObject("count", surveyDAO.svCount(dsv_code));
 		mav.addObject("choice", surveyDAO.svChoice(dsv_code));
 		mav.addObject("dsv_code", dsv_code);
 		mav.addObject("c_code", c_code);
+		mav.addObject("read", commDao.read(c_code));
 		
 		return mav;
-	}// write() end	
+	}// Update end	
+	
+	@RequestMapping(value = "update/updelete", method = RequestMethod.POST)
+	public String updateProc(@RequestBody SurveyDTO dto) throws Exception {
+		SurveyDTO survey = new SurveyDTO();
+		survey.setSv_code(dto.getSv_code());
+		surveyDAO.updelete(survey);
+//		System.out.println(survey);
+		return "updelete";		
+	} // deleteProc() end		
+	
 	
 	
 	
@@ -186,6 +205,11 @@ public class SurveyCont {
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("survey/deleteForm");
 		mav.addObject("c_code", c_code);
+		
+
+        // 설문지 코드 생성, ahead 경로
+        mav.addObject("sv_code", surveyDAO.scodeget(c_code));
+        mav.addObject("read", commDao.read(c_code));
 		return mav;
 	} // deleteForm() end
 	
@@ -201,38 +225,43 @@ public class SurveyCont {
 	
 // survey update
 	@RequestMapping(value = "/update.do", method = RequestMethod.GET)
-	public ModelAndView updateForm(String sv_code) {
+	public ModelAndView updateForm(String c_code) {
 		ModelAndView mav = new ModelAndView();
+		// 설문지 코드 생성, ahead 경
+		String sv_code = surveyDAO.scodeget(c_code);
+		mav.addObject("read", commDao.read(c_code));
+		
 		mav.setViewName("survey/updateForm");
-		mav.addObject("read", surveyDAO.read(sv_code));
+		mav.addObject("sread", surveyDAO.sread(sv_code));
 		return mav;		
 	} // updateForm() end
 	
+	
 	@RequestMapping(value = "/update.do", method = RequestMethod.POST)
-	public ModelAndView updateProc(@ModelAttribute SurveyDTO dto) {
+	public ModelAndView updateProc(@ModelAttribute SurveyDTO dto, @RequestParam String sv_comcode) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/survey/survey");
+		mav.setViewName("redirect:/comm/admin/"+sv_comcode);
 		surveyDAO.update(dto);
 		return mav;
 	} // updateProc() end
 	
 	
-	// 경환 작업 따로 기록
-	// 설문지 생성페이지로 연결하는 컨트롤러
-	@RequestMapping("/formCreate/{s_id}")
-	public ModelAndView formCreate(@PathVariable String s_id) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("survey/createForm");
-	return mav;
-	} // formCreate() end
-	
-  
-	// 설문지를 생성시키는 컨트롤러
-	@RequestMapping("/createProc")
-	public ModelAndView createProc() {
-		ModelAndView mav = new ModelAndView();
-		return mav;
-	}	
+//	// 경환 작업 따로 기록
+//	// 설문지 생성페이지로 연결하는 컨트롤러
+//	@RequestMapping("/formCreate/{s_id}")
+//	public ModelAndView formCreate(@PathVariable String s_id) {
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName("survey/createForm");
+//	return mav;
+//	} // formCreate() end
+//	
+//  
+//	// 설문지를 생성시키는 컨트롤러
+//	@RequestMapping("/createProc")
+//	public ModelAndView createProc() {
+//		ModelAndView mav = new ModelAndView();
+//		return mav;
+//	}	
   
   //	choice delete	
 	@RequestMapping(value = "/answer/chdelete.do", method = RequestMethod.GET)
@@ -245,16 +274,13 @@ public class SurveyCont {
 	
 	@RequestMapping(value = "/answer/chdelete.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String chdeleteProc(@ModelAttribute AnswerDTO dto) throws Exception {
-		
+	public String chdeleteProc(@ModelAttribute AnswerDTO dto, HttpServletRequest req) throws Exception {
 		AnswerDTO ans = new AnswerDTO();
 		ans.setAns_code(dto.getAns_code());
 		ans.setAns_id(dto.getAns_id());
-		System.out.println(ans);
-		
 		surveyDAO.ansdelete(ans);
 		
-		return "redirect:/survey/survey";		
+		return "redirect:/comm/admin/";		
 	} // deleteProc() end	
 	
 	

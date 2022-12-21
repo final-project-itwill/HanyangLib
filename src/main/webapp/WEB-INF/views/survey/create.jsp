@@ -382,11 +382,8 @@
 			data: JSON.stringify(survey),
 		})
 		.done(function (data) {
-		//	alert("survey성공");
+			alert("survey성공");
 		});
-		
-		
-		
 		
 			$(".q_div").each(function (i) {
 				let dsv_subject = $(this).find('input[name="q_title"]').val();
@@ -398,7 +395,6 @@
 				// alert(dsv_order);
 				// alert(sv_code);
 			
-				
 				let question = {
 					dsv_code :sv_code,
 					dsv_subject: dsv_subject,
@@ -416,7 +412,6 @@
 					//alert("dsurvey성공");
 				});
 	
-			
 				$(this).find("."+dsv_type+"").find('input[name="i_content"]').each(function (i) {
 					//console.log($(this));
 					let i_content = $(this).val();
@@ -445,7 +440,6 @@
 							alert(data);
 						} 
 					}) // q_div.i_div function() end
-				
 				
 				}); // i)div, functoin() end
 				

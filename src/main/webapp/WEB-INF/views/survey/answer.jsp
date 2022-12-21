@@ -3,20 +3,18 @@
 <%@ taglib prefix="c"	uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt"	uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn"	uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ include file="../header.jsp"%>
+<%@ include file="../community/admin_header.jsp"%>
 
-<!-- 상단 배너 -->
-	<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/libbg.jpg'); height: 40vh;"></div>
+<div style="text-align: center; margin-top: 30px">
+    <h2 style="font-weight: bold; margin-bottom: 30px"> ${s_id} 신청서 보기</h2>
 
+    <div class="container-fluid col-lg-8 card shadow">
 
+        <div class="table-responsive">
 <!-- 본문작성 시작 -->	
 	<div class="container" style="margin-top :70px;">
-	<p>
-		<button type="button" onclick="location.href='../../survey'">설문</button>
-	</p>
 	<br>
 		<div>
-		<h3> 신청서 보기  ${s_id} ${count}</h3>
 		
 		<form name="answer" id="answer" method="get">
 		<!-- 파일 첨부는 하지 않기 때문에 enctype="multipart/form-data"는 필요 없어유 -->
@@ -211,7 +209,7 @@
 		<tr>
 		    <td colspan="2" align="center">
 		    	<input type="button" value="삭제" onclick="location.href='../chdelete.do?ans_code=${dsv_code}'">
-		    	<input type="reset" value="취소">
+		    	<a href="/comm/adminmember/${c_code}"> 돌아가기</a>
 		    </td>
 		</tr>    
 		</table>
@@ -222,4 +220,8 @@
 
    
 <!-- 본문작성 끝 -->
-<%@ include file="../footer.jsp"%>
+
+	</div>
+	</div>
+</div>
+<%@ include file="../community/admin_footer.jsp"%>
