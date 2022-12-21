@@ -3,6 +3,8 @@
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -139,7 +141,7 @@
             <h4 class="mb-4 section-title">${book.b_name}</h4>
             <p>작가 : ${book.b_author}</p>
             <p>출판사 : ${book.b_publish}</p>
-            <p>가격 : ${book.b_price}</p>
+            <p>가격 : ${book.b_price} 원</p>
             <p>출판일 : ${book.b_rdate}</p>
             <ul class="list-check list-unstyled primary">
               <li>구독 : ${book.b_gudok}</li>
@@ -191,14 +193,22 @@
 				</c:if>
 			</c:if> 
 			<!-- 구매 관련 버튼 로직 끝 -->
-			
-		            </td>
-	            </tr>   
+			</td>            
+	        </tr>
+	        <tr>
+		        <!-- 구독 유도 버튼 시작-->
+				<td>
+					<a href="/gudok/detail"><img src="/images/gudok.png" style="width:350px; margin-top:10px"></a>
+				</td>
+				<!-- 구독 유도 버튼 끝-->		
+	        </tr>   
             </table>
           </div>
       </div>
     </div>
+</div>
 
+<!-- 커뮤니티 목록 출력 -->
     <div class="site-section slider-team-wrap">
       <div class="container">
 
@@ -218,44 +228,34 @@
 
         <div class="slider-team owl-carousel owl-3-slider">
           <div class="team">
+          
+          
+          <!-- 커뮤니티가 없는 경우 -->
+      		<c:if test="${fn:length(commu)==0}">
+      		<tr class="col-12 col-xs-12 col-sm-4 col-lg-4">
+				<td colspan="4">이 책에 첫 커뮤니티를 만들어주세요</td>	
+			</tr>
+      		</c:if>
+      		
+      		
+      		
+      		 <!-- 커뮤니티가 있는 경우 -->
+      		 
+      		<c:if test="${fn:length(commu) != 0}">
+            <c:forEach var="com" items="${commu}">
+                        
             <div class="pic">
-              <img src="/images/img_h_1-min.jpg" alt="Image" class="img-fluid">
+              <img src="${com.c_banner}" alt="Image" class="img-fluid">
             </div>
-            <h3><a href="#"><span class="">커뮤니티명</span></a></h3>
-            <span class="d-block position">커뮤니티장 : 아무개</span>
-            <p>커뮤니티 소개</p>
+            <h3><a href="#"><span class="">${com.c_name}</span></a></h3>
+            <span class="d-block position">커뮤니티장 : ${com.c_id}</span>
+            <p>${com.c_des}</p>
             <p class="mb-0"><a href="#" class="more dark">Learn More <span class="icon-arrow_forward"></span></a></p>
-          </div>
-          <div class="team">
-            <div class="pic">
-              <img src="/images/img_h_2-min.jpg" alt="Image" class="img-fluid">
-            </div>
-            <h3><a href="#"><span class="">커뮤니티명</span></a></h3>
-            <span class="d-block position">커뮤니티장 : 아무개</span>
-            <p>커뮤니티 소개</p>
-            <p class="mb-0"><a href="#" class="more dark">Learn More <span class="icon-arrow_forward"></span></a></p>
+            
+            </c:forEach>
+            </c:if>
           </div>
 
-          <div class="team">
-            <div class="pic">
-              <img src="/images/img_h_3-min.jpg" alt="Image" class="img-fluid">
-            </div>
-            <h3><a href="#"><span class="">커뮤니티명</span></a></h3>
-            <span class="d-block position">커뮤니티장 : 아무개</span>
-            <p>커뮤니티 소개</p>
-            <p class="mb-0"><a href="#" class="more dark">Learn More <span class="icon-arrow_forward"></span></a></p>
-          </div>
-
-          <div class="team">
-            <div class="pic">
-              <img src="/images/img_h_4-min.jpg" alt="Image" class="img-fluid">
-            </div>
-            <h3><a href="#"><span class="">커뮤니티명</span></a></h3>
-            <span class="d-block position">커뮤니티장 : 아무개</span>
-            <p>커뮤니티 소개</p>
-            <p class="mb-0"><a href="#" class="more dark">Learn More <span class="icon-arrow_forward"></span></a></p>
-          </div>
-  
         </div>
       </div> <!-- /.container -->
     </div> <!-- /.untree_co-section -->
@@ -270,43 +270,46 @@
         </div>
         <div class="row justify-content-center">
           <div class="col-lg-7">
+          
+          
+          <!-- 서평이 없는 경우 -->
+	<c:if test="${fn:length(review) == 0}">
 
-            <div class="main-slider owl-single owl-carousel">
+			<div class="main-slider owl-single owl-carousel">
+            
               <div class="testimonial mx-auto">
                 <figure class="img-wrap">
                   <img src="/images/img_v_1-min.jpg" alt="Image" class="img-fluid">
                 </figure>
-                <h3 class="name">Adam Aderson</h3>
+                <h3 class="name"></h3>
                 <blockquote>
-                  <p>&ldquo;There live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
-                  <p class="mb-0"><a href="#" class="more dark">Learn More <span class="icon-arrow_forward"></span></a></p>
+                  <p>&ldquo;당신의 생각을 나누어 주세요&rdquo;</p>
                 </blockquote>
               </div>
-
-              <div class="testimonial mx-auto">
-                <figure class="img-wrap">
-                  <img src="/images/img_v_2-min.jpg" alt="Image" class="img-fluid">
-                </figure>
-                <h3 class="name">Lukas Devlin</h3>
-                <blockquote>
-                  <p>&ldquo;There live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
-                  <p class="mb-0"><a href="#" class="more dark">Learn More <span class="icon-arrow_forward"></span></a></p>
-                </blockquote>
-              </div>
-
-              <div class="testimonial mx-auto">
-                <figure class="img-wrap">
-                  <img src="/images/img_v_3-min.jpg" alt="Image" class="img-fluid">
-                </figure>
-                <h3 class="name">Kayla Bryant</h3>
-                <blockquote>
-                  <p>&ldquo;There live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
-                  <p class="mb-0"><a href="#" class="more dark">Learn More <span class="icon-arrow_forward"></span></a></p>
-                </blockquote>
-              </div>
-
+              
             </div>
+   
+    </c:if>
 
+		<!--  서평이 있는 경우 -->
+		
+		<c:if test="${fn:length(review) != 0}">
+			<c:forEach var="dto" items="${review}">
+				<div class="main-slider owl-single owl-carousel">
+	                <h3 class="name">${dto.br_title}</h3>
+	                <blockquote style="text-overflow: ellipsis;">
+	                  <p>${dto.br_content}</p>
+	                  <p class="mb-0">
+	                  	<a href="/mylib/reviewRead?br_no=${dto.br_no}" class="more dark">더 보기<span class="icon-arrow_forward"></span></a>
+	                  </p>
+	                </blockquote>
+            	</div>
+            </c:forEach>
+		</c:if>
+		
+		
+		
+		
           </div>
         </div>
       </div>

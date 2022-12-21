@@ -119,10 +119,24 @@
     <select id="search" resultType="kr.co.itwill.book.BookDTO">
 	    SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
 	    FROM  book
-	    WHERE b_name LIKE CONCAT('%', #{keyword}, '%') AND b_author LIKE CONCAT('%', #{keyword}, '%')
+	    WHERE b_name LIKE CONCAT('%', #{keyword}, '%') OR b_author LIKE CONCAT('%', #{keyword}, '%')
 	    ORDER BY b_code DESC
     </select>
-   
+    
+ <!-- 
+    <select id="search_n" resultType="kr.co.itwill.book.BookDTO">
+	    SELECT AA.*
+        FROM(
+        SELECT @RNO := @RNO + 1 AS r, CC.*
+        FROM(
+	        SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
+	        FROM book
+	        WHERE b_type = 'novel'
+	        ) CC, (SELECT @RNO := 0) BB order by b_rdate DESC
+	        ) AA
+	    WHERE b_name LIKE CONCAT('%', #{keyword}, '%') AND b_author LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+    -->
     
         <!-- MD Pick 책 list -->
     <select id="mdBpick" resultType="kr.co.itwill.book.BookDTO">

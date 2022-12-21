@@ -329,9 +329,10 @@ public class BookCon {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("book/bookcate_a");
 		mav.addObject("keyword", keyword);
-		mav.addObject("list_a", bookDao.search(keyword));	//제발.. 변수명 통일좀,... 방미연.... 이건...list_a
+		mav.addObject("list_a", bookDao.search(keyword));	//제발.. 변수명 확인하고 일치 좀,... 방미연.... 이건...list_a
 		return mav;
 	}//search() end
+
 
 	
 }//class end
