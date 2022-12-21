@@ -49,6 +49,19 @@
 		WHERE m_id=#{m_id}
 	</select>
 	
+	<!-- 비밀번호 찾기 mapper -->
+	
+	<select id="findpw">
+		SELECT m_pw
+		FROM member
+		WHERE m_id= #{m_id}
+	</select>
+	
+	
+	
+	
+	
+	
 	
 	
 </mapper>

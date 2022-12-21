@@ -4,9 +4,6 @@
 <!-- 본문작성 시작 -->
 <div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('/images/libbg.jpg'); height: 40vh;"></div>
 <div class="container">
-    
-    <h3>회원상세보기</h3>
-    
     <form name="membupdate" method="post" onsubmit="memupdate()" enctype="multipart/form-data">
     	<input type="hidden" id="m_id" name="m_id" value="${s_id}">
 	    <table border="1" class="table table-hover">
