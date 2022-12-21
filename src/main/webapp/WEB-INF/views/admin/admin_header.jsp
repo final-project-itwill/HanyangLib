@@ -67,8 +67,16 @@
                 <span style="font-size: 16px">Dashboard</span></a>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider">
+        <hr class="sidebar-divider"><!-- Divider -->
+
+        <!-- Nav Item - 메인 디자인보기 -->
+        <li class="nav-item active">
+            <a class="nav-link" href="#">
+                <i class="fas fa-fw fa-wrench"></i>
+                <span style="font-size: 14px">메인 디자인보기</span></a>
+        </li>
+
+        <hr class="sidebar-divider"><!-- Divider -->
 
         <!-- Nav 회원 관리 -->
         <li class="nav-item">
@@ -140,10 +148,9 @@
             </a>
             <div id="collapseCommu" class="collapse" aria-labelledby="headingCommu" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">이용자들의 모임을 관리해요</h6>
-                    <a class="collapse-item" href="#">커뮤니티 이용 현황</a>
-                    <a class="collapse-item" href="/admin/communityList">리스트</a>
-                    <a class="collapse-item" href="#">MD pick 설정하기</a>
+                    <h6 class="collapse-header">MD Pick을 설정해보세요!</h6>
+                    <a class="collapse-item" href="/admin/communityList">커뮤니티 관리</a>
+                    <a class="collapse-item" href="#">신문고</a>
                 </div>
             </div>
         </li><!-- Nav 커뮤니티 관리 끝 -->

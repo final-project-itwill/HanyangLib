@@ -8,12 +8,11 @@
 
 
 
-<div class="hero-slant overlay" style="background-image: url('/images/galaxy.jpeg'); height: 50vh;">
+<div class="hero-slant overlay" style="background-image: url('/images/galaxy.jpeg'); height: 13vh;">
 </div>
 
 <div class="text-center">
-    <img class="userphoto rounded-circle" src="/images/hanyanglogo.png" style="width: 30vh; position: absolute;">
-    <h1 style="text-align: center; font-weight: bold">${read.c_name}</h1>
+    <h1 style="text-align: center; font-weight: bold; font-size: 45px; margin-top: 25px">${read.c_name}</h1>
 </div>
 
 <div class="container-fluid border-bottom">
@@ -31,7 +30,7 @@
         </div><!-- 좌측 bar end-->
 
         <!-- 커뮤니티 정보 : 우측 bar 시작 -->
-        <div class="lib-info col-12 col-sm-5 col-md-5 col-lg-5">
+        <div class="lib-info col-12 col-sm-5 col-md-5 col-lg-5" style="">
             <div class="container-fluid" style="padding-right: 10vw">
                 <div>
                     <p style="background-color: lightgray; font-size: 20px; color: black; margin-bottom: 20px">책 제목 : ${read.b_name}</p>
@@ -70,7 +69,7 @@
                 <!-- 커뮤니티 신청 버튼 -->
                 <!-- 조건문으로 커뮤니티 모집중/완료 분기 -->
                 <c:if test="${read.c_state == 'i'}">
-                    <button type="button" onclick="clickSignup()">이 커뮤니티 신청하기</button><br><br>
+                    <button type="button" class="btn btn-outline-dark" onclick="clickSignup()">이 커뮤니티 신청하기</button><br><br>
                 </c:if>
                 <c:if test="${read.c_state == 'd' || read.c_state == 'e'}">
                     <p style="font-weight: bold">"신청이 마감되었습니다"</p>
@@ -88,33 +87,14 @@
         </div><!-- 우측 bar end-->
     </div><!-- row end-->
 
-    <br><br>
+    <br>
 
     <!-- 커뮤니티 구성원 시작-->
-    <div class="container-fluid">
-        <h3 style="text-align: center; font-weight: bold; padding-bottom: 5vh">커뮤니티 구성원</h3>
-            <div class="container-fluid" style="text-align: center; justify-content: center; display: flex; height: 18vh">
-            <c:if test="${memberCnt==0}">
-                <p style="font-size: 18px; padding-bottom: 40px">아직 참여한 인원이 없습니다. <br>책을 읽고 커뮤니티에 구성원이 되어주세요!</p>
-            </c:if>
-            <c:if test="${memberCnt!=0}">
-                <table class="table col-lg-8">
-
-                    <c:forEach var="dto" items="${checkMember}">
-                        <tr>
-                            <td>${dto.s_nick}</td>
-                        </tr>
-                    </c:forEach>
-                </table>
-<%--                <figure style="position: absolute">
-                    <img src="/images/user.png" class="img-fluid rounded-circle" style="width: 8vw">
-                    <figcaption style="font-weight: bold; color: black; font-size: 1.5vw">닉네임</figcaption>
-                </figure>--%>
-            </c:if>
-            </div>
+    <div class="container">
+        <h3>같이 하는 사람들</h3>
     </div><!-- 커뮤니티 구성원 end-->
 
-    <br><br><br><br><br><br><br><br>
+    <br><br>
 
     <!-- 커뮤니티 후기 (ajax 더보기) ------------------------------------------------------------------>
 
@@ -234,7 +214,7 @@
                 $.each(data, function (key, value){
                     //alert(key);
                     //alert(value);
-                    a += '<tr class="reviewArea" style="border-bottom: 1px solid darkgray; margin-bottom: 15px">';
+                    a += '<tr class="reviewArea" style="border: 1px solid darkgray; margin-bottom: 15px">';
                     a += '  <td class="reviewInfo' + value.ac_no +'">';
                     a += '      번호 : ' + value.ac_no + ' / 작성자 : ' + value.ac_id + "  " + value.ac_rdate;
                     a += '  </td><td class="text-right">';
