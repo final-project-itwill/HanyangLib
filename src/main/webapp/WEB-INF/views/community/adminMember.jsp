@@ -35,7 +35,7 @@
                             <c:forEach var="dto" items="${approvedMember}" varStatus="vs">
                                 <tr>
                                     <td>${vs.count}</td>
-                                    <td><a href="#">${dto.s_id}</a></td><%--신청서 답변이랑 연결--%>
+                                    <td><a href="/survey/answer/${sv_code}/${dto.s_id}">${dto.s_id}</a></td><%--신청서 답변이랑 연결--%>
                                     <td>${dto.s_nick}</td>
                                     <td>${dto.lib_proc}%</td>
                                     <td>${dto.s_rdate}</td>

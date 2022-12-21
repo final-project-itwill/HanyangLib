@@ -19,6 +19,7 @@
 		SELECT dsv_subject, dsv_type, dsv_order
 		FROM dsurvey
 		WHERE dsv_code = #{dsv_code}
+		ORDER BY dsv_order ASC
 	</select>
 	
 	<select id="count" resultType="int">
@@ -87,6 +88,18 @@
 		VALUES ( #{ch_code}, #{ch_order}, #{ch_type}, #{ch_anscode}, #{ch_content} )
 	</insert>	
 		
+	<delete id="updelete" >
+		DELETE FROM dsurvey
+		WHERE dsv_code = #{sv_code};
+		
+        DELETE FROM choice
+        WHERE ch_code = #{sv_code};
+        
+        DELETE FROM answer
+        WHERE ans_code = #{sv_code};
+	
+	</delete>
+		
 	
 	<delete id="delete" >
 		DELETE FROM dsurvey
@@ -100,11 +113,9 @@
 	
 		DELETE FROM survey
         WHERE sv_code = #{sv_code};
-        
-
 	</delete>
 	
-	<select id="read" resultType="kr.co.itwill.survey.SurveyDTO">
+	<select id="sread" resultType="kr.co.itwill.survey.SurveyDTO">
 		SELECT sv_code, sv_comcode, sv_id, sv_title, sv_des, sv_rdate, sv_edate, sv_max, sv_status
 		FROM survey
 		WHERE sv_code = #{sv_code}
@@ -112,9 +123,11 @@
 	
 	<update id="update">
 		UPDATE survey
-        SET sv_title    = #{sv_title}
-            ,sv_des    = #{sv_des}
-        WHERE sv_code  = #{sv_code}
+        SET sv_title = #{sv_title}
+           ,sv_des   = #{sv_des}
+           ,sv_max   = #{sv_max}
+           ,sv_edate = #{sv_edate}
+        WHERE sv_code = #{sv_code}
 	</update>
 	
 </mapper>

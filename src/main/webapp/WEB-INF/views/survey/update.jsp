@@ -10,194 +10,373 @@
 
    
 <!-- 본문작성 시작 -->	
+<div style="text-align: center; margin-top: 30px">
+    <h2 style="font-weight: bold; margin-bottom: 30px">커뮤니티 수정하기</h2>
 
-	
-	
-<!-- 설문 소개. -->
+    <div class="container-fluid col-lg-8 card shadow">
+        <p style="text-align: right"><a href="/comm/admin/${c_code}" style="color: #3b5998; margin-top: 20px">돌아가기</a></p>
 
-	
+        <div class="table-responsive">	
 <div class="site-section bg-light" id="blog-section">
   <div class="container">
 	<h1>설문조사 ${dsv_code} ${s_id}</h1><br>
-	<!-- <form name="frm1" method="post" action="/survey/create/insert" enctype="multipart/form-dat"> -->
-	<div>
-	<c:set var="oderno" value="1"></c:set>
-		<p class="survey">
-			<input type="hidden" class="sv_id" name="sv_id" value="${s_id}">
-			<input type="hidden" class="sv_comcode" name="sv_comcode" value="${c_code}"> <!-- 커뮤니티 코드 받아오기 -->
-			<input type="hidden" class="sv_code" name="sv_code" value="${sv_code}">
-		제목 : <input type="text" class="sv_title" name="sv_title" value="${read.sv_title}" placeholder="해당 설문지의 제목을 입력하세요.">
-		</p>
-	</div>
-	<div>
-		<p class="survey">
-		설명 : <input type="text" class="sv_des" name="s_content" placeholder="해당 설문지의 설명을 입력하세요.">
-		</p>
-	</div>
-	<div>
-		<p class="survey">
-		인원제한 : <input type="number" class="sv_max" name="sv_max">
-		</p>
-	</div>
-	<div>
-		<p class="survey">
-		마감일 : <input type="date" class="sv_edate" name="sv_edate">
-		</p>
-	</div>
-	<br><hr>
-<!-- 설문 템플릿 -->	
-	<table>
-		<tr>
-			<th>설문 예시입니다.</th>
-			<td><input type="text" name="b_name" id="b_name" class="col-lg-10" readonly></td>
-			<td><input type="button" class="btn btn-success" data-toggle="modal" data-target="#search" value="찾아보기"></td>
-         </tr>
-	</table>
-	           <!--  찾아보기 창 -->
-			<div class="modal fade" id="search">
-			  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-			    <div class="modal-content">
-			
-			      <!-- Modal Header -->
-			      <div class="modal-header">
-			        <h4 class="modal-title">설문예시</h4>
-			        <button type="button" class="close" data-dismiss="modal">&times;</button>
-			      </div>
-			
-			      <!-- Modal body -->
-			      <div class="modal-body">
-			        <table>
-			        <c:forEach items="${tpl}" var="read" varStatus="vs">
-			        <tr>
-						<td>
+
+	<input type="hidden" id="ans_code" name="ans_code" class="ans_code" value="${dsv_code}"> <!-- dsv_code -->
+	<input type="hidden" id="ans_id" name="ans_id" class="ans_id" value="${s_id}"> <!-- dsv_code --> 
+
+>
+	<c:forEach items="${title}" var="title" varStatus="tvs">		
+	<div class="q_div">	
+	
+			<input type="text" name="q_title" value="${title.dsv_subject}" placeholder="질문의 제목을 입력하세요." required></input>
+			<c:choose>
+	
+				<c:when test="${title.dsv_type eq 'ju'}">
+					<select name="q_type" class="q_type">
+						<option value="0">유형을 선택하여주세요</option>
+						<option value="gaek">객관식</option>
+						<option value="ju"selected>주관식</option>
+						<option value="check">체크박스</option>
+						<option value="time">시간</option>
+						<option value="schedule">날짜</option>
+					</select>
+					<c:forEach items="${choice}" var="choice">
 						<c:choose>
-							<c:when test="${read.tem_no != null}">
-								
-								${read.tem_title}
-								
-							</c:when>
-							<c:otherwise>
-								등록된 설문 없음!!<br>
-							</c:otherwise>
-						</c:choose>
+						<c:when test="${title.dsv_order eq choice.ch_order}">
+						<div class="layer1" style="display: none"> 
+							<div>
+								<div class="gaek">
+									<label><input type='radio' name='radio' onclick="return(false);">
+									<input type='text' name="i_content" placeholder="객관식 답변을 입력" required></input>
+									</label>
+								</div>
+							</div>
+							<button class="btn_answer">답안 추가</button>	
+							<hr>
+						</div> <!-- layer1 end -->
+						<div class="layer2" >
+							<div>
+								<div class="ju">
+								<input type="text" name="i_content" readonly></input>
+								</div>
+							</div>
+							<hr>
+						</div> <!-- layer2 end -->
+						<div class="layer3" style="display: none">
+							<div>
+								<div class="check">
+									<label><input type="checkbox" name='checkbox' onclick="return(false);">
+									<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
+									</label>
+								</div>
+							</div>
+							<button class="btn_checkans">답안 추가</button>
+							<hr>
+						</div> <!-- layer3 end -->
+						<div class="layer4" style="display: none">
+							<div>
+								<div class="time">
+								<input type="time" name="i_content" readonly></input>
+								</div>
+							</div>
+							<hr>
+						</div>  <!-- layer4 end -->
+						<div class="layer5" style="display: none">
+							<div>
+								<div class="schedule">
+								<input type="date" name="i_content" readonly></input>
+								</div>	
+							</div>
+						</div>  <!-- layer5 end -->	
 						
-						</td>
-						<td>
-							<input type="radio" name="check" id="check" value="${vs.count}">
-							<input type="hidden" name="code${vs.count}" id="code${vs.count}" value="${read.tem_code}">
+						</c:when> 
+						</c:choose>
+					</c:forEach><!-- ju choice end -->
+				</c:when>
+	
+				<c:when test="${title.dsv_type eq 'gaek' or 'etc'}">
+					<select name="q_type" class="q_type">
+						<option value="0">유형을 선택하여주세요</option>
+						<option value="gaek" selected>객관식</option>
+						<option value="ju">주관식</option>
+						<option value="check">체크박스</option>
+						<option value="time">시간</option>
+						<option value="schedule">날짜</option>
+					</select>
+						<div class="layer1" >
+							<div>
+							<c:forEach items="${choice}" var="choice">
+							<c:choose>
+							<c:when test="${title.dsv_order eq choice.ch_order}">
+								<div class="gaek">
+									<label><input type='radio' name='radio' onclick="return(false);">
+									<input type='text' name="i_content"  value="${choice.ch_content}" placeholder="객관식 답변을 입력" required></input></label>
+									<input type="button" class="rRemove" value="답변삭제">
+								</div>
+							</c:when>
+							</c:choose>
+							</c:forEach> <!-- gaek choice end -->
 							
-						</td>
-					</tr>
-					</c:forEach>
-			        </table>
-			      </div>
+							</div>
+							<button class="btn_answer">답안 추가</button>	
+							<hr>
+						</div> <!-- layer1 end -->
+						<div class="layer2" style="display: none">
+							<div>
+								<div class="ju">
+								<input type="text" name="i_content" readonly></input>
+								</div>
+							</div>
+							<hr>
+						</div> <!-- layer2 end -->
+						<div class="layer3" style="display: none">
+							<div>
+								<div class="check">
+									<label><input type="checkbox" name='checkbox' onclick="return(false);">
+									<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
+									</label>
+								</div>
+							</div>
+							<button class="btn_checkans">답안 추가</button>
+							<hr>
+						</div> <!-- layer3 end -->
+						<div class="layer4" style="display: none">
+							<div>
+								<div class="time">
+								<input type="time" name="i_content" readonly></input>
+								</div>
+							</div>
+							<hr>
+						</div> <!-- layer4 end -->
+						<div class="layer5" style="display: none">
+							<div>
+								<div class="schedule">
+								<input type="date" name="i_content" readonly></input>
+								</div>	
+							</div>
+						</div> <!-- layer5 end -->	
+						
+				</c:when>
+				
+					
+				<c:when test="${title.dsv_type eq 'check' or 'etc' }">
+					
+					<select name="q_type" class="q_type">
+						<option value="0">유형을 선택하여주세요</option>
+						<option value="gaek" >객관식</option>
+						<option value="ju">주관식</option>
+						<option value="check" selected>체크박스</option>
+						<option value="time">시간</option>
+						<option value="schedule">날짜</option>
+					</select>
+						<div class="layer1" style="display: none">
+							<div>
+								<div class="gaek">
+									<label><input type='radio' name='radio' onclick="return(false);">
+									<input type='text' name="i_content"  placeholder="객관식 답변을 입력" required></input></label>
+								</div>
+							</div>
+							<button class="btn_answer">답안 추가</button>	
+							<hr>
+						</div> <!-- layer1 end -->
+						<div class="layer2" style="display: none">
+							<div>
+								<div class="ju">
+								<input type="text" name="i_content" readonly></input>
+								</div>
+							</div>
+							<hr>
+						</div> <!-- layer2 end -->
+						<div class="layer3">
+							<div>
+							<c:forEach items="${choice}" var="choice">
+							<c:choose>
+							<c:when test="${title.dsv_order eq choice.ch_order}">							
+								<div class="check">
+									<label><input type="checkbox" name='checkbox' onclick="return(false);">
+									<input type='text' name="i_content" value="${choice.ch_content}" placeholder="체크박스 답변을 입력" required></input>
+									<input type="button" class="rRemove" value="답변삭제">
+									</label>
+								</div>
+							</c:when>
+							</c:choose>
+							</c:forEach> <!-- gaek choice end -->								
+							</div>
+							<button class="btn_checkans">답안 추가</button>
+							<hr>
+						</div> <!-- layer3 end -->
+						<div class="layer4" style="display: none">
+							<div>
+								<div class="time">
+								<input type="time" name="i_content" readonly></input>
+								</div>
+							</div>
+							<hr>
+						</div> <!-- layer4 end -->
+						<div class="layer5" style="display: none">
+							<div>
+								<div class="schedule">
+								<input type="date" name="i_content" readonly></input>
+								</div>	
+							</div>
+						</div> <!-- layer5 end -->	
+						
+				</c:when>
+				
+				<c:when test="${title.dsv_type eq 'schedule' }">	
+					<select name="q_type" class="q_type">
+						<option value="0">유형을 선택하여주세요</option>
+						<option value="gaek">객관식</option>
+						<option value="ju">주관식</option>
+						<option value="check">체크박스</option>
+						<option value="time" selected>시간</option>
+						<option value="schedule">날짜</option>
+					</select>
+					<c:forEach items="${choice}" var="choice">
+						<c:choose>
+						<c:when test="${title.dsv_order eq choice.ch_order}">
+						<div class="layer1" style="display: none">
+							<div>
+								<div class="gaek" style="display: none">
+									<label><input type='radio' name='radio' onclick="return(false);">
+									<input type='text' name="i_content" placeholder="객관식 답변을 입력" required></input>
+									</label>
+								</div>
+							</div>
+							<button class="btn_answer">답안 추가</button>	
+							<hr>
+						</div> <!-- layer1 end -->
+						<div class="layer2" >
+							<div>
+								<div class="ju">
+								<input type="text" name="i_content" readonly></input>
+								</div>
+							</div>
+							<hr>
+						</div> <!-- layer2 end -->
+						<div class="layer3" style="display: none">
+							<div>
+								<div class="check">
+									<label><input type="checkbox" name='checkbox' onclick="return(false);">
+									<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
+									</label>
+								</div>
+							</div>
+							<button class="btn_checkans">답안 추가</button>
+							<hr>
+						</div> <!-- layer3 end -->
+						<div class="layer4" >
+							<div>
+								<div class="time">
+								<input type="time" name="i_content" readonly></input>
+								</div>
+							</div>
+							<hr>
+						</div>  <!-- layer4 end -->
+						<div class="layer5" style="display: none">
+							<div>
+								<div class="schedule">
+								<input type="date" name="i_content" readonly></input>
+								</div>	
+							</div>
+						</div>  <!-- layer5 end -->	
+						
+						</c:when> 
+						</c:choose>
+					</c:forEach><!-- schedule choice end -->
+
+				</c:when>
+						
+				<c:when test="${title.dsv_type eq 'time' }">
+					
+	
+						<select name="q_type" class="q_type">
+						<option value="0">유형을 선택하여주세요</option>
+						<option value="gaek">객관식</option>
+						<option value="ju">주관식</option>
+						<option value="check">체크박스</option>
+						<option value="time" >시간</option>
+						<option value="schedule" selected>날짜</option>
+					</select>
+					<c:forEach items="${choice}" var="choice">
+						<c:choose>
+						<c:when test="${title.dsv_order eq choice.ch_order}">
+						<div class="layer1" style="display: none">
+							<div>
+								<div class="gaek" style="display: none">
+									<label><input type='radio' name='radio' onclick="return(false);">
+									<input type='text' name="i_content" placeholder="객관식 답변을 입력" required></input>
+									</label>
+								</div>
+							</div>
+							<button class="btn_answer">답안 추가</button>	
+							<hr>
+						</div> <!-- layer1 end -->
+						<div class="layer2" >
+							<div>
+								<div class="ju">
+								<input type="text" name="i_content" readonly></input>
+								</div>
+							</div>
+							<hr>
+						</div> <!-- layer2 end -->
+						<div class="layer3" style="display: none">
+							<div>
+								<div class="check">
+									<label><input type="checkbox" name='checkbox' onclick="return(false);">
+									<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
+									</label>
+								</div>
+							</div>
+							<button class="btn_checkans">답안 추가</button>
+							<hr>
+						</div> <!-- layer3 end -->
+						<div class="layer4" style="display: none">
+							<div>
+								<div class="time">
+								<input type="time" name="i_content" readonly></input>
+								</div>
+							</div>
+							<hr>
+						</div>  <!-- layer4 end -->
+						<div class="layer5" >
+							<div>
+								<div class="schedule">
+								<input type="date" name="i_content" readonly></input>
+								</div>	
+							</div>
+						</div>  <!-- layer5 end -->		
+						
+						</c:when> 
+						</c:choose>
+					</c:forEach><!-- schedule choice end -->
+					
+				</c:when>
+			</c:choose>					
 			
-			      <!-- Modal footer -->
-			      <div class="modal-footer">
-			        <input type="button" class="btn btn-default" data-dismiss="modal" value="close" onclick="choose()">
-			      </div>
-			      <script>
-			      	function choose(){
-						let cnt = $("input:radio[name='check']:checked").val();
-						$('#b_name').val($("#code"+cnt).val());
-			      	}
-			      </script>
+		</div>
+		<button id="btn_Del">질문삭제</button>	
+		</c:forEach> 
+		  	<div>
+				<button id="btn_add">질문추가</button>
+			</div>
 			
-			    </div>
-			  </div>
-			</div>
- 
-	
-	<hr><br>
-	
-<!-- 설문지 작성  -->	
-
-
-<%-- <c:forEach items="${tplread}" var="tpl" varStatus="tvs">
-	<c:choose>
-	<c:when test="${tpl.tefo_code eq #b_name.value}"> --%>
-	<div class="q_div">
-		<input type="text" name="q_title" placeholder="질문의 제목을 입력하세요."></input>
-
-		<select name="q_type" class="q_type">
-			<option value="0" selected>유형을 선택하여주세요</option>
-			<option value="gaek">객관식</option>
-			<option value="ju">주관식</option>
-			<option value="check">체크박스</option>
-			<option value="time">시간</option>
-			<option value="schedule">날짜</option>
-
-		</select>
-
-		<div class="layer1" style="display: none">
-			<br>
+			<br><hr><br>
 			<div>
-				<div class="gaek">
-					<label><input type='radio' name='radio' onclick="return(false);">
-					<input type='text' name="i_content" placeholder="객관식 답변을 입력"></input>
-					</label>
-				</div>
+				<button type="button" id="btn_survey" >작성완료</button>
 			</div>
-			<button class="btn_answer">답안 추가</button>	
-			<hr>
-		</div>
-		<div class="layer2" style="display: none">
-			<div>
-				<div class="ju">
-				<input type="text" name="i_content" readonly></input>
-				</div>
-			</div>
-			<hr>
-		</div>
-		<div class="layer3" style="display: none">
-			<div>
-				<div class="check">
-					<label><input type="checkbox" name='checkbox' onclick="return(false);">
-					<input type='text' name="i_content" placeholder="체크박스 답변을 입력"></input>
-					</label>
-				</div>
-			</div>
-			<button class="btn_checkans">답안 추가</button>
-			<hr>
-		</div>
-		<div class="layer4" style="display: none">
-			<div>
-				<div class="time">
-				<input type="time" name="i_content" readonly></input>
-				</div>
-			</div>
-			<hr>
-		</div>
-		<div class="layer5" style="display: none">
-			<div>
-				<div class="schedule">
-				<input type="date" name="i_content" readonly></input>
-				</div>	
-			</div>
-			<hr>
-		</div>		
-	</div>
-
-	<div>
-		<button id="btn_add">질문추가</button>
-	</div>
-	
-	<%-- </c:when> --%>
-	<%-- </c:choose>
-</c:forEach>	 --%>
-
-	<br><hr><br>
-	<div>
-		<button type="button" id="btn_survey">작성완료</button>
-	</div>
-  </div> <!-- contaioner end -->
-</div> <!-- site-section end -->
-
+				
+			
+		  </div> <!-- contaioner end -->
+		
+		</div> <!-- site-section end -->
+        </div>
+    </div>
+    </div>
 
 
 
 	<script>
-
     let q_tag = `
     <div class="q_div">
 		<input type="text" name="q_title" placeholder="질문의 제목을 입력하세요."></input>
@@ -212,7 +391,7 @@
 		<div class="layer1" style="display: none">
 				<div class="gaek">
 					<label><input type='radio' name='radio' onclick="return(false);">
-					<input type='text' name="i_content"placeholder="객관식 답변을 입력"></input>
+					<input type='text' name="i_content"placeholder="객관식 답변을 입력" required></input>
 					</label>
 				</div>
 			<button class="btn_answer">답안 추가</button>		
@@ -227,7 +406,7 @@
 		<div class="layer3" style="display: none">
 				<div class="check">
 					<label><input type="checkbox" name='checkbox' onclick="return(false);">
-					<input type='text' name="i_content" placeholder="체크박스 답변을 입력"></input>
+					<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
 					</label>
 				</div>
 			<button class="btn_checkans">답안 추가</button>
@@ -262,7 +441,7 @@
 	let a_tag =`
 	<div class = "gaek">
 		<input type='radio' name='radio' readonly>
-		<input type='text' name="i_content" placeholder="객관식 답변을 입력"></input>
+		<input type='text' name="i_content" placeholder="객관식 답변을 입력" required></input>
 		<input type="button" class="rRemove" value="답변삭제">
 	</div>
 	`; // radio end
@@ -270,7 +449,7 @@
 	let c_tag =`
 	<div class = "check">
 		<input type='checkbox' name='checkbox' readonly>
-		<input type='text' name="i_content" placeholder="체크박스 답변을 입력"></input>
+		<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
 		<input type="button" class="cRemove" value="답변삭제">
 	</div>
 	`; // checkbox end
@@ -346,35 +525,18 @@
 	
 	
 	$(document).on('click','#btn_survey',function(){
-		let sv_code = $('p.survey').find('input.sv_code').val();
-		let sv_comcode = $('p.survey').find('input.sv_comcode').val();
-		let sv_title = $('p.survey').find('input.sv_title').val();
-		let sv_des = $('p.survey').find('input.sv_des').val();
-		let sv_id = $('p.survey').find('input.sv_id').val();
-		let sv_max = $('p.survey').find('input.sv_max').val();
-		let sv_edate = $('p.survey').find('input.sv_edate').val();
-		
-		let survey = {
-			sv_code : sv_code,
-			sv_comcode : sv_comcode,
-			sv_title : sv_title,
-			sv_des : sv_des,
-			sv_id : sv_id,
-			sv_max : sv_max,
-			sv_edate : sv_edate
-		};
-    
-		$.ajax({
-			type: "post",
-			url:"/survey/create/insert",
-			contentType: "application/json",
-			data: JSON.stringify(survey),
-		})
-		.done(function (data) {
-		//	alert("survey성공");
-		});
-		
-		
+		let sv_code = '${dsv_code}';
+		alert(sv_code);
+		let updelete = { sv_code : sv_code };
+			$.ajax({
+				type: "post",
+				url:"/survey/update/updelete",
+				contentType: "application/json",
+				data: JSON.stringify(updelete)
+			}) 
+			.done(function (data) {
+				alert("updelete성공");
+			});
 		
 		
 			$(".q_div").each(function (i) {
@@ -395,7 +557,7 @@
 					dsv_order: dsv_order
 				};
 				
- 				$.ajax({
+ 				 $.ajax({
 					type: "post",
 					url:"/survey/create/dinsert",
 					contentType: "application/json",
@@ -403,7 +565,7 @@
 				}) 
 				.done(function (data) {
 					//alert("dsurvey성공");
-				});
+				}); 
 	
 			
 				$(this).find("."+dsv_type+"").find('input[name="i_content"]').each(function (i) {
@@ -420,12 +582,12 @@
 						ch_content: i_content
 						};
 					
-						// alert(sv_code);
-						// alert(dsv_order);
-						// alert(dsv_type);
-						// alert(i_content);
+					//	 alert(sv_code);
+						 alert(dsv_order);
+						 alert(dsv_type);
+						 alert(i_content);
 						
-				 	 $.ajax({
+				  	 $.ajax({
 						type: "post",
 						url:"/survey/create/cinsert",
 						contentType: "application/json",
@@ -433,7 +595,7 @@
 						success:function(data){
 							alert(data);
 						} 
-					}) // q_div.i_div function() end
+					})  // q_div.i_div function() end
 				
 				
 				}); // i)div, functoin() end
