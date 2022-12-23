@@ -115,20 +115,23 @@ public class CommunityCont {
 
 
     @RequestMapping("/read/{c_code}")
-    public ModelAndView read(@PathVariable String c_code, HttpSession session){
+    public ModelAndView read(@PathVariable String c_code, HttpSession session) throws Exception{
         ModelAndView mav = new ModelAndView();
 
         String loginID = (String)session.getAttribute("s_id");
 
         mav.addObject("read", commDao.read(c_code));
         mav.setViewName("community/read");
-
+        
+        // 설문지 코드 가져오기/닉네임 
+        mav.addObject("sv_code", surveyDAO.scodeget(c_code));
+        mav.addObject("s_nick", surveyDAO.getnick(loginID));
         //loginID 커뮤니티 가입 상태 확인하기
         CommSignDTO sign = new CommSignDTO();
         sign.setS_id(loginID);
         sign.setS_code(c_code);
         mav.addObject("checkID", commDao.checkID(sign));
-
+        System.out.println(commDao.checkID(sign));
         mav.addObject("checkOwner", commDao.checkOwner(c_code));    //커뮤니티장 확인하기
         mav.addObject("checkMember", commDao.checkMember(c_code));  //커뮤니티 구성원 확인
 

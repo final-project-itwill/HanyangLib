@@ -85,7 +85,7 @@ public class NoticeCont {
         notice.setN_type(dto.getN_type());
         notice.setN_title(dto.getN_title());
         notice.setN_content(dto.getN_content());
-        notice.setN_writer("webmaster"); //향후 session변수를 이용해 어떤 관리자가 작성했는지 DB에 저장 필요!
+        notice.setN_writer(dto.getN_writer());
 
         noticeDao.insert(notice);
 

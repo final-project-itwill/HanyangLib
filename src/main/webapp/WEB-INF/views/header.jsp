@@ -71,7 +71,7 @@
               		<a href="#" style="font-weight: bold;">고객센터</a>
 	                <ul class="dropdown">
 	                  <li><a href="/notice/list?pageNum=1">공지사항</a></li>
-	                  <li><a href="#">문의</a></li>
+	                  <li><a href="/inquiry/list">1:1문의</a></li>
 					  <c:choose>
 					  <c:when test="${grade == 'A'}">
 						  <li><a href="/admin/dashboard">관리자 페이지</a></li>
@@ -116,7 +116,7 @@
               		<a href="#" style="font-weight: bold;">고객센터</a>
 	                <ul class="dropdown">
 	                  <li><a href="/notice/list?pageNum=1">공지사항</a></li>
-	                  <li><a href="#">문의</a></li>
+	                  <li><a href="/inquiry/list">1:1문의</a></li>
 	                </ul>
 	              </li>
 	        </ul>          

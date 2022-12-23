@@ -28,6 +28,12 @@ public class BookDAO {
 	SqlSession sqlSession;
 
 	
+	//책 정보 가져와서 목록 출력
+    public List<BookDTO> list(){
+        return sqlSession.selectList("book.list1");
+    }//bookRead() end
+    
+	
 	// 책 출판사 출력
 	public List<BookDTO> list_n(BookDTO rows){
 		return sqlSession.selectList("book.list_n", rows);		
