@@ -232,6 +232,19 @@
         </foreach>
     </update>
 
+    <select id="countMember" resultType="int">
+        SELECT COUNT(*)
+        FROM community_signup
+        WHERE s_code = #{c_code}
+        AND s_state = 's'
+    </select>
+
+    <select id="countApplicant" resultType="int">
+        SELECT COUNT(*)
+        FROM community_signup
+        WHERE s_code = #{c_code}
+    </select>
+
 
 
 </mapper>

@@ -342,10 +342,12 @@ public class CommunityCont {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("community/adminIndex");
         mav.addObject("read", commDao.read(c_code));
-        // mav.addObject("star", commDao.star(c_code));
+        mav.addObject("star", commDao.star(c_code));
         mav.addObject("reviewCnt", commDao.reviewCnt(c_code));
         mav.addObject("checkOwner", commDao.checkOwner(c_code));
-        
+        mav.addObject("cntMember", commDao.countMember(c_code));        //가입멤버수
+        mav.addObject("cntApplicant", commDao.countApplicant(c_code));  //신청멤버수
+
         // 설문지 코드 생성
         mav.addObject("sv_code", surveyDAO.scodeget(c_code));
         mav.addObject("tpl", surveyDAO.tpl());

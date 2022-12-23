@@ -70,12 +70,15 @@
 
                 <!-- 커뮤니티 신청 버튼 -->
                 <!-- 조건문으로 커뮤니티 모집중/완료 분기 -->
-                <c:if test="${read.c_state == 'i'}">
-                    <button type="button" class="btn btn-outline-dark" onclick="clickSignup()">이 커뮤니티 신청하기</button><br><br>
-                </c:if>
-                <c:if test="${read.c_state == 'd' || read.c_state == 'e'}">
-                    <p style="font-weight: bold">"신청이 마감되었습니다"</p>
-                </c:if>
+                <c:choose>
+                    <c:when test="${read.c_state == 'i' && checkOwner != s_id}">
+                        <button type="button" class="btn btn-outline-dark" onclick="clickSignup()">이 커뮤니티 신청하기</button><br><br>
+                    </c:when>
+                    <c:when test="${read.c_state != 'i'}">
+                        <p style="font-weight: bold">"신청이 마감되었습니다"</p>
+                    </c:when>
+                </c:choose>
+
                 <br>
 
                 <%-- 커뮤니티 관리자 페이지 버튼 --%>
@@ -165,50 +168,48 @@
         let signState = '${checkID.s_state}';   //로그인id의 가입 상태
         let owner = '${checkOwner}';
 
-        if(owner == loginID){
-            alert("당신이 만든 커뮤니티입니다.");
+
+        if(sv_code ==''){
+            if(signState == ''){                    //가입이력 없음
+
+                let s_nick = '${s_nick}';
+                alert(s_nick);
+                let comsign = {
+                        s_code : c_code,
+                        s_id : loginID,
+                        s_nick : s_nick
+                    } // survey end
+
+                    $.ajax({
+                        type: "post",
+                        url:"/survey/write/comsign",
+                        contentType: "application/json",
+                        data: JSON.stringify(comsign)
+                    }) // ajax end
+                    alert(" 가입 신청 되었습니다. ");
+
+            }else if(signState == 'i') {
+                alert("이미 가입을 신청한 커뮤니티입니다. \n 가입 승인을 기다려주세요.");
+            }else if(signState == 's'){
+                alert("이미 가입이 승인된 커뮤니티입니다.");
+            }else if(signState == 'r'){
+                alert("가입 신청이 반려된 커뮤니티입니다.");
+            }//if end
+
         }else{
-         	if(sv_code ==''){
-	            if(signState == ''){                    //가입이력 없음
-	            	
-	        		let s_nick = '${s_nick}';
-	        		alert(s_nick);
-	        		let comsign = {
-	        				s_code : c_code,
-	        				s_id : loginID,
-	        				s_nick : s_nick
-	        			} // survey end
-	        			
-	        			$.ajax({
-	        				type: "post",
-	        				url:"/survey/write/comsign",
-	        				contentType: "application/json",
-	        				data: JSON.stringify(comsign)
-	        			}) // ajax end	
-	        			alert(" 가입 신청 되었습니다. ");
-	        			
-	            }else if(signState == 'i') {
-	                alert("이미 가입을 신청한 커뮤니티입니다. \n 가입 승인을 기다려주세요.");
-	            }else if(signState == 's'){
-	                alert("이미 가입이 승인된 커뮤니티입니다.");
-	            }else if(signState == 'r'){
-	                alert("가입 신청이 반려된 커뮤니티입니다.");
-	            }//if end
-	            
-        	}else{ 
-        		
-	            if(signState == ''){                    //가입이력 없음
-	                location.href = "/survey/write/${c_code}";       //나중에 설문지페이지와 바로 연결하기
-	            }else if(signState == 'i') {
-	                alert("이미 가입을 신청한 커뮤니티입니다. \n 가입 승인을 기다려주세요.");
-	            }else if(signState == 's'){
-	                alert("이미 가입이 승인된 커뮤니티입니다.");
-	            }else if(signState == 'r'){
-	                alert("가입 신청이 반려된 커뮤니티입니다.");
-	            }//if end
-	            
-        	}// sv_code if end
-        }//if end
+
+            if(signState == ''){                    //가입이력 없음
+                location.href = "/survey/write/${c_code}";       //설문지페이지와 바로 연결하기
+            }else if(signState == 'i') {
+                alert("이미 가입을 신청한 커뮤니티입니다. \n 가입 승인을 기다려주세요.");
+            }else if(signState == 's'){
+                alert("이미 가입이 승인된 커뮤니티입니다.");
+            }else if(signState == 'r'){
+                alert("가입 신청이 반려된 커뮤니티입니다.");
+            }//if end
+
+        }// sv_code if end
+
     }//checkSignup() end
 
 

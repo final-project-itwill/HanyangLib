@@ -55,7 +55,7 @@
                                 </tr>
                                 <c:forEach items="${listMylib}" var="dto">
                                     <tr>
-                                        <td><img src="/storage/${dto.b_bookcover}"></td>
+                                        <td><img src="${dto.b_bookcover}"></td>
                                         <td>
                                             <c:choose>
                                                 <c:when test="${dto.lib_proc >= 70}">

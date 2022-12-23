@@ -171,15 +171,6 @@
         </li>
     </c:otherwise>
     </c:choose>
-        <%--커뮤니티 삭제 자바스크립트--%>
-        <script>
-            function checkDelete(){
-                let msg = "삭제된 데이터는 복구되지 않습니다. \n진행하시겠어요?"
-                if(confirm(msg)){
-                    location.href="/comm/delete/${read.c_code}";
-                }
-            }//checkDelete() end
-        </script>
 
         <br>
         <!-- Divider -->
