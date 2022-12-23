@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="inquiry">
+
+    <select id="list" resultType="kr.co.itwill.inquiry.InquiryDTO">
+        SELECT ask_no, ask_type ,ask_id ,ask_title ,ask_content, ask_rdate, ans_no, ans_content
+        FROM (
+                 SELECT ans_no, ans_content
+                 FROM response
+             )AA RIGHT OUTER JOIN inquiry
+             ON AA.ans_no = inquiry.ask_no
+        ORDER BY ask_rdate DESC
+    </select>
+
+    <insert id="insertInquiry">
+        INSERT INTO inquiry(ask_type ,ask_id ,ask_title ,ask_content)
+        VALUES (#{ask_type}, #{ask_id}, #{ask_title}, #{ask_content})
+    </insert>
+
+    <!--관리자 페이지 답변대기 문의 리스트-->
+    <select id="listInquiry" resultType="kr.co.itwill.inquiry.InquiryDTO">
+        SELECT ask_no, ask_type ,ask_id ,ask_title ,ask_content, ask_rdate, ans_no, ans_content
+        FROM (
+                 SELECT ans_no, ans_content
+                 FROM response
+             )AA RIGHT OUTER JOIN inquiry
+             ON AA.ans_no = inquiry.ask_no
+        WHERE ans_no IS NULL
+    </select>
+    
+    <!-- 답변 insert -->
+    <insert id="insertResponse">
+        INSERT INTO response(ans_no, ans_content)
+        VALUES (#{ans_no}, #{ans_content})
+    </insert>
+
+</mapper>

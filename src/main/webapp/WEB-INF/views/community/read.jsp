@@ -231,26 +231,33 @@
                     //alert(key);
                     //alert(value);
                     a += '<tr class="reviewArea" style="border: 1px solid darkgray; margin-bottom: 15px">';
-                    a += '  <td class="reviewInfo' + value.ac_no +'">';
-                    a += '      <p>작성자 : ' + value.ac_id + "</p>  <p>" + value.ac_rdate;
-                    a += '  </p></td><td class="text-right">';
+                    a += '  <td class="reviewInfo' + value.ac_no +'"><br>';
+                    a += '      <div colspan="2" class="content' + value.ac_no +'">'
+                    a += '          <strong> "' + value.ac_review + '"</strong>  <span style="text-align: right">별점 :';
+                                for(i=1; i<=value.ac_manjok; i++){
+                    a += '          <img src="/images/star.png" width="15px"></span>';
+                                }//for end
+                    a += '';
+                    a += '      </div>';
+                    a += '      <div class="row"><p>작성자 : ' + value.ac_id + "</p>";
+                    a += "          <p>작성일 : " + value.ac_rdate;
+                    a += '      </div></p></td><td class="text-right">';
 
-                    if(value.ac_id == loginID || value.ac_id =='webmaster'){    //작성자||관리자만 수정/삭제 버튼 접근 가능
+                    if(value.ac_id == loginID || loginID =='webmaster'){    //작성자||관리자만 수정/삭제 버튼 접근 가능
                         a += '      <a href="javascript:openReviewUpdatePanel(' + value.ac_no + ',\'' + value.ac_review + '\',' + value.ac_manjok + ');">수정</a>';
                         a += '      <a href="javascript:deleteReview(' + value.ac_no + ');">삭제</a>';
                     };//if end
                     a += '  </td>';
                     a += '  </tr><tr>';
-                    a += '  <td colspan="2" class="content' + value.ac_no +'">'
-                    a += '      <p>후기 내용 : ' + value.ac_review + ' / 만족도 :' +  value.ac_manjok + '</p>';
-                    a += '  </td>';
+
                     a += '</tr>';
                 });//each() end
 
                 let b = '';
                 b += '  <tr class="moreBtnDiv">';
                 b += '  <td colspan="2">';
-                b += '      <button type="button" class="btn btn-outline-light text-dark btn-block" id="moreBtn" name="moreBtn" onclick="more()">더보기</button>';
+                b += '      <button type="button" class="btn btn-outline-light text-dark btn-block" id="moreBtn" name="moreBtn" onclick="more()">';
+                b += '          <i class="fa fa-plus"></i> <strong>더보기</strong></button>';
                 b += '  </td></tr>';
                 if(limit < size) a += b;
                 $(".reviewList").html(a);   //<div class="reviewList"></div>

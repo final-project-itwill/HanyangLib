@@ -1,9 +1,10 @@
 package kr.co.itwill.admin;
 
-import kr.co.itwill.community.CommSignDTO;
 import kr.co.itwill.community.CommunityDAO;
 import kr.co.itwill.community.CommunityDTO;
 import kr.co.itwill.community.CommunityUnionDTO;
+import kr.co.itwill.inquiry.InquiryDAO;
+import kr.co.itwill.inquiry.ResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,9 @@ public class AdminCont {
 
     @Autowired
     CommunityDAO communityDao;
+
+    @Autowired
+    InquiryDAO inquiryDao;
 
     @RequestMapping("/dashboard")
     public ModelAndView dashboard(){
@@ -84,6 +88,29 @@ public class AdminCont {
         adminDao.updatePick(mdList);
         return "admin/communityList";
     }//updatePick() end
+
+
+    @RequestMapping("/response")
+    public ModelAndView listInquiry(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("admin/inquiryList");
+        mav.addObject("inquiryList", inquiryDao.listInquiry());
+        return mav;
+    }//listInquiry()
+
+    @RequestMapping("/insertResponse")
+    public String insertResponse(@ModelAttribute ResponseDTO dto){
+
+        System.out.println(dto.getAns_content());
+        System.out.println(dto.getAns_no());
+
+        ResponseDTO answer = new ResponseDTO();
+        answer.setAns_no(dto.getAns_no());
+        answer.setAns_content(dto.getAns_content());
+        inquiryDao.insertResponse(answer);
+        return "admin/inquiryList";
+    }//insertResponse() end
+
 
 
 }//class end

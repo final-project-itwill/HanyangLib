@@ -2,6 +2,7 @@ package kr.co.itwill.admin;
 
 import kr.co.itwill.community.CommunityDTO;
 import kr.co.itwill.community.CommunityUnionDTO;
+import kr.co.itwill.inquiry.InquiryDTO;
 import kr.co.itwill.member.MemberDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
