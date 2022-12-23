@@ -51,15 +51,26 @@
 	
 	<!-- 비밀번호 찾기 mapper -->
 	
-	<select id="findpw">
-		SELECT m_pw
-		FROM member
-		WHERE m_id= #{m_id}
+		<select id="findpw" resultType="kr.co.itwill.member.MemberDTO" parameterType="int">
+			SELECT m_pw
+			FROM member
+			WHERE m_id= #{m_id}
+		</select>
+	
+	
+	<select id="pwcnt"  resultType="kr.co.itwill.member.MemberDTO" parameterType="int">
+	<![CDATA[
+			SELECT count(m_pw)
+			FROM member
+			WHERE m_id=#{m_id} AND m_email = #{m_email}
+	]]>
 	</select>
 	
-	
-	
-	
+	<update id="pwupdate">
+		UPDATE member
+		SET m_pw= #{m_pw}
+		WHERE m_id = #{m_id}
+	</update>
 	
 	
 	

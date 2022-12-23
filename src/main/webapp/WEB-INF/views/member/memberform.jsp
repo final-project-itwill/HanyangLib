@@ -4,16 +4,17 @@
 <!-- 본문작성 시작 -->
 
 <div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/libbg.jpg'); height: 40vh;"></div>
-<br>
+
 <form name="memberform" method="post" action="insert" enctype="multipart/form-data">
-<span style="color:red; font-weight: bold; align: center;"> * 필수입력 </span>
-<br>
-<div class= container">
+<div class="container">
 <table border="1" class="table table-hover">
+<tr>
+	<td style="color:red; font-weight: bold;">*필수입력</td>
+</tr>
 <tr>
 	<th>프로필 사진</th>
 	<td>
-		<input type="file" name="file" id="file">
+		<input type="file" name="file" id="file"  src="../storage/profile_none.png">
 		<input type="hidden" name="m_img" id="m_img">
  	</td>
 </tr>
@@ -78,7 +79,8 @@
 <tr>
     <th>*구독 여부</th>
     <td>
-        <input type="checkbox" name="m_gudok" id="m_gudok" value="Y">
+        <input type="checkbox" name="gudokcheck" id="gudokcheck">
+        <input type="hidden" name="m_gudok" id="m_gudok">
     </td>
 </tr>
 <tr>
@@ -119,59 +121,54 @@
 </tr>
 </table>
 </div>
-  
+
+
 <script>
 	$(".pwcheck").keyup(function(){
     	let pass1 = $("#m_pw").val();
     	let pass2 = $("#m_pw2").val();
     if(pass1 != "" || pass != ""){
     	if(pass1 == pass2){
-    		$("#chm_pw").html("비밀번호가 일치합니다!^^");
+    		$("#chm_pw").html("비밀번호가 일치합니다!");
     		$("#chm_pw").css("color", "green");
     	}else{
     		$("#chm_pw").html("비밀번호가 불일치합니다!");
     		$("#chm_pw").css("color", "red");
     	}//if end
     }//if end
-    
-    	
-    	
-    });
+});
 
 </script>
-
-
    <script>
     function meminesrt(){
-    	alert($("input:checkbox[name='mailcheck']").is(":checked"));
     	if($("input:checkbox[name='mailcheck']").is(":checked") == true){
 			$("#m_mailcheck").val('Y');
-			//alert($("#m_mailcheck").val());
+			
 		} else if($("input:checkbox[name='mailcheck']").is(":checked") == false){
 			$("#m_mailcheck").val('N');
-			//alert($("#m_mailcheck").val());
-		}
+			
+		}//if end
 		
 		if($("input:checkbox[name='smscheck']").is(":checked") == true){
 			$("#m_smscheck").val('Y');
 		} else if($("input:checkbox[name='smscheck']").is(":checked") == false){
 			$("#m_smscheck").val('N');
-		}
+		}//if end
+		
+		if($("input:checkbox[name='gudokcheck']").is(":checked") == true){
+			$("#m_gudok").val('Y');
+		} else if($("input:checkbox[name='gudokcheck']").is(":checked") == false){
+			$("#m_gudok").val('N');
+		}//if end
     	
     	if(confirm("회원가입을 하시겠어요?")){
-    	document.membupdate.action="/member/insert";		//수정 후 수정페이지로 이동
-    	document.membupdate.submit();    	
+    	document.memberform.action="/member/insert";
+    	document.memberform.submit();    	
     	}//if end
+    	
     }//memupdate
     
-    </script>
-    
 
-<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 110px;position:relative">
-  <img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
-</div>
-
-<script>
 	$("#btn_userid").click(function() {
 		$.post(
 				"idcheckproc.do"
@@ -222,9 +219,10 @@
 	
 </script>
 
-
-
 <!-- ----- DAUM 우편번호 API 시작----- -->
+<div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 110px;position:relative">
+  <img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
+</div>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <script>

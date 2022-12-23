@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 
 import java.io.File;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -161,13 +158,13 @@ public class MemberCont {
 		 */
 		ModelAndView mav=new ModelAndView();
 		
-		String imgname="-";
+		String imgname="profile_none.png";
 		if(img != null && !img.isEmpty()) {
 			imgname=img.getOriginalFilename();
 			try {
 				ServletContext appliaction=req.getSession().getServletContext();
 				String path= appliaction.getRealPath("/storage");
-				img.transferTo(new File(path+"\\"+imgname)); 	//파일 저장
+				img.transferTo(new File(path+"/"+imgname)); 	//파일 저장
 			} catch (Exception e) {
 				e.printStackTrace();
 			}//try end
@@ -175,7 +172,7 @@ public class MemberCont {
 		map.put("imgname", imgname);
 		
 		MemberDTO member = new MemberDTO();
-		member.setM_img(imgname);		//--sql멤버테이블 수정(추가)
+		member.setM_img(imgname);				//--sql멤버테이블 수정(추가)
 		member.setM_id(dto.getM_id());
 		member.setM_pw(dto.getM_pw());
 		member.setM_name(dto.getM_name());
@@ -186,8 +183,6 @@ public class MemberCont {
 		member.setM_add1(dto.getM_add1());
 		member.setM_add2(dto.getM_add2());
 		member.setM_tel(dto.getM_tel());
-		member.setM_month(dto.getM_month());	//--sql멤버테이블 수정(추가)
-		member.setM_year(dto.getM_year());		//--sql멤버테이블 수정(추가)
 		member.setM_email(dto.getM_email());
 		member.setM_mailcheck(dto.getM_mailcheck());
 		member.setM_smscheck(dto.getM_smscheck());
@@ -223,7 +218,7 @@ public class MemberCont {
 		//기존 저장된 정보 가져오기
 		MemberDTO oldDTO = memberDao.detail(dto.getM_id());
 		MultipartFile img=dto.getImg();
-		String imgname= "-";
+		String imgname= "profile_none.png";
 		if(img != null && !img.isEmpty()) { 
 			imgname=img.getOriginalFilename();
 			try {
@@ -284,7 +279,7 @@ public class MemberCont {
 	public String Withdraw(@RequestParam String m_id, HttpSession session, HttpServletRequest req) throws Exception {
 		
 		String imgname = memberDao.imgname(m_id);
-		if(!imgname.equals("-")) {
+		if(!imgname.equals("profile_none.png")) {
 			ServletContext appliaction=req.getSession().getServletContext();
 			String path= appliaction.getRealPath("/storage"); //실제 물리적인 경로
 			File file=new File(path+"/"+imgname);
@@ -300,7 +295,7 @@ public class MemberCont {
 		return "redirect:/login/index";
 	}//Withdraw() end
 
-	//----------------------------------회원가입, 파일 첨부, 파일 수정, 파일 삭제 완료
+	//----------------------------------회원가입, 중복체크,파일 첨부, 파일 수정, 파일 삭제 완료
 	
 	
 	//----------------------------------비밀번호 찾기 컨트롤러 시작
@@ -313,32 +308,37 @@ public class MemberCont {
 		return mav;
 	}//forgotpw() end
 	
+	@RequestMapping("/pwupdateform")
+	public ModelAndView pwupdateform() {
+		ModelAndView mav=new ModelAndView();
 		
-		@RequestMapping(value = "findpw" , method = RequestMethod.POST)
-		  public ModelAndView findPassword(@RequestParam String m_id, @RequestParam int m_pw, @RequestParam MemberDTO dto) {
-			//ModelAndView 객체 생성
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName("member/find-password-result");
-			try {
-				
-				String password="";
-				
-				 // 비밀번호가 조회된 경우
-				if (password == dto.getM_pw()) {
-					  // 아이디 정보를 Model에 추가
-					  mav.addObject("id", m_id);
-					  //비밀번호 정보를 Model에 추가
-					  mav.addObject("password", m_pw);
-					} else{ 
-					  mav.addObject("message", "입력한 아이디에 해당하는 비밀번호가 존재하지 않습니다.");
-					}//if end
-			
-			} catch (Exception e) {
-				System.out.println("비밀번호 찾기 실패:" + e);
-			}//try end
-			mav.addObject("findpw", memberDao.memberfindpw(m_id));
-		    return mav;
-		}
+		mav.setViewName("member/pwupdateform");
+		
+		return mav;
+		
+	}
+	
+	
+	@RequestMapping(value = "/updatepw" , method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView pwProc(@RequestParam String m_id
+			, @ModelAttribute MemberDTO dto) throws Exception {
+		ModelAndView mav=new ModelAndView();
+		
+		
+		mav.addObject("pwcount", memberDao.memberpwCnt(m_id));
+		mav.addObject("pwread", memberDao.memberfindpw(m_id));
+		mav.addObject("pwupdate", memberDao.memberpwUpdate(m_id));
+		
+		MemberDTO member=new MemberDTO();
+		member.setM_pw(dto.getM_pw());
+		
+		
+		return mav;	
+		
+		
+	}//update() end
+
 	
 
 }// class end
