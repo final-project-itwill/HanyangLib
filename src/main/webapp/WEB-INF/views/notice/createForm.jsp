@@ -12,6 +12,7 @@
 
     <div class="container-fluid col-lg-8">
     <form method="post" action="insert">
+        <input type="hidden" id="n_writer" value="${s_id}">
         <table class="table">
         <tr>
             <th>카테고리 선택</th>
