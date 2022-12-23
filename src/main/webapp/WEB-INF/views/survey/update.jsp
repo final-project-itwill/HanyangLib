@@ -7,32 +7,40 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn"	uri="http://java.sun.com/jsp/jstl/functions" %>   
 
+<style>
+	button {
+		box-shadow: 1px 1px 1px gray;
+	}
 
+</style>
    
-<!-- 본문작성 시작 -->	
-<div style="text-align: center; margin-top: 30px">
-    <h2 style="font-weight: bold; margin-bottom: 30px">커뮤니티 수정하기</h2>
 
-    <div class="container-fluid col-lg-8 card shadow">
-        <p style="text-align: right"><a href="/comm/admin/${c_code}" style="color: #3b5998; margin-top: 20px">돌아가기</a></p>
+    <div class="container-fluid">
 
-        <div class="table-responsive">	
-<div class="site-section bg-light" id="blog-section">
+        <h1 class="h3 mb-2 text-gray-800" style="font-weight: bold">설문지 수정하기</h1>
+        <p class="mb-4">설문지를 수정할수 있습니다.</p>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-2">
+                <h6 class="m-0 font-weight-bold text-primary">'${read.c_name}' 설문지 정보</h6>
+            </div>
+            <div class="card-body">   
+    <!-- 본문작성 시작 -->	    
+<div>
   <div class="container">
-	<h1>설문조사 ${dsv_code} ${s_id}</h1><br>
+	<div style="margin-top :30px; margin-bottom: 60px; ">
 
-	<input type="hidden" id="ans_code" name="ans_code" class="ans_code" value="${dsv_code}"> <!-- dsv_code -->
+	<input type="hidden" id="ans_code" name="ans_code" class="ans_code" value="${sv_code}"> <!-- dsv_code -->
 	<input type="hidden" id="ans_id" name="ans_id" class="ans_id" value="${s_id}"> <!-- dsv_code --> 
 
->
-	<c:forEach items="${title}" var="title" varStatus="tvs">		
-	<div class="q_div">	
-	
-			<input type="text" name="q_title" value="${title.dsv_subject}" placeholder="질문의 제목을 입력하세요." required></input>
+	<c:forEach items="${title}" var="title" varStatus="tvs">
+	<div style=" margin-bottom: 40px;  border: solid 1px ; border-color: #2a96a5; border-radius: 12px; padding:20px;">	
+	<div class="q_div" style=" margin: 20px 50px 30px 50px;">	
+			<input type="text" name="q_title" value="${title.dsv_subject}" placeholder="질문의 제목을 입력하세요." required style="width : 250px;"></input>
 			<c:choose>
 	
 				<c:when test="${title.dsv_type eq 'ju'}">
-					<select name="q_type" class="q_type">
+					<select name="q_type" class="q_type" style=" width : 75px;">
 						<option value="0">유형을 선택하여주세요</option>
 						<option value="gaek">객관식</option>
 						<option value="ju"selected>주관식</option>
@@ -43,47 +51,49 @@
 					<c:forEach items="${choice}" var="choice">
 						<c:choose>
 						<c:when test="${title.dsv_order eq choice.ch_order}">
-						<div class="layer1" style="display: none"> 
+						<div class="layer1" style="display: none ; padding:5px;"> 
 							<div>
-								<div class="gaek">
+								<div class="gaek" style="display:inline;">
 									<label><input type='radio' name='radio' onclick="return(false);">
 									<input type='text' name="i_content" placeholder="객관식 답변을 입력" required></input>
-									<input type="button" class="rRemove" value="답변삭제">
 									</label>
 								</div>
+								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
+								
 							</div>
-							<button class="btn_answer">답안 추가</button>	
-							<hr>
+							<button id="btn_answer"style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답안 추가</button>
+							
 						</div> <!-- layer1 end -->
-						<div class="layer2" >
+						
+						<div class="layer2" style=" padding:5px;" >
 							<div>
 								<div class="ju">
-								<input type="text" name="i_content" readonly></input>
+								<input type="text" name="i_content" readonly placeholder="주관식 입니다."></input>
 								</div>
 							</div>
-							<hr>
+							
 						</div> <!-- layer2 end -->
-						<div class="layer3" style="display: none">
+						
+						<div class="layer3" style="display: none ; padding:5px;">
 							<div>
-								<div class="check">
+								<div class="check" style="display:inline;">
 									<label><input type="checkbox" name='checkbox' onclick="return(false);">
 									<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
-									<input type="button" class="rRemove" value="답변삭제">
 									</label>
 								</div>
+								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
+								
 							</div>
-							<button class="btn_checkans">답안 추가</button>
-							<hr>
+							<button id="btn_checkans" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답안 추가</button>
 						</div> <!-- layer3 end -->
-						<div class="layer4" style="display: none">
+						<div class="layer4" style="display: none; padding:5px;">
 							<div>
 								<div class="time">
 								<input type="time" name="i_content" readonly></input>
 								</div>
 							</div>
-							<hr>
 						</div>  <!-- layer4 end -->
-						<div class="layer5" style="display: none">
+						<div class="layer5" style="display: none; padding:5px;">
 							<div>
 								<div class="schedule">
 								<input type="date" name="i_content" readonly></input>
@@ -97,7 +107,7 @@
 				</c:when>
 	
 				<c:when test="${title.dsv_type eq 'gaek' or 'etc'}">
-					<select name="q_type" class="q_type">
+					<select name="q_type" class="q_type" style=" width : 75px;">
 						<option value="0">유형을 선택하여주세요</option>
 						<option value="gaek" selected>객관식</option>
 						<option value="ju">주관식</option>
@@ -105,53 +115,52 @@
 						<option value="time">시간</option>
 						<option value="schedule">날짜</option>
 					</select>
-						<div class="layer1" >
-							<div>
+						<div class="layer1"style=" padding:5px;" >
+							
 							<c:forEach items="${choice}" var="choice">
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
-								<div class="gaek">
+							<div>
+								<div class="gaek" style="display:inline;">
 									<label><input type='radio' name='radio' onclick="return(false);">
 									<input type='text' name="i_content"  value="${choice.ch_content}" placeholder="객관식 답변을 입력" required></input></label>
-									<input type="button" class="rRemove" value="답변삭제">
 								</div>
+								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
+							</div>	
 							</c:when>
 							</c:choose>
 							</c:forEach> <!-- gaek choice end -->
+							<button id="btn_answer"style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답안 추가</button>
 							
-							</div>
-							<button class="btn_answer">답안 추가</button>	
-							<hr>
+							
 						</div> <!-- layer1 end -->
-						<div class="layer2" style="display: none">
+						<div class="layer2" style="display: none; padding:5px;">
 							<div>
 								<div class="ju">
-								<input type="text" name="i_content" readonly></input>
+								<input type="text" name="i_content" readonly placeholder="주관식 입니다."></input>
 								</div>
 							</div>
-							<hr>
 						</div> <!-- layer2 end -->
-						<div class="layer3" style="display: none">
+						<div class="layer3" style="display: none; padding:5px;">
 							<div>
-								<div class="check">
+								<div class="check" style="display:inline;">
 									<label><input type="checkbox" name='checkbox' onclick="return(false);">
 									<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
-									<input type="button" class="rRemove" value="답변삭제">
 									</label>
 								</div>
+								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
+								
 							</div>
-							<button class="btn_checkans">답안 추가</button>
-							<hr>
+							<button id="btn_checkans" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답안 추가</button>
 						</div> <!-- layer3 end -->
-						<div class="layer4" style="display: none">
+						<div class="layer4" style="display: none; padding:5px;">
 							<div>
 								<div class="time">
 								<input type="time" name="i_content" readonly></input>
 								</div>
 							</div>
-							<hr>
 						</div> <!-- layer4 end -->
-						<div class="layer5" style="display: none">
+						<div class="layer5" style="display: none; padding:5px;">
 							<div>
 								<div class="schedule">
 								<input type="date" name="i_content" readonly></input>
@@ -164,7 +173,7 @@
 					
 				<c:when test="${title.dsv_type eq 'check' or 'etc' }">
 					
-					<select name="q_type" class="q_type">
+					<select name="q_type" class="q_type" style=" width : 75px;">
 						<option value="0">유형을 선택하여주세요</option>
 						<option value="gaek" >객관식</option>
 						<option value="ju">주관식</option>
@@ -172,52 +181,55 @@
 						<option value="time">시간</option>
 						<option value="schedule">날짜</option>
 					</select>
-						<div class="layer1" style="display: none">
+					
+						<div class="layer1" style="display: none; padding:5px;">
 							<div>
-								<div class="gaek">
+								<div class="gaek" style="display:inline; ; padding:5px;">
 									<label><input type='radio' name='radio' onclick="return(false);">
 									<input type='text' name="i_content"  placeholder="객관식 답변을 입력" required></input></label>
-									<input type="button" class="rRemove" value="답변삭제">
 								</div>
+								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
+								
 							</div>
-							<button class="btn_answer">답안 추가</button>	
-							<hr>
+							<button id="btn_answer"style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답안 추가</button>	
 						</div> <!-- layer1 end -->
-						<div class="layer2" style="display: none">
+						<div class="layer2" style="display: none; padding:5px;">
 							<div>
 								<div class="ju">
-								<input type="text" name="i_content" readonly></input>
+								<input type="text" name="i_content" readonly placeholder="주관식 입니다."></input>
 								</div>
 							</div>
-							<hr>
 						</div> <!-- layer2 end -->
-						<div class="layer3">
+						<div class="layer3" style=" padding:5px;">
 							<div>
 							<c:forEach items="${choice}" var="choice">
 							<c:choose>
-							<c:when test="${title.dsv_order eq choice.ch_order}">							
-								<div class="check">
+							<c:when test="${title.dsv_order eq choice.ch_order}">
+								<div>					
+								<div class="check"  style="display:inline;">
 									<label><input type="checkbox" name='checkbox' onclick="return(false);">
 									<input type='text' name="i_content" value="${choice.ch_content}" placeholder="체크박스 답변을 입력" required></input>
-									<input type="button" class="rRemove" value="답변삭제">
 									</label>
+								</div>
+								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
+								
 								</div>
 							</c:when>
 							</c:choose>
-							</c:forEach> <!-- gaek choice end -->								
+							</c:forEach> <!-- gaek choice end -->
 							</div>
-							<button class="btn_checkans">답안 추가</button>
-							<hr>
+								<button id="btn_checkans" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답안 추가</button>								
+							
+						
 						</div> <!-- layer3 end -->
-						<div class="layer4" style="display: none">
+						<div class="layer4" style="display: none; padding:5px;">
 							<div>
 								<div class="time">
 								<input type="time" name="i_content" readonly></input>
 								</div>
 							</div>
-							<hr>
 						</div> <!-- layer4 end -->
-						<div class="layer5" style="display: none">
+						<div class="layer5" style="display: none; padding:5px;">
 							<div>
 								<div class="schedule">
 								<input type="date" name="i_content" readonly></input>
@@ -228,7 +240,7 @@
 				</c:when>
 				
 				<c:when test="${title.dsv_type eq 'schedule' }">	
-					<select name="q_type" class="q_type">
+					<select name="q_type" class="q_type" style=" width : 75px;">
 						<option value="0">유형을 선택하여주세요</option>
 						<option value="gaek">객관식</option>
 						<option value="ju">주관식</option>
@@ -239,47 +251,45 @@
 					<c:forEach items="${choice}" var="choice">
 						<c:choose>
 						<c:when test="${title.dsv_order eq choice.ch_order}">
-						<div class="layer1" style="display: none">
+						<div class="layer1" style="display: none; padding:5px;">
 							<div>
-								<div class="gaek" style="display: none">
+								<div class="gaek" style="display:inline">
 									<label><input type='radio' name='radio' onclick="return(false);">
 									<input type='text' name="i_content" placeholder="객관식 답변을 입력" required></input>
-									<input type="button" class="rRemove" value="답변삭제">
 									</label>
 								</div>
+								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
+								
 							</div>
-							<button class="btn_answer">답안 추가</button>	
-							<hr>
+							<button id="btn_answer"style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답안 추가</button>
 						</div> <!-- layer1 end -->
-						<div class="layer2" >
+						<div class="layer2" style="display: none; padding:5px;">
 							<div>
 								<div class="ju">
-								<input type="text" name="i_content" readonly></input>
+								<input type="text" name="i_content" readonly placeholder="주관식 입니다."></input>
 								</div>
 							</div>
-							<hr>
 						</div> <!-- layer2 end -->
-						<div class="layer3" style="display: none">
+						<div class="layer3" style="display: none; padding:5px;">
 							<div>
-								<div class="check">
+								<div class="check" style="display:inline">
 									<label><input type="checkbox" name='checkbox' onclick="return(false);">
 									<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
-									<input type="button" class="rRemove" value="답변삭제">
 									</label>
 								</div>
+								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
+								
 							</div>
-							<button class="btn_checkans">답안 추가</button>
-							<hr>
+							<button id="btn_checkans" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답안 추가</button>
 						</div> <!-- layer3 end -->
-						<div class="layer4" >
+						<div class="layer4" style="padding:5px;">
 							<div>
 								<div class="time">
 								<input type="time" name="i_content" readonly></input>
 								</div>
 							</div>
-							<hr>
 						</div>  <!-- layer4 end -->
-						<div class="layer5" style="display: none">
+						<div class="layer5" style="display: none; padding:5px;">
 							<div>
 								<div class="schedule">
 								<input type="date" name="i_content" readonly></input>
@@ -296,7 +306,7 @@
 				<c:when test="${title.dsv_type eq 'time' }">
 					
 	
-						<select name="q_type" class="q_type">
+						<select name="q_type" class="q_type" style=" width : 75px;">
 						<option value="0">유형을 선택하여주세요</option>
 						<option value="gaek">객관식</option>
 						<option value="ju">주관식</option>
@@ -307,47 +317,45 @@
 					<c:forEach items="${choice}" var="choice">
 						<c:choose>
 						<c:when test="${title.dsv_order eq choice.ch_order}">
-						<div class="layer1" style="display: none">
+						<div class="layer1" style="display: none; padding:5px;">
 							<div>
-								<div class="gaek" style="display: none">
+								<div class="gaek" style="display:inline">
 									<label><input type='radio' name='radio' onclick="return(false);">
-									<input type='text' name="i_content" placeholder="객관식 답변을 입력" required></input>
-									<input type="button" class="rRemove" value="답변삭제">
+									<input type='text' name="i_content" placeholder="객관식 답변을 입력해주세요." required></input>
 									</label>
 								</div>
+								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
+									
 							</div>
-							<button class="btn_answer">답안 추가</button>	
-							<hr>
+							<button id="btn_answer"style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답안 추가</button>
 						</div> <!-- layer1 end -->
-						<div class="layer2" >
+						<div class="layer2" style="display: none; padding:5px;">
 							<div>
 								<div class="ju">
-								<input type="text" name="i_content" readonly></input>
+								<input type="text" name="i_content" readonly placeholder="주관식 입니다."></input>
 								</div>
 							</div>
-							<hr>
 						</div> <!-- layer2 end -->
-						<div class="layer3" style="display: none">
+						<div class="layer3" style="display: none; padding:5px;">
 							<div>
-								<div class="check">
+								<div class="check" style="display:inline">
 									<label><input type="checkbox" name='checkbox' onclick="return(false);">
 									<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
-									<input type="button" class="rRemove" value="답변삭제">
 									</label>
 								</div>
+								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
+								
 							</div>
-							<button class="btn_checkans">답안 추가</button>
-							<hr>
+							<button id="btn_checkans" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답안 추가</button>
 						</div> <!-- layer3 end -->
-						<div class="layer4" style="display: none">
+						<div class="layer4" style="display: none; padding:5px;">
 							<div>
 								<div class="time">
 								<input type="time" name="i_content" readonly></input>
 								</div>
 							</div>
-							<hr>
 						</div>  <!-- layer4 end -->
-						<div class="layer5" >
+						<div class="layer5" style=" padding:5px;">
 							<div>
 								<div class="schedule">
 								<input type="date" name="i_content" readonly></input>
@@ -361,17 +369,18 @@
 					
 				</c:when>
 			</c:choose>					
-			
-		</div>
-		<button id="btn_Del">질문삭제</button>	
+		</div> <!-- .q_div end -->
+		
+		<button id="btn_Del" class="btn btn-outline-light btn-block text-dark" style="font-weight: bold; color: #3b5998; border-color: #2a96a5; width: 200px;    margin:auto;">질문삭제</button>
+	</div>	
 		</c:forEach> 
 		  	<div>
-				<button id="btn_add">질문추가</button>
+				<button id="btn_add" class="btn btn-outline-light btn-block text-dark" style="font-weight: bold; color: #3b5998; border-color: #2a96a5; width: 200px;    margin:auto;">질문추가</button>
 			</div>
-			
+		
 			<br><hr><br>
 			<div>
-				<button type="button" id="btn_survey" >작성완료</button>
+				<button type="button" id="btn_survey" class="btn btn-outline-light btn-block text-dark" style="font-weight: bold; color: #3b5998; border-color: #2a96a5; width: 300px;    margin:auto;" >작성완료</button>
 			</div>
 				
 			
@@ -381,14 +390,16 @@
         </div>
     </div>
     </div>
+    </div>>
 
 
 
 	<script>
     let q_tag = `
-    <div class="q_div">
-		<input type="text" name="q_title" placeholder="질문의 제목을 입력하세요."></input>
-		<select name="q_type" class="q_type">
+    	<div style=" margin-bottom: 40px;  border: solid 1px ; border-color: #2a96a5; border-radius: 12px; padding:20px;">	
+    	<div class="q_div" style=" margin: 20px 50px 30px 50px;">	
+		<input type="text" name="q_title" placeholder="질문의 제목을 입력하세요." style=" width : 300px;"></input>
+		<select name="q_type" class="q_type" style=" width : 75px;">
 			<option value="0" selected>유형을 선택하여주세요</option>
 			<option value="gaek">객관식</option>
 			<option value="ju">주관식</option>x 
@@ -396,44 +407,46 @@
 			<option value="time">시간</option>
 			<option value="schedule">날짜</option>
 		</select>
-		<div class="layer1" style="display: none">
-				<div class="gaek">
+		<div class="layer1" style="display: none; padding:5px;">
+			<div>
+				<div class="gaek" style="display:inline">
 					<label><input type='radio' name='radio' onclick="return(false);">
 					<input type='text' name="i_content"placeholder="객관식 답변을 입력" required></input>
 					</label>
-					<input type="button" class="rRemove" value="답변삭제">
 				</div>
-			<button class="btn_answer">답안 추가</button>		
-			<hr>
+				<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
+			</div>
+			<button id="btn_answer"style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답안 추가</button>
 		</div>
-		<div class="layer2" style="display: none">
+		<div class="layer2" style="display: none; padding:5px;">
 				<div class="ju">
-				<input type="text" name="i_content" readonly></input>
+				<input type="text" name="i_content" readonly placeholder="주관식 입니다."></input>
 				</div>
-			<hr>
 		</div>
-		<div class="layer3" style="display: none">
-				<div class="check">
+		<div class="layer3" style="display: none; padding:5px;">
+			<div>
+				<div class="check" style="display:inline">
 					<label><input type="checkbox" name='checkbox' onclick="return(false);">
 					<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
 					</label>
-					<input type="button" class="rRemove" value="답변삭제">
 				</div>
-			<button class="btn_checkans">답안 추가</button>
-			<hr>
+				<button id="cRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
+			</div>
+			<button id="btn_checkans" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답안 추가</button>
 		</div>
-		<div class="layer4" style="display: none">
+		<div class="layer4" style="display: none; padding:5px;">
 				<div class="time">
-				<input type="time" name="i_content" readonly></input>	<hr>
+				<input type="time" name="i_content" readonly></input>
 				</div>
 		</div>
-		<div class="layer5" style="display: none">
+		<div class="layer5" style="display: none; padding:5px;">
 				<div class="schedule">
 				<input type="date" name="i_content" readonly></input>	
 				</div>	
 		</div>
 		</div>
-		<button id="btn_Del">질문삭제</button>
+		<button id="btn_Del" class="btn btn-outline-light btn-block text-dark" style="font-weight: bold; color: #3b5998; border-color: #2a96a5; width: 200px;    margin:auto;">질문삭제</button>
+		</div>
 	`; // add end
     
 	//btn_add 클릭 질문 생성
@@ -444,45 +457,48 @@
 	//btn-Del 클릭 질문 삭제
 	$(document).on('click', '#btn_Del', function (){
         $(this).prev().remove (); // remove the input date
+        $(this).unwrap();		// 부모요소 삭제하기.
         $(this).remove();		  // remove the button
 	}); // #btn_Del end
     
  
 	let a_tag =`
-	<div class = "gaek">
+	<div style="margin-top :3px; margin-bottom: 10px;">
+	<div class = "gaek"  style="display:inline; margin-top :3px; margin-bottom: 3px;">
 		<input type='radio' name='radio' readonly>
 		<input type='text' name="i_content" placeholder="객관식 답변을 입력" required></input>
-		<input type="button" class="rRemove" value="답변삭제">
+	</div>
+	<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
 	</div>
 	`; // radio end
 	
 	let c_tag =`
-	<div class = "check">
+	<div style="margin-top :3px; margin-bottom: 10px;">
+	<div class = "check"  style="display:inline;">
 		<input type='checkbox' name='checkbox' readonly>
 		<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
-		<input type="button" class="cRemove" value="답변삭제">
+	</div>
+	<button id="cRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
 	</div>
 	`; // checkbox end
 			
-	$(document).on('click', '.btn_answer', function(){
+	$(document).on('click', '#btn_answer', function(){
 		$(this).before(a_tag);
 		//alert(rcount);
 	}); // btn_answer.click end
 	
-	$(document).on('click', '.btn_checkans', function(){
+	$(document).on('click', '#btn_checkans', function(){
 		$(this).before(c_tag);
 		//alert(ccount);
 	}); // btb_checkans.click end
 	
-	$(document).on('click', '.rRemove', function(){
-        $(this).prev().remove (); // remove the textbox
+	$(document).on('click', '#rRemove', function(){
         $(this).prev().remove (); // remove the textbox
         $(this).remove (); // remove the button
        // alert(rcount);
 	}); // radioRemove.click end
 	
-	$(document).on('click', '.cRemove', function(){
-        $(this).prev().remove (); // remove the textbox
+	$(document).on('click', '#cRemove', function(){
         $(this).prev().remove (); // remove the textbox
         $(this).remove (); // remove the button
 		// alert(ccount);
@@ -535,7 +551,7 @@
 	
 	
 	$(document).on('click','#btn_survey',function(){
-		let sv_code = '${dsv_code}';
+		let sv_code = '${sv_code}';
 		alert(sv_code);
 		let updelete = { sv_code : sv_code };
 			$.ajax({
@@ -543,9 +559,6 @@
 				url:"/survey/update/updelete",
 				contentType: "application/json",
 				data: JSON.stringify(updelete)
-			}) 
-			.done(function (data) {
-				alert("updelete성공");
 			});
 		
 		
@@ -558,6 +571,17 @@
 				// alert(dsv_type);
 				// alert(dsv_order);
 				// alert(sv_code);
+				if(dsv_subject==''){
+					alert("질문을 입력해주세요.");
+					dsv_subject.focus;
+					return false;
+				}
+				
+				if(dsv_type==''){
+					alert("질문유형을 선택해주세요.");
+					dsv_type.focus;
+					return false;
+				}
 			
 				
 				let question = {

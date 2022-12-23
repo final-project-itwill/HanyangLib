@@ -64,6 +64,7 @@ public class SurveyCont {
 		mav.addObject("choice", surveyDAO.svChoice(dsv_code));
 		mav.addObject("dsv_code", dsv_code);
 		mav.addObject("c_code", c_code);
+		mav.addObject("c_name", surveyDAO.getcname(c_code));
 		
 		String m_id = (String)session.getAttribute("s_id");
 		// System.out.println(m_id);

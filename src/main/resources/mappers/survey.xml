@@ -34,6 +34,12 @@
 		WHERE dsv_code = #{dsv_code}
 	</select>
 	
+	<select id="getcname" resultType="String">
+		SELECT c_name
+		FROM community
+		WHERE c_code = #{c_code}
+	</select>
+	
 	<select id="answer" resultType="kr.co.itwill.survey.AnswerDTO">
 		SELECT ans_no, ans_code, ans_order, ans_anscode, ans_id, ans_content
 		FROM answer

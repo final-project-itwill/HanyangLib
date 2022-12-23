@@ -96,11 +96,11 @@
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">가입 신청서를 확인하세요 ${sv_code}</h6>
+                    <h6 class="collapse-header">가입 신청서를 확인하세요</h6>
                     <c:choose>
 	                    <c:when test="${empty sv_code}">
-	                    <a class="collapse-item" href="/survey/create/${read.c_code}/${s_id}">신청서 생성</a>
-	                    </c:when>
+	                    <a class="collapse-item" data-toggle="modal" data-target="#myModal">신청서 생성</a>
+	              		</c:when>
 	                    <c:otherwise>
 	                    <a class="collapse-item" href="/survey/update.do?c_code=${read.c_code}">신청서 수정</a>
 	                    <a class="collapse-item" href="/survey/update?c_code=${read.c_code}">신청서 상세 수정</a>
@@ -113,8 +113,8 @@
         </li>
 
 	                               <!--  찾아보기 창 -->
-						<div class="modal fade" id="search">
-						  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+					  <div class="modal fade" id="myModal" role="dialog">
+					    <div class="modal-dialog modal-sm">
 						    <div class="modal-content">
 						
 						      <!-- Modal Header -->
@@ -139,10 +139,14 @@
 									</td>
 								</tr>
 						        </table>
-						      </div>
+					         </div>
+					                <div class="modal-footer">
+							          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							        </div>
+						     </div>
 						    </div>
 						  </div>
-						</div>
+						
 	                    
 
 
