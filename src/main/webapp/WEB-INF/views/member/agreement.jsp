@@ -11,7 +11,7 @@
     실행된 함수가 false를 리턴하면 submit을 하지 않음.
 -->
 
-<form onsubmit="return send()">
+<form onsubmit="re send()">
 <table border="0" cellspacing="0" cellpadding="2"  align="center">
     <tr align="center" height="10"> 
         <td>
@@ -38,7 +38,7 @@
  
 ② "한양서재"은 제1항과 같이 회원으로 가입할 것을 신청한 자가 다음 각 호에 해당하지 않는 한 신청한 자를 회원으로 등록합니다. 
  
- 1. 가입신청자가 본 약관 제6조 제3항에 의하여 이전에 회원자격을 상실한 적이 있는 경우. 다만 제6조 제3항에 의한 회원자 격 상실 후 3년이 경과한 자로서 "한양서재"의 회원재가입 승낙을 얻은 경우에는 예외로 합니다. 
+1. 가입신청자가 본 약관 제6조 제3항에 의하여 이전에 회원자격을 상실한 적이 있는 경우. 다만 제6조 제3항에 의한 회원자 격 상실 후 3년이 경과한 자로서 "한양서재"의 회원재가입 승낙을 얻은 경우에는 예외로 합니다. 
 2. 등록 내용에 허위, 기재누락, 오기가 있는 경우 
 3. 기타 회원으로 등록하는 것이 "한양서재"의 기술상 현저히 지장이 있다고 판단되는 경우 
  
@@ -200,23 +200,24 @@
 </table>
 <br>
 <div style="text-align: center">
-  <label><input type="checkbox" name="agree" id="agree" class="form-check-label"/>약관에 동의합니다</label>
+  <label><input type="checkbox" name="agree" id="agree" class="form-check-label">약관에 동의합니다</label>
   <input type="button" value="회원가입" class="btn btn-primary" onclick="location.href='/member/memberform'"> 
   <input type="button" value="취소"    class="btn btn-primary" onclick="javascript:history.back()"/>
-</div>
+  </div>
 </form>
 
 <script>
-  function send() {
+	function send() {
     if(document.getElementById("agree").checked==true){
-      return true;
+        return true;
     }else{
-      alert("약관에 동의한 후 회원가입이 가능합니다");
-      return false;
+        alert("약관에 동의한 후 회원가입이 가능합니다");
+        return false;
     }//if end
-  }//send() end
+}//send() end
   
 </script>
+
 
 <!-- 본문작성 끝 -->
 <%@ include file="../footer.jsp"%>

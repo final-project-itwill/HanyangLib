@@ -124,7 +124,8 @@
 <!--			<artifactId>spring-security-test</artifactId>-->
 <!--			<scope>test</scope>-->
 <!--		</dependency>-->
-
+		<!-- mail 서포트 -->		           
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
 		<!-- 사용자 추가 의존성 끝 -->
 	</dependencies>
 

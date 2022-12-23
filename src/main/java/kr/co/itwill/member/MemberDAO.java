@@ -45,10 +45,18 @@ public class MemberDAO {
 		 return sqlSession.update("member.withdraw", m_id);
 	 }//memberWithdraw() end
 	 
+	 //---------비밀번호 찾기 DAO 작업
+	 
 	 public int memberfindpw(String m_id) {
 		 return sqlSession.selectOne("member.findpw",m_id);
 	 }//memberfindpw() end
 	
-		
+	 public int memberpwCnt(String m_id) {
+		 return sqlSession.selectOne("member.memberpwcnt", m_id);
+	 }//memberpwCnt() end
+	 
+	 public int memberpwUpdate(String m_id) {
+		 return sqlSession.update("member.pwupdate", m_id);
+	 }
 	 
 }//class end

@@ -4,29 +4,41 @@
 <%@ include file="../header.jsp"%>
 <div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/libbg.jpg'); height: 40vh;"></div>
 <!-- 본문작성 시작 -->
- <!-- 아이디 입력 폼 -->
- <div class="container">
-  <form method="post" class>
-    <label for="userId">아이디</label>
-    <input type="text" name="m_id" id="m_id"/>
-    <button type="submit" id="findpw">확인</button>
-  </form>
-  </div>
-  <script>
-  $("#finpw").click(function() {
-		$.post(
-				"findpw"
-				,"m_id=" + $("#m_id").val()
-				,findPWProc()		
-		);
-	}); //click() end
-	
-	
-	function findPWProc(result) {
-		$("#idpanel").empty();
-		$("#idpanel").html(result);
-		$("#idpanel").show();
-	}
-</script>
+
+ <!-- 아이디,이메일 입력 폼 -->
+	<div class="p-5">
+     <div class="text-center">
+         <h1 class="h4 text-gray-900 mb-2">비밀번호 찾기</h1>
+         <p class="mb-4">아이디와 이메일을 입력해주세요!</p>
+     </div>
+     <form class="user" action="/member/findPw" method="post">
+        <div class="form-group">
+             <input type="text" class="form-control form-control-user"
+                 id="memberId" aria-describedby="IdHelp" name="memberId"
+                 placeholder="ID를 입력하세요...">
+         </div>
+         <div class="form-group">
+             <input type="email" class="form-control form-control-user"
+                 id="memberEmail" aria-describedby="emailHelp" name="memberEmail"
+                 placeholder="EMAIL을 입력하세요...">
+         </div>
+          
+         <button type="submit" class="btn btn-primary btn-user btn-block" onclick="location.href='/member/pwupdateform'">
+             비밀번호 찾기
+         </button>
+     </form>
+     <hr>
+      <a href="/login/index" class="btn btn-google btn-user btn-block">
+            Login
+         </a>
+         <hr>
+        <div class="text-center">
+         <a class="small" href="/">메인페이지</a>
+     </div>
+     </div>
+
+
+
+
 <!-- 본문작성 끝 -->
 <%@ include file="../footer.jsp"%>
