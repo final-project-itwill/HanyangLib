@@ -98,15 +98,15 @@ public class AdminCont {
         return mav;
     }//listInquiry()
 
-    @RequestMapping("/insertResponse")
-    public String insertResponse(@ModelAttribute ResponseDTO dto){
+    @RequestMapping("/insertResponse/{ask_no}")
+    public String insertResponse(@PathVariable int ask_no, @RequestParam String ans_content){
 
-        System.out.println(dto.getAns_content());
-        System.out.println(dto.getAns_no());
+        System.out.println(ans_content);
+        System.out.println(ask_no);
 
         ResponseDTO answer = new ResponseDTO();
-        answer.setAns_no(dto.getAns_no());
-        answer.setAns_content(dto.getAns_content());
+        answer.setAns_no(ask_no);
+        answer.setAns_content(ans_content);
         inquiryDao.insertResponse(answer);
         return "admin/inquiryList";
     }//insertResponse() end

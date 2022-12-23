@@ -24,13 +24,13 @@
         </thead>
         <tbody>
             <!-- 문의 영역 -->
-            <c:forEach var="list" items="${list}">
+            <c:forEach var="list" items="${list}" varStatus="vs">
             <tr>
                 <td style="color: #1da1f2">
                         ${list.ask_type}
                 </td>
                 <td class="text-left">
-                    <button name="detailBtn" class="btn datailBtn" value="${list.ask_no}" onclick="viewHidden(this)">${list.ask_title}</button>
+                    <button name="detailBtn" class="btn datailBtn" value="${vs.count}" onclick="viewHidden(this)">${list.ask_title}</button>
                 </td>
                 <td>${list.ask_rdate}</td>
                 <c:choose>
@@ -44,7 +44,7 @@
             </tr>
 
             <!-- 문의 내용 -->
-            <tr id="hidden${list.ask_no}" class="contentDetail" style="background-color: #F6F6F6; display: none">
+            <tr id="${vs.count}" class="contentDetail" style="background-color: #F6F6F6; display: none">
                 <td><br></td>
                 <td colspan="2" class="text-left">${list.ask_content}</td>
                 <td></td>
@@ -52,13 +52,12 @@
 
             <!-- 답변 영역 -->
             <c:if test="${list.ans_no != ''}">
-            <tr id="hidden${list.ask_no}" class="contentDetail" style="background-color: #F6F6F6; display: none">
+            <tr id="${vs.count}" class="contentDetail" style="background-color: #F6F6F6; display: none">
                 <td>한양서재<br>CS 담당자</td>
                 <td colspan="2" class="text-left">${list.ans_content}</td>
                 <td style="color: #1da1f2">답변완료</td>
             </tr>
             </c:if>
-
             </c:forEach>
         </tbody>
     </table><!-- 게시판 테이블 끝 -->
@@ -70,9 +69,11 @@
 
 
 <script>
+
     //문의내용 클릭시 display 처리
     function viewHidden(this1){
-        let divID = "#hidden"+this1.value;
+        let divID = "#"+this1.value;
+        //alert(divID)
 
         if ($(divID).css("display") == "none") {
             $(divID).css("display", "table-row");
