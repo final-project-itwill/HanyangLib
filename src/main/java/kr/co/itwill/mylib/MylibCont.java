@@ -40,6 +40,9 @@ public class MylibCont {
 	@Autowired
 	BookDAO bookDao;
 	
+	@Autowired
+	BrcommentDAO commentDao;
+	
 	@RequestMapping("/libindex/{lib_id}")
 	public ModelAndView read(@PathVariable String lib_id) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -246,6 +249,10 @@ public class MylibCont {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("mylib/reviewRead");
 		mav.addObject("rvRead", mylibDao.getReviewRead(br_no));
+		mav.addObject("cmCount", commentDao.getCmCount(br_no));
+		//System.out.println(mylibDao.getReviewRead(br_no));
+		
+		
 		// 서평 조회수 1씩 늘리기
 		mylibDao.rvCount(br_no);
 		return mav;
@@ -345,5 +352,48 @@ public class MylibCont {
 		return "redirect:/mylib/libindex/"+m_id;
 	}
 	
+	// 서평 댓글 로직 구현
+	@ResponseBody
+	@RequestMapping("/cminsert")
+	private int cmInsert(@RequestParam int brc_pno, @RequestParam String brc_id, @RequestParam String brc_content, HttpServletRequest req) throws Exception {
+		//System.out.println("00000000");
+		BrcommentDTO comment = new BrcommentDTO();
+		comment.setBrc_content(brc_content);
+		comment.setBrc_id(brc_id);
+		comment.setBrc_pno(brc_pno);
+	    return commentDao.cmInsert(comment);
+	} // cmInsert() end
+	
+	
+	@RequestMapping("/cmlist")
+	@ResponseBody
+	private List<BrcommentDTO> cmList(@RequestParam int brc_pno, @RequestParam int limit) throws Exception {
+		
+		//System.out.println("11111");
+		
+		BrcommentDTO dto = new BrcommentDTO();
+		dto.setBrc_pno(brc_pno);
+		dto.setLimit(limit);
+		
+		//System.out.println(commentDao.commentList(dto).size());
+		
+	    return commentDao.commentList(dto);
+	} // cmList() end
+		
+	@ResponseBody
+	@RequestMapping("/cmupdate")
+	private int cmUpdate(@RequestParam int brc_no, @RequestParam String brc_content) throws Exception {
+		BrcommentDTO comment = new BrcommentDTO();
+	    comment.setBrc_no(brc_no);
+	    comment.setBrc_content(brc_content);
+	    return commentDao.cmUpdate(comment);
+	} // cmUpdate() end
+	
+	@RequestMapping("/cmDelete/{brc_no}")
+	@ResponseBody
+	private int cmDelete(@PathVariable int brc_no) throws Exception {
+	    return commentDao.cmDelete(brc_no);
+	} // cmDelete() end
+
 
 } // class end

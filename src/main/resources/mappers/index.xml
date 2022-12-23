@@ -2,4 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="index">
 
+	<select id="mdComm" resultType="kr.co.itwill.community.CommunityDTO">
+        <![CDATA[
+        SELECT c_code, c_name, c_des, c_bcode, c_local, c_id, c_chat, c_banner ,c_count, c_state, c_rdate, c_pick
+        FROM community
+        WHERE c_pick = 'Y'
+        ]]>
+    </select>
+    
+    	<select id="mdReview" resultType="kr.co.itwill.mylib.BookReviewDTO">
+        <![CDATA[
+        SELECT *
+        FROM (
+	        SELECT br_no, br_title, br_bcode, br_id, br_content, br_star, br_count, br_rdate
+	        FROM bookreview
+	        ORDER BY br_count DESC LIMIT 3
+	        ) AA LEFT OUTER JOIN (
+	        SELECT b_code, b_name, b_bookcover
+	        FROM book
+	        ) BB
+	    ON AA.br_bcode = BB.b_code
+        ]]>
+    </select>
+    
+
 </mapper>

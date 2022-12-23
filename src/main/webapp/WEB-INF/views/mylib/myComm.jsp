@@ -4,65 +4,43 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../header.jsp"%>
+<!-- 나만의 서재 관련 link, style 시작 -->
+<link rel="stylesheet" href="/css/libtable.css">
+<!-- Custom fonts for this template-->
+<link href="/adminBootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="/adminBootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+
+<style>
+.site-nav .site-navigation .site-menu > li > a {
+	color : black;
+}
+.site-nav .site-navigation .site-menu > li.active > a {
+	color : black;
+}
+.lib-cont * {
+	font-family: "KyoboHandwriting2020A";
+}
+.lib-cont  a, .lib-cont a:hover {
+	color : black !important;
+}
+</style>
+<!-- 나만의 서재 관련 link, style 끝 -->
 <!-- 본문작성 시작 -->
-<!-- 배너 시작 -->
-<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('/images/libbg.jpg'); height: 40vh;"></div>
+<!-- 배너와 커뮤니티장 사진이 들어가는 곳 -->
+	<div class="hero-slant" data-stellar-background-ratio="0.5" style="background-image: url('../../images/topbg.jpg'); height: 60vh;">
+	</div>
 <!-- 배너 끝 -->
 <div class="container-fluid">
 	<div class="row lib-row">
-	<!-- 개인 정보 시작 -->
-	<div class="lib-info col-12 col-sm-3 col-lg-3">
-	<c:forEach items="${libInfo}" var="info">
-		<table class="table">
-		<tr align="center">
-			<td valign="middle" style="line-height: 180%;">
-				<span style="font-weight: bold; font-size: 35px;">
-					<a href="/mylib/libindex/${lib_id}">${info.m_nick}</a>
-				</span><br>
-				${lib_id}<br>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<div style="background-image: url('/images/heart.png');
-							background-position: center;
-							background-repeat: no-repeat;
-							background-size: 10vh;
-							position: relative;
-							height: 10vh;">
-				<p style="color: white; font-weight: bold; text-align: center; padding-top: 2vh;">${info.m_heat}</p>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				서재에 있는 책은 모두 : ${bookCount}권<br>
-				80% 이상 읽은 책은 : ${book80Count}권
-			</td>
-		</tr>
-		<tr>
-			<td>
-			<button class="btn btn-warning">이번 달 목표 설정하기</button>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				이번 달은<br>
-				<span style="font-weight: bold; font-size: 35px;">4</span> 권 읽기
-			</td>
-		</tr>
-		<tr>
-			<td>
-				이번 해는<br>
-				<span style="font-weight: bold; font-size: 35px;">12</span> 권 읽기
-			</td>
-		</tr>
-		</table>
-	</c:forEach>
+	<div class="container-fluid text-right lib-cont">
+		<h1>그대의, 커뮤니티</h1>
+		<h4 style="font-size: medium;">1+1이 2라고요?.. 누가 그랬어요?</h4>
 	</div>
-	<!-- 개인 정보 끝 -->
 	<!-- 커뮤니티 목록 시작 -->
-	<div class="lib-cont col-12 col-sm-9 col-lg-9">
+	<div class="lib-cont col-12">
     <div class="section-latest">
       <div class="container">
         <div class="row gutter-v1 align-items-stretch mb-5">
@@ -70,15 +48,21 @@
           <c:forEach items="${commuRead}" var="commu">
               <div class="col-12">
                 <div class="post-entry horizontal d-md-flex">
-                  <div class="media">
-                    <a href="#"><img src="images/img_h_3.jpg" alt="Image" class="img-fluid"></a>
+                  <div class="media" style="width: 20vw; padding-right: 20px;">
+                    <img src="/storage/${commu.c_banner}" alt="Image" class="img-fluid">
                   </div>
                   <div class="text">
                     <div class="meta">
-                      <span>May 10, 2020</span>
+                      <span>가입일 : ${commu.ac_rdate.substring(0,11)}</span>
                     </div>
-                    <h2><a href="#">${commu.c_name}</a></h2>
-                    <p>${commu.ac_manjok}</p>
+                    <h2><a href="/comm/read/${commu.c_code}">${commu.c_name}</a></h2>
+                    <c:if test="${commu.ac_manjok ne null}">
+	                    <p>
+	                    <c:forEach var="cnt" begin="1" end="${commu.ac_manjok}" step="1">
+								<img src="/images/star.png" width="15px">
+						</c:forEach>
+						</p>
+					</c:if>
                   </div>
                 </div>
               </div>
