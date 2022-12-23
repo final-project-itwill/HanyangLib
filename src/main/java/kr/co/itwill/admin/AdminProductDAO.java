@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.itwill.book.BookDTO;
 
@@ -25,14 +28,18 @@ public class AdminProductDAO {
 	SqlSession sqlSession;
 	
 	
-	public List<BookDTO> productlist(){
-		return sqlSession.selectList("product.productlist"); 
+	public List<BookDTO> productlist(BookDTO rows){
+		return sqlSession.selectList("product.productlist", rows); 
 	}//list() end
 	
 	
-	public void insert(Map<String, Object> map) {
-		sqlSession.insert("book.insert");
+	public int insert(BookDTO book) {
+		return sqlSession.insert("book.insert", book);
 	}//insert() end
+	
+	public BookDTO readBook(String b_code){
+        return sqlSession.selectOne("book.readBook", b_code);
+    }//readBook() end
 	
 	public String filename(String b_code) {
 		return sqlSession.selectOne("product.filename", b_code);
@@ -41,16 +48,7 @@ public class AdminProductDAO {
 	public void delete(String b_code) {
 		sqlSession.delete("book.delete", b_code);
 	}//delete() end
-	
-	
-	public Map<String, Object> detail(String b_code){
-		return sqlSession.selectOne("book.detail", b_code);
-	}//detail() end
-	
-	
-	public void update(Map<String, Object> map) {
-		sqlSession.update("book.update", map);
-	}// update() end
+
 	
 	
 	//도서 총 행 갯수
@@ -59,9 +57,19 @@ public class AdminProductDAO {
 		}// totalRowCount() end
 
 
+	//검색
+	public List<BookDTO> search(String keyword){
+		return sqlSession.selectList("book.search", keyword);
+	}
+	
+	//상세페이지
+	public BookDTO productdetail(String b_code) throws Exception {
+		return sqlSession.selectOne("admin.productdetail", b_code);
+	}
 
 	
-	
-	
-	
+	//수정
+	public int productupdate(BookDTO dto){
+				return sqlSession.update("admin.productupdate", dto);
+	}//productupdate() end
 }

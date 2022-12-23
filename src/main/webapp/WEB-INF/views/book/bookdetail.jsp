@@ -80,7 +80,9 @@
             </div>
           </div>
         </div>
-        
+        <c:choose>
+        <%-- 로그인 했을 때 --%>
+		<c:when test="${grade!=null}">
          <div class="d-none d-lg-block row align-items-center py-3"> 
           <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center" style="margin-top:30px">
             <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
@@ -125,6 +127,52 @@
 	        </a>
 	      </div>
 	    </div>  
+	   </c:when>
+	   
+	   
+	    <%-- 로그인 안했을 때 --%>
+		<c:otherwise> 
+         <div class="d-none d-lg-block row align-items-center py-3"> 
+          <div class="col-12 col-sm-12 col-lg-12 site-navigation text-center" style="margin-top:30px">
+            <ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu">
+	          <li class="active"><a href="/" style="font-weight: bold; color:black;">Home</a></li>
+	          <li class="has-children">
+	          <a href="/book/booklist" style="font-weight: bold;color:black;">도서목록</a>
+	          <ul class="dropdown">
+                  <li><a href="/book/bookcate_a?pageNum=1">전체보기</a></li>
+                  <li><a href="/book/bookcate_n?pageNum=1">소설/시</a></li>
+                  <li><a href="/book/bookcate_e?pageNum=1">에세이</a></li>
+                  <li><a href="/book/bookcate_h?pageNum=1">인문</a></li>
+                  <li><a href="/book/bookcate_s?pageNum=1">자연과학</a></li>
+                </ul>
+	          </li>
+	          <li><a href="/gudok/detail" style="font-weight: bold; color:black;">구독</a></li>
+	          <li><a href="/login/index" style="font-weight: bold; color:black;">나만의 서재</a></li>
+	          <li><a href="/login/index"  style="font-weight: bold; color:black;">커뮤니티</a></li>
+              <li class="has-children">
+              	<a href="#" style="color:gray;">고객센터</a>
+                <ul class="dropdown">
+                  <li><a href="/notice/list?pageNum=1">공지사항</a></li>
+                  <li><a href="#">문의</a></li>
+                </ul>
+              </li>
+	        </ul>
+		<ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right menu-absolute">
+           	<li class="cta-button">
+              		<a class="font2" href="/login/index" style="font-weight: bold;">
+        				<i class="fas fa-sign-in-alt"></i> 로그인
+        			</a>
+        	</li>
+        	<!-- 장바구니 목록 추가 -->
+            <li><a href="/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}" style="font-weight: bold; color: gray;"><i class="fas fa-shopping-cart"></i></a></li>
+        	</ul>	        
+	        <a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
+	          <span></span>
+	        </a>
+	      </div>
+	    </div>  
+	   </c:otherwise>
+	  </c:choose>  
       </nav> <!-- END nav -->
 
     </div> <!-- END container -->
