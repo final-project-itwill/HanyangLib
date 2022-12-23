@@ -41,6 +41,11 @@ public class SurveyDAO {
 		return sqlSession.selectOne("survey.count", dsv_code);
 	}// svCount() end
 	
+	// 커뮤니티 이름 가져오기
+	public String getcname(String c_code) {
+		return sqlSession.selectOne("survey.getcname", c_code);
+	}// getcname() end
+	
 	// 커뮤니티 가입 신청서의 문항별 세부 선택 사항 조회
 	public List<ChoiceDTO> svChoice(String dsv_code) throws Exception {
 		return sqlSession.selectList("survey.choice", dsv_code);
