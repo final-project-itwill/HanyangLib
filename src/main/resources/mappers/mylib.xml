@@ -73,6 +73,7 @@
 			FROM book
 			) BB
 		ON AA.lib_bcode = BB.b_code
+		ORDER BY lib_no DESC
 		]]>	
 	</select>
 	
@@ -85,23 +86,23 @@
 	
 	<select id="commuRead" resultType="kr.co.itwill.mylib.CommuReadDTO">
 		<![CDATA[
-		SELECT c_code, c_name, c_id, c_state, ac_ccode, ac_manjok, ac_review, ac_id
+		SELECT c_code, c_name, c_id, c_state, c_banner, ac_ccode, ac_manjok, ac_review, ac_id, ac_rdate
 		FROM (
-			SELECT c_code, c_name, c_id, c_state
+			SELECT c_code, c_name, c_id, c_state, c_banner
 			FROM community
 			WHERE c_id = #{lib_id}
 			) AA LEFT OUTER JOIN (
-			SELECT ac_ccode, ac_manjok, ac_review, ac_id
+			SELECT ac_ccode, ac_manjok, ac_review, ac_id, ac_rdate
 			FROM community_ac
 			) BB
 		ON AA.c_id = BB.ac_id
 		UNION
-		SELECT c_code, c_name, c_id, c_state, ac_ccode, ac_manjok, ac_review, ac_id
+		SELECT c_code, c_name, c_id, c_state, c_banner, ac_ccode, ac_manjok, ac_review, ac_id, ac_rdate
 		FROM (
-			SELECT c_code, c_name, c_id, c_state
+			SELECT c_code, c_name, c_id, c_state, c_banner
 			FROM community
 			) AA RIGHT OUTER JOIN (
-			SELECT ac_ccode, ac_manjok, ac_review, ac_id
+			SELECT ac_ccode, ac_manjok, ac_review, ac_id, ac_rdate
 			FROM community_ac
 			WHERE ac_id = #{lib_id}
 			) BB
