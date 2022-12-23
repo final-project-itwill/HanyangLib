@@ -10,14 +10,8 @@
 <div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-color: #0E2A47; height: 13vh;"></div>
 
 <div class="container" style="padding-top: 100px;">
-    <h4 style="font-weight: bold; text-align: center">공지사항</h4>
+    <h4 style="font-weight: bold; text-align: center; margin-bottom: 20px">공지사항</h4>
 
-    <!-- loginID 등급이 관리자(A)만 쓰기 가능 -->
-    <c:if test="${grade == 'A'}">
-        <div class="contents">
-            <input type="button" value="공지사항 쓰기" onclick="location.href='insert'">
-        </div>
-    </c:if>
     <table class="table">
         <tr>
             <th>분류</th>

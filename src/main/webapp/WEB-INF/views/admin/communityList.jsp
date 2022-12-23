@@ -34,7 +34,7 @@
 
     <br><br><br>
 
-    <!-- 회원list 시작 -->
+    <!-- 커뮤니티 list 시작 -->
     <div class="container-fluid">
 
         <h1 class="h3 mb-2 text-gray-800" style="font-weight: bold">한양서재 커뮤니티 목록</h1>
@@ -83,7 +83,7 @@
             </form>
         </div>
 
-    </div><!-- 회원 list 끝 -->
+    </div><!-- 커뮤니티 list 끝 -->
 
 <!-- 목록 필터링 조회/MD pick 업데이트를 위한 js -->
 <script>

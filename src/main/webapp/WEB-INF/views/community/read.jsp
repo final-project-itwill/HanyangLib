@@ -161,20 +161,53 @@
 
     //커뮤니티 신청
     function clickSignup(){
+    	let sv_code = '${sv_code}'
         let signState = '${checkID.s_state}';   //로그인id의 가입 상태
         let owner = '${checkOwner}';
+
         if(owner == loginID){
             alert("당신이 만든 커뮤니티입니다.");
         }else{
-            if(signState == ''){                    //가입이력 없음
-                location.href = "/survey/write/${c_code}";       //나중에 설문지페이지와 바로 연결하기
-            }else if(signState == 'i') {
-                alert("이미 가입을 신청한 커뮤니티입니다. \n 가입 승인을 기다려주세요.");
-            }else if(signState == 's'){
-                alert("이미 가입이 승인된 커뮤니티입니다.");
-            }else if(signState == 'r'){
-                alert("가입 신청이 반려된 커뮤니티입니다.");
-            }//if end
+         	if(sv_code ==''){
+	            if(signState == ''){                    //가입이력 없음
+	            	
+	        		let s_nick = '${s_nick}';
+	        		alert(s_nick);
+	        		let comsign = {
+	        				s_code : c_code,
+	        				s_id : loginID,
+	        				s_nick : s_nick
+	        			} // survey end
+	        			
+	        			$.ajax({
+	        				type: "post",
+	        				url:"/survey/write/comsign",
+	        				contentType: "application/json",
+	        				data: JSON.stringify(comsign)
+	        			}) // ajax end	
+	        			alert(" 가입 신청 되었습니다. ");
+	        			
+	            }else if(signState == 'i') {
+	                alert("이미 가입을 신청한 커뮤니티입니다. \n 가입 승인을 기다려주세요.");
+	            }else if(signState == 's'){
+	                alert("이미 가입이 승인된 커뮤니티입니다.");
+	            }else if(signState == 'r'){
+	                alert("가입 신청이 반려된 커뮤니티입니다.");
+	            }//if end
+	            
+        	}else{ 
+        		
+	            if(signState == ''){                    //가입이력 없음
+	                location.href = "/survey/write/${c_code}";       //나중에 설문지페이지와 바로 연결하기
+	            }else if(signState == 'i') {
+	                alert("이미 가입을 신청한 커뮤니티입니다. \n 가입 승인을 기다려주세요.");
+	            }else if(signState == 's'){
+	                alert("이미 가입이 승인된 커뮤니티입니다.");
+	            }else if(signState == 'r'){
+	                alert("가입 신청이 반려된 커뮤니티입니다.");
+	            }//if end
+	            
+        	}// sv_code if end
         }//if end
     }//checkSignup() end
 
@@ -231,26 +264,33 @@
                     //alert(key);
                     //alert(value);
                     a += '<tr class="reviewArea" style="border: 1px solid darkgray; margin-bottom: 15px">';
-                    a += '  <td class="reviewInfo' + value.ac_no +'">';
-                    a += '      <p>작성자 : ' + value.ac_id + "</p>  <p>" + value.ac_rdate;
-                    a += '  </p></td><td class="text-right">';
+                    a += '  <td class="reviewInfo' + value.ac_no +'"><br>';
+                    a += '      <div colspan="2" class="content' + value.ac_no +'">'
+                    a += '          <strong> "' + value.ac_review + '"</strong>  <span style="text-align: right">별점 :';
+                                for(i=1; i<=value.ac_manjok; i++){
+                    a += '          <img src="/images/star.png" width="15px"></span>';
+                                }//for end
+                    a += '';
+                    a += '      </div>';
+                    a += '      <div class="row"><p>작성자 : ' + value.ac_id + "</p>";
+                    a += "          <p>작성일 : " + value.ac_rdate;
+                    a += '      </div></p></td><td class="text-right">';
 
-                    if(value.ac_id == loginID || value.ac_id =='webmaster'){    //작성자||관리자만 수정/삭제 버튼 접근 가능
+                    if(value.ac_id == loginID || loginID =='webmaster'){    //작성자||관리자만 수정/삭제 버튼 접근 가능
                         a += '      <a href="javascript:openReviewUpdatePanel(' + value.ac_no + ',\'' + value.ac_review + '\',' + value.ac_manjok + ');">수정</a>';
                         a += '      <a href="javascript:deleteReview(' + value.ac_no + ');">삭제</a>';
                     };//if end
                     a += '  </td>';
                     a += '  </tr><tr>';
-                    a += '  <td colspan="2" class="content' + value.ac_no +'">'
-                    a += '      <p>후기 내용 : ' + value.ac_review + ' / 만족도 :' +  value.ac_manjok + '</p>';
-                    a += '  </td>';
+
                     a += '</tr>';
                 });//each() end
 
                 let b = '';
                 b += '  <tr class="moreBtnDiv">';
                 b += '  <td colspan="2">';
-                b += '      <button type="button" class="btn btn-outline-light text-dark btn-block" id="moreBtn" name="moreBtn" onclick="more()">더보기</button>';
+                b += '      <button type="button" class="btn btn-outline-light text-dark btn-block" id="moreBtn" name="moreBtn" onclick="more()">';
+                b += '          <i class="fa fa-plus"></i> <strong>더보기</strong></button>';
                 b += '  </td></tr>';
                 if(limit < size) a += b;
                 $(".reviewList").html(a);   //<div class="reviewList"></div>
