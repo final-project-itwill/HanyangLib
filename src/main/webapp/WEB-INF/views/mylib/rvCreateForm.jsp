@@ -9,7 +9,7 @@
   width: 50%;
   height: 15px;
   border-radius: 5px;  
-  background: #d3d3d3;
+  background: #04AA6D;
   outline: none;
   opacity: 0.7;
   -webkit-transition: .2s;
@@ -38,12 +38,39 @@
   cursor: pointer;
 }
 </style>
-<!-- 본문작성 시작 -->
-<!-- 헤더용 div -->
-<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-color: gray; height: 40vh;"></div>
+<!-- 나만의 서재 관련 link, style 시작 -->
+<link rel="stylesheet" href="/css/libtable.css">
+<!-- Custom fonts for this template-->
+<link href="/adminBootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="/adminBootstrap/css/sb-admin-2.min.css" rel="stylesheet">
 
+<style>
+.site-nav .site-navigation .site-menu > li > a {
+	color : black;
+}
+.site-nav .site-navigation .site-menu > li.active > a {
+	color : black;
+}
+.lib-cont * {
+	font-family: "KyoboHandwriting2020A";
+}
+.lib-cont  a, .lib-cont a:hover {
+	color : black !important;
+}
+</style>
+<!-- 나만의 서재 관련 link, style 끝 -->
+<!-- 본문작성 시작 -->
+<!-- 배너와 커뮤니티장 사진이 들어가는 곳 -->
+	<div class="hero-slant" data-stellar-background-ratio="0.5" style="background-image: url('../../images/topbg.jpg'); height: 60vh;">
+	</div>
+<!-- 배너 끝 -->
 <div style="text-align: center; margin-top: 30px">
+	<div class="lib-cont">
     <h2 style="font-weight: bold; margin-bottom: 30px">서평 쓰기</h2>
+    </div>
 
     <div class="container-fluid col-lg-8">
     <form method="post" action="rvInsert">
@@ -64,8 +91,8 @@
 			    <div class="modal-content">
 			
 			      <!-- Modal Header -->
-			      <div class="modal-header">
-			        <h4 class="modal-title">나의 서재에서 책을 한 권 꺼내보아요</h4>
+			      <div class="modal-header lib-cont">
+			        <h4 class="modal-title" style="text-align: center;">나의 서재에서 책을 한 권 꺼내보아요</h4>
 			        <button type="button" class="close" data-dismiss="modal">&times;</button>
 			      </div>
 			
@@ -128,13 +155,14 @@
 				<script>
 				 CKEDITOR.replace('br_content',
 					{ width: '100%',
-					  height: '500'
+					  height: '250'
 				});
 				</script>
 		</div>
         <div align="center">
-            <input type="submit" value="등록">
-            <input type="button" value="목록" onclick="location.href='list'">
+        	<br>
+            <input class="btn btn-primary" type="submit" value="등록">
+            <input class="btn btn-primary" type="button" value="목록" onclick="history.back()">
         </div>
     </form>
     </div>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comment">
+
+	<insert id="insert" parameterType="kr.co.itwill.mylib.BrcommentDTO">
+	    <![CDATA[
+	    INSERT INTO brcomment( brc_pno, brc_id, brc_content )
+	    VALUES ( #{brc_pno}, #{brc_id}, #{brc_content} )
+	    ]]>	    
+	</insert>
+	
+	<select id="list" resultType="kr.co.itwill.mylib.BrcommentDTO">
+		<![CDATA[
+		SELECT brc_no, brc_pno, brc_id, brc_content, brc_rdate
+		FROM brcomment
+		WHERE brc_pno = #{brc_pno}
+		ORDER BY brc_rdate DESC LIMIT #{limit}
+		]]>	
+	</select>
+	
+	<select id="getCmCount" resultType="int" parameterType="int">
+		<![CDATA[
+		SELECT COUNT(*)
+		FROM brcomment
+		WHERE brc_pno = #{brc_pno}
+		]]>	
+	</select>
+	
+	<update id="update" parameterType="kr.co.itwill.mylib.BrcommentDTO">
+		<![CDATA[
+		UPDATE brcomment
+		SET brc_content = #{brc_content}
+		WHERE brc_no = #{brc_no}
+		]]>
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		<![CDATA[
+		DELETE FROM brcomment
+		WHERE brc_no = #{brc_no}
+		]]>
+	</delete>
+
+
+</mapper>

@@ -110,7 +110,7 @@ function addProduct(){
 				</tr>
 				<tr>
 					<td>출판일</td>
-					<td><input type="date" name="cdate"></td>
+					<td><input type="date" name="rdate"></td>
 				</tr>
 				<tr>
 					<td>상품설명</td>

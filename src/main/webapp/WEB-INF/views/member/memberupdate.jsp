@@ -77,7 +77,7 @@
 	        <tr>
 	            <td colspan="2" align="center">
 	               <!--  <input type="hidden" name="" value=""> -->
-	                <input type="submit" class="btn btn-success" value="회원수정" onclick="">
+	                <input type="submit" class="btn btn-success" value="회원수정" onsubmit="memupdate()">
 	            </td>
 	        </tr>
 	      </table>
@@ -105,20 +105,17 @@
    
     <script>
     function memupdate(){
-    	alert($("input:checkbox[name='mailcheck']").is(":checked"));
     	if($("input:checkbox[name='mailcheck']").is(":checked") == true){
 			$("#m_mailcheck").val('Y');
-			//alert($("#m_mailcheck").val());
 		} else if($("input:checkbox[name='mailcheck']").is(":checked") == false){
 			$("#m_mailcheck").val('N');
-			//alert($("#m_mailcheck").val());
-		}
+		}//if end
 		
 		if($("input:checkbox[name='smscheck']").is(":checked") == true){
 			$("#m_smscheck").val('Y');
 		} else if($("input:checkbox[name='smscheck']").is(":checked") == false){
 			$("#m_smscheck").val('N');
-		}
+		}//if end
     	
     	if(confirm("정보가 입력됩니다\n수정할까요?")){
     	document.membupdate.action="/member/update";		//수정 후 수정페이지로 이동

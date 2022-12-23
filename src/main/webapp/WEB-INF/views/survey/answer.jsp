@@ -4,15 +4,40 @@
 <%@ taglib prefix="fmt"	uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn"	uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="../community/admin_header.jsp"%>
+<style>
 
-<div style="text-align: center; margin-top: 30px">
-    <h2 style="font-weight: bold; margin-bottom: 30px"> ${s_id} 신청서 보기</h2>
+	table{
+		width: 300px;
+		
+		cellpadding:10px;
+		
+		cellspacing:0;
+		
+		margin-bottom : 50px;
+	}
+	th{
+		height: 40px;
+	}
+	td{
+		height: 50px;
+		vertical-align : bottom;
+	}
+</style>
 
-    <div class="container-fluid col-lg-8 card shadow">
+    <div class="container-fluid" style="  width : 70%; margin-bottom : 100px;">
+
+        <h1 class="h3 mb-2 text-gray-800" style="font-weight: bold">설문지 확인하기</h1>
+        <p class="mb-4">'${read.c_name}'의 설문지 입니다.</p>
+
+        <div class="card shadow mb-6">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">'${s_id}'가 작성한 설문지 입니다.</h6>
+            </div>
+            <div class="card-body">   
 
         <div class="table-responsive">
 <!-- 본문작성 시작 -->	
-	<div class="container" style="margin-top :70px;">
+	<div class="container" >
 	<br>
 		<div>
 		
@@ -20,7 +45,7 @@
 		<!-- 파일 첨부는 하지 않기 때문에 enctype="multipart/form-data"는 필요 없어유 -->
 		<input type="hidden" id="ans_code" name="ans_code" class="ans_code" value="${dsv_code}"> <!-- dsv_code -->
 		<input type="hidden" id="ans_id" name="ans_id" value="${s_id}"> <!-- dsv_code -->
-		<table class="table">
+		<table>
 		<!-- 주관식 반복 -->
 		<c:forEach items="${title}" var="title" varStatus="tvs">
 		
@@ -34,12 +59,12 @@
 		
 		<tr>
 			<input type="hidden" id="ans_order" name="ans_order" value="${orderno}"> <!-- ans_order -->
-			<td style="font-weight: bold;">${title.dsv_subject}</td>
+			<td style="font-weight: bold;">${tvs.count}. ${title.dsv_subject}</td>
 		</tr>
 		<tr>
 			<c:choose>
 						<c:when test="${title.dsv_type eq 'ju'}">
-						<td>
+						<th>
 						<c:forEach items="${choice}" var="choice">
 						<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
@@ -58,17 +83,17 @@
 							</c:when>
 						</c:choose>
 						</c:forEach>
-						</td>
+						</th>
 						</c:when>
 						
 						<c:when test="${title.dsv_type eq 'gaek' or 'etc'}">
-						<td>
+						<th>
 						
 						<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
 
-								<input type="radio" id="${choice.ch_no}" name="${choice.ch_anscode}"  onclick="return(false);"><label for="${choice.ch_order}">${choice.ch_content}</label>
+								<input type="radio" id="${choice.ch_no}" name="${choice.ch_anscode}"  onclick="return(false);"><label for="${choice.ch_order}">&nbsp;${choice.ch_content}</label>
 								<!--문항 만들기 -->
 								<c:forEach items="${answer}" var="ans">
 								<c:choose>
@@ -88,17 +113,17 @@
 							</c:when>
 							</c:choose>
 						</c:forEach>
-						</td>
+						</th>
 						</c:when>
 						
 						<c:when test="${title.dsv_type eq 'check' or 'etc' }">
-						<td>
+						<th>
 						
 						<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
 
-									<input type="checkbox" id="${choice.ch_no}" name="${choice.ch_anscode}"onclick="return(false);"><label for="${choice.ch_order}">${choice.ch_content}</label>
+									<input type="checkbox" id="${choice.ch_no}" name="${choice.ch_anscode}"onclick="return(false);"><label for="${choice.ch_order}">&nbsp;${choice.ch_content}</label>
 									
 								<!--문항 만들기 -->
 
@@ -122,11 +147,11 @@
 								</c:choose>
 							</c:forEach>
 
-							</td>						
+							</th>						
 							</c:when>
 				
 						<c:when test="${title.dsv_type eq 'schedule' }">
-						<td>
+						<th>
 							<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
@@ -143,11 +168,11 @@
 							</c:when>
 							</c:choose>
 							</c:forEach>
-						</td>
+						</th>
 						</c:when>
 						
 						<c:when test="${title.dsv_type eq 'time' }">
-						<td>
+						<th>
 							<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
@@ -164,7 +189,7 @@
 							</c:when>
 							</c:choose>
 							</c:forEach>
-						</td>
+						</th>
 						</c:when>
 					</c:choose>	
 			</tr>
@@ -173,15 +198,14 @@
 	  
 		
 <!-- 설문 End -->
-		<tr>
-		    <td colspan="2" align="center">
-		    	<%-- <input type="button" value="삭제" onclick="location.href='../chdelete.do?ans_code=${dsv_code}'"> --%>
-		    	<a href="/comm/adminmember/${c_code}"> 돌아가기</a>
-		    </td>
-		</tr>    
+	
+		    	
+
 		</table>
 	</form>	
-		
+	
+		<button type="button" onclick=" location.href=/comm/adminmember/${c_code}" id="btn_survey" class="btn btn-outline-light btn-block text-dark" style="font-weight: bold; color: #3b5998; border-color: #2a96a5; width: 100px;    margin:auto;" >돌아가기</button>
+		<br>
 		</div>
 	</div>
 
@@ -190,5 +214,6 @@
 
 	</div>
 	</div>
+</div>
 </div>
 <%@ include file="../community/admin_footer.jsp"%>
