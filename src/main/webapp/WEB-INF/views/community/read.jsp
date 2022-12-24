@@ -59,7 +59,7 @@
                         </tr>
                         <tr>
                             <th>오픈채팅방 주소</th>
-                            <td>${read.c_chat}</td>
+                            <td><a href="https://open.kakao.com/o/gXtrVbVe">${read.c_chat}</a></td>
                         </tr>
                         <tr>
                             <th>커뮤니티 등록일</th>
