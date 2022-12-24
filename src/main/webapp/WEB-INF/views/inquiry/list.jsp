@@ -43,20 +43,22 @@
                 </c:choose>
             </tr>
 
-            <!-- 문의 내용 -->
-            <tr id="${vs.count}" class="contentDetail" style="background-color: #F6F6F6; display: none">
-                <td><br></td>
-                <td colspan="2" class="text-left">${list.ask_content}</td>
-                <td></td>
-            </tr>
 
-            <!-- 답변 영역 -->
-            <c:if test="${list.ans_no != ''}">
-            <tr id="${vs.count}" class="contentDetail" style="background-color: #F6F6F6; display: none">
-                <td>한양서재<br>CS 담당자</td>
-                <td colspan="2" class="text-left">${list.ans_content}</td>
-                <td style="color: #1da1f2">답변완료</td>
-            </tr>
+                <!-- 문의 내용 -->
+                <tr id="${vs.count}" class="contentDetail" style="background-color: #F6F6F6; display: none">
+                    <td><br></td>
+                    <td colspan="2" class="text-left">${list.ask_content}</td>
+                    <td></td>
+                </tr>
+
+                <!-- 답변 영역 -->
+                <c:if test="${list.ans_no != ''}">
+                <tr id="${vs.count}tr" class="contentDetail" style="background-color: #F6F6F6; display: none">
+                    <td>한양서재<br>CS 담당자</td>
+                    <td colspan="2" class="text-left">${list.ans_content}</td>
+                    <td style="color: #1da1f2">답변완료</td>
+                </tr>
+
             </c:if>
             </c:forEach>
         </tbody>
@@ -71,16 +73,21 @@
 <script>
 
     //문의내용 클릭시 display 처리
-    function viewHidden(this1){
-        let divID = "#"+this1.value;
+    function viewHidden(trNum){
+        let askTrId = "#"+trNum.value;
+        let answerTrId = "#"+trNum.value+"tr";
         //alert(divID)
 
-        if ($(divID).css("display") == "none") {
-            $(divID).css("display", "table-row");
-            $(".contentDetail").not(divID).css("display", "none");
+        if ($(askTrId).css("display") == "none") {
+            $(askTrId).css("display", "table-row");
+            $(answerTrId).css("display", "table-row");
+            $('tr:not(' + askTrId + '")'.css("display", "none"));
+            $('tr:not(' + answerTrId + '")'.css("display", "none"));
         } else {
-            $(divID).css("display", "none");
+            $(askTrId).css("display", "none");
+            $(answerTrId).css("display", "none");
         }
+
     }//viewHidden() end
 
 </script>

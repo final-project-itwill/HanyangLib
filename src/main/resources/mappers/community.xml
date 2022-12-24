@@ -129,7 +129,7 @@
 
     <!--  PK키 코드 쿼리  -->
     <select id="createCode" resultType="int">
-        SELECT MAX(CAST(substr(c_code, 4, 6) AS INT))
+        SELECT IFNULL(MAX(CAST(substr(c_code, 4, 6) AS INT)), 0)
         FROM community
     </select>
 

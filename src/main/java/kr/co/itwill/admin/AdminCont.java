@@ -108,7 +108,7 @@ public class AdminCont {
         answer.setAns_no(ask_no);
         answer.setAns_content(ans_content);
         inquiryDao.insertResponse(answer);
-        return "admin/inquiryList";
+        return "redirect:/admin/response";
     }//insertResponse() end
 
 
