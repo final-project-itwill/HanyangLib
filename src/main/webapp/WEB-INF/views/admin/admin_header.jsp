@@ -128,11 +128,11 @@
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">공지사항과 문의관리는 여기서!</h6>
-                    <a class="collapse-item" href="/notice/insert">공지사항 등록</a>
-                    <a class="collapse-item" href="#">공지사항 수정/삭제</a>
+                    <a class="collapse-item" href="/admin/insertNotice">공지사항 등록</a>
+                    <a class="collapse-item" href="/admin/listNotice?pageNum=1">공지사항 관리</a>
                     <h6 class="collapse-header">1:1문의</h6>
                     <a class="collapse-item" href="/admin/response">문의 답변하기</a>
-                    <a class="collapse-item" href="/admin/responseList">답변 수정/삭제</a>
+                    <a class="collapse-item" href="/admin/listResponse">답변 관리</a>
                 </div>
             </div>
         </li><!-- Nav 문의 관리 끝 -->

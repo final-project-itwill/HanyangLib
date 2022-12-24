@@ -31,4 +31,16 @@ public class InquiryDAO {
         return sqlSession.insert("inquiry.insertResponse", answer);
     }//insertResponse() end
 
+    public List<InquiryDTO> listResponse(){
+        return sqlSession.selectList("inquiry.listResponse");
+    }//listResponse() end
+
+    public int delete(int ans_no){
+        return sqlSession.delete("inquiry.delete", ans_no);
+    }//delete() end
+
+    public int update(ResponseDTO response){
+        return sqlSession.update("inquiry.update", response);
+    }//update() end
+
 }//class end

@@ -26,6 +26,7 @@
              )AA RIGHT OUTER JOIN inquiry
              ON AA.ans_no = inquiry.ask_no
         WHERE ans_no IS NULL
+        ORDER BY ask_rdate DESC
     </select>
     
     <!-- 답변 insert -->
@@ -33,5 +34,28 @@
         INSERT INTO response(ans_no, ans_content)
         VALUES (#{ans_no}, #{ans_content})
     </insert>
+
+    <!-- 답변 완료된 목록 -->
+    <select id="listResponse" resultType="kr.co.itwill.inquiry.InquiryDTO">
+        SELECT ask_no, ask_type ,ask_id ,ask_title ,ask_content, ask_rdate, ans_no, ans_content
+        FROM (
+                 SELECT ans_no, ans_content
+                 FROM response
+             )AA RIGHT OUTER JOIN inquiry
+                                  ON AA.ans_no = inquiry.ask_no
+        WHERE ans_no IS NOT NULL
+        ORDER BY ask_rdate DESC
+    </select>
+
+    <delete id="delete">
+        DELETE FROM response
+        WHERE ans_no = #{ans_no}
+    </delete>
+
+    <update id="update">
+        UPDATE response
+        SET ans_content = #{ans_content}
+        WHERE ans_no = #{ans_no}
+    </update>
 
 </mapper>

@@ -54,7 +54,7 @@
                 <!-- 답변 영역 -->
                 <c:if test="${list.ans_no != ''}">
                 <tr id="${vs.count}tr" class="contentDetail" style="background-color: #F6F6F6; display: none">
-                    <td>한양서재<br>CS 담당자</td>
+                    <td style="font-weight: bold">한양서재<br>CS 담당자</td>
                     <td colspan="2" class="text-left">${list.ans_content}</td>
                     <td style="color: #1da1f2">답변완료</td>
                 </tr>

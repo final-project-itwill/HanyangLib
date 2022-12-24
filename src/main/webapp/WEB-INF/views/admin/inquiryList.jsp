@@ -4,7 +4,6 @@
 <%@ include file="admin_header.jsp"%>
 <!-- 본문작성 시작 -->
 
-
 <div class="container-fluid">
 
     <h1 class="h3 mb-2 text-gray-800" style="font-weight: bold">1:1 문의 목록 </h1>
