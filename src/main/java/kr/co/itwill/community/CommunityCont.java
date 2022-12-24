@@ -60,7 +60,7 @@ public class CommunityCont {
 
     //페이징 있는 목록
     @RequestMapping("/list")
-    public ModelAndView list(@RequestParam String pageNum){
+    public ModelAndView list(@RequestParam String pageNum, @RequestParam(defaultValue = "new") String order){
 
         ModelAndView mav = new ModelAndView();
         mav.setViewName("community/list");
@@ -102,6 +102,7 @@ public class CommunityCont {
         mav.addObject("list", commDao.list(rows));
         return mav;
     }//list() end
+
 
     @RequestMapping("/search")
     public ModelAndView search(@RequestParam(defaultValue = "") String keyword){
@@ -197,6 +198,9 @@ public class CommunityCont {
         dto.setC_count(dto.getC_count());
 
         mav.addObject("community", commDao.insert(dto));
+
+        String userID = dto.getC_id();
+        commDao.updateUserGrade(userID);
         mav.setViewName("redirect:/comm/index");    //메인으로 돌아가기
         return mav;
     }//createForm() end

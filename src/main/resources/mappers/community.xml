@@ -28,6 +28,10 @@
         ORDER BY c_rdate DESC
     </select>
 
+    <!-- 최신순/마감순 정렬 list -->
+
+
+
     <!-- 총 행 갯수 -->
     <select id="totalRowCount" resultType="int">
         SELECT COUNT(*)
@@ -102,6 +106,12 @@
         INSERT INTO community (c_code, c_name, c_des, c_bcode, c_local, c_id, c_chat, c_banner ,c_count)
         VALUES (#{c_code}, #{c_name}, #{c_des}, #{c_bcode}, #{c_local}, #{c_id}, #{c_chat}, #{c_banner}, #{c_count})
     </insert>
+
+    <update id="updateUserGrade">
+        UPDATE member
+        SET m_grade = 'B'
+        WHERE m_id = ${userID}
+    </update>
 
 
     <select id="filename" resultType="String">

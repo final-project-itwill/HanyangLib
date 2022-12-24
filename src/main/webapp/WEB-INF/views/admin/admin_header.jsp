@@ -88,7 +88,6 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">한양서재 이용자를 관리해보세요</h6>
-                    <a class="collapse-item" href="#">관리자 계정 관리</a>
                     <a class="collapse-item" href="/admin/memberList">이용자 관리</a>
                 </div>
             </div>
@@ -106,8 +105,6 @@
                     <h6 class="collapse-header">구독</h6>
                     <a class="collapse-item" href="#">구독자 현황</a>
                     <a class="collapse-item" href="#">구독서비스 수정</a>
-                    <a class="collapse-item" href="#"></a>
-                    <a class="collapse-item" href="#"></a>
                     <h6 class="collapse-header">도서</h6>
                     <a class="collapse-item" href="/admin/productmain">Dashboard</a>
                     <a class="collapse-item" href="/admin/productinsert">신규도서 등록</a>

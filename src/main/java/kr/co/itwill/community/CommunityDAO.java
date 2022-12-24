@@ -74,6 +74,10 @@ public class CommunityDAO {
         return sqlSession.insert("community.insert", community);
     }//insert() end
 
+    public int updateUserGrade(String userID){
+        return sqlSession.update("community.updateUserGrade", userID);
+    }//updateUserGrade() end
+
 
     public String filename(String c_code){
         return sqlSession.selectOne("community.filename", c_code);
