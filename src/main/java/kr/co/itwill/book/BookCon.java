@@ -290,7 +290,7 @@ public class BookCon {
 		mav.addObject("book", bookDao.bookdetail(b_code));
 		
 		// *****경환수정*****
-		// 구독 여부를 확인하기(1이면 구독, 0이면 구독 안함)
+		// 구독 여부를 확인하기(Y이면 구독, N이면 구독 안함)
 		mav.addObject("subs", loginDao.subCheck(s_id));
 		
 		// 선택한 책을 보유하고 있는지 확인하기

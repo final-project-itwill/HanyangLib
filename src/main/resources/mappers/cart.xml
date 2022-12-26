@@ -120,5 +120,12 @@
 		</foreach>
 	</insert>
 	
+	<update id="gudokY">
+		<![CDATA[
+			UPDATE member
+			SET m_gudok = 'Y'
+			WHERE m_id = #{s_id}
+		]]>		
+	</update>
 	
 </mapper>

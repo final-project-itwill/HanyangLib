@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,7 @@ public class CartCont {
 	
 	// 장바구니 페이지를 불러오는 명령어
 	@RequestMapping("/cartList")
-	public ModelAndView cartview(@RequestParam String cart_id, @RequestParam String cart_code) throws Exception {
+	public ModelAndView cartview(@RequestParam String cart_id, @RequestParam String cart_code, HttpSession session) throws Exception {
 		ModelAndView mav=new ModelAndView();
 		
 		int checkCart = cartDao.checkCart(cart_id);
@@ -68,9 +69,13 @@ public class CartCont {
 				mav.addObject("addCart", cartDao.addCart(dto));
 			} // if end
 			
+			// 세션의 장바구니 count 최신화
+			int cartcheck = cartDao.checkCart(cart_id);
+			session.setAttribute("s_cart", cartcheck);
+			
 			// 장바구니 리스트
 			mav.addObject("listCart", cartDao.listCart(cart_id));
-						
+			
 			// 장바구니 목록 페이지로 이동
 			mav.setViewName("cart/list");
 		}
@@ -96,7 +101,7 @@ public class CartCont {
 	
 	// 장바구니에서 선택한 항목 삭제시키기
 	@RequestMapping("/delete/{s_id}")
-	public String delete(@PathVariable String s_id, HttpServletRequest req) {	
+	public String delete(@PathVariable String s_id, HttpServletRequest req, HttpSession session) {	
 		System.out.println("아이디는!!!!!!" + s_id);
 		String[] check = req.getParameterValues("addPay");
 		
@@ -111,9 +116,14 @@ public class CartCont {
             dto.setCart_id(s_id);
             deleteList.add(dto);
         }//for end
-		
+
 		cartDao.deleteBook(deleteList);
-		return "redirect:/cart/cartList?cart_id="+s_id;
+		
+		// 세션의 장바구니 count 최신화
+		int cartcheck = cartDao.checkCart(s_id);
+		session.setAttribute("s_cart", cartcheck);
+		
+		return "redirect:/cart/cartList?cart_id="+s_id+"&cart_code=";
 	}
 	
 	// 선택한 항목을 결제 상세 테이블로 인서트 시키기
@@ -188,7 +198,13 @@ public class CartCont {
     
     // 결제를 성공했을 때
     @GetMapping("/kakaoPaySuccess")
-    public ModelAndView kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model, String pay_no, String pay_id, String pay_total, @ModelAttribute PaymentDTO dto) {
+    public ModelAndView kakaoPaySuccess(@RequestParam("pg_token") String pg_token,
+    									Model model,
+    									String pay_no,
+    									String pay_id,
+    									String pay_total,
+    									@ModelAttribute PaymentDTO dto
+    									,HttpSession session) {
         log.info("kakaoPaySuccess get............................................");
         log.info("kakaoPaySuccess pg_token : " + pg_token);
                 
@@ -236,7 +252,11 @@ public class CartCont {
         }//for end
 		
 		cartDao.deleteBook(deleteList);
-			
+		
+		// 세션의 장바구니 count 최신화
+		int cartcheck = cartDao.checkCart(pay_id);
+		session.setAttribute("s_cart", cartcheck);
+		
         mav.setViewName("cart/success");
         return mav;
     }

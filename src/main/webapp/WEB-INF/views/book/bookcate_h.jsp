@@ -28,18 +28,6 @@
 		</div>
 	</div>
 
-
-<!-- 오늘 본 책 시작 -->
-	<div class="quickmenu">
-	  <ul>
-	    <li><a>최근 본 서책</a></li>
-	    <li><a href="#">최근책사진</a></li>
-	    <li><a href="#">1:1문의</a></li>
-	    <li><a href="#">후기</a></li>
-	  </ul>
-	</div>
-<!-- 오늘 본 책 끝-->
-
 <div class="container border-bottom">
 
 

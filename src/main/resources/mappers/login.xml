@@ -11,11 +11,11 @@
 		]]>
 	</select>
 
-	<select id="subCheck" parameterType="kr.co.itwill.member.LoginDTO" resultType="int">
+	<select id="subCheck" parameterType="kr.co.itwill.member.MemberDTO" resultType="String">
 		<![CDATA[
-			SELECT COUNT(m_gudok)
+			SELECT m_gudok
 			FROM member
-			WHERE m_id = #{s_id}		
+			WHERE m_id = #{s_id}
 		]]>
 	</select>
 	

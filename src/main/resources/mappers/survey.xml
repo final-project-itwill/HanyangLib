@@ -94,8 +94,8 @@
 	
 	<!-- survey -->
 	<insert id="surveyWrite" parameterType="kr.co.itwill.survey.SurveyDTO">
-		INSERT INTO survey( sv_code, sv_comcode, sv_id, sv_title, sv_des, sv_edate, sv_max )
-		VALUES ( #{sv_code}, #{sv_comcode}, #{sv_id}, #{sv_title}, #{sv_des}, #{sv_edate}, #{sv_max} )
+		INSERT INTO survey( sv_code, sv_comcode, sv_id, sv_title, sv_des, sv_edate, sv_max, sv_rdate )
+		VALUES ( #{sv_code}, #{sv_comcode}, #{sv_id}, #{sv_title}, #{sv_des}, #{sv_edate}, #{sv_max}, now() )
 	</insert>
 	
 	<!-- dsurvey -->

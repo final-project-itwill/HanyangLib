@@ -87,11 +87,24 @@
 				</a>
         	</li>
         	<!-- 장바구니 목록 추가 -->
-            <li><a href="/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}" style="font-weight: bold;"><i class="fas fa-shopping-cart"></i></a></li>
-        	</ul>
-        	<a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
-	          <span></span>
-	        </a>
+            <!-- 장바구니 목록 추가 -->
+            <li>
+            	<a href="/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}" style="font-weight: bold;">
+            		<i class="fas fa-shopping-cart"></i>
+            		<!-- 장바구니에 들어있는 물품 개수 출력 -->
+            		<c:if test="${s_cart<6}">
+            			<c:set value="${s_cart}" var="cartCnt"/>
+            		</c:if>
+            		<c:if test="${s_cart>5}">
+            			<c:set value="5+" var="cartCnt"/>
+            		</c:if>
+                       <span class="badge badge-danger badge-counter">${cartCnt}</span>
+				</a>
+			</li>
+       	</ul>
+       	<a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
+          <span></span>
+        </a>
 	      </div>
 		</c:when>
 		<%-- 로그인 안했을 때 --%>

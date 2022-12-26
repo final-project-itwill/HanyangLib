@@ -34,47 +34,9 @@
 	</div>
 
 
-<!-- 오늘 본 책 시작 -->
-	<div class="quickmenu">
-	  <ul>
-	    <li><a>최근 본 서책</a></li>
-	    <li><a href="#">최근책사진</a></li>
-	    <li><a href="#">1:1문의</a></li>
-	    <li><a href="#">후기</a></li>
-	  </ul>
-	</div>
-<!-- 오늘 본 책 끝-->
-
-
-
+<div class="container border-bottom">
 
 	<table border="0" align = "center">
-	<tr>
-		<td>
-			<div class="col-12">
-				<div class="post-entry horizontal d-md-flex">
-					<div class="media">
-						<a href="#"><img
-							src="http://image.yes24.com/goods/115094437/M"
-							style="width: 140px; margin-right: 20px;" /></a>
-					</div>
-					<div class="text">
-						<div class="meta">
-							<span>출판사 현대문학</span> <span>&bullet;</span> <span>작가 천선란</span>
-						</div>
-						<h2>
-							<a href="#" style="color: #906D3B">랑과 나의사막</a>
-						</h2>
-						<p>출판일 2022-10-25</p>
-						<p>당대 한국 문학의 가장 현대적이면서도 첨예한 작가들을 선정, 신작 시와 소설을 수록하는 월간 『현대문학』의
-							특집 지면 [현대문학 핀 시리즈]의 마흔세 번째 소설선</p>
-
-					</div>
-				</div>
-			</div>
-		 </td>
-		</tr>
-
 		<tr>
 			<td>
 			<c:forEach var="dto" items="${list_n}">
@@ -90,7 +52,7 @@
 								<span>출판사 ${dto.b_publish}</span> <span>&bullet;</span> <span>작가 ${dto.b_author}</span>
 							</div>
 							<h2>
-								<a href="#" style="color: #906D3B">${dto.b_name}</a>
+								<a href="/book/bookdetail/${dto.b_code}" style="color: #906D3B">${dto.b_name}</a>
 							</h2>
 							<p>출판일 ${dto.b_rdate}</p>
 							<p>${dto.b_des}</p>
@@ -105,15 +67,37 @@
 	</table>
 
 
-<div style = "display : inliine-block; color : black; float : left; padding : 8px 16px; text-decoration: none; text-align:center;">
-  <a href="#">&laquo;</a>
-  <a href="#">1</a>
-  <a class="active" href="#">2</a>
-  <a href="#">3</a>
-  <a href="#">4</a>
-  <a href="#">5</a>
-  <a href="#">6</a>
-  <a href="#">&raquo;</a>
+<!-- 페이지 리스트 -->
+<c:set var="pageCount" value="${totalPage}"></c:set>
+<c:set var="startPage" value="${startPage}"></c:set>
+<c:set var="endPage" value="${endPage}"></c:set>
+
+
+<div class="container-fluid" style="text-align: center">
+	<!-- endPage는 10, 20, 30.. ex)총 페이지가 22일 때 endPage 30이 아닌 22까지 출력해야 함 -->
+        <c:if test="${endPage > pageCount}">
+            <c:set var="endPage" value="${pageCount}"></c:set>
+        </c:if>
+
+        <!-- 이전 : startPage는 10, 20, 30.. 따라서 1보다 크면 이전 페이지 이동 가능 -->
+        <c:if test="${startPage > 1}">
+            <a href="/book/bookcate_a?pageNum=${startPage-1}">[이전]</a>      <!-- pageNum값을 Controller에 보냄 -->
+        </c:if>
+
+        <!-- 현재페이지 볼드체 / 현재페이지 외 링크 걸기 -->
+        <c:forEach var="i" begin="${startPage}" end="${endPage}">
+            <c:choose>
+                <c:when test="${pageNum == i}"><span style="font-weight: bold">${i}</span></c:when>
+                <c:when test="${pageNum != i}"><a href="/book/bookcate_a?pageNum=${i}">[${i}]</a></c:when>
+            </c:choose>
+        </c:forEach>
+
+        <!-- 다음 이동 -->
+        <c:if test="${endPage < pageCount}">
+            <a href="/book/bookcate_a?pageNum=${endPage+1}">[다음]</a>
+        </c:if>
+</div>
+
 </div>
 
 

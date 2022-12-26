@@ -58,10 +58,17 @@
                 <li class="d-flex"><span class="feather-check-square mr-2 mt-1"></span><span>언제 어디서나 한양서재에서<br>책을 꺼내보세요</span></li>
               </ul>
               <div>
-              	<span>지금 바로 정기구독을 시작해보세요</span><br>
-                <a href="javascript:monthly()" class="btn btn-primary">1개월 시작하기</a>
-                <br>
-                <a href="javascript:yearly()" class="btn btn-primary">1년 시작하기</a>
+              	<span>지금 바로 정기구독을 시작해보세요</span><br><br>
+              	<table class="container-fluid">
+              	<tr>
+              		<td>
+              		<a href="javascript:monthly()" class="btn btn-primary">1개월<br>시작하기</a>
+              		</td>
+              		<td>
+              		<a href="javascript:yearly()" class="btn btn-primary">1년<br>시작하기</a>
+              		</td>
+              	</tr>
+                </table>
               </div>
             </div>
           </div>
@@ -75,17 +82,13 @@ let name = "";
 let id = "${s_id}";
 
 function monthly(){
-	alert(total);
 	total = ${monthly}
-	alert(total);
 	name = '한양서재 1개월 정기 구독 서비스';
 	return imp_pay();
 };
 
 function yearly(){
-	alert(total);
 	total = ${yearly}
-	alert(total);	
 	name = '한양서재 1년 정기 구독 서비스';
 	return imp_pay();
 };

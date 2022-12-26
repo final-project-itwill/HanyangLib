@@ -34,7 +34,7 @@
 		     <a href="javascript:void(0)">
 		         <span>카카오 로그아웃</span>
 		     </a>
-		</div> -->
+		</div>-->
 	</div>
 	</div>
 	</c:when>
@@ -86,8 +86,7 @@
 				<input type="submit" class="btn" id="btn" value="Login">
 				<input type="button" class="btn" id="btn" value="signup" onclick="location.href='/member/agreement'">
 			</form>
-			<!--
-			<div class="text-center">	            
+<!-- 			<div class="text-center">	            
 				<table style="margin: auto;">
 				<tr>
 					<td id="GgCustomLogin">
@@ -143,10 +142,10 @@
 				console.log(t);
 			}
 			</script>
-			// 구글 api 사용을 위한 스크립트
+			구글 api 사용을 위한 스크립트
 			<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 			
-			// 카카오 스크립트
+			카카오 스크립트
 			<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 			<script>
 			Kakao.init('14166aacf486b99d5b1779442f4f5f78'); //발급받은 키 중 javascript키를 사용해준다.
@@ -185,8 +184,7 @@
 			      Kakao.Auth.setAccessToken(undefined)
 			    }
 			  }  
-			</script>
-			 -->
+			</script> -->
 		</div>
 	</div>
 	</div>

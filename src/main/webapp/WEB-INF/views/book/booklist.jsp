@@ -45,16 +45,9 @@
             <span class="section-subtitle">선택, 망설여지세요?</span>
             <h2 class="section-title">MD 추천 도서</h2>
           </div>
-          <div class="col-md-6 text-left text-md-right">
-            <div class="slider-nav">
-              <a href="#" class="js-prev js-custom-prev-v2" style="background-color:#147814"><span class="icon-arrow_back"></span></a>
-              <a href="#" class="js-next js-custom-next-v2" style="background-color:#147814"><span class="icon-arrow_forward"></span></a>
-
-            </div> <!-- /.slider-nav -->
-          </div>
         </div>
 
-        <div class="slider-team owl-carousel owl-3-slider">
+        <div class="main-slider owl-carousel owl-3-slider">
 		<c:forEach var="dto" items="${mdBpick}">
           <div class="team">
             <div class="pic">
@@ -94,16 +87,9 @@
             <span class="section-subtitle">누구보다 빠르게 만나보는</span>
             <h2 class="section-title">새로 등록된 도서</h2>
           </div>
-          <div class="col-md-6 text-left text-md-right">
-            <div class="slider-nav">
-              <a href="#" class="js-prev js-custom-prev-v2" style="background-color:#147814"><span class="icon-arrow_back"></span></a>
-              <a href="#" class="js-next js-custom-next-v2" style="background-color:#147814"><span class="icon-arrow_forward"></span></a>
-
-            </div> <!-- /.slider-nav -->
-          </div>
         </div>
 
-        <div class="slider-team owl-carousel owl-3-slider">
+        <div class="main-slider owl-carousel owl-3-slider">
 		<c:forEach var="dto" items="${newbook}">
           <div class="team">
             <div class="pic">
@@ -122,60 +108,7 @@
       </div> <!-- /.container -->
     </div> <!-- /.untree_co-section -->
   </div>
-
-
-
    <!-- 신작소개 리스트 끝 -->
-
-
-	<!-- 도서 전체보기 리스트 시작 -->
-<div class="site-section slider-team-wrap">
-   <div class="container">
-
-
-	<div class="row mb-5 align-items-center">
-          <div class="col-md-6">
-            <span class="section-subtitle">모든도서를 볼수있는</span>
-            <h2 class="section-title"><a href="/book/booklist_d">도서 전체보기</a></h2>
-          </div>
-          
-	<table border="0" align = "center" width=70%>
-		
-		<tr>
-			<td>
-			<c:forEach var="dto" items="${list}">
-				<div class="col-12">
-					<div class="post-entry horizontal d-md-flex">
-						<div class="media">
-							<a href="#">
-							<img src="${dto.b_bookcover}" style="width: 140px; margin-right: 20px;"></a>
-						</div>
-						<div class="text">
-							<div class="meta">
-								<p>${dto.b_type}</p>
-								<span>출판사 ${dto.b_publish}</span> <span>&bullet;</span> <span>작가 ${dto.b_author}</span>
-							</div>
-							<h3>
-								<a href="/book/bookdetail/${dto.b_code}" style="color: #906D3B">${dto.b_name}</a>
-							</h3>
-							<p>출판일 ${dto.b_rdate}</p>
-							<p>${dto.b_des}</p>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-			</td>
-		</tr>
-
-	</table>
-	
-	
-	
-	 </div>
-   </div> <!-- /.container -->
- </div> <!-- /.untree_co-section -->
-
-
 
 </body>
 <!-- 본문작성 끝 -->

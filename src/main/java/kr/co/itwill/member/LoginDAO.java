@@ -22,7 +22,7 @@ public class LoginDAO {
 	} // loginProc() end
 	
 	// 구독 여부 확인
-	public int subCheck(String s_id) throws Exception {
+	public String subCheck(String s_id) throws Exception {
 		return sqlSession.selectOne("login.subCheck", s_id);
 	} // subCheck() end
 	

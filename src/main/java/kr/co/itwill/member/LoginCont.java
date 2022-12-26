@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.itwill.cart.CartDAO;
+
 @Controller
 @RequestMapping("/login")
 public class LoginCont {
@@ -24,16 +26,22 @@ public class LoginCont {
 	@Autowired
 	LoginDAO loginDao;
 	
+	@Autowired
+	CartDAO cart;
+	
 	// 로그인 페이지 불러오기 
 	@RequestMapping("/index")
 	public ModelAndView member(HttpServletRequest req) {
 		ModelAndView mav=new ModelAndView();
 		String page = "";
 		if (req.getHeader("Referer") != null) {
-		    page = "redirect:" + req.getHeader("Referer");
+			page = "redirect:/";
+		} else if (req.getHeader("Referer") == "http://localhost:9095/member/insert"){
+			page = "redirect:" + req.getHeader("Referer");
 		} else {
 			page = "redirect:/";
 		} // if end
+		System.out.println(page);
 		mav.addObject("page", page);
 		mav.setViewName("account/loginForm");
 		return mav;
@@ -50,16 +58,9 @@ public class LoginCont {
 		ModelAndView mav=new ModelAndView();
 		// 회원등급이 A,B,C인 사람들만 회원등급 불러오기
 		String grade = loginDao.loginProc(dto);
-		// System.out.println("---------------"+grade);
+		// System.out.println("---------------"+grade);		
 		
-		//System.out.println(prevPage); // 이전 페이지 확인
-		// 로그아웃 하고 또 다시 로그인을 시도할 땐 전전 페이지가 빈 문자열로 들어온다
-		if(prevPage=="") {
-			prevPage="redirect:/";
-		} else if(prevPage=="redirect:http://localhost:9095/member/insert"){
-			// 회원가입이 완료된 후 다시 로그인창으로 넘어가서 로그인을 시도할 때
-			prevPage="redirect:/";
-		}// if end
+		int cartcheck = cart.checkCart(m_id);
 		
 		// 회원등급이 비어있다면(가입을 안했거나, F등급-탈퇴 회원이라면) 로그인 실패 처리
 		if(grade!=null) {
@@ -67,6 +68,7 @@ public class LoginCont {
 			session.setAttribute("grade", grade);		
 			session.setAttribute("s_id", m_id);
 			session.setAttribute("s_pw", m_pw);
+			session.setAttribute("s_cart", cartcheck);
 			if(c_id.equals("remember")) {
 				cookie = new Cookie("c_id", m_id);
 				cookie.setMaxAge(60*60*24*30);
@@ -91,7 +93,7 @@ public class LoginCont {
 		 session.removeAttribute("s_pw");
 		 
 		 ModelAndView mav=new ModelAndView();
-		 mav.setViewName("account/loginForm");
+		 mav.setViewName("redirect:/");
 		 return mav;
 	}//logout() end
 	
