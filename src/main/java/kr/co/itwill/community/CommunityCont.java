@@ -182,7 +182,7 @@ public class CommunityCont {
         MultipartFile poster = dto.getPoster();                         //파일 가져오기
         String filename = poster.getOriginalFilename();                 //파일 이름 가져오기
         if(poster == null || poster.isEmpty()){                         //파일 없을 경우 기본 이미지
-            filename = "none.png";
+            filename = "none.jpg";
         }//if end
         poster.transferTo(new File(path + "/" + filename));    // /storage 폴더에 파일 저장
 
@@ -210,7 +210,7 @@ public class CommunityCont {
     public String delete(@PathVariable String c_code, HttpServletRequest request){
 
         String filename = commDao.filename(c_code); //삭제할 파일이름 조회
-        if(!filename.equals("none.png")){
+        if(!filename.equals("none.jpg")){
             ServletContext application = request.getSession().getServletContext();
             String path = application.getRealPath("/storage");
             File file = new File(path + "/" + filename);
