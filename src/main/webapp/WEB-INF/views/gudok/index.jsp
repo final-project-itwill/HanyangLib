@@ -82,17 +82,13 @@ let name = "";
 let id = "${s_id}";
 
 function monthly(){
-	alert(total);
 	total = ${monthly}
-	alert(total);
 	name = '한양서재 1개월 정기 구독 서비스';
 	return imp_pay();
 };
 
 function yearly(){
-	alert(total);
 	total = ${yearly}
-	alert(total);	
 	name = '한양서재 1년 정기 구독 서비스';
 	return imp_pay();
 };
