@@ -66,7 +66,7 @@ public class ProductCont {
 		
 		map.put("filename", b_bookcover);
 		map.put("filisize", b_coversize);
-		productDao.insert(map);
+		//productDao.insert(map);
 		return "redirext:";	
 	}//insert() end
 	
@@ -112,14 +112,14 @@ public class ProductCont {
 			}//try end
 		}else {
 			String b_code=map.get("b_code").toString();
-			Map<String, Object> product = productDao.detail(b_code);
-			b_bookcover = product.get("B_BOOKCOVER").toString();
-			b_coversize = (long)product.get("B_COVERSIZE");
+			//Map<String, Object> product = productDao.detail(b_code);
+			//b_bookcover = product.get("B_BOOKCOVER").toString();
+			//b_coversize = (long)product.get("B_COVERSIZE");
 		}//if end
 		
 		map.put("b_bookcover", b_bookcover);
 		map.put("b_coversize", b_coversize);
-		productDao.update(map);
+		//productDao.update(map);
 		
 		return "redirect:-";
 	}//update() end

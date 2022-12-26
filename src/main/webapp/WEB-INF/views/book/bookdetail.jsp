@@ -14,10 +14,6 @@
     <meta name="robots" content="noindex">
     <!-- 구글 검색엔진 웹 크롤러만 차단 -->
     <meta name="googlebot" content="noindex">
-<!--     구글 로그인 : content에 자신의 OAuth2.0 클라이언트ID를 넣습니다.
-<meta name ="google-signin-client_id" content="79165199733-nhgebrkqrqdtqf389rm3963hrc81p223.apps.googleusercontent.com">
-카카오 로그인
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script> -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -101,7 +97,7 @@
 	          <li><a href="/mylib/libindex/${s_id}" style="font-weight: bold; color:black;">나만의 서재</a></li>
 	          <li><a href="/comm/index" style="font-weight: bold; color:black;">커뮤니티</a></li>
               <li class="has-children">
-              	<a href="#" style="color:gray;">고객센터</a>
+              	<a href="#" style="font-weight: bold; color:black;">고객센터</a>
                 <ul class="dropdown">
                   <li><a href="/notice/list?pageNum=1">공지사항</a></li>
                   <li><a href="#">문의</a></li>
@@ -115,13 +111,25 @@
 	        </ul>
 		<ul class="js-clone-nav d-none d-lg-inline-block text-left site-menu float-right menu-absolute">
            	<li>
-				<a class="font2" href="/login/index" style="font-weight: bold; color: gray;">
+				<a class="font2" href="/login/index" style="font-weight: bold; color: black;">
 					<i class="fas fa-user"></i> ${s_id}님
 				</a>
         	</li>
         	<!-- 장바구니 목록 추가 -->
-            <li><a href="/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}" style="font-weight: bold; color: gray;"><i class="fas fa-shopping-cart"></i></a></li>
-        	</ul>	        
+            <li>
+            	<a href="/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}" style="font-weight: bold;">
+            		<i class="fas fa-shopping-cart"></i>
+            		<!-- 장바구니에 들어있는 물품 개수 출력 -->
+            		<c:if test="${s_cart<6}">
+            			<c:set value="${s_cart}" var="cartCnt"/>
+            		</c:if>
+            		<c:if test="${s_cart>5}">
+            			<c:set value="5+" var="cartCnt"/>
+            		</c:if>
+                       <span class="badge badge-danger badge-counter">${cartCnt}</span>
+				</a>
+			</li>
+       	</ul>	        
 	        <a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
 	          <span></span>
 	        </a>
@@ -150,7 +158,7 @@
 	          <li><a href="/login/index" style="font-weight: bold; color:black;">나만의 서재</a></li>
 	          <li><a href="/login/index"  style="font-weight: bold; color:black;">커뮤니티</a></li>
               <li class="has-children">
-              	<a href="#" style="color:gray;">고객센터</a>
+              	<a href="#" style="color:black;">고객센터</a>
                 <ul class="dropdown">
                   <li><a href="/notice/list?pageNum=1">공지사항</a></li>
                   <li><a href="#">문의</a></li>
@@ -164,8 +172,12 @@
         			</a>
         	</li>
         	<!-- 장바구니 목록 추가 -->
-            <li><a href="/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}" style="font-weight: bold; color: gray;"><i class="fas fa-shopping-cart"></i></a></li>
-        	</ul>	        
+            <li>
+            	<a href="/login/index" style="font-weight: bold;">
+            		<i class="fas fa-shopping-cart"></i>
+            	</a>
+            </li>
+		</ul>        
 	        <a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
 	          <span></span>
 	        </a>
@@ -184,7 +196,7 @@
       <div class="container">
         <div class="row align-items-center justify-content-between">
           <div class="col-lg-12 text-center">
-            <img src=/images/hylogo_b.png width=140px;>
+            <a href="/"><img src=/images/hylogo_b.png width=140px;></a>
           </div>
         </div>
       </div>
@@ -200,13 +212,17 @@
 			<a href = # >      
           	<span class="section-subtitle" style="margin-bottom:10px">${book.b_type}</span>
           	</a>  
-            <h4 class="mb-4 section-title">${book.b_name}</h4>
+            <h4 class="mb-4 section-title">
+            	${book.b_name}
+            	<c:if test="${book.b_gudok eq 'Y'}">
+					<img alt="gudokBadge" src="/images/gudokBadge.png" width="80px;">
+              	</c:if>
+            </h4>
             <p>작가 : ${book.b_author}</p>
             <p>출판사 : ${book.b_publish}</p>
             <p>가격 : ${book.b_price} 원</p>
-            <p>출판일 : ${book.b_rdate}</p>
+            <p>출판일 : ${book.b_rdate.substring(0,11)}</p>
             <ul class="list-check list-unstyled primary">
-              <li>구독 : ${book.b_gudok}</li>
               <li>${book.b_des}</li>
             </ul>
             <table style="margin-top:30px">
@@ -225,7 +241,7 @@
 				<%-- 이 책이 구독 가능이라면 --%>
 				<c:if test="${book.b_gudok eq 'Y'}">
 					<%-- 구독을 한 상태라면 --%>
-					<c:if test="${subs eq 1}">
+					<c:if test="${subs eq 'Y'}">
 						<%-- 이 책을 보유하지 않았다면 --%>
 						<c:if test="${haveBook eq 0}">
 							<input type="button" class="btn btn-outline-light btn-block col-md-6 text-dark" style="font-weight: bold; margin-bottom: 20px; border-color: #2a96a5; text-align: center;" value="나만의 서재에 담기" onClick="location.href='/mylib/libInsert/${book.b_code}/${s_id}'">
@@ -236,7 +252,7 @@
 						</c:if>
 					</c:if>
 					<%-- 구독을 하지 않은 상태라면 --%>
-					<c:if test="${subs eq 0}">
+					<c:if test="${subs eq 'N'}">
 				    		<input type="button" class="btn btn-outline-light btn-block col-md-4 text-dark" style="font-weight: bold; margin-bottom: 20px; border-color: #2a96a5; text-align: center;" value="장바구니" onclick="location.href='/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}'"> 
 				            <input type="button" class="btn btn-outline-light btn-block col-md-4 text-dark" style="font-weight: bold; margin-bottom: 20px; border-color: #2a96a5; text-align: center;" value="바로결제" onclick="#">
 				    </c:if>

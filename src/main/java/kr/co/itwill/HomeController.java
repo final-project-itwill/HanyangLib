@@ -1,11 +1,14 @@
 package kr.co.itwill;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.itwill.book.BookDAO;
+import kr.co.itwill.cart.CartDAO;
 
 @Controller
 public class HomeController {
@@ -19,6 +22,9 @@ public class HomeController {
 	
 	@Autowired
 	indexDAO index;
+	
+	@Autowired
+	CartDAO cart;
 	
 	@RequestMapping("/")
 	public ModelAndView home() throws Exception {

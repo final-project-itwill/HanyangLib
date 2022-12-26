@@ -30,11 +30,11 @@
 			<a href="/member/update?s_id=${s_id}" class="btn btn-primary">회원정보수정</a>
 			<a href="/member/withdrawform" class="btn btn-primary ml30">회원탈퇴</a>	
 		</div>
-<!-- 		<div onclick="kakaoLogout();">
+		<div onclick="kakaoLogout();">
 		     <a href="javascript:void(0)">
 		         <span>카카오 로그아웃</span>
 		     </a>
-		</div> -->
+		</div>
 	</div>
 	</div>
 	</c:when>
@@ -86,7 +86,6 @@
 				<input type="submit" class="btn" id="btn" value="Login">
 				<input type="button" class="btn" id="btn" value="signup" onclick="location.href='/member/agreement'">
 			</form>
-			<!--
 			<div class="text-center">	            
 				<table style="margin: auto;">
 				<tr>
@@ -143,10 +142,10 @@
 				console.log(t);
 			}
 			</script>
-			// 구글 api 사용을 위한 스크립트
+			<!-- 구글 api 사용을 위한 스크립트 -->
 			<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 			
-			// 카카오 스크립트
+			<!-- 카카오 스크립트 -->
 			<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 			<script>
 			Kakao.init('14166aacf486b99d5b1779442f4f5f78'); //발급받은 키 중 javascript키를 사용해준다.
@@ -186,7 +185,6 @@
 			    }
 			  }  
 			</script>
-			 -->
 		</div>
 	</div>
 	</div>

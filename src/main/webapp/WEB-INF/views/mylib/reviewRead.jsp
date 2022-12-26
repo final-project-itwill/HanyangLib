@@ -59,7 +59,9 @@
 			</td>
 		</tr>
 		<tr style="text-align: center;">
-			<td colspan="4">${rvRead.br_content}</td>
+			<td>
+			${rvRead.br_content}
+			</td>
 		</tr>
 		</table>
 		<div class="align-content-sm-center" style="text-align: center">
@@ -75,12 +77,13 @@
 	<!-- 서평 댓글 -->
 	<div class="container lib-cont text-center">
 	    <form name="commentFrm" id="commentFrm">
-	    <input type="text" name="brc_content" id="brc_content" placeholder="마음과 생각을 함께 나눠요" style="width: 600px;">
+	    	<input type="text" name="brc_content" id="brc_content" placeholder="마음과 생각을 함께 나눠요" style="width: 600px;">
 	        <input type="hidden" id="brc_pno" name="brc_pno" value="${rvRead.br_no}">
-            <input type="hidden" id="brc_id" name="brc_id" value="${rvRead.br_id}">
+            <input type="hidden" id="brc_id" name="brc_id" value="${s_id}">
 	        <button type="button" name="commentBtn" id="commentBtn">등록</button>
 	    </form>
 	</div>
+	<c:set value="${s_id}" var="loginId"/>
 	<br>
 	<div class="container">
 	    <table class="table commentList" id="commentList"></table>
@@ -95,7 +98,7 @@
 		
 	
 	    let brc_id='${rvRead.br_id}';
-	    let loginId='${s_id}';
+	    let loginId='${loginId}';
 	    
 	    // 더보기를 위한 limit 변수 선언
         let limit = 5;	// 5개씩 출력
@@ -115,7 +118,7 @@
 	            ,data:insertData
 	            ,success:function(data){
 	                if(data==1){
-	                    //cmList(); // 댓글 작성 후 댓글 목록 함수 호출
+	                    cmList(); // 댓글 작성 후 댓글 목록 함수 호출
 	                    $('#brc_content').val('');
 	                } // if end
 	            } // success end
@@ -142,8 +145,8 @@
 	                    a += "		작성자 : " + value.brc_id + " | 작성일 : " + value.brc_rdate.slice(0, 10);
 	                    a += "	</td><td class='text-right'>";
 						if(loginId == 'webmaster' || value.brc_id == loginId){
-	                    a += "		<a class='text-white' href='javascript:cmUpdate(" + value.brc_no + ", \"" + value.brc_content + "\");'>수정</a>";
-	                    a += "		<a class='text-white' href='javascript:cmDelete(" + value.brc_no + ");'>삭제</a>";
+		                    a += "		<a href='javascript:cmUpdate(" + value.brc_no + ", " + value.brc_content + ");'>수정</a>";
+		                    a += "		<a href='javascript:cmDelete(" + value.brc_no + ");'>삭제</a>";
 	                	};
 	                    a += "	</td>";
 	                    a += "	</tr><tr>";
@@ -196,7 +199,7 @@
 		    a += "	<button type='button' onclick='cmUpdateProc(" + brc_no + ")'>수정</button>";
 		    a += "</div>";
 		
-		    $(".cmContent" + brc_no).html(a);
+		    $("#cmContent" + brc_no).html(a);
 		} // visitorUpdate() end 
 		
 		// 방명록 수정
@@ -207,7 +210,7 @@
 		    $.ajax({
 		        url:"/mylib/cmupdate"
 		        ,type:"post"
-		        ,data:{'content':updateContent, 'brc_no':brc_no}
+		        ,data:{'brc_content':updateContent, 'brc_no':brc_no}
 		        ,success:function(data){
 		            if(data==1) cmList();
 		        }
@@ -216,13 +219,15 @@
 		
 		// 방명록 삭제
 		function cmDelete(brc_no){
-		    $.ajax({
-		        url:"/mylib/cmDelete/"+brc_no
-		        ,type:"post"
-		        ,success:function(data){
-		            if(data==1) {cmList()};
-		        }
-		    }); // ajax() end
+			if(confirm("삭제되면 복구할 수 없습니다. \n 삭제할까요?")){
+				$.ajax({
+			        url:"/mylib/cmDelete/"+brc_no
+			        ,type:"post"
+			        ,success:function(data){
+			            if(data==1) {cmList()};
+			        }
+			    }); // ajax() end
+	       }//if end
 		} // cmDelete() end
 		
 	</script>

@@ -24,7 +24,6 @@
 	<!-- fontawesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 	<!-- Custom styles for this template-->
-    <link href="/adminBootstrap/css/sb-admin-2.min.css" rel="stylesheet">
 	<script src="js/jquery-3.5.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 	<title>&#128218 한양서재</title>
@@ -84,7 +83,19 @@
         			</a>
         		</li>
         		<!-- 장바구니 목록 추가 -->
-	            <li><a href="/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}" style="font-weight: bold;"><i class="fas fa-shopping-cart"></i></a></li>
+	            <li>
+	            	<a href="/cart/cartList?cart_id=${s_id}&cart_code=${book.b_code}" style="font-weight: bold;">
+	            		<i class="fas fa-shopping-cart"></i>
+	            		<!-- 장바구니에 들어있는 물품 개수 출력 -->
+	            		<c:if test="${s_cart<6}">
+	            			<c:set value="${s_cart}" var="cartCnt"/>
+	            		</c:if>
+	            		<c:if test="${s_cart>5}">
+	            			<c:set value="5+" var="cartCnt"/>
+	            		</c:if>
+                        <span class="badge badge-danger badge-counter">${cartCnt}</span>
+					</a>
+				</li>
         	</ul>
         	<a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
 	          <span></span>
@@ -127,8 +138,6 @@
 	            <li>
 	            	<a href="/login/index" style="font-weight: bold;">
 	            		<i class="fas fa-shopping-cart"></i>
-	            		<!-- Counter - Alerts -->
-                        <span class="badge badge-danger badge-counter">3+</span>
 	            	</a>
 	            </li>
             </ul>
@@ -264,7 +273,7 @@
 	              <div class="align-items-end mb-4"><p style="text-align: right;">등록일 : ${review.br_rdate.substring(0,11)} &nbsp;&nbsp; 조회수 : ${review.br_count}</p></div>
 	
 	              <blockquote>
-	                <p>&ldquo;${review.br_title}&rdquo;</p>
+	                <a href="/mylib/reviewRead?br_no=${review.br_no}&loginId=${review.br_id}"><p>&ldquo;${review.br_title}&rdquo;</p></a>
 	              </blockquote>
               	</div>
            	  </c:forEach>

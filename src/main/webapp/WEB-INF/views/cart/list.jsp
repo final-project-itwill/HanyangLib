@@ -3,13 +3,30 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="../header.jsp"%>
+<style>
+.site-nav .site-navigation .site-menu > li > a {
+	color : black;
+}
+.site-nav .site-navigation .site-menu > li.active > a {
+	color : black;
+}
+.lib-cont * {
+	font-family: "KyoboHandwriting2020A";
+}
+.lib-cont  a, .lib-cont a:hover {
+	color : black !important;
+}
+</style>
+<!-- 나만의 서재 관련 link, style 끝 -->
 <!-- 본문작성 시작 -->
-<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/libbg.jpg'); height: 40vh;"></div>
+<!-- 배너와 커뮤니티장 사진이 들어가는 곳 -->
+	<div class="hero-slant" data-stellar-background-ratio="0.5" style="background-image: url('../../images/topbg.jpg'); height: 60vh;"></div>
+<!-- 본문작성 시작 -->
 <div class="section-latest">
 <div class="container">
 	<form name="frm" method="post">
 	<div class="row gutter-v1 align-items-stretch mb-5">
-		<div class="col-12" style="margin: 10px;">
+		<div class="col-12 lib-cont" style="margin: 10px;">
 			<h2 class="section-title">장바구니</h2>
 		</div>
 		<div class="col-md-9 pr-md-5">
