@@ -28,14 +28,14 @@ public class MemberDAO {
 	public MemberDTO detail(String s_id) {
 		return sqlSession.selectOne("member.detail", s_id);
 	}//detail() end
-
 	
 	//회원폼에서 수정
 	 public int memberupdate(MemberDTO member) { 
 		 //System.out.println("dao에서----" + member.toString());
 		 return sqlSession.update("member.update", member);
 	 }//memberupdate() end
-	
+	 
+	 
 	 public String imgname (String m_id) {
 		 return sqlSession.selectOne("member.imagename", m_id);
 	 }//imgname end
