@@ -14,7 +14,7 @@
             	<div class = row>
             		<div class="col-sm-12 col-md-4" style="position:right">
             			<div id="dateTable_filter" class="dateTables_filter">
-            				<form name="keyword" action="search" method="post" class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="100">
+            				<form name="keyword" action="/admin/search" method="get" class="sign-up-form d-flex">
 								<input type="text" class="form-control" id="keyword" name="keyword" value="${keyword}" placeholder="책제목 또는 작가" style="width:180px">
 								<input type="submit" class="btn-dark" value="검색" style="width: 40px; padding: 0px;">
 							</form>
@@ -52,7 +52,7 @@
                      				</tbody>
                                 </table>
 							</div>
-
+							<c:if test="${startPage ne null}">
 								<!-- 페이지 리스트 -->
 								<c:set var="pageCount" value="${totalPage}"></c:set>
 								<c:set var="startPage" value="${startPage}"></c:set>
@@ -83,6 +83,7 @@
 								            <a href="/admin/productlist?pageNum=${endPage+1}">[다음]</a>
 								        </c:if>
 								</div>
+							</c:if>
                             </div>
                         </div>
                     </div>

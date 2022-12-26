@@ -119,8 +119,7 @@
     <select id="search" resultType="kr.co.itwill.book.BookDTO">
 	    SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
 	    FROM  book
-	    WHERE b_name LIKE CONCAT('%', #{keyword}, '%') OR b_author LIKE CONCAT('%', #{keyword}, '%')
-	    ORDER BY b_code DESC
+	    WHERE b_name LIKE CONCAT('%', #{keyword}, '%') || b_author LIKE CONCAT('%', #{keyword}, '%')
     </select>
     
  <!-- 
@@ -183,6 +182,26 @@
 	</select>
 	
 	
+	<delete id="delete">
+		DELETE FROM book
+		WHERE b_code = #{b_code}
+	</delete>
 	
+	
+	<update id="update">
+        UPDATE book
+        SET b_name		= #{b_name}
+        , b_type		= #{b_type}
+        , b_gudok		= #{b_gudok}
+        , b_author		= #{b_author}
+        , b_publish		= #{b_publish}
+        , b_page		= #{b_page}
+        , b_price		= #{b_price}
+        , b_rdate		= #{b_rdate}
+        , b_bookcover	= #{b_bookcover}
+        , b_coversize	= #{b_coversize}
+        , b_des			= #{b_des}
+        WHERE b_code  = #{b_code}
+    </update>
 
 </mapper>
