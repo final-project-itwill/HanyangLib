@@ -11,21 +11,21 @@
          <h1 class="h4 text-gray-900 mb-2">비밀번호 찾기</h1>
          <p class="mb-4">아이디와 이메일을 입력해주세요!</p>
      </div>
-     <form class="user" action="/member/findPw" method="post">
+     <form class="user" action="/member/findPw" method="post" name="findfrm">
         <div class="form-group">
              <input type="text" class="form-control form-control-user"
                  id="memberId" aria-describedby="IdHelp" name="memberId"
                  placeholder="ID를 입력하세요...">
+             <input type="hidden" name="m_id" id="m_id">
          </div>
          <div class="form-group">
              <input type="email" class="form-control form-control-user"
                  id="memberEmail" aria-describedby="emailHelp" name="memberEmail"
                  placeholder="EMAIL을 입력하세요...">
+             <input type="hidden" name="m_email" id="m_email">
          </div>
-          
-         <button type="submit" class="btn btn-primary btn-user btn-block" onclick="location.href='/member/pwupdateform'">
-             비밀번호 찾기
-         </button>
+        <a href="/member/pwupdateform" class="btn btn-primary btn-user btn-block">비밀번호 찾기</a>
+      	
      </form>
      <hr>
       <a href="/login/index" class="btn btn-google btn-user btn-block">
@@ -36,7 +36,11 @@
          <a class="small" href="/">메인페이지</a>
      </div>
      </div>
+<script>
 
+
+
+</script>
 
 
 

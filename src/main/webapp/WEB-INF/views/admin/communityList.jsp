@@ -38,7 +38,8 @@
     <div class="container-fluid">
 
         <h1 class="h3 mb-2 text-gray-800" style="font-weight: bold">한양서재 커뮤니티 목록</h1>
-        <p class="mb-4"> 현재 '모집중'인 커뮤니티에 대해 MD Pick을 설정할 수 있어요! MD가 선정한 커뮤니티는 메인에 걸리게 된답니다.</p>
+        <p class="mb-4"> 현재 '모집중'인 커뮤니티에 대해 MD Pick을 설정할 수 있어요! MD가 선정한 커뮤니티는 메인에 걸리게 된답니다.
+                        <br>이름을 클릭하면 커뮤니티의 상세페이지로 이동해요.</p>
 
 
         <div class="card shadow mb-4">
@@ -124,7 +125,7 @@
                     //alert(value);
                     a += "<tr>";
                     a += "  <td style='text-align: center;'>"+ i++ + "</td>";
-                    a += "  <td class='text-primary'>"+value.c_name+"</td>";
+                    a += "  <td class='text-primary'><a href='/comm/read/"+value.c_code+"'>"+value.c_name+"</a></td>";
                     a += "  <td>"+value.b_name+"</td>";
                     a += "  <td>"+value.c_local+"</td>";
                     a += "  <td style='text-align: center;'>"+value.c_id+"</td>";

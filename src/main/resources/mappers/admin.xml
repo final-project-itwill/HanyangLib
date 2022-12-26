@@ -25,8 +25,14 @@
 	<select id="memberList" resultType="kr.co.itwill.member.MemberDTO">
 		SELECT m_id, m_pw, m_name, m_nick, m_birth, m_gender, m_zip, m_add1, m_add2, m_tel, m_email, m_mailcheck, m_smscheck, m_grade, m_gudok, m_heat, m_rdate, m_img, m_month, m_year
 		FROM member
-		WHERE m_grade not in ('A')
 	</select>
+
+	<update id="updateMember">
+		UPDATE member
+		SET m_grade = #{m_grade}, m_heat = #{m_heat}
+		WHERE m_id = #{m_id}
+	</update>
+
 	<!-- 회원 끝-->
 
 
@@ -113,7 +119,7 @@
 
 
 	<!-- 수정 -->
-	<update id="productupdate">
+	<update id="update">
         UPDATE book
         SET b_name		= #{b_name}
         , b_type		= #{b_type}
@@ -129,6 +135,18 @@
         WHERE b_code  = #{b_code}
     </update>
 
+
+	<delete id="delete">
+		DELETE FROM book
+		WHERE b_code = #{b_code}
+	</delete>
+
+
+
+	<insert id = "productinsert" parameterType="kr.co.itwill.book.BookDTO">
+		INSERT INTO book(b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des)
+		VALUES (#{b_code}, #{b_name}, #{b_type}, #{b_gudok}, #{b_author}, #{b_publish}, #{b_page}, #{b_price}, now(), #{b_rdate}, #{b_bookcover}, #{b_coversize}, #{b_des})
+	</insert>
 	<!-- 도서관리 끝 -->
 
 </mapper>

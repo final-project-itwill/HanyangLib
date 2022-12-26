@@ -72,12 +72,12 @@
                     </div>
                     <div class="row no-gutters align-items-center">
                       <div class="col-auto">
-                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">5/10</div>
+                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${member.s_count}/${member.r_count}</div>
                       </div>
                       <div class="col">
                         <div class="progress progress-sm mr-2">
-                          <div class="progress-bar bg-info" role="progressbar"
-                               style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                          <div class="progress-bar bg-info" role="progressbar" id="data"
+                               style="width: ${member.s_count/member.r_count*100}%" aria-valuenow="70" aria-valuemin="0"
                                aria-valuemax="100"></div>
                         </div>
                       </div>

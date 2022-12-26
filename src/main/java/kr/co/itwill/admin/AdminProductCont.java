@@ -1,6 +1,7 @@
 package kr.co.itwill.admin;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -30,7 +31,6 @@ public class AdminProductCont {
     @Autowired
     BookDAO bookDao;
     
-    
 
     @RequestMapping("/productmain")
     public ModelAndView productDashBoard(){
@@ -40,16 +40,53 @@ public class AdminProductCont {
     }//dashBoard() end
 
 
-    @RequestMapping("/productinsert/{b_code}")
-    public ModelAndView productInsert(@PathVariable String b_code){
+    @RequestMapping("/productInsert")
+    public String productinsert() {
+    	return "admin/productInsert";
+    }//create() end
+    
+    
+    
+    @RequestMapping(value = "/productInsert", method = RequestMethod.POST)
+    public ModelAndView insert(@ModelAttribute BookDTO dto, HttpServletRequest req) throws Exception{
     	
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("list", bookDao.list());
-        
-        
-        mav.setViewName("admin/productInsert");
-        return mav;
-    }//dashBoard() end
+    	//파일명 리네임 구현 안함
+    	ModelAndView mav = new ModelAndView();
+    	
+    	//저장 폴더의 실제 경로 가져오기
+    	ServletContext application = req.getSession().getServletContext();
+    	String path = application.getRealPath("/storage");
+    	
+    	//<input type="file" name="img">
+    	
+    	MultipartFile img = dto.getImg();
+    	String filename = img.getOriginalFilename();
+    	if(img == null || img.isEmpty()) {
+    		filename = "none.png";
+    	}//if end
+    	
+    	img.transferTo(new File(path + "/" + filename));	//  /storage 폴더에 파일 저장
+    	
+    	
+    	dto.setB_bookcover(filename);
+    	
+    	dto.setB_code(dto.getB_code());
+    	dto.setB_name(dto.getB_name());
+    	dto.setB_author(dto.getB_author());
+    	dto.setB_des(dto.getB_des());
+    	dto.setB_gudok(dto.getB_gudok());
+    	dto.setB_page(dto.getB_page());
+    	dto.setB_price(dto.getB_price());
+    	dto.setB_publish(dto.getB_publish());
+    	dto.setB_rdate(dto.getB_rdate());
+    	dto.setB_type(dto.getB_type());
+    	System.out.println("컨트롤러에서----"+dto.toString());
+    	
+    	mav.addObject("book", productDao.insert(dto));
+    	mav.setViewName("redirect:/admin/productlist?pageNum=1");
+    	
+    	return mav;
+    }//insert() end
     
     
 
@@ -114,9 +151,10 @@ public class AdminProductCont {
     @RequestMapping("/search")
     public ModelAndView search(@RequestParam(defaultValue = "") String keyword) {
     	ModelAndView mav = new ModelAndView();
-    	mav.setViewName("admin/productlist");
+    	mav.setViewName("admin/productList");
     	mav.addObject("keyword", keyword);
-    	mav.addObject("product", productDao.search(keyword));
+    	mav.addObject("list_a", productDao.search(keyword));
+    	System.out.println("컨트롤러에서----"+keyword.toString());
     	return mav;
     }
 
@@ -133,71 +171,71 @@ public class AdminProductCont {
 	
 	
 	//수정
-	@RequestMapping("/productUpdate/{b_code}")
-	public ModelAndView productupdate(@PathVariable String b_code) throws Exception{
+	@RequestMapping("/update/{b_code}")
+	public ModelAndView update(@PathVariable String b_code) throws Exception{
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("book", productDao.productdetail(b_code));
-		mav.setViewName("admin/productUpdate");
+		mav.addObject("update", productDao.productdetail(b_code));
+		mav.setViewName("admin/update");
 		return mav;
-	}//productupdate() end
+	}//update() end
 	
 	
-	@RequestMapping(value = "/productupdate", method = RequestMethod.POST)
-	public ModelAndView productupdate(@ModelAttribute BookDTO dto, HttpServletRequest req) throws Exception{
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public void update(@ModelAttribute BookDTO dto, HttpServletRequest req) throws Exception {
 		
 		ModelAndView mav = new ModelAndView();
 		
 		//기존 저장된 정보 가져오기
 		BookDTO oldDTO = productDao.productdetail(dto.getB_code());
 		
-		String b_bookcover = "";
+		String filename="";
 		
-		//파일을 수정할 것인지
+		//파일 수정 예정?
 		MultipartFile img = dto.getImg();
-		if(img.getSize() > 0) {
-			b_bookcover = img.getOriginalFilename();
+		if(img.getSize()>0) {
+			filename = img.getOriginalFilename();
 			
 			try {
 				//저장 폴더의 실제 경로 가져오기
 				ServletContext application = req.getSession().getServletContext();
 				String path = application.getRealPath("/storage");
-				img.transferTo(new File(path + "/" + b_bookcover));
-				dto.setB_bookcover(b_bookcover);
+				img.transferTo(new File(path + "/" + filename));
+				dto.setB_bookcover(filename);
 				
-				String oldFilename = oldDTO.getB_bookcover();                     //old파일 /storage에서 삭제하기
-                File oldFile = new File(path + "/" + oldFilename);
+				String oldFilename = oldDTO.getB_bookcover();
+				File oldFile = new File(path + "/" + oldFilename);
 				if(oldFile.exists()) {
 					oldFile.delete();
-				}//file() end
-				
+				}
 			}catch (Exception e) {
 				e.printStackTrace();
 			}//try end
 			
 		}else {
-			b_bookcover = oldDTO.getB_bookcover();
+			filename = oldDTO.getB_bookcover();
 			dto.setB_bookcover(oldDTO.getB_bookcover());
-		}// if end
+		}//if end
 		
-		
-		dto.setB_code(dto.getB_code());
-		dto.setB_name(dto.getB_name());
-		dto.setB_author(dto.getB_author());
-		dto.setB_des(dto.getB_des());
-		dto.setB_gudok(dto.getB_gudok());
-		dto.setB_page(dto.getB_page());
-		dto.setB_price(dto.getB_price());
-		dto.setB_publish(dto.getB_publish());
-		dto.setB_rdate(dto.getB_rdate());
-		dto.setB_type(dto.getB_type());
-		
-		mav.addObject("book", productDao.productupdate(dto));
-		mav.setViewName("redirect:/admin/productDetail");
-		return mav;
-		
+    	dto.setB_name(dto.getB_name());
+    	dto.setB_author(dto.getB_author());
+    	dto.setB_des(dto.getB_des());
+    	dto.setB_gudok(dto.getB_gudok());
+    	dto.setB_page(dto.getB_page());
+    	dto.setB_price(dto.getB_price());
+    	dto.setB_publish(dto.getB_publish());
+    	dto.setB_rdate(dto.getB_rdate());
+    	dto.setB_type(dto.getB_type());
+    	System.out.println(dto.toString());
+    	productDao.update(dto);
+    	mav.setViewName("redirect:/admin/productlist?pageNum=1");
+				
 	}//update() end
 	
-	
+	@RequestMapping("/delete/{b_code}")
+	public String delete(@PathVariable("b_code") String b_code, HttpServletRequest req) {		
+		productDao.delete(b_code);
+		return "redirect:/admin/productlist?pageNum=1";
+	}//delete() end
 	
 	
 }//class end

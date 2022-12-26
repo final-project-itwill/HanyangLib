@@ -50,6 +50,8 @@ public class AdminDAO {
         return sqlSession.update("admin.updatePick", mdList);
     }//updatePick() end
 
-
+    public int updateMember(MemberDTO member){
+        return sqlSession.update("admin.updateMember", member);
+    }//updateMember() end
 
 }//class end

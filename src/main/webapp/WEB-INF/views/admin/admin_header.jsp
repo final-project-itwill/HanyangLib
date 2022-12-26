@@ -67,14 +67,6 @@
                 <span style="font-size: 16px">Dashboard</span></a>
         </li>
 
-        <hr class="sidebar-divider"><!-- Divider -->
-
-        <!-- Nav Item - 메인 디자인보기 -->
-        <li class="nav-item active">
-            <a class="nav-link" href="#">
-                <i class="fas fa-fw fa-wrench"></i>
-                <span style="font-size: 14px">메인 디자인보기</span></a>
-        </li>
 
         <hr class="sidebar-divider"><!-- Divider -->
 
@@ -88,7 +80,6 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">한양서재 이용자를 관리해보세요</h6>
-                    <a class="collapse-item" href="#">관리자 계정 관리</a>
                     <a class="collapse-item" href="/admin/memberList">이용자 관리</a>
                 </div>
             </div>
@@ -106,8 +97,6 @@
                     <h6 class="collapse-header">구독</h6>
                     <a class="collapse-item" href="#">구독자 현황</a>
                     <a class="collapse-item" href="#">구독서비스 수정</a>
-                    <a class="collapse-item" href="#"></a>
-                    <a class="collapse-item" href="#"></a>
                     <h6 class="collapse-header">도서</h6>
                     <a class="collapse-item" href="/admin/productmain">Dashboard</a>
                     <a class="collapse-item" href="/admin/productinsert">신규도서 등록</a>
@@ -128,11 +117,11 @@
             <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">공지사항과 문의관리는 여기서!</h6>
-                    <a class="collapse-item" href="/notice/insert">공지사항 등록</a>
-                    <a class="collapse-item" href="#">공지사항 수정/삭제</a>
+                    <a class="collapse-item" href="/admin/insertNotice">공지사항 등록</a>
+                    <a class="collapse-item" href="/admin/listNotice?pageNum=1">공지사항 관리</a>
                     <h6 class="collapse-header">1:1문의</h6>
                     <a class="collapse-item" href="/admin/response">문의 답변하기</a>
-                    <a class="collapse-item" href="/admin/responseList">답변 수정/삭제</a>
+                    <a class="collapse-item" href="/admin/listResponse">답변 관리</a>
                 </div>
             </div>
         </li><!-- Nav 문의 관리 끝 -->
@@ -171,15 +160,6 @@
         </li>
     </c:otherwise>
     </c:choose>
-        <%--커뮤니티 삭제 자바스크립트--%>
-        <script>
-            function checkDelete(){
-                let msg = "삭제된 데이터는 복구되지 않습니다. \n진행하시겠어요?"
-                if(confirm(msg)){
-                    location.href="/comm/delete/${read.c_code}";
-                }
-            }//checkDelete() end
-        </script>
 
         <br>
         <!-- Divider -->
@@ -220,12 +200,7 @@
 
                     <!-- Nav Item - Alerts -->
                     <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-bell fa-fw"></i>
-                            <!-- Counter - Alerts -->
-                            <span class="badge badge-danger badge-counter">3+</span>
-                        </a>
+
                         <!-- Dropdown - Alerts -->
                         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="alertsDropdown">
@@ -271,12 +246,7 @@
 
                     <!-- Nav Item - Messages -->
                     <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-envelope fa-fw"></i>
-                            <!-- Counter - Messages -->
-                            <span class="badge badge-danger badge-counter">7</span>
-                        </a>
+
                         <!-- Dropdown - Messages -->
                         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="messagesDropdown">

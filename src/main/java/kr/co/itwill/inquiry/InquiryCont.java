@@ -2,9 +2,7 @@ package kr.co.itwill.inquiry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -41,5 +39,21 @@ public class InquiryCont {
 
         return "redirect:/inquiry/list";
     }//insert() end
+
+    @RequestMapping("/delete/{ans_no}")
+    @ResponseBody
+    public int delete(@PathVariable int ans_no) throws Exception{
+        return inquiryDAO.delete(ans_no);
+    }//delete() end
+
+    @RequestMapping("/update")
+    public String update(@ModelAttribute ResponseDTO dto){
+        ResponseDTO response = new ResponseDTO();
+        response.setAns_no(dto.getAns_no());
+        response.setAns_content(dto.getAns_content());
+        inquiryDAO.update(response);
+
+        return "redirect:/admin/listResponse";
+    }//delete() end
 
 }//class end

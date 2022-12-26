@@ -4,12 +4,12 @@
 <%@ include file="admin_header.jsp"%>
 <!-- 본문작성 시작 -->
 
-<<script>
+<script>
 
 function addProduct(){
     if(confirm("진행할까요?")){
-        document.frm.action = "/admin/productRead/${book.b_code}";
-        document.frm.submit();
+        document.form1.action = "/admin/productInsert";
+        document.form1.submit();
     }
 }//approveMember() end
 </script>
@@ -30,7 +30,7 @@ function addProduct(){
 
 <div class="card-body">
 	<div class="table-responsive">
-		<form id="test" name="form1" method="post" action="insert" enctype="multipart/form-data">
+		<form id="form1" name="form1" method="post" action="insert" enctype="multipart/form-data">
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<tr>
 					<td>도서코드(ISBN)</td>
@@ -47,25 +47,25 @@ function addProduct(){
 						<div class="container">
 								<div class="form-check-inline">
 									<label class="form-check-label" for="check1"> <input
-										type="checkbox" class="form-check-input" id="check1"
+										type="checkbox" class="form-check-input" id="b_type1" name="b_type"
 										value="novel" onclick=>소설/시
 									</label>
 								</div>
 								<div class="form-check-inline">
 									<label class="form-check-label" for="check2"> <input
-										type="checkbox" class="form-check-input" id="check2"
+										type="checkbox" class="form-check-input" id="b_type2" name="b_type"
 										value="essay" onclick=>에세이
 									</label>
 								</div>
 								<div class="form-check-inline">
 									<label class="form-check-label" for="check3"> <input
-										type="checkbox" class="form-check-input" id="check3"
+										type="checkbox" class="form-check-input" id="b_type3" name="b_type"
 										value="humanity" onclick=>인문
 									</label>
 								</div>
 								<div class="form-check-inline">
 									<label class="form-check-label" for="check4"> <input
-										type="checkbox" class="form-check-input" id="check4"
+										type="checkbox" class="form-check-input" id="b_type4" name="b_type"
 										value="science" onclick=>자연과학
 									</label>
 								</div>
@@ -87,13 +87,13 @@ function addProduct(){
 								<div class="form-check-inline">
 									<label class="form-check-label" for="radio1"> <input
 										type="radio" class="form-check-input" id="radio1"
-										name="optradio" value="option1"> Y
+										name="b_gudok" value="Y"> Y
 									</label>
 								</div>
 								<div class="form-check-inline">
 									<label class="form-check-label" for="radio2"> <input
 										type="radio" class="form-check-input" id="radio2"
-										name="optradio" value="option2" checked> N
+										name="b_gudok" value="N" checked> N
 									</label>
 								</div>
 						</div>
@@ -102,15 +102,15 @@ function addProduct(){
 				</tr>
 				<tr>
 					<td>페이지수</td>
-					<td><input type="number" name="pages"></td>
+					<td><input type="number" name="b_page"></td>
 				</tr>
 				<tr>
 					<td>상품가격</td>
-					<td><input type="number" name="price"></td>
+					<td><input type="number" name="b_price"></td>
 				</tr>
 				<tr>
 					<td>출판일</td>
-					<td><input type="date" name="rdate"></td>
+					<td><input type="date" name="b_rdate"></td>
 				</tr>
 				<tr>
 					<td>상품설명</td>

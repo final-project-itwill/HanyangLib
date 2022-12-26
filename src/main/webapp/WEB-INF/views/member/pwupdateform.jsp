@@ -14,8 +14,9 @@
              <input type="text" class="form-control form-control-user"
                  id="memberId" aria-describedby="IdHelp" name="memberId"
                  placeholder="새비밀번호를 입력하세요">
+                 <input type="hidden" id="m_pw" name="m_pw">
          </div>
-         <button type="submit" class="btn btn-primary btn-user btn-block">
+         <button type="submit" class="btn btn-primary btn-user btn-block" onsubmit="location.href='/member/updatepw">
              비밀번호 바꾸기
          </button>
      </form>

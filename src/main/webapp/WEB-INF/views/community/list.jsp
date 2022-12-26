@@ -10,7 +10,9 @@
     <div class="container">
         <div class="align-items-center justify-content-between" style="padding-top: 200px;">
             <div class="col-lg-12 intro">
-                <h1 class="text-white font-weight-bold mb-4 aos-animate" data-aos="fade-up" data-aos-delay="0">커뮤니티<br>둘러보지 않을래?</h1>
+                <a href="/comm/index">
+                    <h1 class="text-white font-weight-bold mb-4 aos-animate" data-aos="fade-up" data-aos-delay="0">커뮤니티<br>둘러보지 않을래?</h1>
+                </a>
             </div>
         </div>
     </div>
@@ -20,20 +22,33 @@
 <div class="container pb-md-5"></div>
 <div class="container pb-md-5"></div>
 
+<!-- 정렬 option 관련 js -->
+<script>
+    /*
+    $(function() {
+        $("#order").change(function() {
+            let order = $("#order").val();
+            //alert("셀렉트값 : "+order);
+            location.href = "redirect:/comm/list?pageNum=1&order="+order;
+        });//change() end
+    });
+     */
+</script>
 
-<!-- 커뮤니티 목록 테이블 (DB연결 후 jstl for문으로 출력할 것이다)-->
 <div class="container border-bottom">
 
     <div class="row">
+        <!-- 정렬
         <div class="col-lg-3">
-        <select class="" style="width: 20vh; height: 5vh">
+        <select id="order" name="order" style="width: 20vh; height: 5vh">
             <option value="new">최신순</option>
             <option value="due">마감순</option>
         </select>
-        </div>
+        </div>-->
 
-        <div class="col-lg-3"></div>
+        <div class="col-lg-6"></div>
 
+        <!-- 검색창 -->
         <div class="col-lg-6" style="margin-right: 0">
         <form class=" text-right" name="keyword" action="search" method="post">
             <input type="text" name="keyword" style="height: 5vh; width: 40vh" value="${keyword}" placeholder="커뮤니티 찾아보기">
@@ -43,6 +58,7 @@
     </div>
     <br>
 
+    <!-- 커뮤니티 list table 시작 -->
     <table class="table table-hover">
         <thead>
         <tr class="active">
@@ -70,7 +86,8 @@
         </c:forEach>
 
         </tbody>
-    </table>
+    </table><!-- 커뮤니티 list table 끝 -->
+
 
     <!-- 페이징 list -->
     <c:set var="pageCount" value="${totalPage}"></c:set>
@@ -100,26 +117,12 @@
         <c:if test="${endPage < pageCount}">
             <a href="/comm/list?pageNum=${endPage+1}">[다음]</a>
         </c:if>
-    </div>
+    </div><!-- 페이징 list 끝 -->
 
     <br>
 
 </div>
 
-<!--
-<script>
-
-    function checkDelete(){
-        let msg = "삭제하면 복구되지 않습니다. \n 진행하시겠습니까?"
-        if(confirm(msg)) {
-            return true;
-        }else {
-            history.back();
-        }//if end
-    }//checkDelete() end
-</script>
--->
-<!-- 페이징 추가하기 / border-bottom 클래스 여기에 추가?-->
 
 
 <!-- 본문작성 끝 -->

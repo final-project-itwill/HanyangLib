@@ -69,12 +69,13 @@ public class MemberCont {
 	}// welcomform() end
 
 	@RequestMapping("/detailform")
-	public ModelAndView Memberdetailform() {
+	public ModelAndView Memberdetail() {
 		ModelAndView mav=new ModelAndView();
 		
 		mav.setViewName("member/memberdetail");
+		
 		return mav;
-	}
+	}//Memberdetail() end
 	
 	// 아이디 중복확인 버튼을 눌렀을때 버튼옆에 출력하기
 	@RequestMapping("idcheckproc.do")
@@ -101,7 +102,7 @@ public class MemberCont {
 	public String emailCheckProc(HttpServletRequest req) {
 		String useremail = req.getParameter("m_email").trim();
 		String message = "";
-
+		
 		if (useremail.length()<5 || useremail.length()>25) {
 			message = "<span style='color: red; font-weight: bold'>이메일은 5~25글자 이내 입력해주세요</span>";
 		} else {
@@ -158,7 +159,7 @@ public class MemberCont {
 		 */
 		ModelAndView mav=new ModelAndView();
 		
-		String imgname="profile_none.png";
+		String imgname="/storage/profile_none.png";
 		if(img != null && !img.isEmpty()) {
 			imgname=img.getOriginalFilename();
 			try {
@@ -186,7 +187,6 @@ public class MemberCont {
 		member.setM_email(dto.getM_email());
 		member.setM_mailcheck(dto.getM_mailcheck());
 		member.setM_smscheck(dto.getM_smscheck());
-		member.setM_gudok(dto.getM_gudok());
 		member.setM_rdate(dto.getM_rdate());
 		
 		memberDao.memberinsert(member);

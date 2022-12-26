@@ -55,7 +55,7 @@
                                 </tr>
                                 <c:forEach items="${listMylib}" var="dto">
                                     <tr>
-                                        <td><img src="/storage/${dto.b_bookcover}"></td>
+                                        <td><img src="${dto.b_bookcover}"></td>
                                         <td>
                                             <c:choose>
                                                 <c:when test="${dto.lib_proc >= 70}">
@@ -76,9 +76,11 @@
             </div>
 
             <%-- 커뮤니티 생성 버튼--%>
-            <button type="button" class="btn btn-outline-light btn-block col-md-4 text-dark" data-toggle="modal" data-target="#modal" style="font-weight: bold;margin-bottom: 20px; border-color: #2a96a5">
+            <div class="row">
+                <div class="col-md-8"></div>
+            <button type="button" class="btn btn-outline-light btn-block col-md-4 text-dark" data-toggle="modal" data-target="#modal" style="font-weight: bold;margin-bottom: 20px; border-color: #2a96a5;">
                 <i class="fas fa-fw fa-wrench"></i> 커뮤니티 만들러 가기</button>
-
+            </div>
 
         <script>
             let readProc = '${dto.lib_proc}';
@@ -135,7 +137,7 @@
                 <c:forEach items="${newComm}" var="dto">
                 <div class="col-lg-4" style="center">
                     <a href="read/${dto.c_code}" class="gal-item">
-                                <img src="/storage/${dto.c_banner}" class="img-fluid">
+                        <img src="/storage/${dto.c_banner}" class="img-fluid" style="height: 30vh; width: 40vw; text-align: center">
                     </a>
                     <br>
                     <h4 style="text-align: center; font-weight: bold">${dto.c_name}</h4>
@@ -161,7 +163,9 @@
             <div class="row">
                 <c:forEach var="list" items="${dueCommunity}">
                 <div class="col-lg-4">
-                    <a href="read/${list.c_code}" class="gal-item"><img src="/storage/${list.c_banner}" class="img-fluid"></a>
+                    <a href="read/${list.c_code}" class="gal-item">
+                        <img src="/storage/${list.c_banner}" class="img-fluid" style="height: 30vh; width: 40vw; text-align: center">
+                    </a>
                     <br>
                     <h4 style="text-align: center; font-weight: bold">${list.c_name}</h4>
                     <p style="text-align: center; font-weight: bold">${list.b_name}</p>

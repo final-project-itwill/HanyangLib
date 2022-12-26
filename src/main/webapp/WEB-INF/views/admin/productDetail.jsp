@@ -65,14 +65,13 @@
 					        <td>상품사진</td>
 					        <td><img src="${book.b_bookcover}"></td>
 					    </tr>
-					    <tr>
-					        <td colspan="2" align="center">
+					  </table> 
+					   <div class="align-content-sm-center" style="text-align: center">
 					            <input type="hidden" name="b_code" value="${book.b_code}">
-					            <input type="button" value="상품수정" onclick="productUpdate()"> 
-					            <input type="button" value="상품삭제" onclick="productdelete()"> 
-					        </td>
-					    </tr>   
-					    </table>    
+					            <input type="hidden" name="b_bookcover" value="${book.b_bookcover}">
+					            <input type="button" class="btn btn-success btn-icon-split"  value="상품수정" onclick="update()"> 
+					            <input type="button" class="btn btn-danger btn-icon-split" value="상품삭제" onclick="del()"> 
+					   </div>   
 	    	</form>
 	    </div>
 	 </div> 
@@ -82,14 +81,16 @@
  
  <script>
  let b_code = "${b_code}";
-function productUpdate(){
-	document.form1.action="/admin/productUpdate/"+b_code;
+ let b_bookcover = "${b_bookcover}"
+ 
+function update(){
+	document.form1.action="/admin/update/"+b_code;
 	document.form1.submit();
 }//prodcutUpdate() end
 
-function productdelete(){
+function del(){
 	if(confirm("선택된 도서가 삭제됩니다\n진행할까요?")){
-		document.form1.action="/admin/productdelete";
+		document.form1.action="/admin/delete/"+b_code;
 		document.form1.submit();
 	}//if end
 }//productdelete() end

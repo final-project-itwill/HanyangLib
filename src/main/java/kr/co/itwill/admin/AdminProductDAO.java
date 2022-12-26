@@ -34,7 +34,8 @@ public class AdminProductDAO {
 	
 	
 	public int insert(BookDTO book) {
-		return sqlSession.insert("book.insert", book);
+		System.out.println("DAO에서----"+book.toString());
+		return sqlSession.insert("admin.productinsert", book);
 	}//insert() end
 	
 	public BookDTO readBook(String b_code){
@@ -42,11 +43,11 @@ public class AdminProductDAO {
     }//readBook() end
 	
 	public String filename(String b_code) {
-		return sqlSession.selectOne("product.filename", b_code);
+		return sqlSession.selectOne("admin.filename", b_code);
 	}//filename() end
 	
 	public void delete(String b_code) {
-		sqlSession.delete("book.delete", b_code);
+		sqlSession.delete("admin.delete", b_code);
 	}//delete() end
 
 	
@@ -59,7 +60,7 @@ public class AdminProductDAO {
 
 	//검색
 	public List<BookDTO> search(String keyword){
-		return sqlSession.selectList("book.search", keyword);
+		return sqlSession.selectList("admin.search", keyword);
 	}
 	
 	//상세페이지
@@ -69,7 +70,7 @@ public class AdminProductDAO {
 
 	
 	//수정
-	public int productupdate(BookDTO dto){
-				return sqlSession.update("admin.productupdate", dto);
-	}//productupdate() end
+	public int update(BookDTO dto){
+		return sqlSession.update("admin.update",dto);
+	}//update() end
 }

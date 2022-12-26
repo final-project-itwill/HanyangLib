@@ -4,7 +4,6 @@
 <%@ include file="admin_header.jsp"%>
 <!-- 본문작성 시작 -->
 
-
 <div class="container-fluid">
 
     <h1 class="h3 mb-2 text-gray-800" style="font-weight: bold">1:1 문의 목록 </h1>
@@ -69,7 +68,7 @@
                                     </div>
                                     <div class="modal-body">
                                         <!-- insert form 시작 -->
-                                        <form action="/admin/insertResponse" method="post">
+                                        <form name="frm" method="post" action="/admin/insertResponse/${list.ask_no}">
                                             <input type="hidden" name="ans_no" value="${list.ask_no}">
                                             <p class="text-info" style="font-weight: bold">Q. ${list.ask_title}</p>
                                             <textarea name="ans_content" rows="7" placeholder="답변을 입력해주세요" style="width: 100%" required></textarea>
@@ -95,23 +94,22 @@
 <script>
 
     /*
-        //답변 유효성 검사
-        function checkResponse(){
-            if(confirm("답변을 저장할까요?")){
-                return true;
-            }else {
-                return false;
-            }
-        }//checkResponse() end
+            //답변 유효성 검사
+            function checkInsert(ask_no){
+                if(confirm("답변을 저장할까요?")){
+                    document.frm.action = "/admin/insertResponse/"+ask_no;
+                    document.frm.submit();
+                }
+            }//checkResponse() end
 
 
 
-        리스트 필터링 조회
-        function listInquiry(){
-            document.frm.action = "/admin/response";
-            document.frm.submit();
-        }//listInquiry() end
-    */
+            리스트 필터링 조회
+            function listInquiry(){
+                document.frm.action = "/admin/response";
+                document.frm.submit();
+            }//listInquiry() end
+        */
 </script>
 
 <!-- 본문작성 끝 -->

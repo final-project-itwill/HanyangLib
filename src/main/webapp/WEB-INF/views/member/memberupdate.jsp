@@ -6,7 +6,8 @@
 <div class="container">
     <form name="membupdate" method="post" onsubmit="memupdate()" enctype="multipart/form-data">
     	<input type="hidden" id="m_id" name="m_id" value="${s_id}">
-	    <table border="1" class="table table-hover">
+    	<p style="border: 5px solid #C9C9C9; padding: 0.3em 1em;border-radius: 2px;">내정보 보기 및 수정</p>
+	    <table class="table table-hover" style="border: 5px solid #C9C9C9; padding: 0.3em 1em;border-radius: 2px;">
 	    <tr>
 			<th>프로필 사진</th>
 			<td>
@@ -23,12 +24,20 @@
 	            <td>${s_id}</td>
 	        </tr>
 	        <tr>
+		    <th>닉네임</th>
+		    	<td style="text-align: left">
+			    	<input type="text" name="m_nick" id="m_nick" value="${detail.m_nick}" size="15" maxlength="20" required>
+			    	<input type="button" value="닉네임중복확인" id="btn_usernick"> 
+			    	<span id="nickpanel" style="display:none"></span>
+		    	</td>
+			</tr>
+	        <tr>
     			<th>전화번호</th>
-			    <td style="text-align: left"><input type="text" name="m_tel" id="m_tel" value="${detail.m_tel}" size="15"></td>
+			    <td style="text-align: left"><input type="tel" name="m_tel" id="m_tel" value="${detail.m_tel}" size="15"></td>
 			</tr>
 	         <tr>
 	            <th>비밀번호</th>
-	            <td><input type="password" name="m_pw" id="m_pw" value="${detail.m_pw}"></td>
+	            <td><input type="password" name="m_pw" id="m_pw" size="15" value="${detail.m_pw}"></td>
 	        </tr>
 	        <tr>
     			<th>*비밀번호 확인</th>
@@ -38,11 +47,13 @@
 			    </td>
 			</tr>
 	        <tr>
-	        	<th>이메일</th>
-	            <td>
-	            	<input type="email" name="m_email" id="m_email" value="${detail.m_email}">
-	            </td>
-	        </tr>
+		    <th>이메일</th>
+			    <td style="text-align: left">
+			      <input type="email" name="m_email" id="m_email" value="${detail.m_email}" size="30">
+			      <input type="button" value="Email 중복확인" id="btn_email">
+			      <span id="emailpanel" style="display:none"></span>
+			    </td>
+			</tr>
 	        <tr>
 	   			<th>우편번호</th>
 			    <td style="text-align: left">
@@ -64,7 +75,6 @@
 	    		<td>
 	       			 <input type="checkbox" name="mailcheck" id="mailcheck">
 	       			 <input type="hidden" name="m_mailcheck" id="m_mailcheck">
-	       		
 	    		</td>
 			</tr>
 			<tr>
@@ -88,7 +98,7 @@
 	$(".pwcheck").keyup(function(){
     	let pass1 = $("#m_pw").val();
     	let pass2 = $("#m_pw2").val();
-    if(pass1 != "" || pass != ""){
+    if(pass1 != "" || pass2 != ""){
     	if(pass1 == pass2){
     		$("#chm_pw").html("비밀번호가 일치합니다!^^");
     		$("#chm_pw").css("color", "green");
@@ -100,9 +110,7 @@
   }); //keyup() end
 
 </script>
-   
-   
-   
+
     <script>
     function memupdate(){
     	if($("input:checkbox[name='mailcheck']").is(":checked") == true){
@@ -125,9 +133,62 @@
     
     </script>
     
+     <script>
+  	
+ 	$("#btn_userid").click(function() {
+		$.post(
+				"idcheckproc.do"
+				,"m_id=" + $("#m_id").val()
+				,idresponseProc		
+		);
+	}); //click() end
+   
+	
+	$("#btn_email").click(function() {
+		$.post(
+				"emailcheckproc.do"
+				,"m_email=" + $("#m_email").val()
+				,emailresponseProc		
+		);
+	}); //click() end
+	
+	$("#btn_usernick").click(function(){
+		$.post(
+				"nicknamecheckproc.do"
+				,"m_nick=" + $("#m_nick").val()
+				,nickresponseProc
+		);
+	});	//click() end
+	
+	</script>
+	
+	<script>
+	function idresponseProc(result) {
+		$("#idpanel").empty();
+		$("#idpanel").html(result);
+		$("#idpanel").show();
+	}//responseProc() end
+	
+	
+	function emailresponseProc(result) {
+		$("#emailpanel").empty();
+		$("#emailpanel").html(result);
+		$("#emailpanel").show();
+	}//responseProc() end
+	
+	
+   function nickresponseProc(result) {
+		$("#nickpanel").empty();
+		$("#nickpanel").html(result);
+		$("#nickpanel").show();
+	}//responseProc() end
+	
+</script>
+    
+    
     
   
-    <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 110px;position:relative">
+  <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 110px;position:relative">
   <img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
 </div>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
