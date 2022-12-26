@@ -128,6 +128,7 @@
     <update id="update">
         UPDATE community
         SET c_name    = #{c_name}
+        	,c_state  = #{c_state}
             ,c_des    = #{c_des}
             ,c_local  = #{c_local}
             ,c_chat   = #{c_chat}

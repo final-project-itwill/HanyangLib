@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.Document;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -239,7 +241,8 @@ public class CommunityCont {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ModelAndView update(@ModelAttribute CommunityDTO dto, HttpServletRequest request) throws Exception{
-
+    	
+    	String code = request.getParameter("c_code");
         ModelAndView mav = new ModelAndView();
 
         
@@ -273,7 +276,7 @@ public class CommunityCont {
             filename = oldDTO.getC_banner();            //oldDTO에서 파일이름 가져오기
             dto.setC_banner(oldDTO.getC_banner());      //기존파일이름 dto에 담기
         }//if end
-
+        dto.setC_state(dto.getC_state());
         dto.setC_code(dto.getC_code());
         dto.setC_name(dto.getC_name());
         dto.setC_des(dto.getC_des());
@@ -282,7 +285,7 @@ public class CommunityCont {
         dto.setC_count(dto.getC_count());
 
         mav.addObject("update", commDao.update(dto));
-        mav.setViewName("redirect:/comm/admin"); //수정 필요 : 관리자 페이지로 이동
+        mav.setViewName("redirect:/comm/admin/"+code); //수정 필요 : 관리자 페이지로 이동
         return mav;
     }//update() end
 
@@ -349,6 +352,7 @@ public class CommunityCont {
         mav.addObject("star", commDao.star(c_code));
         mav.addObject("reviewCnt", commDao.reviewCnt(c_code));
         mav.addObject("checkOwner", commDao.checkOwner(c_code));
+        mav.addObject("member",surveyDAO.memcount(c_code));
         mav.addObject("cntMember", commDao.countMember(c_code));        //가입멤버수
         mav.addObject("cntApplicant", commDao.countApplicant(c_code));  //신청멤버수
 
@@ -360,7 +364,7 @@ public class CommunityCont {
 
     // 1. 구성원 관리 페이지
     @RequestMapping("/adminmember/{c_code}")
-    public ModelAndView adminMember(@PathVariable String c_code) throws Exception{
+    public ModelAndView adminMember(@PathVariable String c_code,HttpServletRequest req) throws Exception{
         ModelAndView mav = new ModelAndView();
         mav.setViewName("community/adminMember");
 

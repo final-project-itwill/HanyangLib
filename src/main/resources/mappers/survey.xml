@@ -8,10 +8,23 @@
 		ORDER BY sv_code
 	</select>
 	
+	<select id="survey" resultType="kr.co.itwill.survey.SurveyDTO">
+		SELECT sv_code, sv_comcode, sv_id, sv_title, sv_des, sv_rdate, sv_edate, sv_max, sv_status
+		FROM survey
+		WHERE sv_comcode = #{c_code}
+	</select>
+	
 	<select id="svcode" resultType="String">
 		SELECT sv_code
 		FROM survey
 		WHERE sv_comcode = #{c_code}
+	</select>
+	
+	<select id="idsvcode" resultType="String">		
+		  SELECT ans_code
+		  FROM answer
+		  WHERE ans_code= #{ans_code} AND ans_id= #{ans_id}
+  		  GROUP BY ans_code
 	</select>
 	
 	<select id="getnick" resultType="String">
@@ -27,6 +40,13 @@
 		WHERE dsv_code = #{dsv_code}
 		ORDER BY dsv_order ASC
 	</select>
+	
+	<select id="choice" resultType="kr.co.itwill.survey.ChoiceDTO">
+		SELECT ch_no, ch_code, ch_order, ch_type, ch_anscode, ch_content
+		FROM	choice
+		WHERE ch_code = #{dsv_code}
+		ORDER BY ch_anscode ASC
+	</select>	
 	
 	<select id="count" resultType="int">
 		SELECT COUNT(*)
@@ -55,13 +75,6 @@
 		SELECT tefo_no, tefo_code, tefo_type, tefo_order, tefo_subject, tefo_check
 		FROM temp_info
 		WHERE tefo_code = #{tem_code}
-	</select>
-	
-	<select id="choice" resultType="kr.co.itwill.survey.ChoiceDTO">
-		SELECT ch_no, ch_code, ch_order, ch_type, ch_anscode, ch_content
-		FROM	choice
-		WHERE ch_code = #{dsv_code}
-		ORDER BY ch_anscode ASC
 	</select>
 	
 	<delete id="ansdelete">
@@ -138,5 +151,47 @@
            ,sv_edate = #{sv_edate}
         WHERE sv_code = #{sv_code}
 	</update>
+	
+<!-- surveyChart -->
+	<select id="Member" resultType="kr.co.itwill.community.AdminMemberDTO">
+		SELECT s_rdate , COUNT(s_rdate ) AS s_no
+		FROM ( SELECT  SUBSTR(s_rdate, 6,5) AS s_rdate 
+		        FROM community_signup
+		        WHERE s_code = #{c_code}
+		       ) AS community_signup
+		GROUP BY s_rdate;
+	</select>
+	
+	<select id="pie" resultType="kr.co.itwill.survey.pieDTO">
+
+	SELECT i_count, s_count, r_count
+		FROM
+		(
+			SELECT i_count, s_count, s_code as best
+			FROM
+				( SELECT  count(CASE WHEN s_state like 'i' THEN 1 END) i_count, s_code 
+				FROM community_signup
+				WHERE s_code = #{c_code} ) AS AA JOIN (
+				
+				SELECT  count(CASE WHEN s_state like 's' THEN 1 END) s_count, s_code as test
+				FROM community_signup
+				WHERE s_code = #{c_code}) AS BB
+				ON AA.s_code = BB.test ) AS CC JOIN (
+		
+					SELECT  count(CASE WHEN s_state like 'r' THEN 1 END) r_count, s_code 
+					FROM community_signup
+					WHERE s_code = #{c_code}) AS DD
+					ON CC.best = DD.s_code ;									
+		
+	</select>
+	
+	<select id="member" resultType="kr.co.itwill.survey.pieDTO">
+
+	  	SELECT  count(CASE WHEN s_state like 's' THEN 1 END) s_count, count(s_state) r_count
+		FROM community_signup
+		WHERE s_code = #{c_code}						
+		
+	</select>
+	
 	
 </mapper>

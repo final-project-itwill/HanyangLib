@@ -68,14 +68,12 @@
 						<c:forEach items="${choice}" var="choice">
 						<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
-								<input type="text" id="${choice.ch_anscode}" name="${choice.ch_anscode}" readonly>
+						
 								<!--문항 만들기 -->
 									<c:forEach items="${answer}" var="ans">
 									<c:choose>
 									<c:when test="${ans.ans_anscode eq choice.ch_anscode}">
-										<script>
-										 $("input[name=${choice.anscode}]").val(${ans.ans_content});
-										</script>
+											<input type="text" id="${choice.ch_anscode}" name="${choice.ch_anscode}" value='${ans.ans_content}' readonly>
 									</c:when>
 									</c:choose>
 									</c:forEach>
@@ -93,7 +91,7 @@
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
 
-								<input type="radio" id="${choice.ch_no}" name="${choice.ch_anscode}"  onclick="return(false);"><label for="${choice.ch_order}">&nbsp;${choice.ch_content}</label>
+								<input type="radio" id="${choice.ch_anscode}" name="${choice.ch_anscode}"  onclick="return(false);"><label for="${choice.ch_order}">&nbsp;${choice.ch_content}</label>
 								<!--문항 만들기 -->
 								<c:forEach items="${answer}" var="ans">
 								<c:choose>
@@ -107,7 +105,8 @@
 											</c:when>
 											</c:choose>
 										
-									</c:when>								</c:choose>
+									</c:when>					
+								</c:choose>
 								</c:forEach>
 								<!-- 문항 end -->	
 							</c:when>
@@ -123,7 +122,7 @@
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
 
-									<input type="checkbox" id="${choice.ch_no}" name="${choice.ch_anscode}"onclick="return(false);"><label for="${choice.ch_order}">&nbsp;${choice.ch_content}</label>
+									<input type="checkbox" id="${choice.ch_anscode}" name="${choice.ch_anscode}"onclick="return(false);"><label for="${choice.ch_order}">&nbsp;${choice.ch_content}</label>
 									
 								<!--문항 만들기 -->
 
@@ -155,16 +154,13 @@
 							<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
-								<input type="date" id="${choice.ch_no}" name="${choice.ch_anscode}" value="" readonly>
-									<c:forEach items="${answer}" var="ans">
-									<c:choose>
-									<c:when test="${ans.ans_anscode eq choice.ch_anscode}">										
-										<script>
-										 $("input[name=${choice.anscode}]").val(${ans.ans_content});
-										</script>
-									</c:when>
-									</c:choose>
-								</c:forEach>
+								<c:forEach items="${answer}" var="ans">
+								<c:choose>
+								<c:when test="${ans.ans_anscode eq choice.ch_anscode}">
+										<input type="date" id="${choice.ch_anscode}" name="${choice.ch_anscode}"  value='${ans.ans_content}' readonly>										
+								</c:when>
+								</c:choose>
+							</c:forEach>
 							</c:when>
 							</c:choose>
 							</c:forEach>
@@ -176,16 +172,13 @@
 							<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
-								<input type="time" id="${choice.ch_no}" name="${choice.ch_anscode}" value="" readonly>
-									<c:forEach items="${answer}" var="ans">
-									<c:choose>
-									<c:when test="${ans.ans_anscode eq choice.ch_anscode}">										
-										<script>
-										 $("input[name=${choice.anscode}]").val(${ans.ans_content});
-										</script>
-									</c:when>
-									</c:choose>
-									</c:forEach>
+								<c:forEach items="${answer}" var="ans">
+								<c:choose>
+								<c:when test="${ans.ans_anscode eq choice.ch_anscode}">
+									<input type="time" id="${choice.ch_anscode}" name="${choice.ch_anscode}"  value='${ans.ans_content}' readonly>										
+								</c:when>
+								</c:choose>
+								</c:forEach>
 							</c:when>
 							</c:choose>
 							</c:forEach>
@@ -204,7 +197,7 @@
 		</table>
 	</form>	
 	
-		<button type="button" onclick=" location.href=/comm/adminmember/${c_code}" id="btn_survey" class="btn btn-outline-light btn-block text-dark" style="font-weight: bold; color: #3b5998; border-color: #2a96a5; width: 100px;    margin:auto;" >돌아가기</button>
+		<button type="button" onclick="location.href='/comm/adminmember/${c_code}'" id="btn_survey" class="btn btn-outline-light btn-block text-dark" style="font-weight: bold; color: #3b5998; border-color: #2a96a5; width: 100px;    margin:auto;" >돌아가기</button>
 		<br>
 		</div>
 	</div>

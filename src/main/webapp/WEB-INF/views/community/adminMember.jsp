@@ -35,7 +35,10 @@
                             <c:forEach var="dto" items="${approvedMember}" varStatus="vs">
                                 <tr>
                                     <td>${vs.count}</td>
-                                    <td><a href="/survey/answer/${sv_code}/${dto.s_id}">${dto.s_id}</a></td><%--신청서 답변이랑 연결--%>
+                                    <c:choose>
+                                    	<c:when test="${fn:length(sv_code) == 0}"><td><a href="javascript:alert('이전 설문지가 삭제/변경되었습니다.');" onfocus="this.blur()">${dto.s_id}</a></td><%--신청서 답변이랑 연결--%></c:when>
+                                   		<c:otherwise><td><a href="/survey/answer/${sv_code}/${dto.s_id}">${dto.s_id}</a></td><%--신청서 답변이랑 연결--%></c:otherwise>
+                                    </c:choose>
                                     <td>${dto.s_nick}</td>
                                     <td>${dto.lib_proc}%</td>
                                     <td>${dto.s_rdate}</td>
@@ -118,7 +121,10 @@
                             <c:forEach var="dto" items="${waitingMember}" varStatus="vs">
                                 <tr>
                                     <td>${vs.count}</td>
-                                    <td><a href="/survey/answer/${sv_code}/${dto.s_id}">${dto.s_id}</a></td><%--신청서 답변이랑 연결--%>
+                                                                        <c:choose>
+                                    	<c:when test="${fn:length(sv_code) == 0}"><td><a href="javascript:alert('이전 설문지가 삭제/변경되었습니다.');" onfocus="this.blur()">${dto.s_id}</a></td><%--신청서 답변이랑 연결--%></c:when>
+                                   		<c:otherwise><td><a href="/survey/answer/${sv_code}/${dto.s_id}">${dto.s_id}</a></td><%--신청서 답변이랑 연결--%></c:otherwise>
+                                    </c:choose>
                                     <td>${dto.s_nick}</td>
                                     <td>
                                     <c:choose>

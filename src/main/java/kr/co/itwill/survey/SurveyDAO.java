@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.itwill.community.AdminMemberDTO;
 import kr.co.itwill.community.CommSignDTO;
 
 
@@ -25,10 +26,16 @@ public class SurveyDAO {
 	public List<SurveyDTO> list() {
 		return sqlSession.selectList("survey.list");
 	}// surveylist() end
-	
+	public List<SurveyDTO> survey(String c_code) {
+		return sqlSession.selectList("survey.survey", c_code);
+	}
 	
 	public String scodeget(String c_code) {
 		return sqlSession.selectOne("survey.svcode", c_code);
+	} // scodeget() end
+	
+	public String idscodeget(AnswerDTO ans) {
+		return sqlSession.selectOne("survey.idsvcode", ans);
 	} // scodeget() end
 	
 	// 커뮤니티의 가입신청서 문항 제목 조회
@@ -40,6 +47,7 @@ public class SurveyDAO {
 	public int svCount(String dsv_code) throws Exception {
 		return sqlSession.selectOne("survey.count", dsv_code);
 	}// svCount() end
+	
 	
 	// 커뮤니티 이름 가져오기
 	public String getcname(String c_code) {
@@ -118,5 +126,20 @@ public class SurveyDAO {
 		return sqlSession.delete("survey.updelete",survey);
 	} // updelete() end 
 
+// surveyChart
+
+	public List<AdminMemberDTO> Member(String c_code){
+		return sqlSession.selectList("survey.Member",c_code);
+	} // Member() end
+
+	// surveyChart
+
+	public List<pieDTO> pie(String c_code){
+		return sqlSession.selectList("survey.pie",c_code);
+	} // Member() end
 	
+	public pieDTO memcount(String c_code){
+		return sqlSession.selectOne("survey.member",c_code);
+	} // Member() end
+			
 }// class end

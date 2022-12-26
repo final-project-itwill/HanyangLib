@@ -13,12 +13,22 @@
 
     <div class="container-fluid col-lg-8 card shadow">
         <p style="text-align: right"><a href="/comm/admin/${c_code}" style="color: #3b5998; margin-top: 20px">돌아가기</a></p>
-
+		
         <div class="table-responsive">
         <form name="frm" method="post" action="/comm/update" enctype="multipart/form-data">
             <input type="hidden" name="c_code" value="${c_code}">
 
             <table class="table table-bordered" style="text-align: center">
+                <tr>
+                    <th>모집 현황</th>
+                    <td> <div class="form-group">
+					  <select class="form-control" name="c_state" id="sel1">
+					    <option value="i">모집중</option>
+					    <option value="d">모집완료</option>
+					    <option value="e">활동중</option>
+					  </select>
+					</div></td>
+                </tr>
                 <tr>
                     <th>선택한 책</th>
                     <td>${read.b_name}</td>
