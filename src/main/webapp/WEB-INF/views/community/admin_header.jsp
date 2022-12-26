@@ -174,60 +174,13 @@
                 <i class="fas fa-fw fa-cog"></i>
                 <span style="font-size: 16px">커뮤니티 관리</span></a>
         </li>
-
         <!-- Divider -->
         <hr class="sidebar-divider">
-
-        <!-- Nav 커뮤니티 구성원 관리 -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-               aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>1. 구성원</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">인원을 관리해보세요</h6>
-                    <a class="collapse-item" href="/login/index">가입 신청 승인</a>
-                </div>
-            </div>
+        <li class="nav-item active">
+            <i class="fas fa-smile-wink"></i>
+            <a class="nav-link" href="/login/index">커뮤니티장 계정으로<br>로그인 바랍니다.</a>
         </li>
 
-        <!-- Nav 커뮤니티 신청서(설문지) 관리 -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-               aria-expanded="true" aria-controls="collapseUtilities">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>2. 커뮤니티 신청서</span>
-            </a>
-            <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                 data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">가입 신청서를 확인하세요</h6>
-                    <a class="collapse-item" href="/login/index">신청서 생성</a>
-                    <a class="collapse-item" href="/login/index">신청서 수정</a>
-                    <a class="collapse-item" href="/login/index">신청서 삭제</a>
-                    <a class="collapse-item" href="/login/index">신청서 결과 확인</a>
-                </div>
-            </div>
-        </li>
-
-
-        <!-- Nav 커뮤니티 관리 (페이지/정보 수정) -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-               aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>3. 커뮤니티 관리</span>
-            </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">정보 수정이나 삭제는 여기서!</h6>
-                    <a class="collapse-item" href="/login/index">커뮤니티 정보 수정</a>
-                    <a class="collapse-item" href="/login/index">커뮤니티 삭제</a>
-                </div>
-            </div>
-        </li>
     </c:otherwise>
     </c:choose>
         <%--커뮤니티 삭제 자바스크립트--%>

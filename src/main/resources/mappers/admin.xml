@@ -25,8 +25,14 @@
 	<select id="memberList" resultType="kr.co.itwill.member.MemberDTO">
 		SELECT m_id, m_pw, m_name, m_nick, m_birth, m_gender, m_zip, m_add1, m_add2, m_tel, m_email, m_mailcheck, m_smscheck, m_grade, m_gudok, m_heat, m_rdate, m_img, m_month, m_year
 		FROM member
-		WHERE m_grade not in ('A')
 	</select>
+
+	<update id="updateMember">
+		UPDATE member
+		SET m_grade = #{m_grade}, m_heat = #{m_heat}
+		WHERE m_id = #{m_id}
+	</update>
+
 	<!-- 회원 끝-->
 
 
@@ -81,11 +87,53 @@
 
 
 	<!-- 도서관리 시작 -->
-	<!-- 페이징 없는 목록-->
-	<select id="list" resultType="kr.co.itwill.book.BookDTO">
+	<!-- 페이징 있는 목록-->
+	<select id="list_a" resultType="kr.co.itwill.book.BookDTO">
+		SELECT AA.*
+        FROM(
+        SELECT @RNO := @RNO + 1 AS r, CC.*
+        FROM(
+        SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
+        FROM book
+        ) CC, (SELECT @RNO := 0) BB order by b_rdate DESC
+        ) AA
+        WHERE r BETWEEN #{startRow} AND #{endRow}
+	</select>
+
+
+    <!-- 검색 -->
+    <select id="search" resultType="kr.co.itwill.book.BookDTO">
+	    SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
+	    FROM  book
+	    WHERE b_name LIKE CONCAT('%', #{keyword}, '%') OR b_author LIKE CONCAT('%', #{keyword}, '%')
+	    ORDER BY b_code DESC
+    </select>
+    
+    
+    <!-- 상세페이지 -->
+    <select id="productdetail" resultType="kr.co.itwill.book.BookDTO">
 		SELECT b_code, b_name, b_type, b_gudok, b_author, b_publish, b_page, b_price, b_cdate, b_rdate, b_bookcover, b_coversize, b_des
 		FROM book
+		WHERE b_code = #{b_code}
 	</select>
+
+
+	<!-- 수정 -->
+	<update id="productupdate">
+        UPDATE book
+        SET b_name		= #{b_name}
+        , b_type		= #{b_type}
+        , b_gudok		= #{b_gudok}
+        , b_author		= #{b_author}
+        , b_publish		= #{b_publish}
+        , b_page		= #{b_page}
+        , b_price		= #{b_price}
+        , b_rdate		= #{b_rdate}
+        , b_bookcover	= #{b_bookcover}
+        , b_coversize	= #{b_coversize}
+        , b_des			= #{b_des}
+        WHERE b_code  = #{b_code}
+    </update>
 
 	<!-- 도서관리 끝 -->
 

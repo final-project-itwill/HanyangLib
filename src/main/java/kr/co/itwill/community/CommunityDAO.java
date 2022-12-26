@@ -74,6 +74,10 @@ public class CommunityDAO {
         return sqlSession.insert("community.insert", community);
     }//insert() end
 
+    public int updateUserGrade(String userID){
+        return sqlSession.update("community.updateUserGrade", userID);
+    }//updateUserGrade() end
+
 
     public String filename(String c_code){
         return sqlSession.selectOne("community.filename", c_code);
@@ -118,9 +122,7 @@ public class CommunityDAO {
 
     //후기 평균
     public int star(String c_code){
-        int star = 0;
-        star = sqlSession.selectOne("community.star", c_code);
-        return star;
+        return sqlSession.selectOne("community.star", c_code);
     }//star() end
 
     //승인된 멤버
@@ -146,5 +148,14 @@ public class CommunityDAO {
     public int rejectMember(List<CommSignDTO> updateList){
         return sqlSession.update("community.rejectMember", updateList);
     }//rejectMember() end
+
+    public int countMember(String c_code){
+        return sqlSession.selectOne("community.countMember", c_code);
+    }//countMember() end
+
+    public int countApplicant(String c_code){
+        return sqlSession.selectOne("community.countApplicant", c_code);
+    }//countApplicant() end
+
 
 }//class end

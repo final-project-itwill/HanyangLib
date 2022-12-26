@@ -2,6 +2,7 @@ package kr.co.itwill.admin;
 
 import kr.co.itwill.community.CommunityDTO;
 import kr.co.itwill.community.CommunityUnionDTO;
+import kr.co.itwill.inquiry.InquiryDTO;
 import kr.co.itwill.member.MemberDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,8 @@ public class AdminDAO {
         return sqlSession.update("admin.updatePick", mdList);
     }//updatePick() end
 
-
+    public int updateMember(MemberDTO member){
+        return sqlSession.update("admin.updateMember", member);
+    }//updateMember() end
 
 }//class end

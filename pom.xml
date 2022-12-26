@@ -125,21 +125,6 @@
 <!--			<scope>test</scope>-->
 <!--		</dependency>-->
 
-<!-- mail 서포트 -->                 
-      <!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-context-support</artifactId>
-          <version>4.1.6.RELEASE</version>
-      </dependency>
-
-      <dependency>
-         <groupId>mysql</groupId>
-         <artifactId>mysql-connector-java</artifactId>
-         <version>8.0.21</version>
-      </dependency>
-
-
 		<!-- 사용자 추가 의존성 끝 -->
 	</dependencies>
 

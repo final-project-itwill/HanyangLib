@@ -29,7 +29,7 @@
                         <tbody>
                             <c:if test="${fn:length(approvedMember) == 0}">
                                 <tr>
-                                    <td colspan="4" style="text-align: center;">아직 활동하는 회원이 없습니다.</td>
+                                    <td colspan="5" style="text-align: center;">아직 활동하는 회원이 없습니다.</td>
                                 </tr>
                             </c:if>
                             <c:forEach var="dto" items="${approvedMember}" varStatus="vs">

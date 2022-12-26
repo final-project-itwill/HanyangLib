@@ -36,35 +36,10 @@
                 <td>${read.n_rdate}</td>
             </tr>
         </table>
-        <!-- 관리자만 접근 가능 -->
-        <c:if test="${grade == 'A'}">
-            <div class="align-content-sm-center" style="text-align: center">
-                <input type="hidden" id="n_no" name="n_no" value="${read.n_no}">
-                <input type="button" value="수정" onclick="update()">
-                <input type="button" value="삭제" onclick="del()">
-            </div>
-        </c:if>
-
     </form>
 
 </div>
 
-
-<script>
-
-    function del(){
-        if(confirm("영구히 삭제됩니다. \n 진행할까요?")){
-            document.frm.action="/notice/delete";
-            document.frm.submit();
-        }//if end
-    }//del() end
-
-    function update(){
-        document.frm.action="/notice/update";
-        document.frm.submit();
-    }//update() end
-
-</script>
 
 <!-- 본문작성 끝 -->
 <%@ include file="../footer.jsp"%>

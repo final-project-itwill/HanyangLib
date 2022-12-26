@@ -23,6 +23,8 @@
 	<link rel="stylesheet" href="css/style.css">
 	<!-- fontawesome -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+	<!-- Custom styles for this template-->
+    <link href="/adminBootstrap/css/sb-admin-2.min.css" rel="stylesheet">
 	<script src="js/jquery-3.5.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 	<title>&#128218 한양서재</title>
@@ -66,7 +68,7 @@
               		<a href="#" style="font-weight: bold;">고객센터</a>
 	                <ul class="dropdown">
 	                  <li><a href="/notice/list?pageNum=1">공지사항</a></li>
-	                  <li><a href="#">문의</a></li>
+	                  <li><a href="/inquiry/list">1:1문의</a></li>
 					  <c:choose>
 						<c:when test="${grade == 'A'}">
 							<li><a href="/admin/dashboard">관리자 페이지</a></li>
@@ -111,7 +113,7 @@
               		<a href="#" style="font-weight: bold;">고객센터</a>
 	                <ul class="dropdown">
 	                  <li><a href="/notice/list?pageNum=1">공지사항</a></li>
-	                  <li><a href="#">문의</a></li>
+	                  <li><a href="/inquiry/list">1:1문의</a></li>
 	                </ul>
 	              </li>
 	        </ul>          
@@ -122,7 +124,13 @@
         			</a>
         		</li>
         		<!-- 장바구니 목록 추가 -->
-	            <li><a href="/login/index" style="font-weight: bold;"><i class="fas fa-shopping-cart"></i></a></li>
+	            <li>
+	            	<a href="/login/index" style="font-weight: bold;">
+	            		<i class="fas fa-shopping-cart"></i>
+	            		<!-- Counter - Alerts -->
+                        <span class="badge badge-danger badge-counter">3+</span>
+	            	</a>
+	            </li>
             </ul>
        		<a href="#" class="burger light ml-auto site-menu-toggle js-menu-toggle d-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">
 	          <span></span>
@@ -162,8 +170,8 @@
 			<div class="col-lg-12">
 		    <h1 class="h6 mb-3 text-black"></h1>
 		  </div>
-		  <div class="col-lg-12">
-		    <div class="main-slider owl-single dots-absolute owl-carousel">
+		  <div class="col-lg-12" >
+		    <div class="main-slider owl-single dots-absolute owl-carousel" style="height: 70vh;">
 		      <img src="images/bimg_h_1-min.jpg" alt="Image" class="img-fluid">
 		      <img src="images/bimg_h_2-min.jpg" alt="Image" class="img-fluid">
 		      <img src="images/bimg_h_3-min.jpg" alt="Image" class="img-fluid">
@@ -175,74 +183,21 @@
 	<!-- 미연: 광고배너 끝-->
 	
 	<!-- MD 추천 도서 시작 -->
-	<div style="padding: 70px 0;">
+	<div style="padding: 100px 0; margin-top: 200px; background-color: #FCDEC0;">
 		<div class="container">
 			<div class="row text-center justify-content-center mb-5">
-				<div class="col-lg-7"><h2 class="font-weight-bold text-primary heading">MD's PICK, 오늘의 추천 도서</h2></div>
+				<div class="col-lg-7"><h2 class="font-weight-bold text-black heading">MD's PICK, 오늘의 추천 도서</h2></div>
 			</div>
 
-			<div class="owl-carousel owl-3-slider">
-
+			<div class="main-slider owl-3-slider dots-absolute owl-carousel">
+			<c:forEach items="${mdBook}" var="book" varStatus="vs">
 				<div class="item">
-					<a class="media-thumb" href="images/book_1.jpg" data-fancybox="gallery">
-						<div class="media-text">
-							<h3 class="font-weight-bold text-black text-center heading">치매의 모든 것</h3>
-						</div>
-						<img src="images/book_1.jpg" alt="Image" class="img-fluid">
+					<a class="media-thumb" href="/book/bookdetail/${book.b_code}">
+						<img src="${book.b_bookcover}" alt="Image" class="img-fluid" style="height:80vh;">
+						<p class="font-weight-bold text-black text-center heading" style="font-size: large; padding-top: 10px;">${book.b_name}</p>
 					</a> 
 				</div>
-
-				<div class="item">
-					<a class="media-thumb" href="images/book_2.jpg" data-fancybox="gallery">
-						<div class="media-text">
-							<h3 class="font-weight-bold text-black text-center heading">하루 한 장 고전 수업</h3>
-						</div>
-						<img src="images/book_2.jpg" alt="Image" class="img-fluid">
-					</a> 
-				</div>
-
-				<div class="item">
-					<a class="media-thumb" href="images/book_3.jpg" data-fancybox="gallery">
-						<div class="media-text">
-							<h3 class="font-weight-bold text-black text-center heading">크리스마스 타일</h3>
-						</div>
-						<img src="images/book_3.jpg" alt="Image" class="img-fluid">
-					</a> 
-				</div>
-				
-				<div class="item">
-					<a class="media-thumb" href="images/book_4.jpg" data-fancybox="gallery">
-						<div class="media-text">
-							<h3 class="font-weight-bold text-black text-center heading">사서함 110호의 우편물</h3>
-						</div>
-						<img src="images/book_4.jpg" alt="Image" class="img-fluid">
-					</a> 
-				</div>
-
-				<div class="item">
-					<a class="media-thumb" href="images/book_5.jpg"
-						data-fancybox="gallery">
-						<div class="media-text">
-							<h3 class="font-weight-bold text-black text-center heading">여행의 이유</h3>
-						</div> <img src="images/book_5.jpg" alt="Image" class="img-fluid">
-					</a>
-				</div>
-
-				<div class="item">
-					<a class="media-thumb" href="images/book_6.jpg"	data-fancybox="gallery">
-						<div class="media-text">
-							<h3 class="font-weight-bold text-black text-center heading">정의란 무엇인가</h3>
-						</div> <img src="images/book_6.jpg" alt="Image" class="img-fluid">
-					</a>
-				</div>
-
-				<div class="item">
-					<a class="media-thumb" href="images/book_7.jpg"	data-fancybox="gallery">
-						<div class="media-text">
-							<h3 class="font-weight-bold text-black text-center heading">지구에서 한아뿐</h3>
-						</div> <img src="images/book_7.jpg" alt="Image" class="img-fluid">
-					</a>
-				</div>
+			</c:forEach>
 
 			</div>
 
@@ -264,52 +219,23 @@
 	    </div>
 	    <div class="row">
 	      
-	
+		<c:forEach items="${mdComm}" var="comm" varStatus="vs">
 	      <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
 	        <div class="blog_entry">
-	          <a href="#"><img src="images/img_h_3-min.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid"></a>
+	          <a href="#"><img src="${comm.c_banner}" alt="community banner" class="img-fluid"></a>
 	          <div class="p-4 bg-white">
-	            <h3><a href="#">먹보의 하루</a></h3>
-	            <span class="date">2022.11.19</span>
-	            <p>식객 허영만의 백반 기행</p>
+	            <h3><a href="#">${comm.c_name}</a></h3>
+	            <span class="date">${comm.c_rdate.substring(0,11)}</span>
+	            <p>${comm.c_des}</p>
 	            <p class="more"><a href="#">여기어떄?</a></p>
 	          </div>
 	        </div>
-	      </div>
-		
-		
-	      <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
-	        <div class="blog_entry">
-	          <a href="#"><img src="images/img_h_5-min.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid"></a>
-	          <div class="p-4 bg-white">
-	            <h3><a href="#">산악회</a></h3>
-	            <span class="date">2022.11.19</span>
-	            <p>건강 등산법 토론 및 등산</p>
-	            <p class="more"><a href="#">여기어떄?</a></p>
-	          </div>
 	        </div>
-	      </div>
-	
-	      <div class="col-md-6 mb-5 mb-lg-0 col-lg-4">
-	        <div class="blog_entry">
-	          <a href="#"><img src="images/img_h_7-min.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid"></a>
-	          <div class="p-4 bg-white">
-	            <h3><a href="#">Far far away, behind the word mountains</a></h3>
-	            <span class="date">April 25, 2019</span>
-	            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-	            <p class="more"><a href="#">Continue reading...</a></p>
-	          </div>
-	        </div>
-	      </div>
-	    </div>
-	    <div class="row mt-5">
-	      <div class="col-lg-4 mx-auto">
-	        <a href="#" class="btn btn-primary btn-block">더많은 커뮤니티 보기</a>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+		</c:forEach>
+		</div>
+		
 	<!-- 커뮤니티 추천 끝 -->
+	
 	<!-- 서평 시작 (한이) -------------------------------------------------------------------------->
 	<div class="testimonial-section">
 	  <div class="container">
@@ -318,65 +244,30 @@
 	        
 	        <h2 class="mb-4 font-weight-bold heading">이 달의 서평</h2>
 	        <p class="mb-4">반응이 뜨거운 서평을 읽어 보세요!</p>
-	        <p><a href="#" class="btn btn-primary">더 보러 가기</a></p>
 	      </div>
 	      <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
 	        
 	        <div class="testimonial--wrap">
 	          <div class="owl-single owl-carousel no-dots no-nav">
-	            <div class="testimonial-item">
+	          <c:forEach items="${mdReview}" var="review" varStatus="vs">
+	            <div class="testimonial-item">	            
 	              <div class="d-flex align-items-center mb-4">
 	                <div class="mr-3" style="max-width: 100px">
-	                  <img src="images/cosmos.png" alt="Image" class="img-fluid"> <!-- 책 이미지 -->
+	                  <img src="${review.b_bookcover}" alt="Image" class="img-fluid"> <!-- 책 이미지 -->
 	                </div>
 	                <div class="author">
-	                  <cite class="d-block mb-0" style="font-size: large">책 이름</cite>
+	                  <cite class="d-block mb-0" style="font-size: large">${review.b_name}</cite>
 	                  <br>
-	                  <span>아이디 닉네임</span>
+	                  <span>${review.br_id}</span>
 	                </div>
 	              </div>
-	              <div class="d-flex align-items-end mb-2" style="padding-left: 60%">등록일 : 2022-11-25 &nbsp;&nbsp; 조회수 : 305</div>
+	              <div class="align-items-end mb-4"><p style="text-align: right;">등록일 : ${review.br_rdate.substring(0,11)} &nbsp;&nbsp; 조회수 : ${review.br_count}</p></div>
 	
 	              <blockquote>
-	                <p>&ldquo;한 줄 서평 미리보기&rdquo;</p>
+	                <p>&ldquo;${review.br_title}&rdquo;</p>
 	              </blockquote>
-	            </div>  
-	
-	            <div class="testimonial-item">
-	              <div class="d-flex align-items-center mb-4">
-	                <div class="mr-3" style="max-width: 100px">
-	                  <img src="images/person_1-min.jpg" alt="Image" class="img-fluid">
-	                </div>
-	                <div class="author">
-	                  <cite class="d-block mb-0" style="font-size: large">등산이 내 몸을 망친다</cite>
-	                  <br>
-	                  <span>ksa1**** 충청도 사나이</span>
-	                </div>
-	              </div>
-	              <div class="d-flex align-items-end mb-2" style="padding-left: 60%">등록일 : 2022-11-25 &nbsp;&nbsp; 조회수 : 305</div>
-	
-	              <blockquote>
-	                <p>&ldquo;등산을 사랑하는 당신, 이 책을 추천합니다. 10점 만 점에 100점!&rdquo;</p>
-	              </blockquote>
-	            </div>  
-	
-	            <div class="testimonial-item">
-	              <div class="d-flex align-items-center mb-4">
-	                <div class="mr-3" style="max-width: 100px">
-	                  <img src="images/person_2-min.jpg" alt="Image" class="img-fluid">
-	                </div>
-	                <div class="author">
-	                  <cite class="d-block mb-0" style="font-size: large">식객 허영만의 백반기행</cite>
-	                  <br>
-	                  <span>hanyi***** 행복한 돼지</span>
-	                </div>
-	              </div>
-	              <div class="d-flex align-items-end mb-2" style="padding-left: 60%">등록일 : 2022-11-25 &nbsp;&nbsp; 조회수 : 305</div>
-	
-	              <blockquote>
-	                <p>&ldquo;전국 방방곡곡 맛집을 기행하며.. 허영만 님을 뛰어넘는 식객이 되겠습니다.&rdquo;</p>
-	              </blockquote>
-	            </div>  
+              	</div>
+           	  </c:forEach>
 	          </div>
 	          <div class="custom-nav-wrap">
 	            <a href="#" class="custom-owl-prev"><span class="icon-keyboard_backspace"></span></a>
@@ -419,11 +310,11 @@
           <div class="col-12">
             <div class="widget">
               <ul class="links list-unstyled">
-                <li>&#127744 김경환 / 조장 / <a href="/">메인페이지</a>, <a href="/gudok/index">구독페이지</a>, <a href="/mylib/libindex">나만의 서재</a>, <a href="/login/index">로그인</a></li>
-                <li>&#127744 강한이 / 기술자문 / <a href="/comm/index">커뮤니티페이지</a>, <a href="/notice/list?pageNum=1">공지사항페이지</a></li>
-                <li>&#127744 김성훈 / 기술자문 / <a href="/survey/write/com001">설문지작성페이지</a>, <a href="/comm/admin/com001">설문지관리페이지</a></li>
-                <li>&#127744 김한주 / 자료조사 / <a href="/member/memberform">회원가입</a>, <a href="/gudok/detail">결제페이지</a></li>
-                <li>&#127744 방미연 / 서기 / <a href="/book/booklist">도서페이지</a>, <a href="/gudok/detail">페이지</a></li>
+                <li>&#127744 김경환 / 조장 / <a href="/">메인페이지</a>, <a href="/gudok/index">구독페이지</a>, <a href="/mylib/libindex">나만의 서재</a>, <a href="/login/index">로그인</a>, 결제(일반,정기) 기능 구현, PPT</li>
+                <li>&#127744 강한이 / 기술자문 / <a href="/comm/index">커뮤니티페이지</a>, <a href="/notice/list?pageNum=1">공지사항페이지</a>, 관리자페이지</li>
+                <li>&#127744 김성훈 / 기술자문 / <a href="/survey/survey">설문지페이지</a>, <a href="/survey/survey">설문지탬플릿페이지</a></li>
+                <li>&#127744 김한주 / 자료조사 / <a href="/member/memberform">회원가입</a></li>
+                <li>&#127744 방미연 / 서기 / <a href="/book/booklist">도서페이지</a>, Data Crawlling 작업</a></li>
               </ul>
             </div>
           </div>

@@ -76,7 +76,7 @@ public class NoticeCont {
     //공지사항 쓰기 페이지 호출
     @RequestMapping("/insert")
     public String create(){
-        return "notice/createForm";
+        return "admin/noticeInsert";
     }//create() end
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
@@ -85,11 +85,11 @@ public class NoticeCont {
         notice.setN_type(dto.getN_type());
         notice.setN_title(dto.getN_title());
         notice.setN_content(dto.getN_content());
-        notice.setN_writer("webmaster"); //향후 session변수를 이용해 어떤 관리자가 작성했는지 DB에 저장 필요!
+        notice.setN_writer(dto.getN_writer());
 
         noticeDao.insert(notice);
 
-        return "redirect:/notice/list?pageNum=1";
+        return "redirect:/admin/dashboard";
     }//insert() end
 
 
@@ -115,14 +115,14 @@ public class NoticeCont {
     @RequestMapping("/delete")
     public String delete(int n_no){
         noticeDao.delete(n_no);
-        return "redirect:/notice/list?pageNum=1";
+        return "redirect:/admin/listNotice?pageNum=1";
     }//delete() end
 
 
     @RequestMapping("/update")
     public ModelAndView update(@RequestParam int n_no){
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("notice/update");
+        mav.setViewName("admin/noticeUpdate");
         mav.addObject("read", noticeDao.read(n_no));
         return mav;
     }//update() end
@@ -139,7 +139,7 @@ public class NoticeCont {
 
         noticeDao.update(notice);
 
-        return "redirect:/notice/list?pageNum=1";     //행 수정 후 목록으로 이동
+        return "redirect:/admin/listNotice?pageNum=1";     //행 수정 후 목록으로 이동
     }//update() end
        
 

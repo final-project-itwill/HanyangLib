@@ -62,7 +62,7 @@ public class CommunityCont {
 
     //페이징 있는 목록
     @RequestMapping("/list")
-    public ModelAndView list(@RequestParam String pageNum){
+    public ModelAndView list(@RequestParam String pageNum, @RequestParam(defaultValue = "new") String order){
 
         ModelAndView mav = new ModelAndView();
         mav.setViewName("community/list");
@@ -104,6 +104,7 @@ public class CommunityCont {
         mav.addObject("list", commDao.list(rows));
         return mav;
     }//list() end
+
 
     @RequestMapping("/search")
     public ModelAndView search(@RequestParam(defaultValue = "") String keyword){
@@ -183,7 +184,7 @@ public class CommunityCont {
         MultipartFile poster = dto.getPoster();                         //파일 가져오기
         String filename = poster.getOriginalFilename();                 //파일 이름 가져오기
         if(poster == null || poster.isEmpty()){                         //파일 없을 경우 기본 이미지
-            filename = "none.png";
+            filename = "none.jpg";
         }//if end
         poster.transferTo(new File(path + "/" + filename));    // /storage 폴더에 파일 저장
 
@@ -199,6 +200,9 @@ public class CommunityCont {
         dto.setC_count(dto.getC_count());
 
         mav.addObject("community", commDao.insert(dto));
+
+        String userID = dto.getC_id();
+        commDao.updateUserGrade(userID);
         mav.setViewName("redirect:/comm/index");    //메인으로 돌아가기
         return mav;
     }//createForm() end
@@ -208,7 +212,7 @@ public class CommunityCont {
     public String delete(@PathVariable String c_code, HttpServletRequest request){
 
         String filename = commDao.filename(c_code); //삭제할 파일이름 조회
-        if(!filename.equals("none.png")){
+        if(!filename.equals("none.jpg")){
             ServletContext application = request.getSession().getServletContext();
             String path = application.getRealPath("/storage");
             File file = new File(path + "/" + filename);
@@ -349,9 +353,10 @@ public class CommunityCont {
         mav.addObject("reviewCnt", commDao.reviewCnt(c_code));
         mav.addObject("checkOwner", commDao.checkOwner(c_code));
         mav.addObject("member",surveyDAO.memcount(c_code));
-        System.out.println();
-        
-        // 설문지 코드 생성      
+        mav.addObject("cntMember", commDao.countMember(c_code));        //가입멤버수
+        mav.addObject("cntApplicant", commDao.countApplicant(c_code));  //신청멤버수
+
+        // 설문지 코드 생성
         mav.addObject("sv_code", surveyDAO.scodeget(c_code));
         mav.addObject("tpl", surveyDAO.tpl());
         return mav;
