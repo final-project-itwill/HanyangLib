@@ -5,6 +5,7 @@ import kr.co.itwill.community.CommunityDTO;
 import kr.co.itwill.community.CommunityUnionDTO;
 import kr.co.itwill.inquiry.InquiryDAO;
 import kr.co.itwill.inquiry.ResponseDTO;
+import kr.co.itwill.member.MemberDTO;
 import kr.co.itwill.notice.NoticeDAO;
 import kr.co.itwill.notice.NoticeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,15 @@ public class AdminCont {
         return mav;
     }//listMember() end
 
+    @RequestMapping("/updateMember")
+    public String updateMember(@ModelAttribute MemberDTO dto){
+        MemberDTO member = new MemberDTO();
+        member.setM_id(dto.getM_id());
+        member.setM_grade(dto.getM_grade());
+        member.setM_heat((double) dto.getM_heat());
+        adminDao.updateMember(member);
+        return "redirect:/admin/memberList";
+    }//updateMember() end
 
     @RequestMapping("/communityList")
     public ModelAndView listCommunity(){

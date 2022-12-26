@@ -67,14 +67,6 @@
                 <span style="font-size: 16px">Dashboard</span></a>
         </li>
 
-        <hr class="sidebar-divider"><!-- Divider -->
-
-        <!-- Nav Item - 메인 디자인보기 -->
-        <li class="nav-item active">
-            <a class="nav-link" href="#">
-                <i class="fas fa-fw fa-wrench"></i>
-                <span style="font-size: 14px">메인 디자인보기</span></a>
-        </li>
 
         <hr class="sidebar-divider"><!-- Divider -->
 
