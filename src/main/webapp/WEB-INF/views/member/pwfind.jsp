@@ -24,7 +24,7 @@
                  placeholder="EMAIL을 입력하세요...">
              <input type="hidden" name="m_email" id="m_email">
          </div>
-        <button><a href="/member/pwupdateform">비밀번호 찾기</a></button>
+        <a href="/member/pwupdateform" class="btn btn-primary btn-user btn-block">비밀번호 찾기</a>
       	
      </form>
      <hr>
@@ -37,11 +37,6 @@
      </div>
      </div>
 <script>
-function check() {
-
-}
-
-
 
 
 

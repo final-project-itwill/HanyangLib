@@ -2,19 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
 <!-- 본문작성 시작 -->
-
 <div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('../images/libbg.jpg'); height: 40vh;"></div>
-
-<form name="memberform" method="post" action="insert" enctype="multipart/form-data">
 <div class="container">
-<table border="1" class="table table-hover">
+<form name="memberform" method="post" action="insert" enctype="multipart/form-data">
+<p style="border: 5px solid #C9C9C9; padding: 0.3em 1em;border-radius: 2px;">한양서재 회원가입</p>
+<table class="table table-hover" style="border: 5px solid #C9C9C9; padding: 0.3em 1em;border-radius: 2px;">
 <tr>
 	<td style="color:red; font-weight: bold;">*필수입력</td>
 </tr>
 <tr>
 	<th>프로필 사진</th>
 	<td>
-		<input type="file" name="file" id="file"  src="../storage/profile_none.png">
+		<input type="file" name="file" id="file"  src="/storage/profile_none.png">
 		<input type="hidden" name="m_img" id="m_img">
  	</td>
 </tr>
@@ -78,7 +77,7 @@
 </tr>
 <tr>
     <th>*전화번호</th>
-    <td style="text-align: left"><input type="text" name="m_tel" id="m_tel" size="15"></td>
+    <td style="text-align: left"><input type="tel" name="m_tel" id="m_tel" size="15"></td>
 </tr>
 <tr>
     <th>*우편번호</th>
@@ -94,7 +93,7 @@
 </tr>
 <tr>  
   <th>*나머지주소</th>
-  <td style="text-align: left"><input type="text" name="m_add2" id="m_add2" size="45"></td>
+  <td style="text-align: left"><input type="text" name="m_add2" id="m_add2" size="45"  placeholder="나머지 주소를 입력해 주세요"></td>
 </tr>
 <tr>  
   <th>*성별</th>
@@ -113,13 +112,14 @@
     </td>
 </tr>
 </table>
+</form>
 </div>
-`
+
 <script>
 	$(".pwcheck").keyup(function(){
     	let pass1 = $("#m_pw").val();
     	let pass2 = $("#m_pw2").val();
-    if(pass1 != "" || pass != ""){
+    if(pass1 != "" || pass2 != ""){
     	if(pass1 == pass2){
     		$("#chm_pw").html("비밀번호가 일치합니다!");
     		$("#chm_pw").css("color", "green");
@@ -197,7 +197,7 @@
 	}//responseProc() end
 	
 	
-	function nickresponseProc(result) {
+   function nickresponseProc(result) {
 		$("#nickpanel").empty();
 		$("#nickpanel").html(result);
 		$("#nickpanel").show();
@@ -274,7 +274,7 @@
 </script>
 
 
-</form>
+
 
 <!-- 본문작성 끝 -->
 <%@ include file="../footer.jsp"%>
