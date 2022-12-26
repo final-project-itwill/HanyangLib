@@ -186,7 +186,6 @@ public class MemberCont {
 		member.setM_email(dto.getM_email());
 		member.setM_mailcheck(dto.getM_mailcheck());
 		member.setM_smscheck(dto.getM_smscheck());
-		member.setM_gudok(dto.getM_gudok());
 		member.setM_rdate(dto.getM_rdate());
 		
 		memberDao.memberinsert(member);

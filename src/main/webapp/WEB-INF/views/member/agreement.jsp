@@ -11,7 +11,7 @@
     실행된 함수가 false를 리턴하면 submit을 하지 않음.
 -->
 
-<form onsubmit="re send()">
+<form onsubmit="return send()">
 <table border="0" cellspacing="0" cellpadding="2"  align="center">
     <tr align="center" height="10"> 
         <td>

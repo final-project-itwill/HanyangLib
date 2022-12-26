@@ -51,7 +51,7 @@
 </tr>
 <tr>  
   <th>*생년월일</th>
-	<td  style="text-align: left"><input type="number" name="m_birth" id="m_birth" required>
+	<td  style="text-align: left"><input type="date" name="m_birth" id="m_birth" required>
 	</td>
 </tr>
 <tr>
@@ -77,18 +77,11 @@
     </td>
 </tr>
 <tr>
-    <th>*구독 여부</th>
-    <td>
-        <input type="checkbox" name="gudokcheck" id="gudokcheck">
-        <input type="hidden" name="m_gudok" id="m_gudok">
-    </td>
-</tr>
-<tr>
-    <th>전화번호</th>
+    <th>*전화번호</th>
     <td style="text-align: left"><input type="text" name="m_tel" id="m_tel" size="15"></td>
 </tr>
 <tr>
-    <th>우편번호</th>
+    <th>*우편번호</th>
     <td style="text-align: left">
       <input type="text" name="m_zip" id="m_zip" size="7"  readonly>
       <input type="button" value="주소찾기" onclick="DaumPostcode()">
@@ -96,15 +89,15 @@
     </td>
 </tr>
 <tr>  
-  <th>주소</th>
+  <th>*주소</th>
   <td style="text-align: left"><input type="text" name="m_add1" id="m_add1" size="45" readonly></td>
 </tr>
 <tr>  
-  <th>나머지주소</th>
+  <th>*나머지주소</th>
   <td style="text-align: left"><input type="text" name="m_add2" id="m_add2" size="45"></td>
 </tr>
 <tr>  
-  <th>성별</th>
+  <th>*성별</th>
   <td style="text-align: left">
         <select name="m_gender"  id="m_gender">
           <option value="0" selected>선택하세요.</option>
@@ -115,14 +108,13 @@
 </tr>
 <tr>
     <td colspan="2" style="text-align: center">
-        <input type="submit" value="회원가입" class="btn btn-success" onsubmit="location.href='/member/insert'" onclick="meminesrt()">
-        <input type="reset"  value="취소"     class="btn btn-primary"/>
+        <input type="submit" value="회원가입" class="btn btn-success" onsubmit="location.href='/member/insert'" onclick="meminesrt()"/>
+        <input type="reset"  value="취소"     class="btn btn-primary" onclick="javascript:history.back()"/>
     </td>
 </tr>
 </table>
 </div>
-
-
+`
 <script>
 	$(".pwcheck").keyup(function(){
     	let pass1 = $("#m_pw").val();
@@ -154,13 +146,7 @@
 		} else if($("input:checkbox[name='smscheck']").is(":checked") == false){
 			$("#m_smscheck").val('N');
 		}//if end
-		
-		if($("input:checkbox[name='gudokcheck']").is(":checked") == true){
-			$("#m_gudok").val('Y');
-		} else if($("input:checkbox[name='gudokcheck']").is(":checked") == false){
-			$("#m_gudok").val('N');
-		}//if end
-    	
+			
     	if(confirm("회원가입을 하시겠어요?")){
     	document.memberform.action="/member/insert";
     	document.memberform.submit();    	
