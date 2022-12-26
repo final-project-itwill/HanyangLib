@@ -76,7 +76,7 @@ public class NoticeCont {
     //공지사항 쓰기 페이지 호출
     @RequestMapping("/insert")
     public String create(){
-        return "notice/createForm";
+        return "admin/noticeInsert";
     }//create() end
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
@@ -89,7 +89,7 @@ public class NoticeCont {
 
         noticeDao.insert(notice);
 
-        return "redirect:/notice/list?pageNum=1";
+        return "redirect:/admin/dashboard";
     }//insert() end
 
 
@@ -115,14 +115,14 @@ public class NoticeCont {
     @RequestMapping("/delete")
     public String delete(int n_no){
         noticeDao.delete(n_no);
-        return "redirect:/notice/list?pageNum=1";
+        return "redirect:/admin/listNotice?pageNum=1";
     }//delete() end
 
 
     @RequestMapping("/update")
     public ModelAndView update(@RequestParam int n_no){
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("notice/update");
+        mav.setViewName("admin/noticeUpdate");
         mav.addObject("read", noticeDao.read(n_no));
         return mav;
     }//update() end
@@ -139,7 +139,7 @@ public class NoticeCont {
 
         noticeDao.update(notice);
 
-        return "redirect:/notice/list?pageNum=1";     //행 수정 후 목록으로 이동
+        return "redirect:/admin/listNotice?pageNum=1";     //행 수정 후 목록으로 이동
     }//update() end
        
 

@@ -28,6 +28,10 @@
         ORDER BY c_rdate DESC
     </select>
 
+    <!-- 최신순/마감순 정렬 list -->
+
+
+
     <!-- 총 행 갯수 -->
     <select id="totalRowCount" resultType="int">
         SELECT COUNT(*)
@@ -103,6 +107,12 @@
         VALUES (#{c_code}, #{c_name}, #{c_des}, #{c_bcode}, #{c_local}, #{c_id}, #{c_chat}, #{c_banner}, #{c_count})
     </insert>
 
+    <update id="updateUserGrade">
+        UPDATE member
+        SET m_grade = 'B'
+        WHERE m_id = ${userID}
+    </update>
+
 
     <select id="filename" resultType="String">
         SELECT c_banner
@@ -129,7 +139,7 @@
 
     <!--  PK키 코드 쿼리  -->
     <select id="createCode" resultType="int">
-        SELECT MAX(CAST(substr(c_code, 4, 6) AS INT))
+        SELECT IFNULL(MAX(CAST(substr(c_code, 4, 6) AS INT)), 0)
         FROM community
     </select>
 
@@ -231,6 +241,19 @@
             WHERE s_id = #{item.s_id} AND s_code = #{item.s_code}
         </foreach>
     </update>
+
+    <select id="countMember" resultType="int">
+        SELECT COUNT(*)
+        FROM community_signup
+        WHERE s_code = #{c_code}
+        AND s_state = 's'
+    </select>
+
+    <select id="countApplicant" resultType="int">
+        SELECT COUNT(*)
+        FROM community_signup
+        WHERE s_code = #{c_code}
+    </select>
 
 
 

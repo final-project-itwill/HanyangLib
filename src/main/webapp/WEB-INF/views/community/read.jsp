@@ -6,126 +6,171 @@
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<!-- style 시작 -->
+<link rel="stylesheet" href="/css/libtable.css">
+<!-- Custom fonts for this template-->
+<link href="/adminBootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="/adminBootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+
+<style>
+    .lib-cont * {
+        font-family: "KyoboHandwriting2020A";
+    }
+</style><!-- style 끝 -->
 
 
-<!-- 상단 헤더 배경 및 커뮤니티 이름 -->
-<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('/images/galaxy.jpeg'); height: 15vh;">
-</div>
+<!-- 헤더 배경 -->
+<div class="hero-slant overlay" data-stellar-background-ratio="0.5" style="background-image: url('/images/sky.jpg'); height: 60vh;"></div>
 
-<h1 class="text-dark text-left font-weight-bold" data-aos="fade-up" data-aos-delay="0" style="padding: 30px 0 0 10vw">
-    ${read.c_name}
-</h1>
-<p class="text-dark text-left font-weight-bold" data-aos="fade-up" data-aos-delay="0" style="font-size: 20px;padding: 10px 0 0 10vw">&nbsp; 커뮤니티에 방문하신 것을 환영합니다</p>
+<!-- 본문 시작 -->
+<div class="container-fluid lib-body" style="padding:0px;">
+    <div class="row lib-row">
 
-<div class="container-fluid border-bottom">
-    <div class="row">
-        <!-- 커뮤니티 상세 : 좌측 bar 시작 -->
-        <div class="lib-cont col-12 col-sm-7 col-md-7 col-lg-7" style="padding-left: 5vw">
 
-            <div class="container-fluid" style="padding: 0 10vw 15vw 5vw">
-                <img src="/storage/${read.c_banner}" class="img-fluid img-thumbnail"><!-- 추후 read로 c_banner 가져올 것 -->
-                <div>
-                    <h3 style="text-align: center; font-weight: bold; margin-top: 5vh">커뮤니티 소개</h3>
-                    <p style="margin-top: 5vh; font-size: 20px">"${read.c_des}"</p>
-                </div>
-            </div>
-        </div><!-- 좌측 bar end-->
-
-        <!-- 커뮤니티 정보 : 우측 bar 시작 -->
-        <div class="lib-info col-12 col-sm-5 col-md-5 col-lg-5" style="">
-            <div class="container-fluid" style="padding-right: 10vw">
-                <div>
-                    <p style="background-color: lightgray; font-size: 20px; color: black; margin-bottom: 20px">책 제목 : ${read.b_name}</p>
-                </div><!-- 책 제목 end-->
-                <div>
-                    <table class="table" style="width: 100%">
-                        <tr>
-                            <th>커뮤니티장</th>
-                            <td>${read.m_nick}</td>
-                        </tr>
-                        <tr>
-                            <th>커뮤니티 상태</th>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${read.c_state == 'i'}">모집중</c:when>
-                                    <c:when test="${read.c_state == 'd'}">모집완료</c:when>
-                                    <c:when test="${read.c_state == 'e'}">활동완료</c:when>
-                                </c:choose>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>주 모임 지역</th>
-                            <td>${read.c_local}</td>
-                        </tr>
-                        <tr>
-                            <th>오픈채팅방 주소</th>
-                            <td>${read.c_chat}</td>
-                        </tr>
-                        <tr>
-                            <th>커뮤니티 등록일</th>
-                            <td>${read.c_rdate}</td>
-                        </tr>
-                    </table>
-                </div><!-- 정보 테이블 end-->
-
-                <!-- 커뮤니티 신청 버튼 -->
-                <!-- 조건문으로 커뮤니티 모집중/완료 분기 -->
-                <c:if test="${read.c_state == 'i'}">
-                    <button type="button" class="btn btn-outline-dark" onclick="clickSignup()">이 커뮤니티 신청하기</button><br><br>
-                </c:if>
-                <c:if test="${read.c_state == 'd' || read.c_state == 'e'}">
-                    <p style="font-weight: bold">"신청이 마감되었습니다"</p>
-                </c:if>
-                <br>
-
-                <%-- 커뮤니티 관리자 페이지 버튼 --%>
-                <c:if test="${checkOwner == s_id}">
-                    <button type="button" class="btn btn-outline-light btn-block text-dark" onclick="location.href='/comm/admin/${read.c_code}'" style="font-weight: bold; color: #3b5998; border-color: #2a96a5;">
-                        <i class="fas fa-fw fa-cog"></i> 커뮤니티 관리하기
-                    </button>
-                </c:if>
-
-            </div>
-        </div><!-- 우측 bar end-->
-    </div><!-- row end-->
-
-    <br>
-
-    <!-- 커뮤니티 구성원 시작-->
-    <div class="container">
-        <h3 style="text-align: center; font-weight: bold; padding-bottom: 1vh">같이 하는 사람들</h3>
-        <table>
-            <tr>
-                <c:forEach var="list" items="${checkMember}" varStatus="vs">
-                    <td>
-                        <img src="/storage/${list.m_img}" class="img-fluid rounded-circle">
-                        <p style="text-align: center">${list.m_nick}</p>
+        <!-- 커뮤니티 정보 table 시작 -->
+        <div class="container-fluid lib-info col-12 col-md-4 col-lg-3" style="background-color: #0E2A47;">
+            <table class="table custom-table">
+                <tr align="center">
+                    <td valign="middle" style="line-height: 180%;">
+                        <p style="font-size: 14px; line-height: 2em; margin-bottom: 5px; color: #0E2A47; font-weight: bold">커뮤니티 선정 도서</p>
+						<span style="font-weight: bold; font-size: 35px;">
+                            <img src="${read.b_bookcover}" alt="bookPhoto" width="200vh">
+                        </span><br>
+                        <p style="font-weight: bold; text-align: center; margin: 5px 0 0 0; color: #0E2A47; font-size: 20px;">
+                            ${read.b_name}
+                        </p>
                     </td>
-                    <!-- 테이블 한 줄에 5행씩 -->
-                    <c:if test="${vs.count mod 5 == 0}">
-                        <tr></tr>
-                    </c:if>
-                </c:forEach>
+                </tr>
+                <tr align="center">
+                    <td valign="middle" style="line-height: 180%;">
+                        <p style="font-size: 14px; line-height: 2em; margin-bottom: 5px; color: #0E2A47; font-weight: bold">커뮤니티 만든 사람</p>
+                        <img src="/images/user.png" alt="userPhoto" width="100vh"><br><br>
+						<span style="font-weight: bold; font-size: 30px;">
+                            ${read.m_nick}
+						</span><br>
+                        <p style="font-weight: bold; text-align: center; margin: 0px;">
+                            ${read.c_id}
+                        </p>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td valign="middle" style="line-height: 180%;">
+                        <p style="font-size: 14px; line-height: 2em; margin-bottom: 15px; color: #0E2A47; font-weight: bold">우리 커뮤니티는 현재?</p>
+                        <span style="font-weight: bold; font-size: 30px;">
+                            <c:choose>
+                                <c:when test="${read.c_state == 'i'}">모집중</c:when>
+                                <c:when test="${read.c_state == 'd'}">모집완료</c:when>
+                                <c:when test="${read.c_state == 'e'}">활동완료</c:when>
+                            </c:choose>
+                        </span><br>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td valign="middle" style="line-height: 180%;">
+                        <p style="font-size: 14px; line-height: 1em; color: #0E2A47; font-weight: bold">주 모임 지역</p>
+                        <span style="font-weight: bold; font-size: 20px;">
+                            ${read.c_local}
+                        </span><br><br>
+                        <p style="font-size: 14px; line-height: 1em; color: #0E2A47; font-weight: bold">오픈 채팅방 참여하기</p>
+                        <span style="font-weight: bold; font-size: 14px;">
+                            <a href="https://open.kakao.com/o/gXtrVbVe">${read.c_chat}</a>
+                        </p>
+                        <hr>
+                        <!-- 커뮤니티 신청 버튼 -->
+                        <c:choose>
+                            <c:when test="${read.c_state == 'i' && checkOwner != s_id}">
+                                <button type="button" class="btn btn-outline-light btn-block text-dark" onclick="clickSignup()" style="font-weight: bold; color: #3b5998; border-color: #2a96a5;">
+                                    <i class="fas fa-smile"></i>  이 커뮤니티 신청하기
+                                </button>
+                            </c:when>
+                            <c:when test="${read.c_state != 'i'}">
+                                <p style="font-weight: bold">"신청이 마감되었습니다"</p>
+                            </c:when>
+                        </c:choose>
+
+                        <!-- 커뮤니티 관리자 페이지 버튼 -->
+                        <c:if test="${checkOwner == s_id}">
+                            <button type="button" class="btn btn-outline-light btn-block text-dark" onclick="location.href='/comm/admin/${read.c_code}'" style="font-weight: bold; color: #3b5998; border-color: #2a96a5;">
+                                <i class="fas fa-fw fa-cog"></i> 커뮤니티 관리하기
+                            </button>
+                        </c:if>
+                    </td>
+                </tr>
+            </table>
+        </div><!-- 커뮤니티 정보 table 끝 -->
+
+
+        <!-- 상세페이지 시작 -->
+        <div class="lib-cont col-12 col-md-8 col-lg-9"  style="padding-bottom: 80px;">
+            <table class="lib_cont table custom-table" style="display: table; table-layout: fixed;">
+                <tr>
+                    <td colspan="5" class="text-center lib-text">
+                        <h1>${read.c_name}</h1>
+                        <h4 style="font-size: medium;">우리 커뮤니티에 오신 것을 환영합니다!</h4>
+                        <div style="text-align: center; padding: 10px;">
+                            <span style="font-weight: bold; font-size: 35px;">
+                                <img src="/storage/${read.c_banner}" alt="communityPhoto" width="500vh">
+                            </span><br>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" class="text-center lib-text">
+                        <h4>커뮤니티 소개 >></h4>
+                        <h4 style="font-size: medium;">${read.c_des}</h4>
+                    </td>
+                </tr>
+                <!-- 커뮤니티 구성원 시작-->
+                <tr><td colspan="5" class="text-center"><h4>커뮤니티 구성원 >></h4></td></tr>
+                <tr class="col-12 col-xs-12 col-sm-4 col-lg-4">
+                    <td></td>
+                    <c:forEach items="${checkMember}" var="list" varStatus="vs">
+                        <c:choose>
+                            <c:when test="${vs.count>=1}">
+                                <td>
+                                <div style="text-align: center;">
+
+                                    <div style="height: 150px; padding: 10px;">
+                                        <img src="/storage/${list.m_img}" class="img-fluid rounded-circle" width="100px" align="middle">
+                                        <p style="text-align: center">${list.m_nick}</p>
+                                    </div>
+                                    <br>
+                                    <br>
+                                </div>
+                                </td>
+                            </c:when>
+                            <c:otherwise>
+                                <p style="text-align: center">아직 활동중인 회원이 없습니다.</p>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div><!-- 상세페이지 끝 -->
+
+    <!-- 후기 시작 -->
+    <div class="container-fluid">
+        <table class="table custom-table">
+            <!-- 구분선 시작 -->
+            <tr>
+                <td colspan="5" class="text-center">
+                    <img alt="divider" src="/images/divider3.png" width="50%">
+                </td>
+            </tr><!-- 구분선 끝 -->
+            <tr>
+                <td colspan="5" class="text-center lib-cont">
+                    <h1>커뮤니티 후기</h1>
+                    <h4 style="font-size: medium;">책과 함께 활동한 후기를 살펴보세요</h4>
+                </td>
             </tr>
         </table>
-    </div><!-- 커뮤니티 구성원 end-->
-
-    <br><br>
-
-    <!-- 커뮤니티 후기 (ajax 더보기) ------------------------------------------------------------------>
-
-    <div class="container-fluid text-center">
-        <h3 style="text-align: center; font-weight: bold; padding-bottom: 1vh">커뮤니티 후기</h3>
-        <p style="font-size: 18px; padding-bottom: 40px">방문해 주신 당신, 발자취를 남겨주세요!</p>
-
-        <div class="container-fluid col-lg-3 d-sm-none"></div>
-        <div class="container-fluid text-center col-lg-6 col-sm-12">
-
-            <!-- 후기 등록 form 시작 -->
-            <!-- 조건 : 1)id 가입 승인 완료(s)
-                       2)해당 커뮤니티장
-                       3)커뮤니티 모집완료/활동완료(d, e) -->
-
+        <!-- 후기 남기기 form 시작 -->
+        <div class="container lib-cont text-center">
             <c:if test="${(checkID.s_state == 's' || s_id == checkOwner) && (read.c_state == 'd' || read.c_state == 'e')}">
                 <form name="reviewForm" id="reviewForm" style="margin-bottom: 30px">
                     <input type="hidden" id="c_code" name="c_code" value="${read.c_code}">  <!-- 부모 PK키-->
@@ -136,17 +181,22 @@
                     <button type="button" name="reviewInsertBtn" id="reviewInsertBtn">후기 남기기</button>
                 </form><!-- 후기 등록 form 끝 -->
             </c:if>
-
-            <!-- 후기 목록 div -->
-            <div class="container-fluid">
-                <table class="table table-default reviewList" id="reviewList"></table>
-            </div>
-
+        </div><!-- 후기 남기기 form 끝 -->
+        <br>
+        <!-- 후기 목록 div -->
+        <div class="container">
+            <table class="table table-default reviewList" id="reviewList" style="background-color: #F6F6F6"></table>
         </div>
-        <div class="container-fluid col-lg-3 d-sm-none"></div>
-    </div><!-- 커뮤니티 후기 end -->
-    <br><br><br>
-</div>
+
+
+
+    </div><!-- 후기 끝 -->
+
+</div><!-- 본문 끝 -->
+
+
+
+
 
 
 <!-- 후기 관련 자바스크립트 -->
@@ -165,50 +215,48 @@
         let signState = '${checkID.s_state}';   //로그인id의 가입 상태
         let owner = '${checkOwner}';
 
-        if(owner == loginID){
-            alert("당신이 만든 커뮤니티입니다.");
+
+        if(sv_code ==''){
+            if(signState == ''){                    //가입이력 없음
+
+                let s_nick = '${s_nick}';
+                alert(s_nick);
+                let comsign = {
+                        s_code : c_code,
+                        s_id : loginID,
+                        s_nick : s_nick
+                    } // survey end
+
+                    $.ajax({
+                        type: "post",
+                        url:"/survey/write/comsign",
+                        contentType: "application/json",
+                        data: JSON.stringify(comsign)
+                    }) // ajax end
+                    alert(" 가입 신청 되었습니다. ");
+
+            }else if(signState == 'i') {
+                alert("이미 가입을 신청한 커뮤니티입니다. \n 가입 승인을 기다려주세요.");
+            }else if(signState == 's'){
+                alert("이미 가입이 승인된 커뮤니티입니다.");
+            }else if(signState == 'r'){
+                alert("가입 신청이 반려된 커뮤니티입니다.");
+            }//if end
+
         }else{
-         	if(sv_code ==''){
-	            if(signState == ''){                    //가입이력 없음
-	            	
-	        		let s_nick = '${s_nick}';
-	        		alert(s_nick);
-	        		let comsign = {
-	        				s_code : c_code,
-	        				s_id : loginID,
-	        				s_nick : s_nick
-	        			} // survey end
-	        			
-	        			$.ajax({
-	        				type: "post",
-	        				url:"/survey/write/comsign",
-	        				contentType: "application/json",
-	        				data: JSON.stringify(comsign)
-	        			}) // ajax end	
-	        			alert(" 가입 신청 되었습니다. ");
-	        			
-	            }else if(signState == 'i') {
-	                alert("이미 가입을 신청한 커뮤니티입니다. \n 가입 승인을 기다려주세요.");
-	            }else if(signState == 's'){
-	                alert("이미 가입이 승인된 커뮤니티입니다.");
-	            }else if(signState == 'r'){
-	                alert("가입 신청이 반려된 커뮤니티입니다.");
-	            }//if end
-	            
-        	}else{ 
-        		
-	            if(signState == ''){                    //가입이력 없음
-	                location.href = "/survey/write/${c_code}";       //나중에 설문지페이지와 바로 연결하기
-	            }else if(signState == 'i') {
-	                alert("이미 가입을 신청한 커뮤니티입니다. \n 가입 승인을 기다려주세요.");
-	            }else if(signState == 's'){
-	                alert("이미 가입이 승인된 커뮤니티입니다.");
-	            }else if(signState == 'r'){
-	                alert("가입 신청이 반려된 커뮤니티입니다.");
-	            }//if end
-	            
-        	}// sv_code if end
-        }//if end
+
+            if(signState == ''){                    //가입이력 없음
+                location.href = "/survey/write/${c_code}";       //설문지페이지와 바로 연결하기
+            }else if(signState == 'i') {
+                alert("이미 가입을 신청한 커뮤니티입니다. \n 가입 승인을 기다려주세요.");
+            }else if(signState == 's'){
+                alert("이미 가입이 승인된 커뮤니티입니다.");
+            }else if(signState == 'r'){
+                alert("가입 신청이 반려된 커뮤니티입니다.");
+            }//if end
+
+        }// sv_code if end
+
     }//checkSignup() end
 
 
@@ -263,27 +311,25 @@
                 $.each(data, function (key, value){
                     //alert(key);
                     //alert(value);
-                    a += '<tr class="reviewArea" style="border: 1px solid darkgray; margin-bottom: 15px">';
-                    a += '  <td class="reviewInfo' + value.ac_no +'"><br>';
-                    a += '      <div colspan="2" class="content' + value.ac_no +'">'
-                    a += '          <strong> "' + value.ac_review + '"</strong>  <span style="text-align: right">별점 :';
-                                for(i=1; i<=value.ac_manjok; i++){
-                    a += '          <img src="/images/star.png" width="15px"></span>';
-                                }//for end
-                    a += '';
-                    a += '      </div>';
-                    a += '      <div class="row"><p>작성자 : ' + value.ac_id + "</p>";
-                    a += "          <p>작성일 : " + value.ac_rdate;
-                    a += '      </div></p></td><td class="text-right">';
-
+                    a += '<tr class="reviewArea" style="border-bottom: 1px solid darkgray; margin-bottom: 15px">';
+                    a += '  <td class="reviewInfo' + value.ac_no +'">';
+                    a += '      작성자 : ' + value.ac_id + ' | 작성일 : ' + value.ac_rdate;
+                    a += '  </td><td class="text-right">';
                     if(value.ac_id == loginID || loginID =='webmaster'){    //작성자||관리자만 수정/삭제 버튼 접근 가능
                         a += '      <a href="javascript:openReviewUpdatePanel(' + value.ac_no + ',\'' + value.ac_review + '\',' + value.ac_manjok + ');">수정</a>';
                         a += '      <a href="javascript:deleteReview(' + value.ac_no + ');">삭제</a>';
                     };//if end
                     a += '  </td>';
-                    a += '  </tr><tr>';
-
-                    a += '</tr>';
+                    a += '</tr><tr>';
+                    a += '  <td colspan="2" class="content' + value.ac_no + '" id="content' + value.ac_no + '">';
+                    a += '      <p class="lib-cont" style="color: black">' + value.ac_review +'</p>';
+                    a += '      <span style="text-align: right">별점 :';
+                                for(i=1; i<=value.ac_manjok; i++){
+                    a += '          <img src="/images/star.png" width="15px"></span>';
+                                }//for end
+                    a += '';
+                    a += '      <br></td>';
+                    a += '  </tr>';
                 });//each() end
 
                 let b = '';

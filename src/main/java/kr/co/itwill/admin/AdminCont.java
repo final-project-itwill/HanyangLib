@@ -5,6 +5,9 @@ import kr.co.itwill.community.CommunityDTO;
 import kr.co.itwill.community.CommunityUnionDTO;
 import kr.co.itwill.inquiry.InquiryDAO;
 import kr.co.itwill.inquiry.ResponseDTO;
+import kr.co.itwill.member.MemberDTO;
+import kr.co.itwill.notice.NoticeDAO;
+import kr.co.itwill.notice.NoticeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +30,9 @@ public class AdminCont {
     @Autowired
     InquiryDAO inquiryDao;
 
+    @Autowired
+    NoticeDAO noticeDao;
+
     @RequestMapping("/dashboard")
     public ModelAndView dashboard(){
         ModelAndView mav = new ModelAndView();
@@ -48,6 +54,15 @@ public class AdminCont {
         return mav;
     }//listMember() end
 
+    @RequestMapping("/updateMember")
+    public String updateMember(@ModelAttribute MemberDTO dto){
+        MemberDTO member = new MemberDTO();
+        member.setM_id(dto.getM_id());
+        member.setM_grade(dto.getM_grade());
+        member.setM_heat((double) dto.getM_heat());
+        adminDao.updateMember(member);
+        return "redirect:/admin/memberList";
+    }//updateMember() end
 
     @RequestMapping("/communityList")
     public ModelAndView listCommunity(){
@@ -90,6 +105,7 @@ public class AdminCont {
     }//updatePick() end
 
 
+    //1:1문의 답변 대기중인 목록
     @RequestMapping("/response")
     public ModelAndView listInquiry(){
         ModelAndView mav = new ModelAndView();
@@ -98,19 +114,89 @@ public class AdminCont {
         return mav;
     }//listInquiry()
 
-    @RequestMapping("/insertResponse")
-    public String insertResponse(@ModelAttribute ResponseDTO dto){
+    //1:1문의 답변 insert
+    @RequestMapping("/insertResponse/{ask_no}")
+    public String insertResponse(@PathVariable int ask_no, @RequestParam String ans_content){
 
-        System.out.println(dto.getAns_content());
-        System.out.println(dto.getAns_no());
+//        System.out.println(ans_content);
+//        System.out.println(ask_no);
 
         ResponseDTO answer = new ResponseDTO();
-        answer.setAns_no(dto.getAns_no());
-        answer.setAns_content(dto.getAns_content());
+        answer.setAns_no(ask_no);
+        answer.setAns_content(ans_content);
         inquiryDao.insertResponse(answer);
-        return "admin/inquiryList";
+        return "redirect:/admin/response";
     }//insertResponse() end
 
+    //1:1 문의 답변 수정페이지
+    @RequestMapping("/listResponse")
+    public ModelAndView listResponse(){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("admin/responseList");
+        mav.addObject("responseList", inquiryDao.listResponse());
+        return mav;
+    }//listResponse() end
 
+
+    //공지사항 insert
+    @RequestMapping("/insertNotice")
+    public String insertNotice(){
+        return "admin/noticeInsert";
+    }//insertNotice() end
+
+    //공지사항 list
+    @RequestMapping("/listNotice")
+    public ModelAndView list(@RequestParam String pageNum)throws Exception{
+
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("admin/noticeList");
+
+        int totalRowCount = noticeDao.totalRowCount();  //총 행 갯수
+
+        //페이징
+        int numPerPage   = 5;   //한 페이지당 행 갯수
+        int pagePerBlock = 10;  //페이지 리스트(1~10페이지 : 1세트에 10페이지)
+
+        if(pageNum == null){    //페이징 번호의 a태그 명령어 ? 뒤에서 받아옴
+            pageNum = "1";      //자료가 없으면 무조건 1페이지
+        }
+
+        int currentPage = Integer.parseInt(pageNum);        //현재 2페이지라면,
+        int startRow    = (currentPage-1)*numPerPage+1;     //시작 rnum은 6
+        int endRow      = currentPage * numPerPage;         //끝 rnum은 10
+
+        //페이지 수
+        double totcnt = (double)totalRowCount/numPerPage;   //총 페이지수 = 글갯수/5
+        int totalPage = (int)Math.ceil(totcnt);             //올림해서 정수형으로 변환
+
+        //페이지가 10이 넘어가면 11~20 페이지가 나와야 함(2세트)
+        double d_page = (double)currentPage/pagePerBlock;   //12페이지라면, 1.2
+        int Pages     = (int)Math.ceil(d_page) - 1;         //1
+        int startPage = Pages * pagePerBlock + 1;           //11
+        int endPage   = startPage + pagePerBlock - 1;       //20
+
+        NoticeDTO rows = new NoticeDTO();
+        rows.setStartRow(startRow);
+        rows.setEndRow(endRow);
+
+        mav.addObject("pageNum", currentPage);
+        mav.addObject("count", totalRowCount);
+        mav.addObject("totalPage", totalPage);
+        mav.addObject("startPage", startPage);
+        mav.addObject("endPage", endPage);
+        mav.addObject("rows", rows);
+        mav.addObject("list", noticeDao.list(rows));
+
+        return mav;
+    }//list() end
+
+    //공지사항 read
+    @RequestMapping("/readNotice/{n_no}")
+    public ModelAndView readNotice(@PathVariable int n_no){
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("admin/noticeRead");
+        mav.addObject("read", noticeDao.read(n_no));
+        return mav;
+    }//readNotice() end
 
 }//class end
