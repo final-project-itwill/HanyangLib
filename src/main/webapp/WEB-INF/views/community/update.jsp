@@ -13,7 +13,7 @@
 
     <div class="container-fluid col-lg-8 card shadow">
         <p style="text-align: right"><a href="/comm/admin/${c_code}" style="color: #3b5998; margin-top: 20px">돌아가기</a></p>
-
+		
         <div class="table-responsive">
         <form name="frm" method="post" action="/comm/update" enctype="multipart/form-data">
             <input type="hidden" name="c_code" value="${c_code}">

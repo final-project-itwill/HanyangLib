@@ -711,7 +711,7 @@
 				}); // i)div, functoin() end
 				
 			}); //q_div, function() end	
-	//alert("생성 었습니다.");
+	alert("생성 었습니다.");
 	window.location.href= "http://localhost:9090/comm/admin/${c_code}";			
 	}); // survey end
 

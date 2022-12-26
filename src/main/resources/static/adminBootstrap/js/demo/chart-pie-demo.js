@@ -37,7 +37,7 @@ Chart.defaults.global.defaultFontColor = '#858796';
 				var myPieChart = new Chart(ctx, {
 				  type: 'doughnut',
 				  data: {
-				    labels: ["신청대기", "가입거절", "회원인원"],
+				    labels: ["신청대기", "회원인원", "가입거절"],
 				    datasets: [{
 				      data: [iray, sray, rray],
 				      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],

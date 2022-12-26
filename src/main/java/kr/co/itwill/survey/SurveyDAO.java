@@ -137,5 +137,9 @@ public class SurveyDAO {
 	public List<pieDTO> pie(String c_code){
 		return sqlSession.selectList("survey.pie",c_code);
 	} // Member() end
+	
+	public pieDTO memcount(String c_code){
+		return sqlSession.selectOne("survey.member",c_code);
+	} // Member() end
 			
 }// class end

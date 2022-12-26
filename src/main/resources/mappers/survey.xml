@@ -163,25 +163,33 @@
 	</select>
 	
 	<select id="pie" resultType="kr.co.itwill.survey.pieDTO">
-		SELECT i_count, s_count, r_count
+
+	SELECT i_count, s_count, r_count
 		FROM
 		(
 			SELECT i_count, s_count, s_code as best
 			FROM
-				( SELECT  count(*) i_count, s_code 
+				( SELECT  count(CASE WHEN s_state like 'i' THEN 1 END) i_count, s_code 
 				FROM community_signup
-				WHERE s_code = #{c_code} AND s_state = 'i' ) AS AA  JOIN (
+				WHERE s_code = #{c_code} ) AS AA JOIN (
 				
-				SELECT  count(*) s_count, s_code as test
+				SELECT  count(CASE WHEN s_state like 's' THEN 1 END) s_count, s_code as test
 				FROM community_signup
-				WHERE s_code = #{c_code} AND s_state = 's' ) AS BB
-				ON AA.s_code = BB.test ) AS CC  JOIN (
+				WHERE s_code = #{c_code}) AS BB
+				ON AA.s_code = BB.test ) AS CC JOIN (
 		
-					SELECT  count(*) r_count, s_code 
+					SELECT  count(CASE WHEN s_state like 'r' THEN 1 END) r_count, s_code 
 					FROM community_signup
-					WHERE s_code = #{c_code} AND s_state = 'r' ) AS DD
-					ON CC.best = DD.s_code ;
-								
+					WHERE s_code = #{c_code}) AS DD
+					ON CC.best = DD.s_code ;									
+		
+	</select>
+	
+	<select id="member" resultType="kr.co.itwill.survey.pieDTO">
+
+	  	SELECT  count(CASE WHEN s_state like 's' THEN 1 END) s_count, count(s_state) r_count
+		FROM community_signup
+		WHERE s_code = #{c_code}						
 		
 	</select>
 	

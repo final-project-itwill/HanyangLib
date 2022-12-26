@@ -103,7 +103,7 @@ public class SurveyCont {
 		dto.setS_nick(comsign.getS_nick());
 		dto.setS_surveycode(comsign.getS_surveycode());
 		surveyDAO.comsign(dto);
-		System.out.println(dto);
+		// System.out.println(dto);
 		return "생성되었습니다.";
 			//	"redirect:/survey/answer/"+dto.getAns_code();
 	}// insert() end
@@ -204,7 +204,7 @@ public class SurveyCont {
 		survey.setSv_edate(dto.getSv_edate());
 		
 		surveyDAO.surveyWrite(survey); 
-		 System.out.println(survey.toString());
+		// System.out.println(survey.toString());
 		return "survey";
 		
 	}// surveyinsert() end
@@ -219,7 +219,7 @@ public class SurveyCont {
 		dsurvey.setDsv_type(dto.getDsv_type());
 		
 		surveyDAO.questionWrite(dsurvey);
-		 System.out.println(dsurvey.toString());
+		// System.out.println(dsurvey.toString());
 		return "dsurvey";
 		
 	}// dsurveyinsert() end
@@ -235,7 +235,7 @@ public class SurveyCont {
 		choice.setCh_content(dto.getCh_content());
 		
 		surveyDAO.items(choice);
-		 System.out.println(choice.toString());
+		// System.out.println(choice.toString());
 		return "choice";
 		
 	}// dsurveyinsert() end
@@ -245,7 +245,7 @@ public class SurveyCont {
 	public ModelAndView update( String c_code) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		String dsv_code = surveyDAO.scodeget(c_code);
-		 System.out.println(dsv_code);
+		// System.out.println(dsv_code);
 		mav.setViewName("/survey/update");
 		mav.addObject("sread", surveyDAO.sread(dsv_code));
 		mav.addObject("title", surveyDAO.svTitle(dsv_code));
@@ -263,8 +263,8 @@ public class SurveyCont {
 	public String updateProc(@RequestBody SurveyDTO dto) throws Exception {
 		SurveyDTO survey = new SurveyDTO();
 		survey.setSv_code(dto.getSv_code());
-		surveyDAO.updelete(survey);
-		 System.out.println(survey);
+		// surveyDAO.updelete(survey);
+		System.out.println(survey);
 		return "updelete";		
 	} // deleteProc() end		
 	
@@ -362,7 +362,7 @@ public class SurveyCont {
 	@RequestMapping(value = "/line", method = RequestMethod.GET)
 	@ResponseBody
 	public List<AdminMemberDTO> chart(@RequestParam String c_code) {
-		System.out.println(c_code);
+		// System.out.println(c_code);
 		return surveyDAO.Member(c_code);
 	}// 
 
@@ -370,7 +370,7 @@ public class SurveyCont {
 	@RequestMapping(value = "/pie", method = RequestMethod.GET)
 	@ResponseBody
 	public List<pieDTO> pie(@RequestParam String c_code) {
-		System.out.println(c_code);
+		// System.out.println(surveyDAO.pie(c_code));
 		return surveyDAO.pie(c_code);
 	}// 	
 
