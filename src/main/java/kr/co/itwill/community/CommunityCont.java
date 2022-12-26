@@ -269,7 +269,7 @@ public class CommunityCont {
             filename = oldDTO.getC_banner();            //oldDTO에서 파일이름 가져오기
             dto.setC_banner(oldDTO.getC_banner());      //기존파일이름 dto에 담기
         }//if end
-
+        dto.setC_state(dto.getC_state());
         dto.setC_code(dto.getC_code());
         dto.setC_name(dto.getC_name());
         dto.setC_des(dto.getC_des());
@@ -346,7 +346,7 @@ public class CommunityCont {
         mav.addObject("reviewCnt", commDao.reviewCnt(c_code));
         mav.addObject("checkOwner", commDao.checkOwner(c_code));
         
-        // 설문지 코드 생성
+        // 설문지 코드 생성      
         mav.addObject("sv_code", surveyDAO.scodeget(c_code));
         mav.addObject("tpl", surveyDAO.tpl());
         return mav;
@@ -354,7 +354,7 @@ public class CommunityCont {
 
     // 1. 구성원 관리 페이지
     @RequestMapping("/adminmember/{c_code}")
-    public ModelAndView adminMember(@PathVariable String c_code) throws Exception{
+    public ModelAndView adminMember(@PathVariable String c_code,HttpServletRequest req) throws Exception{
         ModelAndView mav = new ModelAndView();
         mav.setViewName("community/adminMember");
 

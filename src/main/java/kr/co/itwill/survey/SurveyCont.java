@@ -25,8 +25,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.itwill.community.AdminMemberDTO;
 import kr.co.itwill.community.CommSignDTO;
 import kr.co.itwill.community.CommunityDAO;
+import kr.co.itwill.community.CommunityDTO;
 
 @Controller
 @RequestMapping("/survey")
@@ -41,6 +43,7 @@ public class SurveyCont {
     
 	@Autowired
 	SurveyDAO surveyDAO;
+	
 	
 	@RequestMapping("/survey") 
 	public ModelAndView survey() { 
@@ -112,24 +115,38 @@ public class SurveyCont {
 	@RequestMapping("/answer/{dsv_code}/{s_id}")
 	public ModelAndView answer(@PathVariable("dsv_code") String dsv_code,
 								@PathVariable("s_id") String s_id) throws Exception{
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/survey/answer");
-		mav.addObject("title", surveyDAO.svTitle(dsv_code));
-		mav.addObject("count", surveyDAO.svCount(dsv_code));
-		mav.addObject("choice", surveyDAO.svChoice(dsv_code));
 		AnswerDTO ans = new AnswerDTO();
+		System.out.println(dsv_code);
+		System.out.println(s_id);
 		ans.setAns_code(dsv_code);
 		ans.setAns_id(s_id);
-		mav.addObject("answer", surveyDAO.svanswer(ans));
+		String checksv = surveyDAO.idscodeget(ans);
+		
+		ModelAndView mav = new ModelAndView();
+		
+		if(checksv == null) {			
+			System.out.println(checksv);
+			mav.setViewName("/survey/answerfail");
+//			
+		} else {
+			
+			mav.setViewName("/survey/answer");
+			mav.addObject("title", surveyDAO.svTitle(dsv_code));
+			mav.addObject("count", surveyDAO.svCount(dsv_code));
+			mav.addObject("choice", surveyDAO.svChoice(dsv_code));
+			mav.addObject("answer", surveyDAO.svanswer(ans));
+			System.out.println(ans);
+		}
 		
 		// 경로설정
 		String c_code = dsv_code.substring(dsv_code.length()-6, dsv_code.length());
-		System.out.println(c_code);
+		// System.out.println(c_code);
 		mav.addObject("sv_code", dsv_code);
 		mav.addObject("c_code", c_code);
 		mav.addObject("read", commDao.read(c_code));
 		
 		return mav;
+
 	} // answer() end
 	
 	
@@ -175,7 +192,7 @@ public class SurveyCont {
 		return surveyDAO.tplread(tem_code);
 	} // tplread() end
 	
-	@RequestMapping(value = "/create/insert", method = RequestMethod.POST)
+	@RequestMapping(value = "/create/insert", method = {RequestMethod.POST})
 	public String surveyinsert(@RequestBody SurveyDTO dto , HttpServletRequest req) throws Exception {
 		SurveyDTO survey = new SurveyDTO();
 		survey.setSv_code(dto.getSv_code());
@@ -187,12 +204,12 @@ public class SurveyCont {
 		survey.setSv_edate(dto.getSv_edate());
 		
 		surveyDAO.surveyWrite(survey); 
-		System.out.println(survey.toString());
+		 System.out.println(survey.toString());
 		return "survey";
 		
 	}// surveyinsert() end
 	
-	@RequestMapping(value = "/create/dinsert", method = RequestMethod.POST)
+	@RequestMapping(value = "/create/dinsert", method = {RequestMethod.POST})
 	public String dsurveyinsert(@RequestBody DsurveyDTO dto)	throws Exception {
 		
 		DsurveyDTO dsurvey = new DsurveyDTO();
@@ -202,12 +219,12 @@ public class SurveyCont {
 		dsurvey.setDsv_type(dto.getDsv_type());
 		
 		surveyDAO.questionWrite(dsurvey);
-		System.out.println(dsurvey.toString());
+		 System.out.println(dsurvey.toString());
 		return "dsurvey";
 		
 	}// dsurveyinsert() end
 	
-	@RequestMapping(value = "/create/cinsert", method = RequestMethod.POST)
+	@RequestMapping(value = "/create/cinsert", method = { RequestMethod.POST})
 	public String csurveyinsert(@RequestBody ChoiceDTO dto)	throws Exception {
 		
 		ChoiceDTO choice = new ChoiceDTO();
@@ -218,7 +235,7 @@ public class SurveyCont {
 		choice.setCh_content(dto.getCh_content());
 		
 		surveyDAO.items(choice);
-		System.out.println(choice.toString());
+		 System.out.println(choice.toString());
 		return "choice";
 		
 	}// dsurveyinsert() end
@@ -228,7 +245,7 @@ public class SurveyCont {
 	public ModelAndView update( String c_code) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		String dsv_code = surveyDAO.scodeget(c_code);
-		// System.out.println(dsv_code);
+		 System.out.println(dsv_code);
 		mav.setViewName("/survey/update");
 		mav.addObject("sread", surveyDAO.sread(dsv_code));
 		mav.addObject("title", surveyDAO.svTitle(dsv_code));
@@ -238,6 +255,7 @@ public class SurveyCont {
 		mav.addObject("c_code", c_code);
 		mav.addObject("read", commDao.read(c_code));
 		
+		
 		return mav;
 	}// Update end	
 	
@@ -246,7 +264,7 @@ public class SurveyCont {
 		SurveyDTO survey = new SurveyDTO();
 		survey.setSv_code(dto.getSv_code());
 		surveyDAO.updelete(survey);
-		// System.out.println(survey);
+		 System.out.println(survey);
 		return "updelete";		
 	} // deleteProc() end		
 	
@@ -340,4 +358,20 @@ public class SurveyCont {
 	
 	
 	
+// surveyChart
+	@RequestMapping(value = "/line", method = RequestMethod.GET)
+	@ResponseBody
+	public List<AdminMemberDTO> chart(@RequestParam String c_code) {
+		System.out.println(c_code);
+		return surveyDAO.Member(c_code);
+	}// 
+
+// surveypie
+	@RequestMapping(value = "/pie", method = RequestMethod.GET)
+	@ResponseBody
+	public List<pieDTO> pie(@RequestParam String c_code) {
+		System.out.println(c_code);
+		return surveyDAO.pie(c_code);
+	}// 	
+
 }// class end

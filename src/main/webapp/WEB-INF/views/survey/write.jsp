@@ -72,15 +72,7 @@
 		<!-- 주관식 반복 -->
 		<c:forEach items="${title}" var="title" varStatus="tvs">
 		
-		<!-- 순서코드 만들기(od01, od02) -->
-		<c:if test="${tvs.count<10}">
-			<c:set var="orderno" value="od0${tvs.count}"></c:set>
-		</c:if>
-		<c:if test="${tvs.count>=10}">
-			<c:set var="orderno" value="od${tvs.count}"></c:set>
-		</c:if>
 		<tr>
-			<input type="hidden" id="ans_order" name="ans_order" value="${orderno}"> <!-- ans_order -->
 			<td style="font-weight: bold;">${tvs.count}. ${title.dsv_subject}</td>
 		</tr>
 		<tr>
@@ -90,16 +82,8 @@
 						<c:forEach items="${choice}" var="choice">
 						<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
-								<!-- 주관식 답변 코드 만들기 -->
-								<c:set var="j" value="${j+1}"/>
-								<c:if test="${j<10}">
-									<c:set var="anscodeno" value="ju0${j}"></c:set>
-								</c:if>
-								<c:if test="${j>=10}">
-									<c:set var="anscodeno" value="ju${j}"></c:set>
-								</c:if>
-									<input type="text" class="${anscodeno}" id="${choice.ch_no}" name="${anscodeno}" >
-									<input type="hidden" id="${orderno}" name="${orderno}" value="${anscodeno}">
+									<input type="text" class="${choice.ch_anscode}" id="${choice.ch_anscode}" name="${choice.ch_anscode}" >
+									<input type="hidden" id="${choice.ch_order}" name="${choice.ch_order}" value="${choice.ch_anscode}">
 							</c:when>
 						</c:choose>
 						</c:forEach>
@@ -111,16 +95,8 @@
 						<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
-								<!-- 객관식 답변 코드 만들기 -->
-								<c:set var="g" value="${g+1}"/>
-								<c:if test="${g<10}">
-									<c:set var="anscodeno" value="g0${g}"></c:set>
-								</c:if>
-								<c:if test="${g>=10}">
-									<c:set var="anscodeno" value="g${g}"></c:set>
-								</c:if>
-									<input type="radio" id="${choice.ch_no}" name="${orderno}" value="${anscodeno}"><label for="${choice.ch_order}">&nbsp;${choice.ch_content}</label>
-									<input type="hidden" name="${anscodeno}" class="${anscodeno}" value="${choice.ch_content}">
+									<input type="radio" id="${choice.ch_anscode}" name="${choice.ch_order}" value="${choice.ch_anscode}"><label for="${choice.ch_order}">&nbsp;${choice.ch_content}</label>
+									<input type="hidden" name="${choice.ch_anscode}" class="${choice.ch_anscode}" value="${choice.ch_content}">
 							</c:when>
 							</c:choose>
 						</c:forEach>
@@ -132,16 +108,8 @@
 						<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
-								<!-- 체크박스 답변 코드 만들기 -->
-								<c:set var="c" value="${c+1}"/>
-								<c:if test="${c<10}">
-									<c:set var="anscodeno" value="c0${c}"></c:set>
-								</c:if>
-								<c:if test="${c>=10}">
-									<c:set var="anscodeno" value="c${c}"></c:set>
-								</c:if>
-									<input type="checkbox" id="${choice.ch_no}" name="${orderno}" value="${anscodeno}"><label for="${choice.ch_order}">&nbsp;${choice.ch_content}</label>
-									<input type="hidden" name="${anscodeno}" class="${anscodeno}" value="${choice.ch_content}">
+									<input type="checkbox" id="${choice.ch_anscode}" name="${choice.ch_order}" value="${choice.ch_anscode}"><label for="${choice.ch_order}">&nbsp;${choice.ch_content}</label>
+									<input type="hidden" name="${choice.ch_anscode}" class="${choice.ch_anscode}" value="${choice.ch_content}">
 							</c:when>
 							</c:choose>
 						</c:forEach>
@@ -153,16 +121,8 @@
 						<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
-								<!-- 달력 답변 코드 만들기 -->
-								<c:set var="s" value="${s+1}"/>
-								<c:if test="${s<10}">
-									<c:set var="anscodeno" value="s0${s}"></c:set>
-								</c:if>
-								<c:if test="${s>=10}">
-									<c:set var="anscodeno" value="s${s}"></c:set>
-								</c:if>
-									<input type="date" class="${anscodeno}" id="${choice.ch_no}" name="${anscodeno}" min="${min}">
-									<input type="hidden" id="${orderno}" name="${orderno}" value="${anscodeno}">
+									<input type="date" class="${choice.ch_anscode}" id="${choice.ch_anscode}" name="${choice.ch_anscode}" min="${min}">
+									<input type="hidden" id="${choice.ch_order}" name="${choice.ch_order}" value="${choice.ch_anscode}">
 							</c:when>
 							</c:choose>
 						</c:forEach>
@@ -174,16 +134,9 @@
 						<c:forEach var="choice" items="${choice}" varStatus="vs">
 							<c:choose>
 							<c:when test="${title.dsv_order eq choice.ch_order}">
-								<!-- 시간 답변 코드 만들기 -->
-								<c:set var="t" value="${t+1}"/>
-								<c:if test="${t<10}">
-									<c:set var="anscodeno" value="t0${t}"></c:set>
-								</c:if>
-								<c:if test="${t>=10}">
-									<c:set var="anscodeno" value="t${t}"></c:set>
-								</c:if>						
-									<input type="time" class="${anscodeno}" id="${choice.ch_no}" name="${anscodeno}">
-									<input type="hidden" id="${orderno}" name="${orderno}" value="${anscodeno}">
+								<!-- 시간 답변 코드 만들기 -->			
+									<input type="time" class="${choice.ch_anscode}" id="${choice.ch_anscode}" name="${choice.ch_anscode}">
+									<input type="hidden" id="${choice.ch_order}" name="${choice.ch_order}" value="${choice.ch_anscode}">
 							</c:when>
 							</c:choose>	
 						</c:forEach>
@@ -201,7 +154,7 @@
 
 		</table>
 			<!-- <button type="button" onclick="insert() " id="btn_survey" class="btn btn-outline-light btn-block text-dark" style="font-weight: bold; color: #3b5998; border-color: #2a96a5; width: 100px;  height:30;  margin:auto; display :inline-block;" >설문등록</button> -->
-			<button type="button" onclick="insert() "  class="btn btn-outline-light btn-block text-dark" style="font-weight: bold; color: #3b5998; border-color: #2a96a5; width: 50%; margin:auto;" >
+			<button type="button" onclick="check()"  class="btn btn-outline-light btn-block text-dark" style="font-weight: bold; color: #3b5998; border-color: #2a96a5; width: 50%; margin:auto;" >
                             <span class="glyphicon glyphicon-ok"></span> 설문등록</button>
 		<br>
 	</form>	
@@ -215,48 +168,105 @@
 <script>
 
 	
-	function insert() {
+	function check() {
 		let ans_code = $(document).find('input.ans_code').val();
 		let ans_id = $(document).find('input.ans_id').val();
-		var count = ${count};
-		if(ans_code==""){
+		
+		if(!ans_code){
 			ans_code.focus();
 			alert("경로가 잘못되었습니다.");
-			return false;
-		}
-		if(ans_id==""){
+			return;
+		}// code check
+		if(!ans_id){
 			//ans_id.focus();
 			alert("로그인이 필요합니다.");
-			return false;
+			location.href="/login/index";
+			return;
+		}// id() cgecj
+		
+		insert();
 		}
+	
+	function insert() {
+		var count = ${count};
+		let ans_code = $(document).find('input.ans_code').val();
+		let ans_id = $(document).find('input.ans_id').val();
+
 		
 		for( var i=1; i<=count; i++){
-/* 		가져오기 방법 1	
-			$(document).ready(function() {
-			    var inputValue = $("input[name='od0"+i+"']:checked").val();
-			    alert(inputValue);
-			}); */
 			
 			let ans_order = "od0"+i+""
-			var set = document.getElementsByName(ans_order)
 			
+			pls = $("input[name="+ans_order+"]:radio:checked").length;
+			
+			please=$("input[name="+ans_order+"]").val();
+			// alert(please);
+			if(please.substring(0,1) == "g" ) {
+				if($("input[name="+ans_order+"]:radio:checked").length < 1){
+					alert(i+"번 문제를 체크해주세요.");
+				    return;
+				}
+			} else if (please.substring(0,1) == "c") {
+				if ( $("input[name="+ans_order+"]:checkbox:checked").length < 1) {
+					alert(i+"번 문제를 체크해주세요.");
+					return;
+				}// if end 
+			} else if ( please.substring(0,1) == "j" ||
+		    			please.substring(0,1) == "s" ||
+		    			please.substring(0,1) == "t") {
+				// alert(document.querySelector("#"+please+"").value);
+				// alert($("input[name="+ans_order+"]").value);
+				if (!document.querySelector("#"+please+"").value) {
+					alert(i+"번 문제를 입력해 주세요.");
+					return;
+				}// if end
+			}// 유효성 검사
+			
+			var set = document.getElementsByName(ans_order);
 			set.forEach((node) => {
-				
-			    if(node.checked) {
-			    //	alert(node.value)
-		        
+				if(node.value.substring(0,1) == "c" ||
+		    		node.value.substring(0,1) == "g" ) {
+
+					 if (node.checked) {
+				    //	alert(node.value)
+			        	let ans_anscode	= node.value
+			        	let ans_content = $(document).find('input.'+ans_anscode+'').val();
+
+			       		// alert("	ans_content : " + ans_content);	
+			        	// alert("ans_code : " + ans_code);
+			        	// alert("ans_order : " + ans_order);
+			        	// alert("ans_anscode : " + ans_anscode);
+
+						let survey = {
+							ans_code : ans_code,
+							ans_order : ans_order,
+							ans_anscode : ans_anscode,
+							ans_id	: ans_id,
+							ans_content : ans_content
+						} // survey end
+						
+						$.ajax({
+							type: "post",
+							url:"/survey/write/answer",
+							contentType: "application/json",
+							data: JSON.stringify(survey),
+							async: false
+						}) // ajax end	
+				    } 
+				    
+			    } else if (	node.value.substring(0,1) == "j" ||
+			    			node.value.substring(0,1) == "s" ||
+			    			node.value.substring(0,1) == "t" ) {
+			    //	alert(node.value);
+
 		        	let ans_anscode	= node.value
 		        	let ans_content = $(document).find('input.'+ans_anscode+'').val();
-		    		if(ans_content==""){
-		    			ans_content.focus();
-		    			alert("체크해 주세요.");
-		    			return false;
-		    		}
 		        //	alert("	ans_content : " + ans_content);	
 		        //	alert("ans_code : " + ans_code);
 		        //	alert("ans_order : " + ans_order);
 		        //	alert("ans_anscode : " + ans_anscode);
-			    	
+			    //	alert("ans_id : " + ans_id);
+
 		        	
 
 					let survey = {
@@ -272,48 +282,13 @@
 						url:"/survey/write/answer",
 						contentType: "application/json",
 						data: JSON.stringify(survey),
-						success:function(data){
-							alert(data);
-						}
-					}) // ajax end
-			    
-			    	
-			    } else if (	node.value.substring(0,1) == "j" ||
-			    			node.value.substring(0,1) == "s" ||
-			    			node.value.substring(0,1) == "t" ) {
-			    //	alert(node.value);
-
-		        	let ans_anscode	= node.value
-		        	let ans_content = $(document).find('input.'+ans_anscode+'').val();
-		        //	alert("	ans_content : " + ans_content);	
-		        //	alert("ans_code : " + ans_code);
-		        //	alert("ans_order : " + ans_order);
-		        //	alert("ans_anscode : " + ans_anscode);
-			    //	alert("ans_id : " + ans_id);
-		        	
-
-					let survey = {
-						ans_code : ans_code,
-						ans_order : ans_order,
-						ans_anscode : ans_anscode,
-						ans_id	: ans_id,
-						ans_content : ans_content
-					} // survey end
-					
-					$.ajax({
-						type: "post",
-						url:"/survey/write/answer",
-						contentType: "application/json",
-						data: JSON.stringify(survey)
+						async: false
 		   
 					}) // ajax end
-					
-
 			    } // if end
 			}) // set end
-			
-			//alert(document.querySelector('input[name="od01"]:checked'));
 		} // end
+		
 		let s_code = '${c_code}';
 		let s_nick = '${s_nick}';
 		
@@ -324,17 +299,22 @@
 				s_surveycode : ans_code
 			} // survey end
 			
-			alert(comsign);
+			//alert(comsign);
 			$.ajax({
 				type: "post",
 				url:"/survey/write/comsign",
 				contentType: "application/json",
-				data: JSON.stringify(comsign)
+				data: JSON.stringify(comsign),
+				async: false
 			}) // ajax end	
-		
-	alert("신청 되었습니다.");
+	alert("신청 되었습니다.");	
 	window.location.href = "http://localhost:9090/comm/read/${c_code}";
-	}// function() end
+	
+	}// insert() end
+	
+
+
+
 </script>
    
 <!-- 본문작성 끝 -->

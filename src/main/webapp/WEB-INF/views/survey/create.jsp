@@ -53,12 +53,12 @@
 			<input type="hidden" class="sv_id" name="sv_id" value="${s_id}">
 			<input type="hidden" class="sv_comcode" name="sv_comcode" value="${c_code}"> <!-- 커뮤니티 코드 받아오기 -->
 			<input type="hidden" class="sv_code" name="sv_code" value="${sv_code}">
-		&nbsp;&nbsp;제 &nbsp; &nbsp;목 &nbsp;: &nbsp;<input type="text" class="sv_title" name="sv_title" placeholder="해당 설문지의 제목을 입력하세요.">
+		&nbsp;&nbsp;제 &nbsp; &nbsp;목 &nbsp;: &nbsp;<input type="text" class="sv_title" name="sv_title" placeholder="해당 설문지의 제목을 입력하세요." style="width: 60%">
 		</p>
 	</div>
 	<div>
 		<p class="survey">
-		&nbsp;&nbsp;설  &nbsp; &nbsp;명 &nbsp;: &nbsp;<input type="text" class="sv_des" name="s_content" placeholder="해당 설문지의 설명을 입력하세요.">
+		&nbsp;&nbsp;설  &nbsp; &nbsp;명 &nbsp;: &nbsp;<input type="text" class="sv_des" name="s_content" placeholder="해당 설문지의 설명을 입력하세요." style="width: 60%">
 		</p>
 	</div>
 	<div>
@@ -84,7 +84,7 @@
 	<div style=" margin-bottom: 40px;  border: solid 1px ; border-color: #2a96a5; border-radius: 12px; padding:20px;">		
 	<div class="q_div" style=" margin: 20px 50px 30px 50px;">	
 	
-			<input type="text" name="q_title" value="${title.tefo_subject}" placeholder="질문의 제목을 입력하세요." required style="width : 250px;"></input>
+			<input type="text" name="q_title" value="${title.tefo_subject}" placeholder="질문의 제목을 입력하세요."   style="width : 250px;"></input>
 			<c:choose>
 	
 				<c:when test="${title.tefo_type eq 'ju'}">
@@ -101,7 +101,7 @@
 							<div>
 								<div class="gaek" style="display:inline; ; padding:5px;">
 									<label><input type='radio' name='radio' onclick="return(false);">
-									<input type='text' name="i_content" placeholder="객관식 답변을 입력" required></input>
+									<input type='text' name="i_content" placeholder="객관식 답변을 입력"  ></input>
 									</label>
 								</div>
 								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
@@ -123,7 +123,7 @@
 							<div>
 								<div class="check" style="display:inline;">
 									<label><input type="checkbox" name='checkbox' onclick="return(false);">
-									<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
+									<input type='text' name="i_content" placeholder="체크박스 답변을 입력"  ></input>
 									</label>
 								</div>
 								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
@@ -162,7 +162,7 @@
 							
 								<div class="gaek" style="display:inline; ">
 									<label><input type='radio' name='radio' onclick="return(false);">
-									<input type='text' name="i_content"  value="${choice.ch_content}" placeholder="객관식 답변을 입력" required></input></label>
+									<input type='text' name="i_content"  value="${choice.ch_content}" placeholder="객관식 답변을 입력"  ></input></label>
 								</div>
 								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
 								</div>	
@@ -182,7 +182,7 @@
 							<div>
 								<div class="check" style="display:inline;">
 									<label><input type="checkbox" name='checkbox' onclick="return(false);">
-									<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
+									<input type='text' name="i_content" placeholder="체크박스 답변을 입력"  ></input>
 									</label>
 								</div>
 								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
@@ -224,7 +224,7 @@
 							<div>
 								<div class="gaek" style="display:inline;">
 									<label><input type='radio' name='radio' onclick="return(false);">
-									<input type='text' name="i_content"  placeholder="객관식 답변을 입력" required></input></label>
+									<input type='text' name="i_content"  placeholder="객관식 답변을 입력"  ></input></label>
 								</div>
 								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
 								
@@ -245,7 +245,7 @@
 												
 								<div class="check" style="display:inline;">
 									<label><input type="checkbox" name='checkbox' onclick="return(false);">
-									<input type='text' name="i_content" value="${choice.ch_content}" placeholder="체크박스 답변을 입력" required></input></label>
+									<input type='text' name="i_content" value="${choice.ch_content}" placeholder="체크박스 답변을 입력"  ></input></label>
 								</div>
 								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
 							</div>
@@ -287,7 +287,7 @@
 							<div>
 								<div class="gaek" style="display:inline;">
 									<label><input type='radio' name='radio' onclick="return(false);">
-									<input type='text' name="i_content" placeholder="객관식 답변을 입력" required></input></label>
+									<input type='text' name="i_content" placeholder="객관식 답변을 입력"  ></input></label>
 								</div>
 								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
 								
@@ -308,7 +308,7 @@
 							<div>
 								<div class="check" style="display:inline">
 									<label><input type="checkbox" name='checkbox' onclick="return(false);">
-									<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input></label>
+									<input type='text' name="i_content" placeholder="체크박스 답변을 입력"  ></input></label>
 								</div>
 									<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
 								
@@ -356,7 +356,7 @@
 							<div>
 								<div class="gaek" style="display:inline">
 									<label><input type='radio' name='radio' onclick="return(false);">
-									<input type='text' name="i_content" placeholder="객관식 답변을 입력" required></input></label>
+									<input type='text' name="i_content" placeholder="객관식 답변을 입력"  ></input></label>
 								</div>
 							<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
 									
@@ -376,7 +376,7 @@
 							<div>
 								<div class="check" style="display:inline">
 									<label><input type="checkbox" name='checkbox' onclick="return(false);">
-									<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input></label>
+									<input type='text' name="i_content" placeholder="체크박스 답변을 입력"  ></input></label>
 								</div>
 								<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
 							</div>
@@ -451,7 +451,7 @@
 			<div>
 				<div class="gaek" style="display:inline">
 					<label><input type='radio' name='radio' onclick="return(false);">
-					<input type='text' name="i_content"placeholder="객관식 답변을 입력" required></input>
+					<input type='text' name="i_content"placeholder="객관식 답변을 입력"  ></input>
 					</label>
 				</div>
 				<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
@@ -467,7 +467,7 @@
 			<div>
 				<div class="check" style="display:inline">
 					<label><input type="checkbox" name='checkbox' onclick="return(false);">
-					<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
+					<input type='text' name="i_content" placeholder="체크박스 답변을 입력"  ></input>
 					</label>
 				</div>
 				<button id="cRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
@@ -507,7 +507,7 @@
 		<div style="margin-top :3px; margin-bottom: 10px;">
 		<div class = "gaek"  style="display:inline; margin-top :3px; margin-bottom: 3px;">
 			<input type='radio' name='radio' readonly>
-			<input type='text' name="i_content" placeholder="객관식 답변을 입력" required></input>
+			<input type='text' name="i_content" placeholder="객관식 답변을 입력"  ></input>
 		</div>
 		<button id="rRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
 		</div>
@@ -517,7 +517,7 @@
 		<div style="margin-top :3px; margin-bottom: 10px;">
 		<div class = "check"  style="display:inline;">
 			<input type='checkbox' name='checkbox' readonly>
-			<input type='text' name="i_content" placeholder="체크박스 답변을 입력" required></input>
+			<input type='text' name="i_content" placeholder="체크박스 답변을 입력"  ></input>
 		</div>
 		<button id="cRemove" style=" font-weight: bold; background-color:rgba(0,0,0,0); text-align: center; border: solid 1px ; border-color: #2a96a5; border-radius: 12px; margin:auto;">답변 삭제</button>
 		</div>
@@ -633,11 +633,10 @@
 			type: "post",
 			url:"/survey/create/insert",
 			contentType: "application/json",
+			async: false,
 			data: JSON.stringify(survey),
 		})
-		.done(function (data) {
-			alert("survey성공");
-		});
+
 		
 			$(".q_div").each(function (i) {
 				let dsv_subject = $(this).find('input[name="q_title"]').val();
@@ -650,13 +649,11 @@
 				// alert(sv_code);
 				if(dsv_subject==''){
 					alert("질문을 입력해주세요.");
-					dsv_subject.focus;
 					return false;
 				}
 				
-				if(dsv_type==''){
+				if(dsv_type==0){
 					alert("질문유형을 선택해주세요.");
-					dsv_type.focus;
 					return false;
 				}
 			
@@ -671,6 +668,7 @@
 					type: "post",
 					url:"/survey/create/dinsert",
 					contentType: "application/json",
+					async: false,
 					data: JSON.stringify(question)
 				}) 
 				.done(function (data) {
@@ -682,11 +680,11 @@
 					let i_content = $(this).val();
 					let ch_anscode = dsv_type.substring(0,1)+0+(i+1);
 					// alert(ch_anscode);
-					if(i_content==''){
+/* 					if(i_content==''){
 						alert("질문내용을 입력해주세요.");
 						i_content.focus;
 						return false;
-					}
+					} */
 					
 					let item = {
 						ch_code : sv_code,
@@ -696,19 +694,18 @@
 						ch_content: i_content
 						};
 					
-						 alert(sv_code);
-						 alert(dsv_order);
-						 alert(dsv_type);
-						 alert(i_content);
+						// alert(sv_code);
+						//alert(dsv_order);
+						// alert(dsv_type);
+						// alert(i_content);
 						
 				 	 $.ajax({
 						type: "post",
 						url:"/survey/create/cinsert",
 						contentType: "application/json",
 						data: JSON.stringify(item),
-						success:function(data){
-							alert(data);
-						} 
+						async: false
+
 					}) // q_div.i_div function() end
 				
 				}); // i)div, functoin() end
