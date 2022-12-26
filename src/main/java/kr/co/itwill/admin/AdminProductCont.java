@@ -40,9 +40,11 @@ public class AdminProductCont {
     }//dashBoard() end
 
 
-    @RequestMapping("/productInsert")
-    public String productinsert() {
-    	return "admin/productInsert";
+    @RequestMapping("/productinsert")
+    public ModelAndView productinsert() {
+    	ModelAndView mav = new ModelAndView();
+    	mav.setViewName("admin/productInsert");
+    	return mav;
     }//create() end
     
     

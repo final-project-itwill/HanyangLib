@@ -95,13 +95,10 @@
             <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">구독</h6>
-                    <a class="collapse-item" href="#">구독자 현황</a>
                     <a class="collapse-item" href="#">구독서비스 수정</a>
                     <h6 class="collapse-header">도서</h6>
-                    <a class="collapse-item" href="/admin/productmain">Dashboard</a>
                     <a class="collapse-item" href="/admin/productinsert">신규도서 등록</a>
                     <a class="collapse-item" href="/admin/productlist">도서 관리</a>
-                    <a class="collapse-item" href="/admin/productinquiry">도서 문의</a>
                 </div>
             </div>
         </li><!-- Nav 상품 관리 끝 -->
