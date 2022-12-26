@@ -167,9 +167,9 @@
 	<!-- 퀵메뉴 -->
 	<div class="quickmenu">
 	  <ul>
-	    <li>오늘 본 책</li>
-	    <li><a href="#">1:1문의</a></li>
-	    <li><a href="#">후기</a></li>
+	    <li><a href="#">오늘 본 책</a></li>
+	    <li><a href="/inquiry/list">1:1문의</a></li>
+	    <li><a href="/admin/dashboard">관리자 페이지</a></li>
 	  </ul>
 	</div>
 	
