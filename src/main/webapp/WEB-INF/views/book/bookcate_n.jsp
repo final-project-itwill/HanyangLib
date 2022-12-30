@@ -19,14 +19,9 @@
 						style="text-shadow: 3px 3px 3px black;">
 						소설&bullet;시
 					</h1>
-					<form action="read" class="sign-up-form d-flex" data-aos="fade-up"
-						data-aos-delay="100">
-						<input type="text" class="form-control"
-							placeholder="책제목 또는 작가를 검색해보세요">
-						<button type="submit" class="btn-dark"
-							style="width: 40px; padding: 0px;">
-							<i class="fa-solid fa-magnifying-glass text-center"></i>
-						</button>
+					<form name="keyword" action="search" method="post" class="sign-up-form d-flex" data-aos="fade-up" data-aos-delay="100">
+						<input type="text" class="form-control" id="keyword" name="keyword" value="${keyword}" placeholder="책제목 또는 작가를 검색해보세요">
+						<input type="submit" class="btn-dark" value="검색" style="width: 40px; padding: 0px;">
 					</form>
 				</div>
 			</div>

@@ -93,7 +93,7 @@
                   <li><a href="/book/bookcate_s?pageNum=1">자연과학</a></li>
                 </ul>
 	          </li>
-	          <li><a href="/gudok/detail" style="font-weight: bold; color:black;">구독</a></li>
+	          <li><a href="/gudok/index" style="font-weight: bold; color:black;">구독</a></li>
 	          <li><a href="/mylib/libindex/${s_id}" style="font-weight: bold; color:black;">나만의 서재</a></li>
 	          <li><a href="/comm/index" style="font-weight: bold; color:black;">커뮤니티</a></li>
               <li class="has-children">
@@ -221,7 +221,7 @@
             <p>작가 : ${book.b_author}</p>
             <p>출판사 : ${book.b_publish}</p>
             <p>가격 : ${book.b_price} 원</p>
-            <p>출판일 : ${book.b_rdate.substring(0,11)}</p>
+            <p>출판일 : ${book.b_rdate}</p>
             <ul class="list-check list-unstyled primary">
               <li>${book.b_des}</li>
             </ul>
@@ -276,7 +276,7 @@
 	        <tr>
 		        <!-- 구독 유도 버튼 시작-->
 				<td>
-					<a href="/gudok/detail"><img src="/images/gudok.png" style="width:400px; margin-top:10px"></a>
+					<a href="/gudok/index"><img src="/images/gudok.png" style="width:400px; margin-top:10px"></a>
 				</td>
 				<!-- 구독 유도 버튼 끝-->		
 	        </tr>   

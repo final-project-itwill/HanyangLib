@@ -19,6 +19,7 @@ public class BookReadDTO {
     private String b_name;
     private String b_bookcover;
     private String m_nick;
+    private String m_img;
 
     private String sv_comcode;
     private String sv_edate;

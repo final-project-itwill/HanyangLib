@@ -245,6 +245,7 @@ public class MemberCont {
 		
 		member.setM_img(imgname);
 		member.setM_id(m_id);
+		member.setM_nick(dto.getM_nick());
 		member.setM_pw(dto.getM_pw());
 		member.setM_tel(dto.getM_tel());
 		member.setM_email(dto.getM_email());

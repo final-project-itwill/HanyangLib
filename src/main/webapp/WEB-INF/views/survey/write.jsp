@@ -308,7 +308,7 @@
 				async: false
 			}) // ajax end	
 	alert("신청 되었습니다.");	
-	window.location.href = "http://localhost:9090/comm/read/${c_code}";
+	window.location.href = "http://cloudd81.cafe24.com/comm/read/${c_code}";
 	
 	}// insert() end
 	

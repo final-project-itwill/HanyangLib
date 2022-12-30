@@ -5,6 +5,7 @@
 <!-- 본문작성 시작 read.jsp -->
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!-- style 시작 -->
 <link rel="stylesheet" href="/css/libtable.css">
@@ -47,7 +48,7 @@
                 <tr align="center">
                     <td valign="middle" style="line-height: 180%;">
                         <p style="font-size: 14px; line-height: 2em; margin-bottom: 5px; color: #0E2A47; font-weight: bold">커뮤니티 만든 사람</p>
-                        <img src="/images/user.png" alt="userPhoto" width="100vh"><br><br>
+                        <img src="/storage/${read.m_img}" alt="userPhoto" width="100vh"><br><br>
 						<span style="font-weight: bold; font-size: 30px;">
                             ${read.m_nick}
 						</span><br>
@@ -75,8 +76,12 @@
                             ${read.c_local}
                         </span><br><br>
                         <p style="font-size: 14px; line-height: 1em; color: #0E2A47; font-weight: bold">오픈 채팅방 참여하기</p>
-                        <span style="font-weight: bold; font-size: 14px;">
-                            <a href="https://open.kakao.com/o/gXtrVbVe">${read.c_chat}</a>
+                        <c:if test="${read.c_chat ==''}">
+                            <span style="font-weight: bold; font-size: 14px;">채팅방 없음</span>
+                        </c:if>
+                            <span style="font-weight: bold; font-size: 14px;">
+                                <a href="https://open.kakao.com/o/gXtrVbVe">${read.c_chat}</a>
+                            </span>
                         </p>
                         <hr>
                         <!-- 커뮤니티 신청 버튼 -->
@@ -123,32 +128,37 @@
                         <h4 style="font-size: medium;">${read.c_des}</h4>
                     </td>
                 </tr>
-                <!-- 커뮤니티 구성원 시작-->
-                <tr><td colspan="5" class="text-center"><h4>커뮤니티 구성원 >></h4></td></tr>
+                <!-- 커뮤니티 구성원이 없을 경우 -->
+                <c:if test="${fn:length(checkMember)==0}">
+                    <tr class="col-12 col-xs-12 col-sm-4 col-lg-4">
+                        <td colspan="5" class="text-center lib-text">
+                            <h1>커뮤니티 구성원 >></h1>
+                            <h4 style="font-size: medium;">아직 가입 승인된 멤버가 없습니다.</h4>
+                        </td>
+                    </tr>
+                </c:if>
+                <!-- 커뮤니티 구성원이 있을 경우-->
+                <c:if test="${fn:length(checkMember)!=0}">
+                <tr><td colspan="5" class="text-center"><h1>커뮤니티 구성원 >></h1></td></tr>
                 <tr class="col-12 col-xs-12 col-sm-4 col-lg-4">
                     <td></td>
                     <c:forEach items="${checkMember}" var="list" varStatus="vs">
-                        <c:choose>
-                            <c:when test="${vs.count>=1}">
-                                <td>
-                                <div style="text-align: center;">
+                        <td>
+                            <div style="text-align: center;">
 
-                                    <div style="height: 150px; padding: 10px;">
-                                        <img src="/storage/${list.m_img}" class="img-fluid rounded-circle" width="100px" align="middle">
-                                        <p style="text-align: center">${list.m_nick}</p>
-                                    </div>
-                                    <br>
-                                    <br>
+                                <div style="height: 150px; padding: 10px;">
+                                    <img src="/storage/${list.m_img}" class="img-fluid rounded-circle" width="100px" align="middle">
+                                    <p style="text-align: center">${list.m_nick}</p>
                                 </div>
-                                </td>
-                            </c:when>
-                            <c:otherwise>
-                                <p style="text-align: center">아직 활동중인 회원이 없습니다.</p>
-                            </c:otherwise>
-                        </c:choose>
+                                <br>
+                                <br>
+                            </div>
+                        </td>
                     </c:forEach>
                     <td></td>
                 </tr>
+                </c:if><!--구성원 끝 -->
+
             </table>
         </div>
     </div><!-- 상세페이지 끝 -->
@@ -220,7 +230,7 @@
             if(signState == ''){                    //가입이력 없음
 
                 let s_nick = '${s_nick}';
-                alert(s_nick);
+                //alert(s_nick);
                 let comsign = {
                         s_code : c_code,
                         s_id : loginID,
@@ -234,6 +244,7 @@
                         data: JSON.stringify(comsign)
                     }) // ajax end
                     alert(" 가입 신청 되었습니다. ");
+                	location.reload();
 
             }else if(signState == 'i') {
                 alert("이미 가입을 신청한 커뮤니티입니다. \n 가입 승인을 기다려주세요.");
