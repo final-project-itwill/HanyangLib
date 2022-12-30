@@ -680,7 +680,7 @@
 				
 			}); //q_div, function() end	
 	alert("수정 되었습니다.");
-	window.location.href= "http://localhost:9090/comm/admin/${c_code}";			
+	window.location.href= "http://cloudd81.cafe24.com/comm/admin/${c_code}";			
 
 	}// get update()
 

@@ -262,7 +262,7 @@ public class MylibCont {
     @RequestMapping("/rvDelete")
     public String delete(int br_no, String br_id){
         mylibDao.delete(br_no);
-        return "redirect:/mylib/myReview/"+br_id;
+        return "redirect:/mylib/libindex/"+br_id;
     }//delete() end
         
     // 서평 update 페이지 호출

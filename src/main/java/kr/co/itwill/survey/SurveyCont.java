@@ -162,6 +162,7 @@ public class SurveyCont {
 		mav.addObject("s_id", s_id);
 		mav.addObject("c_code", c_code);
 		mav.addObject("read", commDao.read(c_code));
+		mav.addObject("checkOwner", commDao.checkOwner(c_code));
 		// System.out.println(surveyDAO.tplread());
 		// System.out.println(surveyDAO.tpl());
 	return mav;
@@ -180,6 +181,7 @@ public class SurveyCont {
 		mav.addObject("s_id", s_id);
 		mav.addObject("c_code", c_code);
 		mav.addObject("read", commDao.read(c_code));
+		mav.addObject("checkOwner", commDao.checkOwner(c_code));
 		// System.out.println(surveyDAO.tplread());
 		// System.out.println(surveyDAO.tpl());
 	return mav;
@@ -188,7 +190,7 @@ public class SurveyCont {
 	@RequestMapping("/create/tplread")
 	@ResponseBody
 	public List<templetDTO> tplread(@RequestParam String tem_code) throws Exception {
-		System.out.println(tem_code);
+		//System.out.println(tem_code);
 		return surveyDAO.tplread(tem_code);
 	} // tplread() end
 	
@@ -254,6 +256,7 @@ public class SurveyCont {
 		mav.addObject("sv_code", dsv_code);
 		mav.addObject("c_code", c_code);
 		mav.addObject("read", commDao.read(c_code));
+		mav.addObject("checkOwner", commDao.checkOwner(c_code));
 		
 		
 		return mav;
@@ -263,8 +266,8 @@ public class SurveyCont {
 	public String updateProc(@RequestBody SurveyDTO dto) throws Exception {
 		SurveyDTO survey = new SurveyDTO();
 		survey.setSv_code(dto.getSv_code());
-		// surveyDAO.updelete(survey);
-		System.out.println(survey);
+		surveyDAO.updelete(survey);
+		// System.out.println(survey);
 		return "updelete";		
 	} // deleteProc() end		
 	
@@ -273,16 +276,20 @@ public class SurveyCont {
 	
 // survey Delete
 	@RequestMapping(value = "/delete.do", method = RequestMethod.GET)
-	public ModelAndView deleteForm(String c_code) throws Exception {
+	public ModelAndView deleteForm(String c_code, HttpServletRequest session) throws Exception {
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("survey/deleteForm");
 		mav.addObject("c_code", c_code);
 		
-
+		String loginID = (String) session.getAttribute("s_id"); 
         // 설문지 코드 생성, ahead 경로
         mav.addObject("sv_code", surveyDAO.scodeget(c_code));
         mav.addObject("read", commDao.read(c_code));
         mav.addObject("tpl", surveyDAO.tpl());
+        
+        mav.addObject("s_id", loginID);
+        
+        mav.addObject("checkOwner", commDao.checkOwner(c_code));
 		return mav;
 	} // deleteForm() end
 	
@@ -306,6 +313,8 @@ public class SurveyCont {
 		mav.addObject("sv_code", sv_code);
 		mav.setViewName("survey/updateForm");
 		mav.addObject("sread", surveyDAO.sread(sv_code));
+		
+		mav.addObject("checkOwner", commDao.checkOwner(c_code));
 		return mav;		
 	} // updateForm() end
 	
@@ -342,6 +351,7 @@ public class SurveyCont {
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("survey/chdeleteForm");
 		mav.addObject("ans_code", ans_code);
+		
 		return mav;
 	} // deleteForm() end
 	

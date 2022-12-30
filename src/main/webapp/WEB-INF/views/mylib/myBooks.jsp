@@ -36,7 +36,7 @@
 <!-- ebookRead 새창으로 열기 자바스크립트 -->
 <script>
 	function readEbook(b_code){
-		let link = "http://localhost:9095/mylib/eBookRead/"+b_code;
+		let link = "http://cloudd81.cafe24.com/mylib/eBookRead/"+b_code;
 		let encodedURI = encodeURI(link);
 		window.open(encodedURI, '');
 	}//readEbook() end

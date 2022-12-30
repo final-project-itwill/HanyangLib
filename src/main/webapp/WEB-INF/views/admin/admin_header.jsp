@@ -98,7 +98,7 @@
                     <a class="collapse-item" href="#">구독서비스 수정</a>
                     <h6 class="collapse-header">도서</h6>
                     <a class="collapse-item" href="/admin/productinsert">신규도서 등록</a>
-                    <a class="collapse-item" href="/admin/productlist">도서 관리</a>
+                    <a class="collapse-item" href="/admin/productlist?pageNum=1">도서 관리</a>
                 </div>
             </div>
         </li><!-- Nav 상품 관리 끝 -->

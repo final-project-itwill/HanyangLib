@@ -110,7 +110,7 @@
     <update id="updateUserGrade">
         UPDATE member
         SET m_grade = 'B'
-        WHERE m_id = ${userID}
+        WHERE m_id = #{userID}
     </update>
 
 
@@ -169,7 +169,7 @@
                  FROM member
              )AA JOIN community_signup BB
                       ON AA.m_id = BB.s_id
-        WHERE s_code = #{c_code}
+        WHERE s_code = #{c_code} AND s_state = 's'
     </select>
 
 
@@ -185,7 +185,7 @@
     <!-- 해당 커뮤니티 후기 평점 -->
     <select id="star" resultType="int" parameterType="String">
         <![CDATA[
-        SELECT round(avg(ac_manjok))
+        SELECT IFNULL(round(avg(ac_manjok)),0)
         FROM community_ac
         WHERE ac_ccode = #{c_code}
         ]]>

@@ -28,7 +28,7 @@
 <script>
 /* 수정, 삭제 버튼 관련 자바스크립트 */
    function del(){
-       if(confirm("영구히 삭제됩니다. \n 진행할까요?")){
+       if(confirm("영구히 삭제됩니다.\n진행할까요?")){
            document.frm.action="/mylib/rvDelete";
            document.frm.submit();
        }//if end

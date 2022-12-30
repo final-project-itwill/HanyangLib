@@ -53,8 +53,7 @@ public class CartDAO {
 	/////////////////구독 상태 바꾸기
 	public int gudokY(String s_id) {
 		return sqlSession.update("cart.gudokY", s_id);
-	}
-	
+	}	
 	
 	/////////////////장바구니에서 결제 상세 테이블로////////////////////
 	

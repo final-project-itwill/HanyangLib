@@ -711,8 +711,8 @@
 				}); // i)div, functoin() end
 				
 			}); //q_div, function() end	
-	alert("생성 었습니다.");
-	window.location.href= "http://localhost:9090/comm/admin/${c_code}";			
+	alert("설문지가 생성되었습니다.");
+	window.location.href= "http://cloudd81.cafe24.com/comm/admin/${c_code}";			
 	}); // survey end
 
 
